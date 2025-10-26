@@ -1,7 +1,7 @@
 ---
-site_name: "LABXXX-1234: My Cisco Live Test Lab"  # Replace with your lab info. This should start with lab ID, followed by a colon and lab title
+site_name: "LTROPS-2323: Master IOS XE Automation in Just 4 Hours"
 #site_description: {site_name} # This parameter will be auto-set to site_name, unless explicitly defined. Used for HTML meta tags
-site_author: John Doe # Replace with your name
+site_author: "Asier Arlegui Lacunza, Balu Novak-Bohak"
 copyright: Copyright &copy; {year} Cisco # This parameter will auto-update the year in HTML pages based on the build date
 theme:
   name: material
