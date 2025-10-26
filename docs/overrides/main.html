@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{# This footer override adds a line in the footer with the document build date #}
+{# To enable this feature, set in mkdocs.yml: extra: footer_revision_datetime: true #}
+{# The build date is in UTC timezone. #}
+
+{% block footer %}
+  <!-- Required to keep template footer elements without overriding -->
+  {{ super() }}
+  <!-- Add a line with document build date -->
+  {% if config.extra.footer_revision_datetime %}
+    <div class="md-footer-meta">
+      <center> Updated at {{ build_date_utc.strftime('%Y-%m-%d %H:%M:%S') }} </center>
+    </div>
+  {% endif %}
+{% endblock %}

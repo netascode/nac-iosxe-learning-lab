@@ -1,0 +1,7 @@
+# YAML file for defining global variables used across the documentation by macros plugin
+global:
+  test_var: "Hello, World!"
+  answer_var: 42
+  param_values:
+    - param1
+    - "param 2"

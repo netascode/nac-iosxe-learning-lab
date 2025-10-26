@@ -1,0 +1,7 @@
+nav:
+  - Home: index.md
+  - Lab:
+      - Overview: overview.md
+      - Getting Started: getting_started.md
+      - Conclusion: conclusion.md
+  - Topologies: topologies.md

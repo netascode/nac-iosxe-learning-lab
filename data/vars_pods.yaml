@@ -1,0 +1,10 @@
+# YAML file for defining POD-specific variables used across the documentation by macros plugin
+pod_default:
+  name: "Default POD name"
+  ip: "192.168.1.x"
+pod1: 
+  name: "This is the best lab POD!"
+  ip: "192.168.1.2"
+pod2: 
+  name: "Also a very good lab POD."
+  ip: "192.168.1.3"
