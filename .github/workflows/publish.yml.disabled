@@ -34,10 +34,10 @@ jobs:
 
       - name: Publish
         run: |
-          aws s3 sync site s3://${{ env.AWS_S3_BUCKET_NAME }}/${{ github.event.repository.name }}
+          aws s3 sync site s3://${{ env.AWS_S3_BUCKET_NAME }}/9458db180f
 
       - name: Invalidate CloudFront Cache
         if: env.CLOUDFRONT_DISTRIBUTION_ID != ''
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/${{ github.event.repository.name }}/*"
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/9458db180f/*"
         continue-on-error: true
