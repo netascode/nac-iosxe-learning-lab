@@ -28,6 +28,7 @@ In this task, you'll use the `model` type to create a VLAN template.
 Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for access01 and access02, you'll create a single template and apply it to both devices.
 
 **VLANs to configure:**
+
 - VLAN 10: `DATA` - User data traffic
 - VLAN 20: `VOICE` - VoIP traffic  
 - VLAN 99: `MGMT` - Management traffic
@@ -65,12 +66,14 @@ The image below illustrates the template configuration in VS Code:
 Let's break down the key elements:
 
 **Template Definition:**
+
 - **`templates:`** - List of template definitions at the top level
 - **`name: ACCESS_SWITCH_VLANS`** - Unique identifier for this template
 - **`type: model`** - Indicates this is a YAML-based configuration template
 - **`configuration:`** - Contains the actual configuration to be applied
 
 **VLAN Configuration:**
+
 - **`vlan:`** - VLAN configuration section
 - **`vlans:`** - List of individual VLAN definitions
 - **`id:`** - VLAN ID number (1-4094)
