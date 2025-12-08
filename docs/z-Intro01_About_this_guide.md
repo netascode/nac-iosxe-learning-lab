@@ -1,9 +1,9 @@
 
-###  About this Network-as-Code (NAC) IOSXE Lab Guide
+##  About this Network-as-Code (NAC) IOSXE Lab Guide
 
 This step-by-step guide walks you through **Network-as-Code for IOSXE** lab. At the end of completing the proposed tasks, you will know how to deploy and manage IOSXE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
-#### What is Network-as-Code (NAC)?
+## What is Network-as-Code (NAC)?
 
 Network-as-Code for IOSXE is an approach to network automation that treats IOSXE network infrastructure configuration as code. Similar to how developers manage application code, NAC allows network engineers to:
 - **Define network configurations** in human-readable YAML files
@@ -13,7 +13,7 @@ Network-as-Code for IOSXE is an approach to network automation that treats IOSXE
 - **Test** configurations after applying them to the network
 - **Track and audit** all changes with complete history
 
-#### Why This Lab Matters
+## Why This Lab Matters
 
 Traditional network management relies on manual CLI commands, scripts and templates, which can lead to configuration drift across devices, human errors and inconsistencies, lack of change tracking and auditability, and difficulty in testing changes before deployment.
 
@@ -24,7 +24,7 @@ This lab demonstrates how Network-as-Code for IOSXE solves these challenges usin
 - **Schema validation** - Ensure configurations are correct before deployment
 - **ROBOT testing** - Ensure configurations are correct after deployment
 
-#### What You'll Learn
+## What You'll Learn
 
 By completing this lab, you will gain hands-on experience with:
 - Writing network configurations in YAML format

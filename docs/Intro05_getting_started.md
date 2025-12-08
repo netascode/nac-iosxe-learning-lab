@@ -1,6 +1,6 @@
 # Lab 1 - Getting Started
 
-### Lab Environment
+## Lab Environment
 
 This lab consistems of:
 - Multiple **IOS XE** virtual routers
@@ -11,7 +11,7 @@ This lab consistems of:
 
 
 
-### Section 1
+## Section 1
 
 Please use the following credentials to connect to device:
 
@@ -43,11 +43,11 @@ Image:
   ![ACI](./assets/aci.png){ width="100%" }
 </figure>
 
-### Section 2
+## Section 2
 
 More content
 
-### Section 3 - Example of J2 variables usage (from data/macro_vars.yaml)
+## Section 3 - Example of J2 variables usage (from data/macro_vars.yaml)
 
 To show POD-specific variable - example var value is the name of the POD1: {{ pod1.name }}
 

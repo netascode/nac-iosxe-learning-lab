@@ -1,6 +1,6 @@
 In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that shouldn't be shared with other devices.
 
-### Understanding Device-Specific Configuration
+## Understanding Device-Specific Configuration
 
 Device-specific configurations are applied directly to individual devices and take the highest precedence in the Network-as-Code hierarchy. This approach is ideal for:
 
@@ -13,7 +13,7 @@ Device-specific configurations are applied directly to individual devices and ta
 2. **Device Group** (medium precedence) - role or location-specific settings ← *Task04*
 3. **Global** (lowest precedence) - organization-wide defaults ← *Task03*
 
-### Use Case: IP Host Entries for Core Router
+## Use Case: IP Host Entries for Core Router
 
 In this example, you'll add IP host entries to the **core** router only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core routers that need to reference multiple infrastructure devices.
 
@@ -21,7 +21,7 @@ You'll configure the core router to resolve these hostnames:
 - `ntp-server` → 198.18.128.1
 - `syslog-server` → 198.18.128.2
 
-### Create the Device-Specific YAML Configuration
+## Create the Device-Specific YAML Configuration
 
 Use VS Code to create a new file `data/core.nac.yaml` with the following content. Notice how the configuration is placed directly under a specific device in the `devices` section:
 
@@ -48,7 +48,7 @@ The image below illustrates the device-specific configuration in VS Code:
   ![VS Code Core Configuration](./assets/vscode-core-config.png){ width="100%" }
 </figure>
 
-### Configuration Breakdown
+## Configuration Breakdown
 
 Let's break down the key elements:
 
@@ -68,7 +68,7 @@ Let's break down the key elements:
 
 **Important:** This configuration will only be applied to the `core` device. The border, access01, and access02 devices will not receive these IP host entries.
 
-### Understanding File Organization
+## Understanding File Organization
 
 At this point, your `data/` folder contains three YAML files, each serving a different purpose:
 
@@ -87,7 +87,7 @@ This modular approach keeps configurations organized and easy to maintain:
 - **Group-specific settings** in dedicated group files
 - **Device-specific settings** in individual device files
 
-### Apply Device-Specific Configuration
+## Apply Device-Specific Configuration
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the IP host configuration to the core device:
 
@@ -107,7 +107,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
   ![Terraform Apply Core](./assets/terraform-apply-core.png){ width="100%" }
 </figure>
 
-### Verify Device-Specific Configuration
+## Verify Device-Specific Configuration
 
 After successfully running `terraform apply`, verify that the IP host entries were deployed only to the core router.
 
@@ -143,7 +143,7 @@ The command should return no output, confirming that the IP host entries were NO
 
 **Key observation:** The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
 
-### Configuration Hierarchy Comparison
+## Configuration Hierarchy Comparison
 
 Now that you've completed Tasks 03, 04, and 05, you've experienced all three levels of the configuration hierarchy. Here's a summary:
 
@@ -182,7 +182,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 └──────────────────────────────────────────────────────────┘
 ```
 
-### When to Use Each Configuration Level
+## When to Use Each Configuration Level
 
 | Use Case | Recommended Level |
 |----------|-------------------|
@@ -191,7 +191,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 | Unique device requirements (management IPs, special features) | **Device** |
 | Overriding group or global settings for one device | **Device** |
 
-### What You've Accomplished
+## What You've Accomplished
 
 In this task, you have:
 - ✅ Learned about device-specific configuration and its place in the hierarchy

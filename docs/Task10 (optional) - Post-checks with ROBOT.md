@@ -1,4 +1,4 @@
-### Post-change ROBOT testing (nac-test)
+## Post-change ROBOT testing (nac-test)
 
 Earlier in this chapter, you deployed an access-list to the IOS-XE network device. Below is the intent configuration YAML file you used:
 
@@ -38,7 +38,7 @@ You may ask yourself how to customize the test cases for the configuration deplo
 
 To understand how this works, let’s illustrate with an example focused solely on testing access-lists:
 
-##### Step1: Prepare file structure
+#### Step1: Prepare file structure
 
 To run post-change Robot Framework tests for IOS-XE access-lists, you will need the following files:
 
@@ -66,7 +66,7 @@ In this file structure:
 - The file `tests/templates/iosxe_common.resource` is a Robot Framework resource file. It contains reusable settings, variables, and keywords for IOS-XE testing. This file is available at Cisco Internal GitHub. You can download this file from [NAC IOS-XE Terraform Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/).
 - The file `tests/templates/config/access_lists.robot` is a Jinja2 template that is used to generate Robot Framework test cases for validating IOS-XE access-list configurations. It uses intent-based YAML configuration files as input to dynamically render tests that verify attributes. This file is available at [IOS-XE Robot test templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/config).
 
-##### Step2: Run nac-test
+#### Step2: Run nac-test
 
 Once you have all the files, attach to the NAC container and run the following `nac-test` command:
 
@@ -85,7 +85,7 @@ This command will:
 
 - After all templates have been rendered, **Pabot** will execute all test suites in parallel and create a test report in the `./tests/results/iosxe` folder. Pabot will connect to the IOS-XE network device using the environment variables that you have defined earlier (i.e. `IOSXE_USERNAME` and `IOSXE_PASSWORD`).
 
-##### Step3: Review Robot test file contet
+#### Step3: Review Robot test file contet
 
 If you check the `~/netascode/iosxe-as-code/tests/results/iosxe` directory, you will find the following structure:
 
@@ -131,7 +131,7 @@ Verify Standard Access List StandardAccessList-bcn Device devnet_sandbox_1
 
 **Note:** This chapter has walked you through generating a single Robot test file to help you learn the process step by step. In real-world deployments, you will typically work with 100+ Robot test files, but starting small makes the process easier to understand and manage.
 
-##### Step4: Review the results
+#### Step4: Review the results
 
 The Terminal output of `nac-test` will be similar to:
 
@@ -173,7 +173,7 @@ The report `~/netascode/iosxe-as-code/tests/results/iosxe/report.html` should lo
   ![alt text](./assets/iosxe-manual-robot.png){ width="100%" }
 </figure>
 
-##### Step5: Add additional access-lists configuration
+#### Step5: Add additional access-lists configuration
 
 Next step, you can try the following:
 
@@ -181,7 +181,7 @@ Next step, you can try the following:
 - Check the result and compare it with the one from previous executions.
 - Check the `~/netascode/iosxe-as-code/tests/results/iosxe/config/access_lists.robot` file. You should see that it has been updated to include Robot tests for the new access-list entries you added.
 
-##### Step6: Add additional Robot test templates
+#### Step6: Add additional Robot test templates
 
 Download additional Robot test templates from [NAC IOS-XE Terraform Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/) and place them in the corresponding folders under `~/netascode/iosxe-as-code/tests/templates/`. You can start with Banner configuration.
 

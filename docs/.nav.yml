@@ -2,7 +2,7 @@ nav:
   - Home: index.md
   - Lab:
       - Learning Objectives: Intro01_overview.md
-      - A Lab Accessible to All Learners: Intro02_for_all_learners.md
+      - Accessible to All Learners: Intro02_all_learners.md
       - Disclaimer: Intro03_disclaimer.md
       - Lab Access: Intro04_lab_access.md
       - Getting Started: Intro05_getting_started.md

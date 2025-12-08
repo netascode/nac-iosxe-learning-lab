@@ -1,6 +1,6 @@
 In this task, you'll learn how to use **device groups** to apply Access Control List (ACL) configurations to multiple devices simultaneously. Device groups are a powerful Network-as-Code feature that allows you to apply consistent configurations across devices that share common roles or functions.
 
-### Understanding Device Groups
+## Understanding Device Groups
 
 Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device. As described in [IOS-XE Device Group documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/device_group/), device groups sit in the middle of the configuration hierarchy:
 
@@ -14,11 +14,11 @@ Device groups are particularly effective for:
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
 - **Security policies**: Applying common ACLs or security settings to device subsets
 
-### Use Case: Standard ACL for Access Switches
+## Use Case: Standard ACL for Access Switches
 
 In this example, you'll create a device group called "ACCESS" that includes the access01 and access02 switches. These routers need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
 
-### Create the YAML Configuration with Device Groups
+## Create the YAML Configuration with Device Groups
 
 Use VS Code to create a new file `data/acl.nac.yaml` with the following content. Notice how the ACL is defined once in the device group and automatically applies to both access01 and access02 switches:
 
@@ -52,7 +52,7 @@ The image below illustrates the ACL configuration in VS Code:
   ![VS Code ACL Configuration](./assets/vscode-acl.png){ width="100%" }
 </figure>
 
-### Configuration Breakdown
+## Configuration Breakdown
 
 Let's break down the key elements:
 
@@ -84,7 +84,7 @@ Let's break down the key elements:
 
 
 
-### How Device Groups Work
+## How Device Groups Work
 
 When Terraform processes this configuration:
 
@@ -99,7 +99,7 @@ This hierarchical approach ensures:
 - ✅ Flexibility (individual devices can still override group settings if needed)
 
 
-### Apply Access-list Configuration
+## Apply Access-list Configuration
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the ACL configuration to the device group:
 
@@ -115,7 +115,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
 </figure>
 
-### Verify Device Group Configuration
+## Verify Device Group Configuration
 
 After successfully running `terraform apply`, verify that the ACL was deployed only to the routers in the ACCESS group.
 
@@ -140,7 +140,7 @@ This confirms the standard ACL was successfully deployed to both access01 and ac
 
 **Key observation:** The ACL only appears on devices that are members of the ACCESS group. If you check border or core routers (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
-### What You've Accomplished
+## What You've Accomplished
 
 In this task, you have:
 - ✅ Learned about device groups and configuration hierarchy

@@ -1,7 +1,7 @@
 
 In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOSXE intent configuration YAML files.
 
-### What is Visual Studio Code (VS Code)?
+## What is Visual Studio Code (VS Code)?
 
 Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet powerful source code editor developed by Microsoft. It runs on Windows, macOS, and Linux and has become one of the most popular code editors among developers and IT professionals.
 
@@ -22,15 +22,15 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 For this lab, VS Code is pre-installed on your Windows workstation and ready to use. You'll use it to view, edit, and create YAML configuration files that define your network infrastructure.
 
 
-### Create Project Directory in WSL
+## Create Project Directory in WSL
 
 For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network-as-Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
 
-### What is Windows Subsystem for Linux (WSL)?
+## What is Windows Subsystem for Linux (WSL)?
 
 Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly on Windows without a virtual machine. WSL is pre-installed in this lab, and you'll use it to run Terraform commands because most DevOps tools are designed for Linux.
 
-### Open WSL Terminal (Ubuntu)
+## Open WSL Terminal (Ubuntu)
 
 Open Windows Subsystem for Linux (WSL) terminal by searching "Ubuntu" in the Windows search:
 
@@ -80,7 +80,7 @@ You should now see `/home/cisco/nac-iosxe` displayed.
 
 **Note:** Your working directory is `/home/cisco/nac-iosxe` in WSL. From Windows Explorer, you can access this location at `\\wsl$\Ubuntu\home\cisco\nac-iosxe`.
 
-### Create project structure
+## Create project structure
 
 Now you'll create a folder structure and placeholder files for your Network-as-Code project.
 
@@ -92,7 +92,7 @@ mkdir data
 
 This creates a dedicated folder to organize your device configuration files, keeping them separate from Terraform files.
 
-### Create placeholder files
+## Create placeholder files
 
 Now create the empty files that will hold your Network-as-Code configuration.
 
@@ -122,7 +122,7 @@ This YAML file will contain your network device definitions and configurations i
   ![WSL Create Files](./assets/wsl-create-files.png){ width="100%" }
 </figure>
 
-### Verify Your Project Structure
+## Verify Your Project Structure
 
 Verify your project structure by running `tree -a` in the terminal. The output should look like this:
 
@@ -139,7 +139,7 @@ Verify your project structure by running `tree -a` in the terminal. The output s
 
 You are now ready to start populating your configuration files. All subsequent steps in this guide will assume you are working within the `/home/cisco/nac-iosxe` directory.
 
-### Open Visual Studio Code
+## Open Visual Studio Code
 
 To begin working with your project in a development-friendly environment, open your WSL home folder in Visual Studio Code (VS Code).
 
@@ -160,7 +160,7 @@ VS Code will now open with your project folder, and you'll see the file explorer
   ![alt text](./assets/vscode-list-of-files.png){ width="100%" }
 </figure>
 
-### Edit .env file
+## Edit .env file
 
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
@@ -179,7 +179,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 
 **Save the file** by pressing `Ctrl+S`.
 
-### Edit Terraform main.tf file
+## Edit Terraform main.tf file
 
 Next, edit a Terraform `main.tf` file with the following content. This file serves as the entry point for the Terraform configuration and defines the necessary resources and modules to interact with the IOS XE device:
 
@@ -204,7 +204,7 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
   ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
-### Save Your Files
+## Save Your Files
 
 Before moving to the next task, make sure all your files are saved in VS Code.
 
@@ -217,7 +217,7 @@ You should see that all three files have been saved:
 - `main.tf` - Contains your Terraform module configuration
 - `data/devices.nac.yaml` - Will contain your network device configurations (to be completed in next task)
 
-### What You've Accomplished
+## What You've Accomplished
 
 Congratulations! In this chapter, you have:
 
@@ -229,7 +229,7 @@ Congratulations! In this chapter, you have:
 - ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
 - ✅ **Prepared YAML file** - Created `data/devices.nac.yaml` ready for device configuration
 
-### Key Concepts Learned
+## Key Concepts Learned
 
 **File Organization:**
 - Configuration files (YAML) in `data/` folder
