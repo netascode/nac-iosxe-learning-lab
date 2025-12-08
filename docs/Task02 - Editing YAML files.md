@@ -1,7 +1,7 @@
 
 In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOSXE intent configuration YAML files.
 
-## What is Visual Studio Code (VS Code)?
+## What is VS Code?
 
 Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet powerful source code editor developed by Microsoft. It runs on Windows, macOS, and Linux and has become one of the most popular code editors among developers and IT professionals.
 
@@ -26,7 +26,7 @@ For this lab, VS Code is pre-installed on your Windows workstation and ready to 
 
 For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network-as-Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
 
-## What is Windows Subsystem for Linux (WSL)?
+## What is WSL?
 
 Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly on Windows without a virtual machine. WSL is pre-installed in this lab, and you'll use it to run Terraform commands because most DevOps tools are designed for Linux.
 
