@@ -45,7 +45,7 @@ iosxe:
 The image below illustrates the device-specific configuration in VS Code:
 
 <figure markdown>
-  ![VS Code Core Configuration](./assets/vscode-core-config.png){ width="500" }
+  ![VS Code Core Configuration](./assets/vscode-core-config.png){ width="100%" }
 </figure>
 
 ### Configuration Breakdown
@@ -104,7 +104,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
 - No changes are proposed for border, access01, or access02
 
 <figure markdown>
-  ![Terraform Apply Core](./assets/terraform-apply-core.png){ width="500" }
+  ![Terraform Apply Core](./assets/terraform-apply-core.png){ width="100%" }
 </figure>
 
 ### Verify Device-Specific Configuration
@@ -124,7 +124,7 @@ show run | include ip host
 **Expected output on core:**
 
 <figure markdown>
-  ![Show IP Host Core](./assets/sh-ip-host-core.png){ width="500" }
+  ![Show IP Host Core](./assets/sh-ip-host-core.png){ width="100%" }
 </figure>
 
 You should see both IP host entries configured on the core router.

@@ -170,7 +170,7 @@ Below a brief description:
 The report `~/netascode/iosxe-as-code/tests/results/iosxe/report.html` should look similar to:
 
 <figure markdown>
-  ![alt text](./assets/iosxe-manual-robot.png){ width="500" }
+  ![alt text](./assets/iosxe-manual-robot.png){ width="100%" }
 </figure>
 
 ##### Step5: Add additional access-lists configuration

@@ -40,7 +40,7 @@ interface GigabitEthernet1
 Image:
 
 <figure markdown>
-  ![ACI](./assets/aci.png){ width="500" }
+  ![ACI](./assets/aci.png){ width="100%" }
 </figure>
 
 ### Section 2

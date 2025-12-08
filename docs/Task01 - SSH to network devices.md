@@ -17,15 +17,16 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 3. You'll see the Solar-PuTTY interface with a list of devices
 
 <figure markdown>
-  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="500" }
+  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="100%" }
 </figure>
 
 
-### Connect to the lab Cat8000v devices
+### Connect to the lab devices
 
 The lab environment includes multiple IOS XE routers. All device credentials are **pre-configured** in Solar-PuTTY, so you can connect immediately without entering any login information.
 
-**Devices in this lab:**
+Devices in this lab:
+
 - **core** - Core router (198.18.130.10)
 - **border** - Edge router 2 (198.18.130.20)
 - **access01** - Edge router 1 (198.18.130.11)
@@ -38,7 +39,7 @@ The lab environment includes multiple IOS XE routers. All device credentials are
 3. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to Core](./assets/solarputty-ssh-core.png){ width="500" }
+  ![Solar-PuTTY SSH to Core](./assets/solarputty-ssh-core.png){ width="100%" }
 </figure>
 
 
@@ -51,8 +52,9 @@ show version
 ```
 
 This displays:
+
 - IOS XE software version
-- Device model (Catalyst 8000V)
+- Device model
 - Uptime and system information
 - Hardware details
 

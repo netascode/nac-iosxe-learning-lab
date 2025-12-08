@@ -57,7 +57,7 @@ iosxe:
 The image below illustrates the template configuration in VS Code:
 
 <figure markdown>
-  ![VS Code Template Configuration](./assets/vscode-template-vlans.png){ width="500" }
+  ![VS Code Template Configuration](./assets/vscode-template-vlans.png){ width="100%" }
 </figure>
 
 #### Configuration Breakdown
@@ -107,7 +107,7 @@ iosxe:
 The image below illustrates how devices reference the template:
 
 <figure markdown>
-  ![VS Code Devices with Templates](./assets/vscode-devices-templates.png){ width="500" }
+  ![VS Code Devices with Templates](./assets/vscode-devices-templates.png){ width="100%" }
 </figure>
 
 #### How Templates Work
@@ -183,7 +183,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
 - Both devices receive identical VLAN configuration
 
 <figure markdown>
-  ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="500" }
+  ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="100%" }
 </figure>
 
 #### Verify Template Configuration
@@ -204,7 +204,7 @@ show vlan brief
 **Expected output on both access switches:**
 
 <figure markdown>
-  ![Show VLAN Brief](./assets/sh-vlan-brief.png){ width="500" }
+  ![Show VLAN Brief](./assets/sh-vlan-brief.png){ width="100%" }
 </figure>
 
 You should see all three VLANs (10-DATA, 20-VOICE, 99-MGMT) configured on both devices.
