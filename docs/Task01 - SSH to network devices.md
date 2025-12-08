@@ -17,7 +17,7 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 3. You'll see the Solar-PuTTY interface with a list of devices
 
 <figure markdown>
-  ![Solar-PuTTY Interface](img/solarputty.png){ width="500" }
+  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="500" }
 </figure>
 
 
@@ -38,7 +38,7 @@ The lab environment includes multiple IOS XE routers. All device credentials are
 3. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to Core](img/solarputty-ssh-core.png){ width="500" }
+  ![Solar-PuTTY SSH to Core](./assets/solarputty-ssh-core.png){ width="500" }
 </figure>
 
 
@@ -112,7 +112,8 @@ After reviewing the **core** router:
 1. Connect to the **border** router and repeat the same verification
 2. Optionally, connect to **access01** and **access02** routers and repeat the same verification 
 
-**What to observe across all devices:**
+What to observe across all devices:
+
 - All devices have minimal configuration
 - All devices have RESTCONF enabled
 - All devices are ready for Network-as-Code automation
@@ -120,6 +121,7 @@ After reviewing the **core** router:
 ### What You've Accomplished
 
 At this point, you have:
+
 - ✅ Connected to IOS XE devices using Solar-PuTTY
 - ✅ Verified device information with `show version`
 - ✅ Reviewed the minimal running configuration

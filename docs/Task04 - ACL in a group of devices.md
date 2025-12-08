@@ -49,7 +49,7 @@ iosxe:
 The image below illustrates the ACL configuration in VS Code:
 
 <figure markdown>
-  ![VS Code ACL Configuration](img/vscode-acl.png){ width="500" }
+  ![VS Code ACL Configuration](./assets/vscode-acl.png){ width="500" }
 </figure>
 
 ### Configuration Breakdown
@@ -112,7 +112,7 @@ terraform apply
 When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (access01 and access02).
 
 <figure markdown>
-  ![Terraform ACL Apply](img/terraform-acl-apply.png){ width="500" }
+  ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="500" }
 </figure>
 
 ### Verify Device Group Configuration
@@ -133,7 +133,7 @@ show access-lists
 **Expected output:**
 
 <figure markdown>
-  ![Show Access List](img/sh-access-list.png){ width="500" }
+  ![Show Access List](./assets/sh-access-list.png){ width="500" }
 </figure>
 
 This confirms the standard ACL was successfully deployed to both access01 and access02 switches with both network permit entries.

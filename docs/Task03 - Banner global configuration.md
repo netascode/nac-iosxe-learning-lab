@@ -50,7 +50,7 @@ iosxe:
 The figure below illustrates how to create the `data/devices.nac.yaml` file with Visual Studio Code:
 
 <figure markdown>
-  ![alt text](img/vscode-global-banner.png){ width="500" }
+  ![alt text](./assets/vscode-global-banner.png){ width="500" }
 </figure>
 
 ### Applying Configuration with Terraform CLI
@@ -165,7 +165,7 @@ terraform init
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Init](img/terraform-init.png){ width="500" }
+  ![Terraform Init](./assets/terraform-init.png){ width="500" }
 </figure>
 
 #### Step 4: Preview Changes with Terraform Plan
@@ -185,7 +185,7 @@ terraform plan
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Plan](img/terraform-plan.png){ width="500" }
+  ![Terraform Plan](./assets/terraform-plan.png){ width="500" }
 </figure>
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
@@ -219,7 +219,7 @@ Type `yes` and press Enter to proceed.
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Apply](img/terraform-apply.png){ width="500" }
+  ![Terraform Apply](./assets/terraform-apply.png){ width="500" }
 </figure>
 
 
@@ -282,7 +282,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 - Device connection details
 
 <figure markdown>
-  ![Terraform State Files](img/terraform-state-files.png){ width="500" }
+  ![Terraform State Files](./assets/terraform-state-files.png){ width="500" }
 </figure>
 
 **Important:** The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
