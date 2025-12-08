@@ -6,18 +6,21 @@ nav:
       - Disclaimer: Intro03_disclaimer.md
       - Lab Access: Intro04_lab_access.md
       - Getting Started: Intro05_getting_started.md
-      - 01 - SSH to devices: Task01 - SSH to network devices.md
-      - 02 - Editing YAML: Task02 - Editing YAML files.md
-      - 03 - Banner configuration: Task03 - Banner global configuration.md
-      - 04 - ACL Configuration: Task04 - ACL in a group of devices.md
-      - 05 - Services config: Task05 - Add config to single device.md
-      - 06 (optional) - VLANs configuration: Task06 (optional) - VLANs configuration using Templates.md
-      - 07 (optional) - BGP configuration: Task07 (optional) - BGP configuration using templates.md
-      - 08 (optional) - CLI snippets: Task08 (optional) - CLI snippets.md
-      - 09 - Schema validation: Task09 - Schema validation.md
-      - 10 (optional) - Post-checks Task10 (optional) - Post-checks with ROBOT.md
-      - 11 - Run CI-CD pipeline: Task11 - Run CI-CD pipeline.md
-      - 12 (optional) - Add testing stage to CI-CD: Task12 (optional) - Add testing stage to CI-CD.md
-      - 13 (optional) - Branch and merge request: Task13 (optional) - Branch and merge request.md
+      - "[01] SSH to devices": Task01 - SSH to network devices.md
+      - "[02] Editing YAML": Task02 - Editing YAML files.md
+      - "[03] Banner configuration": Task03 - Banner global configuration.md
+      - "[04] ACL Configuration": Task04 - ACL in a group of devices.md
+      - "[05] Services config": Task05 - Add config to single device.md
+      - "[06] (optional) VLANs configuration": Task06 (optional) - VLANs configuration using Templates.md
+      - "[07] (optional) BGP configuration": Task07 (optional) - BGP configuration using templates.md
+      - "[08] (optional) CLI snippets": Task08 (optional) - CLI snippets.md
+      - "[09] Schema validation": Task09 - Schema validation.md
+      - "[10] (optional) Post-checks": Task10 (optional) - Post-checks with ROBOT.md
+      - "[11] Run CI-CD pipeline": Task11 - Run CI-CD pipeline.md
+      - "[12] (optional) Add testing stage to CI-CD": Task12 (optional) - Add testing stage to CI-CD.md
+      - "[13] (optional) Branch and merge request": Task13 (optional) - Branch and merge request.md
       - Conclusion: Intro06_conclusion.md
   - Topologies: Intro07_topologies.md
+
+
+

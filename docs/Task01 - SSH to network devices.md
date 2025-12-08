@@ -1,5 +1,3 @@
-## Task01 - SSH to Network Devices
-
 Before diving into Network-as-Code automation, it's important to establish baseline connectivity to your IOS XE devices and understand their current state. In this task, you'll use Solar-PuTTY to connect to the routers and verify their configuration.
 
 ### What You'll Learn

@@ -1,5 +1,3 @@
-**Learning Objectives**
-
 This step-by-step guide walks you through **Network-as-Code for IOSXE** lab. At the end of completing the proposed tasks, you will know how to deploy and manage IOSXE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
 Network-as-Code for IOSXE is an approach to network automation that treats IOSXE network infrastructure configuration as code. Similar to how developers manage application code, NAC allows network engineers to:
