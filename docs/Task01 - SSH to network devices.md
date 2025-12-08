@@ -67,11 +67,8 @@ Now let's check the running configuration to see what's currently configured on 
 show run
 ```
 
-**What you'll notice:**
-
-The configuration is **almost empty** - this is intentional! The router has minimal configuration, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform.
-
-However, you will see a few essential lines that enable Terraform to access the device.
+!!! note
+    The configuration is **almost empty** - this is intentional! The router has minimal configuration, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the device.
 
 ## Configuration Required for Terraform Access
 

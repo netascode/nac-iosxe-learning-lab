@@ -3,12 +3,12 @@
 ## Lab Environment
 
 This lab consistems of:
+
 - Multiple **IOS XE** virtual routers
 - **VSCode** for editing Infrastructure as Code YAML files
 - SSH client **Solar-PuTTY** to access the IOSXE devices
 - **Windows Subsystem for Linux (WSL)** to run Terraform
 - **GitLab** as Git repository and to run CI/CD pipeline
-
 
 
 ## Section 1
@@ -22,26 +22,7 @@ Please use the following credentials to connect to device:
 | `Password`       | C1sco123         |
 
 
-My content
 
-!!! note
-    This is a note
-
-Cisco IOS code block:
-
-```ios
-hostname ABC
-interface GigabitEthernet1
- ip address 122.1.1.1
-```
-
-
-
-Image:
-
-<figure markdown>
-  ![ACI](./assets/aci.png){ width="100%" }
-</figure>
 
 ## Section 2
 

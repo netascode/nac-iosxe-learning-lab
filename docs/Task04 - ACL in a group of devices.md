@@ -80,7 +80,9 @@ Let's break down the key elements:
   - `prefix: 20.0.0.0` - The network address
   - `prefix_mask: 0.0.0.255` - Wildcard mask (matches 20.0.0.0 through 20.0.0.255)
   
-**Note:** Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
+
+!!! note
+    Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
 
 
 
