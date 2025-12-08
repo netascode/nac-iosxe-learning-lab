@@ -1,10 +1,11 @@
 nav:
   - Home: index.md
   - Lab:
-      - Overview: Intro01_overview.md
-      - For all learners: Intro02_For_all_learners.md
-      - Getting Started: Intro03_getting_started.md
-      - Intro03 - Lab environment: Intro03_Lab_environment.md
+      - Learning Objectives: Intro01_overview.md
+      - A Lab Accessible to All Learners: Intro02_for_all_learners.md
+      - Disclaimer: Intro03_disclaimer.md
+      - Lab Access: Intro04_lab_access.md
+      - Getting Started: Intro05_getting_started.md
       - 01 - SSH to devices: Task01 - SSH to network devices.md
       - 02 - Editing YAML: Task02 - Editing YAML files.md
       - 03 - Banner configuration: Task03 - Banner global configuration.md
@@ -18,5 +19,5 @@ nav:
       - 11 - Run CI-CD pipeline: Task11 - Run CI-CD pipeline.md
       - 12 (optional) - Add testing stage to CI-CD: Task12 (optional) - Add testing stage to CI-CD.md
       - 13 (optional) - Branch and merge request: Task13 (optional) - Branch and merge request.md
-      - Conclusion: Intro04_conclusion.md
-  - Topologies: Intro05_topologies.md
+      - Conclusion: Intro06_conclusion.md
+  - Topologies: Intro07_topologies.md

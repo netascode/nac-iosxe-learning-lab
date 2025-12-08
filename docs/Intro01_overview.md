@@ -1,6 +1,4 @@
-# Overview
-
-## Learning Objectives
+**Learning Objectives**
 
 This step-by-step guide walks you through **Network-as-Code for IOSXE** lab. At the end of completing the proposed tasks, you will know how to deploy and manage IOSXE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
@@ -32,24 +30,3 @@ By completing this lab, you will gain hands-on experience with:
 - Validating configurations with schema-based testing
 - Applying best practices for network automation
 - Leverage ROBOT testing for post-deployment checks
-
-
-
-## Disclaimer
-
-Although the lab design and configuration examples could be used as a reference, for design related questions please contact your representative at Cisco, or a Cisco partner.
-
-## Lab Access
-
-From your workstation open an RDP (Remote Desktop) session to the following host named "wkst1":
-
-- IP: 1.2.3.4
-- Username: corp\demouser
-- Password: C1sco12345
-
-## Getting Started
-
-This lab leverages Cisco dCloud ...
-
-test 
-
