@@ -5,7 +5,9 @@ In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) 
 
 Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet powerful source code editor developed by Microsoft. It runs on Windows, macOS, and Linux and has become one of the most popular code editors among developers and IT professionals.
 
-![VS Code Interface](img/vscode-00.png)
+<figure markdown>
+  ![VS Code Interface](img/vscode-00.png){ width="500" }
+</figure>
 
 **Key features that make VS Code ideal for Network-as-Code:**
 
@@ -20,7 +22,7 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 For this lab, VS Code is pre-installed on your Windows workstation and ready to use. You'll use it to view, edit, and create YAML configuration files that define your network infrastructure.
 
 
-## Create Project Directory in WSL
+### Create Project Directory in WSL
 
 For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network-as-Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
 
@@ -32,7 +34,9 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 
 Open Windows Subsystem for Linux (WSL) terminal by searching "Ubuntu" in the Windows search:
 
-![Open WSL Ubuntu](img/open-wsl.png)
+<figure markdown>
+  ![Open WSL Ubuntu](img/open-wsl.png){ width="500" }
+</figure>
 
 When you open WSL, you'll automatically start in your home directory (`/home/cisco` or `~/`).
 
@@ -44,7 +48,9 @@ pwd
 
 You should see `/home/cisco` displayed.
 
-![PWD command](img/pwd.png)
+<figure markdown>
+  ![PWD command](img/pwd.png){ width="500" }
+</figure>
 
 **Create the project directory:**
 
@@ -68,7 +74,9 @@ pwd
 
 You should now see `/home/cisco/nac-iosxe` displayed.
 
-![Create nac-iosxe directory](img/create-nac-iosxe.png)
+<figure markdown>
+  ![Create nac-iosxe directory](img/create-nac-iosxe.png){ width="500" }
+</figure>
 
 **Note:** Your working directory is `/home/cisco/nac-iosxe` in WSL. From Windows Explorer, you can access this location at `\\wsl$\Ubuntu\home\cisco\nac-iosxe`.
 
@@ -110,7 +118,9 @@ touch data/devices.nac.yaml
 
 This YAML file will contain your network device definitions and configurations in a human-readable format.
 
-![WSL Create Files](img/wsl-create-files.png)
+<figure markdown>
+  ![WSL Create Files](img/wsl-create-files.png){ width="500" }
+</figure>
 
 ### Verify Your Project Structure
 
@@ -129,7 +139,7 @@ Verify your project structure by running `tree -a` in the terminal. The output s
 
 You are now ready to start populating your configuration files. All subsequent steps in this guide will assume you are working within the `/home/cisco/nac-iosxe` directory.
 
-## Open Visual Studio Code
+### Open Visual Studio Code
 
 To begin working with your project in a development-friendly environment, open your WSL home folder in Visual Studio Code (VS Code).
 
@@ -140,11 +150,15 @@ To begin working with your project in a development-friendly environment, open y
 3. In the address bar, type or paste: `/home/cisco/nac-iosxe`
 4. Click **Select Folder**
 
-![WSL Open Project Folder](img/wsl-open-project-folder.png)
+<figure markdown>
+  ![WSL Open Project Folder](img/wsl-open-project-folder.png){ width="500" }
+</figure>
 
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files 
 
-![alt text](img/vscode-list-of-files.png)
+<figure markdown>
+  ![alt text](img/vscode-list-of-files.png){ width="500" }
+</figure>
 
 ### Edit .env file
 
@@ -159,7 +173,9 @@ IOSXE_PASSWORD=C1sco12345
 
 The figure below illustrates how to edit the `.env` file using Visual Studio Code. 
 
-![alt text](img/vscode-env-file.png)
+<figure markdown>
+  ![alt text](img/vscode-env-file.png){ width="500" }
+</figure>
 
 **Save the file** by pressing `Ctrl+S`.
 
@@ -184,9 +200,11 @@ module "iosxe" {
 
 The figure below illustrates how to create the `main.tf` file using Visual Studio Code.
 
-![alt text](img/vscode-maintf-file.png)
+<figure markdown>
+  ![alt text](img/vscode-maintf-file.png){ width="500" }
+</figure>
 
-## Save Your Files
+### Save Your Files
 
 Before moving to the next task, make sure all your files are saved in VS Code.
 
@@ -199,7 +217,7 @@ You should see that all three files have been saved:
 - `main.tf` - Contains your Terraform module configuration
 - `data/devices.nac.yaml` - Will contain your network device configurations (to be completed in next task)
 
-## What You've Accomplished
+### What You've Accomplished
 
 Congratulations! In this chapter, you have:
 

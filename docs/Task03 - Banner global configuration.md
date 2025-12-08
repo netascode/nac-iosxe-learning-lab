@@ -1,8 +1,8 @@
-## Define Banner as Global Configuration
+### Define Banner as Global Configuration
 
 In this task, you'll configure a login banner that will apply to all network devices. Using **global configuration** is a Network-as-Code best practice that ensures consistent settings across your entire infrastructure without repeating the same configuration for each device.
 
-### Understanding Global Configuration
+#### Understanding Global Configuration
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. This provides the foundation layer of your network configuration hierarchy.
 
@@ -14,7 +14,7 @@ As describe in the [IOS-XE Global Configuration documentation](https://netascode
 
 By placing the banner in the `global` section, it will automatically apply to all devices listed in your configuration, ensuring consistency without duplication.
 
-### Create the YAML Configuration
+#### Create the YAML Configuration
 
 Edit your `data/devices.nac.yaml` file with the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices:
 
@@ -49,13 +49,15 @@ iosxe:
 
 The figure below illustrates how to create the `data/devices.nac.yaml` file with Visual Studio Code:
 
-![alt text](img/vscode-global-banner.png)
+<figure markdown>
+  ![alt text](img/vscode-global-banner.png){ width="500" }
+</figure>
 
-## Applying Configuration with Terraform CLI
+### Applying Configuration with Terraform CLI
 
 Now that you've created your configuration files, it's time to deploy them to your network devices using Terraform. Terraform follows a simple three-step workflow that ensures safe and predictable infrastructure changes.
 
-### Understanding the Terraform Workflow
+#### Understanding the Terraform Workflow
 
 Terraform uses a declarative approach where you define the desired state (in your YAML files), and Terraform figures out how to achieve that state. The workflow consists of:
 
@@ -63,7 +65,7 @@ Terraform uses a declarative approach where you define the desired state (in you
 2. **Plan** - Preview what changes Terraform will make
 3. **Apply** - Execute the changes on your devices
 
-### Step 1: Open WSL (Ubuntu) and Navigate to Your Project
+#### Step 1: Open WSL (Ubuntu) and Navigate to Your Project
 
 Open Windows Subsystem for Linux (WSL) terminal and navigate to your project directory:
 
@@ -88,7 +90,7 @@ ls -la
 You should see your configuration files: `.env`, `main.tf`, and the `data` directory (which contains `devices.nac.yaml`).
 
 
-### Step 2: Load Environment Variables from .env File
+#### Step 2: Load Environment Variables from .env File
 
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs:
 
@@ -146,7 +148,7 @@ echo 'export $(cat ~/nac-iosxe/.env | xargs)' >> ~/.bashrc
 This appends the export command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
 
 
-### Step 3: Initialize Terraform
+#### Step 3: Initialize Terraform
 
 Initialize your Terraform project to download the required Network-as-Code module:
 
@@ -162,9 +164,11 @@ terraform init
 
 **Expected output:**
 
-![Terraform Init](img/terraform-init.png)
+<figure markdown>
+  ![Terraform Init](img/terraform-init.png){ width="500" }
+</figure>
 
-### Step 4: Preview Changes with Terraform Plan
+#### Step 4: Preview Changes with Terraform Plan
 
 Before making any changes, preview what Terraform will do:
 
@@ -180,11 +184,13 @@ terraform plan
 
 **Expected output:**
 
-![Terraform Plan](img/terraform-plan.png)
+<figure markdown>
+  ![Terraform Plan](img/terraform-plan.png){ width="500" }
+</figure>
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
-### Step 5: Apply Configuration to Devices
+#### Step 5: Apply Configuration to Devices
 
 If the plan looks good, apply the configuration:
 
@@ -212,10 +218,12 @@ Type `yes` and press Enter to proceed.
 
 **Expected output:**
 
-![Terraform Apply](img/terraform-apply.png)
+<figure markdown>
+  ![Terraform Apply](img/terraform-apply.png){ width="500" }
+</figure>
 
 
-### Step 6: Verify the Global Configuration
+#### Step 6: Verify the Global Configuration
 
 After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four routers automatically.
 
@@ -252,7 +260,7 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 
 **Success!** You've just deployed your first Network-as-Code configuration using Terraform! Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
 
-### Terraform Command Reference
+#### Terraform Command Reference
 
 Here's a quick reference of the most common Terraform commands:
 
@@ -266,18 +274,20 @@ Here's a quick reference of the most common Terraform commands:
 | `terraform show` | Display current state |
 | `terraform validate` | Check configuration syntax |
 
-### Understanding Terraform State
+#### Understanding Terraform State
 
 After running `terraform apply`, Terraform creates a `terraform.tfstate` file that tracks:
 - What resources have been created
 - Current configuration of each resource
 - Device connection details
 
-![Terraform State Files](img/terraform-state-files.png)
+<figure markdown>
+  ![Terraform State Files](img/terraform-state-files.png){ width="500" }
+</figure>
 
 **Important:** The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
 
-### Troubleshooting Common Issues
+#### Troubleshooting Common Issues
 
 **Issue: "Error: Failed to connect to device"**
 - **Solution:** Verify your device host address is correct and the device is reachable. 
@@ -288,7 +298,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 **Issue: "Module not found"**
 - **Solution:** Run `terraform init` again to download the required modules
 
-### What's Next?
+#### What's Next?
 
 Congratulations! You've successfully:
 - ✅ Created YAML configuration files

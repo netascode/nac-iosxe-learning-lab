@@ -16,7 +16,9 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 2. Double-click to open the application
 3. You'll see the Solar-PuTTY interface with a list of devices
 
-![Solar-PuTTY Interface](img/solarputty.png)
+<figure markdown>
+  ![Solar-PuTTY Interface](img/solarputty.png){ width="500" }
+</figure>
 
 
 ### Connect to the lab Cat8000v devices
@@ -35,7 +37,9 @@ The lab environment includes multiple IOS XE routers. All device credentials are
 2. Click **Connect**
 3. You'll be automatically logged in with the pre-configured credentials
 
-![Solar-PuTTY SSH to Core](img/solarputty-ssh-core.png)
+<figure markdown>
+  ![Solar-PuTTY SSH to Core](img/solarputty-ssh-core.png){ width="500" }
+</figure>
 
 
 ### Verify Device Information

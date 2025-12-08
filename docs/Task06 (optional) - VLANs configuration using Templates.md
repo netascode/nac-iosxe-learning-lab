@@ -1,8 +1,8 @@
-## Task06 (optional) - VLAN Configuration Using Templates
+### Task06 (optional) - VLAN Configuration Using Templates
 
 In this task, you'll learn how to use **templates** to define reusable configuration blocks that can be applied to multiple devices. Templates are a powerful Network-as-Code feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
 
-### Understanding Templates
+#### Understanding Templates
 
 Templates in Network-as-Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
 
@@ -23,7 +23,7 @@ As described in the [IOS-XE Template documentation](https://netascode.cisco.com/
 
 In this task, you'll use the `model` type to create a VLAN template.
 
-### Use Case: Standard VLANs for Access Switches
+#### Use Case: Standard VLANs for Access Switches
 
 Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for access01 and access02, you'll create a single template and apply it to both devices.
 
@@ -32,7 +32,7 @@ Access switches typically share the same VLAN configuration - they need identica
 - VLAN 20: `VOICE` - VoIP traffic  
 - VLAN 99: `MGMT` - Management traffic
 
-### Create the Template File
+#### Create the Template File
 
 Use VS Code to create a new file `data/templates-vlan.nac.yaml` with the following content. This file defines a reusable VLAN template:
 
@@ -56,9 +56,11 @@ iosxe:
 
 The image below illustrates the template configuration in VS Code:
 
-![VS Code Template Configuration](img/vscode-template-vlans.png)
+<figure markdown>
+  ![VS Code Template Configuration](img/vscode-template-vlans.png){ width="500" }
+</figure>
 
-### Configuration Breakdown
+#### Configuration Breakdown
 
 Let's break down the key elements:
 
@@ -74,7 +76,7 @@ Let's break down the key elements:
 - **`id:`** - VLAN ID number (1-4094)
 - **`name:`** - Descriptive name for the VLAN
 
-### Apply Template to Access Switches
+#### Apply Template to Access Switches
 
 Now you need to tell the access switches to use this template. Edit your existing `data/devices.nac.yaml` file and add the `templates` reference to the access switches:
 
@@ -104,9 +106,11 @@ iosxe:
 
 The image below illustrates how devices reference the template:
 
-![VS Code Devices with Templates](img/vscode-devices-templates.png)
+<figure markdown>
+  ![VS Code Devices with Templates](img/vscode-devices-templates.png){ width="500" }
+</figure>
 
-### How Templates Work
+#### How Templates Work
 
 When Terraform processes your configuration:
 
@@ -144,7 +148,7 @@ When Terraform processes your configuration:
 └─────────────────┘         └─────────────────┘
 ```
 
-### Verify Project Structure
+#### Verify Project Structure
 
 At this point, your `data/` folder should contain these files:
 
@@ -161,7 +165,7 @@ At this point, your `data/` folder should contain these files:
 
 **Remember to save both files** by pressing `Ctrl+S` in VS Code before proceeding.
 
-### Apply Template Configuration
+#### Apply Template Configuration
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the VLAN configuration via template:
 
@@ -178,9 +182,11 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
 - Terraform shows VLAN creation for `access02`
 - Both devices receive identical VLAN configuration
 
-![Terraform Apply Templates](img/terraform-apply-templates.png)
+<figure markdown>
+  ![Terraform Apply Templates](img/terraform-apply-templates.png){ width="500" }
+</figure>
 
-### Verify Template Configuration
+#### Verify Template Configuration
 
 After successfully running `terraform apply`, verify that the VLANs were deployed to both access switches.
 
@@ -197,7 +203,9 @@ show vlan brief
 
 **Expected output on both access switches:**
 
-![Show VLAN Brief](img/sh-vlan-brief.png)
+<figure markdown>
+  ![Show VLAN Brief](img/sh-vlan-brief.png){ width="500" }
+</figure>
 
 You should see all three VLANs (10-DATA, 20-VOICE, 99-MGMT) configured on both devices.
 
@@ -209,7 +217,7 @@ show run | section vlan
 
 This shows the VLAN configuration in the running configuration.
 
-### Templates vs Other Configuration Methods
+#### Templates vs Other Configuration Methods
 
 Here's a comparison of when to use templates versus other configuration approaches:
 
@@ -228,14 +236,14 @@ Here's a comparison of when to use templates versus other configuration approach
 
 Templates give you fine-grained control - you choose exactly which devices get the template configuration by adding the template reference to each device.
 
-### Benefits of Using Templates
+#### Benefits of Using Templates
 
 1. **Single Source of Truth**: VLAN definitions exist in one place
 2. **Easy Updates**: Need to add VLAN 30? Update the template once, all devices get it
 3. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
 4. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
 
-### Applying Multiple Templates
+#### Applying Multiple Templates
 
 One of the most powerful features of templates is the ability to apply **multiple templates** to a single device. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
 
@@ -267,7 +275,7 @@ iosxe:
 - **Easier testing**: Test each template independently before combining
 - **Team collaboration**: Different teams can own different templates
 
-### What You've Accomplished
+#### What You've Accomplished
 
 In this task, you have:
 - ✅ Learned about templates and their benefits for Network-as-Code

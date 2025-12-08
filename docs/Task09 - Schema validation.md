@@ -1,10 +1,10 @@
-## Task09 - Schema Validation with nac-validate
+### Task09 - Schema Validation with nac-validate
 
 You've been creating YAML configuration files and deploying them with Terraform. But how can you ensure your YAML files are correctly structured and contain valid data before deploying them to production devices?
 
 Pre-change validation is a critical step in the Network-as-Code workflow. It catches errors early - before they reach your network devices - improving operational reliability and giving you confidence that your configurations are both syntactically and semantically correct.
 
-### What is Schema Validation?
+#### What is Schema Validation?
 
 Schema validation verifies that your YAML configuration files:
 - Follow the correct structure (proper indentation, key names, nesting)
@@ -15,7 +15,7 @@ Schema validation verifies that your YAML configuration files:
 
 This is similar to how a compiler checks code before running it - catching errors at "build time" rather than "run time".
 
-### The nac-validate Tool
+#### The nac-validate Tool
 
 The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines:
 - What attributes are allowed
@@ -23,7 +23,7 @@ The **nac-validate** tool checks your YAML files against a schema definition. Th
 - What values are valid
 - What fields are mandatory vs. optional
 
-### The Schema File
+#### The Schema File
 
 The complete schema for IOS XE Network-as-Code is provided in **Appendix II**. This comprehensive schema includes validation rules for:
 - Global configurations
@@ -48,11 +48,11 @@ Your project structure should now include:
     └── devices.nac.yaml
 ```
 
-### The nac-validate Tool in This Lab
+#### The nac-validate Tool in This Lab
 
 The **nac-validate** tool is pre-installed in this lab environment and ready to use. You don't need to install anything - you can start validating your YAML files immediately.
 
-### Run Schema Validation
+#### Run Schema Validation
 
 Navigate to your project directory and run validation:
 
@@ -68,7 +68,7 @@ nac-validate -s ~/schema.yaml data/
 - **`-s ~/schema.yaml`** - Specifies the schema file to validate against
 - **`data/`** - The directory containing your YAML configuration files
 
-### Successful Validation
+#### Successful Validation
 
 If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
@@ -83,7 +83,7 @@ aarlegui@CSCO-W-PF4BBNDD:~/nac-iosxe$
 - ✅ Data types are correct
 - ✅ Values are valid (e.g., IP addresses are properly formatted)
 
-### Validation Error Example
+#### Validation Error Example
 
 Let's intentionally introduce an error to see how validation catches it. 
 
@@ -141,7 +141,7 @@ Running `nac-validate` would produce:
 ERROR - Syntax error 'data/devices.nac.yaml': iosxe.device_groups.0.configuration.access_lists.standard.0.entries.0.action: 'allow' not in enum('deny', 'permit')
 ```
 
-### Validate Your Current Configuration
+#### Validate Your Current Configuration
 
 Let's validate the configuration you created in previous tasks. Your `data/devices.nac.yaml` should contain:
 - Global banner
@@ -161,7 +161,7 @@ nac-validate -s .schema.yaml data/
 
 If everything is correct, you'll get your prompt back with no output. If there are errors, the tool will tell you exactly what's wrong and where.
 
-### Common Validation Errors and Fixes
+#### Common Validation Errors and Fixes
 
 | Error Message | Cause | Fix |
 |--------------|-------|-----|
@@ -171,7 +171,7 @@ If everything is correct, you'll get your prompt back with no output. If there a
 | `required field` | Missing a mandatory attribute | Add the required field to your YAML |
 | `not a ip` | Expected IP address but got something else | Provide valid IP address format |
 
-### Integrating Validation into Your Workflow
+#### Integrating Validation into Your Workflow
 
 **Best practice workflow:**
 
@@ -183,7 +183,7 @@ If everything is correct, you'll get your prompt back with no output. If there a
 
 By validating before running Terraform, you catch configuration errors immediately without attempting to connect to devices. This saves time and prevents partial deployments of invalid configurations.
 
-### What You've Accomplished
+#### What You've Accomplished
 
 In this task, you have:
 - ✅ Understood the importance of pre-change validation
