@@ -3,5 +3,21 @@ nav:
   - Lab:
       - Overview: overview.md
       - Getting Started: getting_started.md
+      - Intro01 - About this guide: Intro01_About_this_guide.md
+      - Intro02 - For all learners: Intro02_For_all_learners.md
+      - Intro03 - Lab environment: Intro03_Lab_environment.md
+      - Task01 - SSH to network devices: Task01 - SSH to network devices.md
+      - Task02 - Editing YAML files: Task02 - Editing YAML files.md
+      - Task03 - Banner global configuration: Task03 - Banner global configuration.md
+      - Task04 - ACL in a group of devices: Task04 - ACL in a group of devices.md
+      - Task05 - Add config to single device: Task05 - Add config to single device.md
+      - Task06 (optional) - VLANs configuration using Templates: Task06 (optional) - VLANs configuration using Templates.md
+      - Task07 (optional) - BGP configuration using templates: Task07 (optional) - BGP configuration using templates.md
+      - Task08 (optional) - CLI snippets: Task08 (optional) - CLI snippets.md
+      - Task09 - Schema validation: Task09 - Schema validation.md
+      - Task10 (optional) - Post-checks with ROBOT: Task10 (optional) - Post-checks with ROBOT.md
+      - Task11 - Run CI-CD pipeline: Task11 - Run CI-CD pipeline.md
+      - Task12 (optional) - Add testing stage to CI-CD: Task12 (optional) - Add testing stage to CI-CD.md
+      - Task13 (optional) - Branch and merge request: Task13 (optional) - Branch and merge request.md
       - Conclusion: conclusion.md
   - Topologies: topologies.md
