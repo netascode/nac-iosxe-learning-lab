@@ -4,21 +4,20 @@ nav:
       - Learning Objectives: Intro01_overview.md
       - Accessible to All Learners: Intro02_all_learners.md
       - Disclaimer: Intro03_disclaimer.md
-      - Lab Access: Intro04_lab_access.md
-      - Getting Started: Intro05_getting_started.md
+      - Getting Started: Intro04_getting_started.md
       - "[01] SSH to devices": Task01 - SSH to network devices.md
       - "[02] Editing YAML": Task02 - Editing YAML files.md
       - "[03] Global configuration": Task03 - Global configuration.md
       - "[04] Group of devices config": Task04 - Group of devices configuration.md
       - "[05] Single device config": Task05 - Single device configuration.md
-      - "[06] (optional) Templates 'model'": Task06 (optional) - Templates type model.md
-      - "[07] (optional) Templates 'file'": Task07 (optional) - Templates type file.md
-      - "[08] (optional) Templates 'cli'": Task08 (optional) - Templates type cli.md
+      - "[06] Templates 'model' (optional)": Task06 (optional) - Templates type model.md
+      - "[07] Templates 'file' (optional)": Task07 (optional) - Templates type file.md
+      - "[08] Templates 'cli' (optional)": Task08 (optional) - Templates type cli.md
       - "[09] Schema validation": Task09 - Schema validation.md
       - "[10] (optional) Post-checks": Task10 (optional) - Post-checks with ROBOT.md
       - "[11] Run CI-CD pipeline": Task11 - Run CI-CD pipeline.md
-      - "[12] (optional) Edit CI-CD": Task12 (optional) - Add testing stage to CI-CD.md
-      - "[13] (optional) Branch & merge request": Task13 (optional) - Branch and merge request.md
+      - "[12] Edit CI-CD (optional)": Task12 (optional) - Add Robot testing stage to CI-CD.md
+      - "[13] Branch & merge request(optional)": Task13 (optional) - Branch and merge request.md
       - Conclusion: Intro06_conclusion.md
       - APPENDIX I: Task14 - Appendix.md
   - Topologies: Intro07_topologies.md

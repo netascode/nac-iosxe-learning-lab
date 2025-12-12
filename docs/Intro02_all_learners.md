@@ -11,12 +11,12 @@ The recommended tasks include detailed step-by-step guidance while the optional 
 
 **Deploy configuration to devices with Terraform manually:**
 
-- Task03 : Add global banner configuration
-- Task04 : ACL in group of devices
-- Task05 : Local user to a single device
-- Task06 (optional) : VLANs and Static routes configuration using templates
-- Task07 (optional) : BGP configuration using templates
-- Task08 (optional) : CLI snippets
+- Task03 : Global configuration
+- Task04 : Group of devices configuration
+- Task05 : Single device configuration
+- Task06 (optional) : Templates type 'model'
+- Task07 (optional) : Templates type 'file'
+- Task08 (optional) : Templates type 'cli'
 
 **Pre-checks and Post-checks:**
 
@@ -26,6 +26,6 @@ The recommended tasks include detailed step-by-step guidance while the optional 
 **CI/CD Pipelines:**
 
 - Task11 : Run a CI/CD pipeline (nac-validate, Terraform plan, Terraform apply) in main branch
-- Task12 (optional) :  Add testing stage to CI/CD pipeline
+- Task12 (optional) : Modify CI/CD pipeline to add Robot testing
 - Task13 (optional) : Create a branch, make a change, create a merge request, approval and merge to main
 
