@@ -1,3 +1,5 @@
+## Task05 - Single Device Configuration
+
 In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that shouldn't be shared with other devices.
 
 ## Understanding Device-Specific Configuration

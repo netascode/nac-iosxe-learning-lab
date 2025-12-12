@@ -1,6 +1,6 @@
-## Define Banner as Global Configuration
+## Task03 - Global Configuration
 
-In this task, you'll configure a login banner that will apply to all network devices. Using **global configuration** is a Network-as-Code best practice that ensures consistent settings across your entire infrastructure without repeating the same configuration for each device.
+In this task, you'll learn how to use **global configuration** to apply settings across all network devices. You'll configure a login banner as an example - a Network-as-Code best practice that ensures consistent settings across your entire infrastructure without repeating the same configuration for each device.
 
 ## Understanding Global Configuration
 
@@ -34,7 +34,6 @@ iosxe:
       host: 198.18.130.11
     - name: access02
       host: 198.18.130.12
-
 ```
 
 **Key elements explained:**
@@ -95,8 +94,8 @@ You should see your configuration files: `.env`, `main.tf`, and the `data` direc
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs:
 
 ```bash
-IOSXE_USERNAME=terraform
-IOSXE_PASSWORD=C1sco12345
+IOSXE_USERNAME=nac_cisco
+IOSXE_PASSWORD=cisco
 ```
 
 **Convert the file to Unix format to avoid encoding issues:**
@@ -127,8 +126,8 @@ env | grep IOSXE
 
 You should see both variables displayed:
 ```
-IOSXE_USERNAME=terraform
-IOSXE_PASSWORD=C1sco12345
+IOSXE_USERNAME=nac_cisco
+IOSXE_PASSWORD=cisco
 ```
 
 These credentials allow Terraform to authenticate with your IOS XE devices.

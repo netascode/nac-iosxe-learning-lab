@@ -77,14 +77,14 @@ Look for these specific configuration lines in the `show run` output:
 ```
 ip http secure-server
 restconf
-username cisco privilege 15 secret C1sco12345
+username nac_cisco privilege 15 secret cisco
 ```
 
 **What these commands do:**
 
 - **`ip http secure-server`** - Enables HTTPS server on the router, required for RESTCONF API access
 - **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username cisco privilege 15 secret C1sco12345`** - Creates an administrative user that Terraform will use for authentication
+- **`username cisco privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
 
@@ -96,12 +96,13 @@ If you needed to manually enable RESTCONF on a new device (not required in this 
 config t
 ip http secure-server
 restconf
-username terraform privilege 15 secret C1sco12345
+username nac_cisco privilege 15 secret cisco
 end
 write memory
 ```
 
-However, **you don't need to do this now** - it's already configured on all lab devices.
+!!! note
+    You don't need to do this now - it's already configured on all lab devices.
 
 ## Connect to Other Routers
 

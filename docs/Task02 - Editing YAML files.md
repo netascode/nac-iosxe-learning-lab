@@ -78,7 +78,8 @@ You should now see `/home/cisco/nac-iosxe` displayed.
   ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="100%" }
 </figure>
 
-**Note:** Your working directory is `/home/cisco/nac-iosxe` in WSL. From Windows Explorer, you can access this location at `\\wsl$\Ubuntu\home\cisco\nac-iosxe`.
+!!! note
+    Your working directory is `/home/cisco/nac-iosxe` in WSL. From Windows Explorer, you can access this location at `\\wsl$\Ubuntu\home\cisco\nac-iosxe`.
 
 ## Create project structure
 
@@ -165,8 +166,8 @@ VS Code will now open with your project folder, and you'll see the file explorer
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
 ```bash
-IOSXE_USERNAME=terraform
-IOSXE_PASSWORD=C1sco12345
+IOSXE_USERNAME=nac_cisco
+IOSXE_PASSWORD=cisco
 ```
 
 **Note:** These variables will be exported when you source the `.env` file in WSL using the proper commands (covered in the next task).

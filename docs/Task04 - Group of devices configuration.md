@@ -1,4 +1,6 @@
-In this task, you'll learn how to use **device groups** to apply Access Control List (ACL) configurations to multiple devices simultaneously. Device groups are a powerful Network-as-Code feature that allows you to apply consistent configurations across devices that share common roles or functions.
+## Task04 - Group of Devices Configuration
+
+In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example - demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
 
 ## Understanding Device Groups
 

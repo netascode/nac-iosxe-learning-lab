@@ -1,6 +1,6 @@
-## Task06 (optional) - VLAN Configuration Using Templates
+## Task06 (optional) - Templates Type 'model'
 
-In this task, you'll learn how to use **templates** to define reusable configuration blocks that can be applied to multiple devices. Templates are a powerful Network-as-Code feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
+In this task, you'll learn how to use **templates of type 'model'** to define reusable YAML-based configuration blocks that can be applied to multiple devices. The `model` template type is a powerful Network-as-Code feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
 
 ## Understanding Templates
 
@@ -21,7 +21,7 @@ As described in the [IOS-XE Template documentation](https://netascode.cisco.com/
 | `file` | External file reference | Large configurations stored separately |
 | `cli` | Raw CLI commands | Legacy or complex CLI configurations |
 
-In this task, you'll use the `model` type to create a VLAN template.
+In this task, you'll use the `model` type to create a VLAN template as a practical example.
 
 ## Use Case: Standard VLANs for Access Switches
 
