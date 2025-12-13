@@ -1,10 +1,8 @@
-## Task04 - Group of Devices Configuration
-
 In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example - demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
 
 ## Understanding Device Groups
 
-Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device. As described in [IOS-XE Device Group documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/device_group/), device groups sit in the middle of the configuration hierarchy:
+Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device. As described in [IOS XE Device Group documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/device_group/), device groups sit in the middle of the configuration hierarchy:
 
 **Configuration Precedence Hierarchy:**
 

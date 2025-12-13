@@ -43,7 +43,7 @@ The project page shows your repository files, including:
 - `tests/` folder with your ROBOT tests
 - `main.tf` - Terraform configuration
 - `.gitlab-ci.yml` - Pipeline definition file
-- `.schema.yaml` - The Network as Code for IOSXE schema
+- `.schema.yaml` - The Network as Code for IOS XE schema
 
 
 <!-- SCREENSHOT: netascode/nac-iosxe-terraform project page showing files -->
@@ -173,8 +173,6 @@ banner:
 <figure markdown>
   ![Commit Message](./assets/gitlab-webide-commit-message.png){ width="100%" }
 </figure>
-
-
 
 
 !!! info "Pipeline Auto-Trigger"

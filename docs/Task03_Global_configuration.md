@@ -1,12 +1,10 @@
-## Task03 - Global Configuration
-
 In this task, you'll learn how to use **global configuration** to apply settings across all network devices. You'll configure a login banner as an example - a Network-as-Code best practice that ensures consistent settings across your entire infrastructure without repeating the same configuration for each device.
 
 ## Understanding Global Configuration
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. This provides the foundation layer of your network configuration hierarchy.
 
-As describe in the [IOS-XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
+As describe in the [IOS XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
 
 1. **Device** (highest precedence) - device-specific overrides
 2. **Device Group** (medium precedence) - role or location-specific settings  
@@ -252,6 +250,7 @@ banner login ^CWelcome to Network-as-Code Lab^C
 The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your banner text "Welcome to Network-as-Code Lab" in the output.
 
 **What you should observe:**
+
 - ✅ The banner appears on the **CORE** switch (198.18.130.10)
 - ✅ The banner appears on the **BORDER** switch (198.18.130.20)
 - ✅ The banner appears on the **ACCESS01** switch (198.18.130.11)
@@ -289,12 +288,15 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 ## Troubleshooting Common Issues
 
 **Issue: "Error: Failed to connect to device"**
+
 - **Solution:** Verify your device host address is correct and the device is reachable. 
 
 **Issue: "Error: Invalid credentials"**
+
 - **Solution:** Check that your environment variables are set correctly with `env | grep IOSXE`. If they're not set, run `export $(cat .env | xargs)` again
 
 **Issue: "Module not found"**
+
 - **Solution:** Run `terraform init` again to download the required modules
 
 ## What's Next?

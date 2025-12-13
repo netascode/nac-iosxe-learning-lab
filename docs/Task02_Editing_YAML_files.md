@@ -1,4 +1,4 @@
-In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOSXE intent configuration YAML files.
+In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOS XE intent configuration YAML files.
 
 ## What is VS Code?
 

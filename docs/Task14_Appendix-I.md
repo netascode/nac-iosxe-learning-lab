@@ -16,9 +16,9 @@ variables:
   GIT_SSL_NO_VERIFY: "true"
 
   IOSXE_USERNAME:
-    description: "Cisco IOS-XE Username"
+    description: "Cisco IOS XE Username"
   IOSXE_PASSWORD:
-    description: "Cisco IOS-XE Password"
+    description: "Cisco IOS XE Password"
   GITLAB_TOKEN:
     description: "User Access Token. Used to create comments on Merge Requests"
   TF_HTTP_USERNAME:
