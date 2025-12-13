@@ -9,6 +9,7 @@ Device-specific configurations are applied directly to individual devices and ta
 - **Special-purpose devices**: Core switches, management servers, or devices with unique roles
 
 **Configuration Precedence Hierarchy (reminder):**
+
 1. **Device** (highest precedence) - device-specific overrides ← *This task*
 2. **Device Group** (medium precedence) - role or location-specific settings ← *Task04*
 3. **Global** (lowest precedence) - organization-wide defaults ← *Task03*
@@ -18,6 +19,7 @@ Device-specific configurations are applied directly to individual devices and ta
 In this example, you'll add IP host entries to the **CORE** switch only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core switches that need to reference multiple infrastructure devices.
 
 You'll configure the CORE switch to resolve these hostnames:
+
 - `ntp-server` → 198.18.128.1
 - `syslog-server` → 198.18.128.2
 
@@ -40,8 +42,6 @@ iosxe:
                 - 198.18.128.2
 ```
 
-**Save the file** by pressing `Ctrl+S` in VS Code. You should see the white dot disappear from the file tab, indicating the file has been saved successfully.
-
 The image below illustrates the device-specific configuration in VS Code:
 
 <figure markdown>
@@ -53,20 +53,23 @@ The image below illustrates the device-specific configuration in VS Code:
 Let's break down the key elements:
 
 **Device Section:**
+
 - **`devices:`** - Defines device-specific configurations
 - **`name: core`** - Targets the specific device by name (must match the device name in `devices.nac.yaml`)
 - **`configuration:`** - Contains settings applied only to this device
 
 **System Configuration:**
+
 - **`system:`** - System-level configurations
 - **`ip_hosts:`** - List of IP host entries (static hostname-to-IP mappings)
 
 **IP Host Entry Details:**
+
 - **`name: ntp-server`** - The hostname to create
 - **`ips:`** - List of IP addresses associated with the hostname
 - **`198.18.128.1`** - The IP address that resolves when using the hostname
 
-**Important:** This configuration will only be applied to the `core` device. The border, access01, and access02 devices will not receive these IP host entries.
+**Important:** This configuration will only be applied to the CORE device. The BORDER, ACCESS01, and ACCESS02 devices will not receive these IP host entries.
 
 ## Understanding File Organization
 
@@ -79,30 +82,43 @@ At this point, your `data/` folder contains three YAML files, each serving a dif
 └── data/
     ├── devices.nac.yaml      # Device definitions + Global configuration (banner)
     ├── acl.nac.yaml          # Device Group configuration (ACL for ACCESS group)
-    └── core.nac.yaml         # Device-specific configuration (IP hosts for core)
+    └── core.nac.yaml         # Device-specific configuration (IP hosts for CORE)
 ```
 
 This modular approach keeps configurations organized and easy to maintain:
+
 - **Global settings** in the main devices file
 - **Group-specific settings** in dedicated group files
 - **Device-specific settings** in individual device files
 
 ## Apply Device-Specific Configuration
 
-Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the IP host configuration to the core device:
+Open your WSL Ubuntu terminal and run the following steps:
+
+**Step 1:** Navigate to your project directory:
 
 ```bash
 cd ~/nac-iosxe
+```
+
+**Step 2:** Preview the changes Terraform will make:
+
+```bash
 terraform plan
+```
+
+**Step 3:** Apply the configuration:
+
+```bash
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the IP host entries only on the core device.
+When prompted, type `yes` to confirm the deployment. Terraform will create the IP host entries only on the CORE device.
 
 **What to observe in the plan output:**
 
-- Terraform shows changes only for the `core` device
-- No changes are proposed for border, access01, or access02
+- Terraform shows changes only for the CORE device
+- No changes are proposed for BORDER, ACCESS01, or ACCESS02
 
 <figure markdown>
   ![Terraform Apply Core](./assets/terraform-apply-core.png){ width="100%" }
@@ -122,7 +138,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
 show run | include ip host
 ```
 
-**Expected output on core:**
+**Expected output on CORE:**
 
 <figure markdown>
   ![Show IP Host Core](./assets/sh-ip-host-core.png){ width="100%" }
@@ -138,11 +154,11 @@ Connect to the **BORDER** switch (198.18.130.20) and run the same command:
 show run | include ip host
 ```
 
-**Expected output on border:**
+**Expected output on BORDER:**
 
 The command should return no output, confirming that the IP host entries were NOT applied to the BORDER switch.
 
-**Key observation:** The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
+**Key observation:** The IP host configuration only appears on the CORE device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
 
 ## Configuration Hierarchy Comparison
 
@@ -163,10 +179,10 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │                                                          │
 │  ┌───────────────────────────────────────────────────┐   │
 │  │              DEVICE GROUP: ACCESS                 │   │
-│  │           (applies to access01, access02)         │   │
+│  │           (applies to ACCESS01, ACCESS02)         │   │
 │  │                                                   │   │
 │  │  ┌─────────────┐        ┌─────────────┐           │   │
-│  │  │  access01   │        │  access02   │           │   │
+│  │  │  ACCESS01   │        │  ACCESS02   │           │   │
 │  │  │             │        │             │           │   │
 │  │  │ - Banner    │        │ - Banner    │           │   │
 │  │  │ - ACL       │        │ - ACL       │           │   │
@@ -174,7 +190,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │  └───────────────────────────────────────────────────┘   │
 │                                                          │
 │  ┌─────────────────┐        ┌─────────────────┐          │
-│  │      core       │        │     border      │          │
+│  │      CORE       │        │     BORDER      │          │
 │  │                 │        │                 │          │
 │  │ - Banner        │        │ - Banner        │          │
 │  │ - IP Hosts      │        │                 │          │
@@ -188,7 +204,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 | Use Case | Recommended Level |
 |----------|-------------------|
 | Organization-wide standards (banners, NTP, logging) | **Global** |
-| Role-based settings (ACLs for access layer, routing for core) | **Device Group** |
+| Role-based settings (ACLs for access layer, routing for CORE) | **Device Group** |
 | Unique device requirements (management IPs, special features) | **Device** |
 | Overriding group or global settings for one device | **Device** |
 

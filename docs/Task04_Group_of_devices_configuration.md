@@ -72,7 +72,7 @@ Let's break down the key elements:
 
 - **`device_groups:`** - Defines one or more device groups
 - **`name: ACCESS`** - The group name identifier
-- **`devices:`** - Lists member devices (access01, access02)
+- **`devices:`** - Lists member devices (ACCESS01, ACCESS02)
 - **`configuration:`** - Contains settings applied to all group members
 
 **Access List Configuration:**
@@ -104,9 +104,9 @@ Let's break down the key elements:
 
 When Terraform processes this configuration:
 
-1. The **global banner** applies to all devices (border, core, access01, access02)
-2. The **ACCESS group ACL** applies only to access01 and access02 switches
-3. If you later add device-specific configuration to the "access01" device, it would override group settings
+1. The **global banner** applies to all devices (BORDER, CORE, ACCESS01, ACCESS02)
+2. The **ACCESS group ACL** applies only to ACCESS01 and ACCESS02 switches
+3. If you later add device-specific configuration to the ACCESS01 device, it would override group settings
 
 This hierarchical approach ensures:
 
@@ -126,7 +126,7 @@ terraform plan
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (access01 and access02).
+When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (ACCESS01 and ACCESS02).
 
 <figure markdown>
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
@@ -153,7 +153,7 @@ show access-lists
   ![Show Access List](./assets/sh-access-list.png){ width="100%" }
 </figure>
 
-This confirms the standard ACL was successfully deployed to both access01 and access02 switches with both network permit entries.
+This confirms the standard ACL was successfully deployed to both ACCESS01 and ACCESS02 switches with both network permit entries.
 
 **Key observation:** The ACL only appears on devices that are members of the ACCESS group. If you check BORDER or CORE switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
@@ -162,7 +162,7 @@ This confirms the standard ACL was successfully deployed to both access01 and ac
 In this task, you have:
 
 - ✅ Learned about device groups and configuration hierarchy
-- ✅ Created an ACCESS device group with access01 and access02 switches
+- ✅ Created an ACCESS device group with ACCESS01 and ACCESS02 switches
 - ✅ Applied a standard ACL to multiple devices using a single definition
 - ✅ Understood the precedence: Global < Device Group < Device
 - ✅ Verified selective configuration deployment to group members only

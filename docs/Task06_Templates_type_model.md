@@ -23,7 +23,7 @@ In this task, you'll use the `model` type to create a VLAN template as a practic
 
 ## Use Case: Standard VLANs for Access Switches
 
-Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for access01 and access02, you'll create a single template and apply it to both devices.
+Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for ACCESS01 and ACCESS02, you'll create a single template and apply it to both devices.
 
 **VLANs to configure:**
 
@@ -117,8 +117,8 @@ When Terraform processes your configuration:
 
 1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `ACCESS_SWITCH_VLANS` template
 2. **Device Processing**: For each device in `devices.nac.yaml`, Terraform checks for template references
-3. **Configuration Merge**: For access01 and access02 (which reference the template), the template's configuration is merged with their settings
-4. **Deployment**: VLANs are created on both access01 and access02 (but not on core or border)
+3. **Configuration Merge**: For ACCESS01 and ACCESS02 (which reference the template), the template's configuration is merged with their settings
+4. **Deployment**: VLANs are created on both ACCESS01 and ACCESS02 (but not on CORE or BORDER)
 
 **Visual representation:**
 
@@ -137,7 +137,7 @@ When Terraform processes your configuration:
          │                           │
          ▼                           ▼
 ┌─────────────────┐         ┌─────────────────┐
-│    access01     │         │    access02     │
+│    ACCESS01     │         │    ACCESS02     │
 │                 │         │                 │
 │ templates:      │         │ templates:      │
 │  - ACCESS_...   │         │  - ACCESS_...   │
@@ -176,11 +176,11 @@ terraform plan
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the three VLANs on both access01 and access02 switches.
+When prompted, type `yes` to confirm the deployment. Terraform will create the three VLANs on both ACCESS01 and ACCESS02 switches.
 
 **What to observe in the plan output:**
-- Terraform shows VLAN creation for `access01`
-- Terraform shows VLAN creation for `access02`
+- Terraform shows VLAN creation for ACCESS01
+- Terraform shows VLAN creation for ACCESS02
 - Both devices receive identical VLAN configuration
 
 <figure markdown>
@@ -225,7 +225,7 @@ Here's a comparison of when to use templates versus other configuration approach
 | Method | Best For | Example |
 |--------|----------|---------|
 | **Global** | Settings that apply to ALL devices | Login banners, NTP, Syslog |
-| **Device Group** | Role-based settings for device subsets | ACLs for access layer, routing for core |
+| **Device Group** | Role-based settings for device subsets | ACLs for access layer, routing for CORE |
 | **Device** | Unique settings for one device | Management IP hosts, special features |
 | **Template** | Reusable configurations across selected devices | Standard VLANs, interface templates |
 
