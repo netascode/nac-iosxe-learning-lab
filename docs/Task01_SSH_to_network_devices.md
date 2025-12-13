@@ -32,7 +32,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 - **ACCESS02** - Access switch (198.18.130.12)
 
 <figure markdown>
-  ![CML Topology](./assets/cml-topology.png){ width="100%" }
+  ![CML Topology](./assets/cml-topology.png){ width="80%" }
 </figure>
 
 

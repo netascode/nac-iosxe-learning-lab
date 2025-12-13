@@ -10,10 +10,8 @@ Adding automated testing to your CI/CD pipeline ensures that:
 
 You'll add two test jobs:
 
-| Job | Purpose |
-|-----|---------|
-| `test-integration` | Runs `nac-test` to verify configurations match expected state |
-| `test-idempotency` | Runs `terraform plan` again to confirm no drift |
+- **`test-integration`** - Runs `nac-test` to verify configurations match expected state
+- **`test-idempotency`** - Runs `terraform plan` again to confirm no drift
 
 ## Step 1: Open the Pipeline Configuration File
 
@@ -162,11 +160,9 @@ You can also download the HTML test report from the job artifacts.
 
 Here's a complete summary of what you added to `.gitlab-ci.yml`:
 
-| Change | Location | Description |
-|--------|----------|-------------|
-| Add `test` stage | `stages:` section | New stage between deploy and notify |
-| Add `test-integration` job | After `deploy:` | Runs nac-test for configuration validation |
-| Add `test-idempotency` job | After `test-integration:` | Verifies no configuration drift |
+- **Add `test` stage** in the `stages:` section - New stage between deploy and notify
+- **Add `test-integration` job** after `deploy:` - Runs nac-test for configuration validation
+- **Add `test-idempotency` job** after `test-integration:` - Verifies no configuration drift
 
 ## What You've Accomplished
 
