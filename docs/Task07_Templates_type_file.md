@@ -51,21 +51,24 @@ mkdir -p ~/nac-iosxe/data/templates
 Create a new file `data/templates/bgp_config.yaml.tftpl` with the following content:
 
 ```text
-bgp:
-  asn: ${bgp_asn}
-  router_id_loopback: ${router_id_loopback}
-  neighbors:
+routing:
+  bgp:
+    as_number: ${bgp_as_number}
+    router_id_interface_type: Loopback
+    router_id_interface_id: ${router_id_loopback}
+    neighbors:
 %{ for neighbor in bgp_neighbors ~}
-    - ip: ${neighbor.ip}
-      remote_as: ${neighbor.remote_as}
-      description: "${neighbor.description}"
+      - ip: ${neighbor.ip}
+        remote_as: ${neighbor.remote_as}
+        description: "${neighbor.description}"
 %{ endfor ~}
 ```
 
 This template uses:
 
-- **`${bgp_asn}`**: Variable for the local AS number
-- **`${router_id_loopback}`**: Variable for router-ID loopback interface
+- **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOS XE schema
+- **`${bgp_as_number}`**: Variable for the local AS number
+- **`router_id_interface_type`** and **`${router_id_loopback}`**: Uses a Loopback interface for the BGP router-ID
 - **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
@@ -78,7 +81,7 @@ iosxe:
   templates:
     - name: BGP_ISP_PEERING
       type: file
-      file: templates/bgp_config.yaml.tftpl
+      file: data/templates/bgp_config.yaml.tftpl
 
   global:
     configuration:
@@ -93,7 +96,7 @@ iosxe:
       templates:
         - BGP_ISP_PEERING
       variables:
-        bgp_asn: 65000
+        bgp_as_number: 65000
         router_id_loopback: 0
         bgp_neighbors:
           - ip: 198.18.100.1
@@ -113,13 +116,13 @@ iosxe:
 - **`templates:`** (at the top) - Defines the BGP_ISP_PEERING template:
   - **`name`**: Unique identifier for the template
   - **`type: file`**: Specifies this is a file-based template
-  - **`file`**: Relative path to the `.tftpl` template file
+  - **`file`**: Path to the `.tftpl` template file (relative to project root where `main.tf` is located)
 - **`templates:`** (on BORDER device) - References the template by name
 - **`variables:`** - Defines the values that will be substituted in the template
 
 **Variable Breakdown:**
 
-- **`bgp_asn: 65000`**: BORDER switch AS number
+- **`bgp_as_number: 65000`**: BORDER switch AS number
 - **`router_id_loopback: 0`**: Uses Loopback0 IP as BGP router-ID
 - **`bgp_neighbors`**: List of ISP neighbors:
   - **ISP1** (65001): Active production peer
