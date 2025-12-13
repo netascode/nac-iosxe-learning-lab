@@ -54,8 +54,6 @@ Create a new file `templates/bgp_config.yaml.tftpl` with the following content:
 routing:
   bgp:
     as_number: ${bgp_as_number}
-    router_id_interface_type: Loopback
-    router_id_interface_id: ${router_id_loopback}
     neighbors:
 %{ for neighbor in bgp_neighbors ~}
       - ip: ${neighbor.ip}
@@ -68,7 +66,6 @@ This template uses:
 
 - **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOS XE schema
 - **`${bgp_as_number}`**: Variable for the local AS number
-- **`router_id_interface_type`** and **`${router_id_loopback}`**: Uses a Loopback interface for the BGP router-ID
 - **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
@@ -97,7 +94,6 @@ iosxe:
         - BGP_ISP_PEERING
       variables:
         bgp_as_number: 65000
-        router_id_loopback: 0
         bgp_neighbors:
           - ip: 198.18.100.1
             remote_as: 65001
@@ -123,7 +119,6 @@ iosxe:
 **Variable Breakdown:**
 
 - **`bgp_as_number: 65000`**: BORDER switch AS number
-- **`router_id_loopback: 0`**: Uses Loopback0 IP as BGP router-ID
 - **`bgp_neighbors`**: List of ISP neighbors:
   - **ISP1** (65001): Active production peer
   - **ISP2** (65002): Placeholder for future network migration

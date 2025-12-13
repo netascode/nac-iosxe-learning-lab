@@ -1,8 +1,6 @@
 routing:
   bgp:
     as_number: ${bgp_as_number}
-    router_id_interface_type: Loopback
-    router_id_interface_id: ${router_id_loopback}
     neighbors:
 %{ for neighbor in bgp_neighbors ~}
       - ip: ${neighbor.ip}
