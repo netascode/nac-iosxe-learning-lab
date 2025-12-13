@@ -1,4 +1,4 @@
-In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOS XE intent configuration YAML files.
+In this chapter, you will learn how to use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
 
 ## What is VS Code?
 
@@ -77,9 +77,6 @@ You should now see `/home/cisco/nac-iosxe` displayed.
   ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="100%" }
 </figure>
 
-!!! note
-    Your working directory is `/home/cisco/nac-iosxe` in WSL. From Windows Explorer, you can access this location at `\\wsl$\Ubuntu\home\cisco\nac-iosxe`.
-
 ## Create project structure
 
 Now you'll create a folder structure and placeholder files for your Network-as-Code project.
@@ -118,6 +115,8 @@ touch data/devices.nac.yaml
 
 This YAML file will contain your network device definitions and configurations in a human-readable format.
 
+You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
+
 <figure markdown>
   ![WSL Create Files](./assets/wsl-create-files.png){ width="100%" }
 </figure>
@@ -134,9 +133,6 @@ Verify your project structure by running `tree -a` in the terminal. The output s
 └── main.tf
 ```
 
-**From Windows Explorer, this is accessible at:** `\\wsl$\Ubuntu\home\cisco\nac-iosxe`
-
-
 You are now ready to start populating your configuration files. All subsequent steps in this guide will assume you are working within the `/home/cisco/nac-iosxe` directory.
 
 ## Open Visual Studio Code
@@ -145,7 +141,7 @@ To begin working with your project in a development-friendly environment, open y
 
 **To open the folder in VS Code:**
 
-1. Open the **VS Code** application from Windows Start Menu
+1. Double-click the **VS Code** icon on the Windows desktop
 2. Click **File** → **Open Folder**
 3. In the address bar, type or paste: `/home/cisco/nac-iosxe`
 4. Click **Select Folder**
@@ -165,7 +161,7 @@ VS Code will now open with your project folder, and you'll see the file explorer
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
 ```bash
-IOSXE_USERNAME=nac_cisco
+IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
 ```
 

@@ -41,9 +41,8 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 **To connect to a device:**
 
-1. In Solar-PuTTY, select the **CORE** switch from the device list
-2. Click **Connect**
-3. You'll be automatically logged in with the pre-configured credentials
+1. In Solar-PuTTY, **double-click** on the **CORE** switch in the device list
+2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
   ![Solar-PuTTY SSH to Core](./assets/solarputty-ssh-core.png){ width="100%" }
@@ -82,28 +81,30 @@ show run
 Look for these specific configuration lines in the `show run` output:
 
 ```
+username nac_admin privilege 15 secret cisco
+...
 ip http secure-server
+...
 restconf
-username nac_cisco privilege 15 secret cisco
 ```
 
 **What these commands do:**
 
 - **`ip http secure-server`** - Enables HTTPS server on the switch, required for RESTCONF API access
 - **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username nac_cisco privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
+- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
 
 ## Enabling RESTCONF Manually
 
-If you needed to manually enable RESTCONF on a new device (not required in this lab), you would use these commands:
+If you needed to manually enable RESTCONF on a new device, you would use these commands:
 
 ```
 config t
 ip http secure-server
 restconf
-username nac_cisco privilege 15 secret cisco
+username nac_admin privilege 15 secret cisco
 end
 write memory
 ```

@@ -1,5 +1,3 @@
-## Task08 (optional) - Templates Type 'cli'
-
 In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The `cli` template type is useful when you need to configure features that aren't yet supported by the YAML data model, or when you have legacy CLI configurations you want to integrate.
 
 ## Understanding 'cli' Templates
@@ -81,7 +79,7 @@ terraform apply
 SSH to one of the configured devices and verify the logging settings:
 
 ```bash
-ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_cisco@198.18.1.21
+ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_admin@198.18.1.21
 ```
 
 Check logging configuration:

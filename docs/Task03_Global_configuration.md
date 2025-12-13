@@ -92,7 +92,7 @@ You should see your configuration files: `.env`, `main.tf`, and the `data` direc
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs:
 
 ```bash
-IOSXE_USERNAME=nac_cisco
+IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
 ```
 
@@ -124,7 +124,7 @@ env | grep IOSXE
 
 You should see both variables displayed:
 ```
-IOSXE_USERNAME=nac_cisco
+IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
 ```
 

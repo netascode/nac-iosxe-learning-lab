@@ -83,7 +83,7 @@ terraform apply
 SSH to the CORE switch and verify the BGP session is established:
 
 ```bash
-ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_cisco@198.18.1.21
+ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_admin@198.18.1.21
 ```
 
 Check BGP neighbor status:
