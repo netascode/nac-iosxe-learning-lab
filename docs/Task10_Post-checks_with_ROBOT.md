@@ -1,14 +1,36 @@
-Earlier in this chapter, you deployed an access-list to the IOS-XE network device. Below is the intent configuration YAML file you used:
+!!! warning "Time Check"
+    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 11: Cleanup** followed by **Task 12: Run CI/CD Pipeline**.
 
-```text
+In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
+
+## Understanding Post-Change Validation
+
+After deploying configuration changes, you need to verify they were applied correctly. For simple configurations, you might run `show running-config` manually, but this approach doesn't scale when managing dozens or hundreds of devices.
+
+The Network-as-Code framework automates post-change validations using:
+
+- **Robot Framework** - An open-source automation framework for acceptance testing. It's keyword-driven, making test cases easy to write and understand.
+- **Pabot** - A parallel executor for Robot Framework that speeds up test execution by running tests simultaneously across multiple processes.
+
+The key insight is that **tests are rendered from your intent configuration YAML files**. This means you don't write tests manually - they're automatically generated based on what you intended to configure.
+
+## Use Case: Validating Access-List Configuration
+
+In Task04, you deployed an access-list to the ACCESS switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
+
+Here's the intent configuration you deployed (`data/acl.nac.yaml`):
+
+```yaml
 iosxe:
-  devices:
-    - name: devnet_sandbox_1
-      url: https://10.10.20.48
+  device_groups:
+    - name: ACCESS
+      devices:
+        - access01
+        - access02
       configuration:
         access_lists:
           standard:
-            - name: StandardAccessList-bcn
+            - name: AccessLayerACL
               entries:
                 - sequence: 10
                   action: permit
@@ -20,75 +42,64 @@ iosxe:
                   prefix_mask: 0.0.0.255
 ```
 
-You might have already asked yourself… how can I be confident that this configuration was deployed correctly?
+## Step 1: Prepare the File Structure
 
-For a basic configuration like the one above, you can verify it manually by running "show running-config" on the network device. However, this approach is not scalable — you will want to automate this task.
-
-In the Network-as-Code framework, post-change validations are automated using Robot Framework and Pabot:
-
-- **Robot Framework** is a generic open-source automation framework primarily used for acceptance testing. It is keyword-driven, making test cases easy to write and understand. 
-
-- **Pabot** is a parallel executor for Robot Framework test suites. It helps speed up test execution by running Robot tests in parallel using multiple processes.
-
-By combining Robot Framework for its simplicity and flexibility, and Pabot for speed through parallelism, the Network-as-Code framework can run large post-change tests quickly within CI/CD pipelines.
-
-You may ask yourself how to customize the test cases for the configuration deployed to the IOS-XE network device, and the answer is that the tests are rendered from the intent configuration YAML file you have defined.
-
-To understand how this works, let’s illustrate with an example focused solely on testing access-lists:
-
-#### Step1: Prepare file structure
-
-To run post-change Robot Framework tests for IOS-XE access-lists, you will need the following files:
+To run Robot Framework tests, you need the following file structure:
 
 ```text
-iosxe-as-code/
+nac-iosxe/
 │
 ├── data/
-│   │
-│   └── system.nac.yaml
+│   └── acl.nac.yaml
 │
 └── tests/
-    │
     └── templates/
-        │   
         ├── iosxe_common.resource
-        │
         └── config/
-            │    
             └── access_lists.robot
 ```
 
-In this file structure:
+Create the directory structure and files:
 
-- The file `data/system.nac.yaml` contains your intent configuration. This will be used to render Robot tests.
-- The file `tests/templates/iosxe_common.resource` is a Robot Framework resource file. It contains reusable settings, variables, and keywords for IOS-XE testing. This file is available at Cisco Internal GitHub. You can download this file from [NAC IOS-XE Terraform Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/).
-- The file `tests/templates/config/access_lists.robot` is a Jinja2 template that is used to generate Robot Framework test cases for validating IOS-XE access-list configurations. It uses intent-based YAML configuration files as input to dynamically render tests that verify attributes. This file is available at [IOS-XE Robot test templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/config).
+```bash
+mkdir -p ~/nac-iosxe/tests/templates/config
+touch ~/nac-iosxe/tests/templates/iosxe_common.resource
+touch ~/nac-iosxe/tests/templates/config/access_lists.robot
+```
 
-#### Step2: Run nac-test
+**File descriptions:**
 
-Once you have all the files, attach to the NAC container and run the following `nac-test` command:
+- **`data/acl.nac.yaml`** - Your intent configuration from Task04 (already exists)
+- **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing. Download from [NAC IOS XE Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/)
+- **`tests/templates/config/access_lists.robot`** - Jinja2 template for generating access-list tests. Download from [IOS XE Robot Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/config)
 
-```text
+## Step 2: Run nac-test
+
+Once you have all the files, run the `nac-test` command from your project directory:
+
+```bash
+cd ~/nac-iosxe
 nac-test \
   --data ./data \
   --templates ./tests/templates \
   --output ./tests/results/iosxe
 ```
 
-This command will:
+**What this command does:**
 
-- All data from the YAML files in the `./data` folder will first be combined into a single data structure. In your case, this does not apply because there is only a single file.
+1. **Combines data** - All YAML files in `./data` are merged into a single data structure
+2. **Renders templates** - Each template in `./tests/templates` is rendered with your configuration data
+3. **Executes tests** - Pabot runs all test suites in parallel and creates reports in `./tests/results/iosxe`
 
-- The resulting data structure is provided as input to the templating process. Each template in the `./tests/templates` folder will then be rendered and written to the `./tests` folder. In your case, you only have a single Robot test template, `access_lists.robot`, however in a production environment you will have a collection of tests, which are available at [NAC IOS-XE Terraform Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/).
+!!! note "Environment Variables"
+    Pabot uses the `IOSXE_USERNAME` and `IOSXE_PASSWORD` environment variables you defined earlier to connect to devices.
 
-- After all templates have been rendered, **Pabot** will execute all test suites in parallel and create a test report in the `./tests/results/iosxe` folder. Pabot will connect to the IOS-XE network device using the environment variables that you have defined earlier (i.e. `IOSXE_USERNAME` and `IOSXE_PASSWORD`).
+## Step 3: Review the Generated Robot Test
 
-#### Step3: Review Robot test file contet
-
-If you check the `~/netascode/iosxe-as-code/tests/results/iosxe` directory, you will find the following structure:
+After running `nac-test`, check the generated test file:
 
 ```text
-iosxe-as-code/
+nac-iosxe/
 └── tests/
     └── results/
         └── iosxe/
@@ -96,7 +107,7 @@ iosxe-as-code/
                 └── access_lists.robot
 ```
 
-The `access_lists.robot` file contains the Robot tests rendered by the `nac-test` script. Its content is as follows:
+The `access_lists.robot` file contains tests automatically generated from your intent configuration:
 
 ```text
 *** Settings ***
@@ -107,10 +118,10 @@ Default Tags    config   iosxe   access_lists
 
 *** Test Cases ***
 
-Verify Standard Access List StandardAccessList-bcn Device devnet_sandbox_1
-    ${r}=   GET On Session   IOSXE_devnet_sandbox_1   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=StandardAccessList-bcn
+Verify Standard Access List AccessLayerACL Device access01
+    ${r}=   GET On Session   IOSXE_access01   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL
     Log   Response Status Code: ${r.status_code}
-    Should Be Equal Value Json String   ${r.json()}   $..name   StandardAccessList-bcn
+    Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
     Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   10.0.0.0
@@ -127,14 +138,15 @@ Verify Standard Access List StandardAccessList-bcn Device devnet_sandbox_1
     Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log   
 ```
 
-**Note:** This chapter has walked you through generating a single Robot test file to help you learn the process step by step. In real-world deployments, you will typically work with 100+ Robot test files, but starting small makes the process easier to understand and manage.
+!!! info "Scaling Up"
+    This chapter walks you through a single Robot test file. In production environments, you'll typically work with 100+ Robot test files covering all configuration aspects.
 
-#### Step4: Review the results
+## Step 4: Review the Test Results
 
-The Terminal output of `nac-test` will be similar to:
+The terminal output from `nac-test` shows the test execution:
 
 ```text
-root@f1492caadb15:/nac/iosxe-as-code# nac-test \
+cisco@wkst1:~/nac-iosxe$ nac-test \
   --data ./data \
   --templates ./tests/templates \
   --output ./tests/results/iosxe
@@ -144,43 +156,53 @@ Storing .pabotsuitenames file
 2025-06-21 06:24:02.793314 [PID:517] [0] [ID:0] PASSED Iosxe.Config.Access Lists in 1.4 seconds
 1 tests, 1 passed, 0 failed, 0 skipped.
 ===================================================
-Output:  /nac/iosxe-as-code/tests/results/iosxe/output.xml
-XUnit:   /nac/iosxe-as-code/tests/results/iosxe/xunit.xml
-Log:     /nac/iosxe-as-code/tests/results/iosxe/log.html
-Report:  /nac/iosxe-as-code/tests/results/iosxe/report.html
+Output:  ~/nac-iosxe/tests/results/iosxe/output.xml
+XUnit:   ~/nac-iosxe/tests/results/iosxe/xunit.xml
+Log:     ~/nac-iosxe/tests/results/iosxe/log.html
+Report:  ~/nac-iosxe/tests/results/iosxe/report.html
 Stopping PabotLib process
 Robot Framework remote server at 127.0.0.1:50179 stopped.
 PabotLib process stopped
 Total testing: 1.40 seconds
 Elapsed time:  1.80 seconds
-root@f1492caadb15:/nac/iosxe-as-code#
 ```
-Below a brief description:
 
-- The Robot Framework remote server is started to execute the tests.
-- A test named **Iosxe.Config.Access Lists** Domain is executed and passed.
-- 1 test was run, and passed successfully.
-- Output artifacts are generated:
-   - output.xml: Test results in Robot Framework format.
-   - xunit.xml: Results in xUnit format for CI integration.
-   - log.html, report.html: Human-readable log and summary report.
+**Output artifacts:**
 
-The report `~/netascode/iosxe-as-code/tests/results/iosxe/report.html` should look similar to:
+- **output.xml** - Test results in Robot Framework format
+- **xunit.xml** - Results in xUnit format for CI/CD integration
+- **log.html** - Detailed execution log
+- **report.html** - Human-readable summary report
+
+Open the report in a browser to see the visual results:
 
 <figure markdown>
-  ![alt text](./assets/iosxe-manual-robot.png){ width="100%" }
+  ![Robot Framework Report](./assets/iosxe-manual-robot.png){ width="100%" }
 </figure>
 
-#### Step5: Add additional access-lists configuration
+## Step 5: Try Additional Tests (Optional)
 
-Next step, you can try the following:
+Now that you understand the process, try expanding your tests:
 
-- Update the intent configuration file `data/system.nac.yaml` to add more access-list entries. Then run `terraform apply` to deploy the updated configuration to the IOS-XE network device.
-- Check the result and compare it with the one from previous executions.
-- Check the `~/netascode/iosxe-as-code/tests/results/iosxe/config/access_lists.robot` file. You should see that it has been updated to include Robot tests for the new access-list entries you added.
+**Add more access-list entries:**
 
-#### Step6: Add additional Robot test templates
+1. Update `data/acl.nac.yaml` with additional entries
+2. Run `terraform apply` to deploy the changes
+3. Run `nac-test` again
+4. Check the updated `access_lists.robot` file - it will include tests for your new entries
 
-Download additional Robot test templates from [NAC IOS-XE Terraform Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/) and place them in the corresponding folders under `~/netascode/iosxe-as-code/tests/templates/`. You can start with Banner configuration.
+**Add more Robot test templates:**
 
-Run `nac-test` and check the results.
+Download additional templates from [NAC IOS XE Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/) and place them in `~/nac-iosxe/tests/templates/`. Start with the Banner configuration template.
+
+## What You've Accomplished
+
+In this task, you have:
+
+- ✅ Learned how Robot Framework automates post-change validation
+- ✅ Created the required file structure for testing
+- ✅ Ran `nac-test` to generate and execute tests from your intent configuration
+- ✅ Reviewed the auto-generated Robot test cases
+- ✅ Understood how to interpret test results and reports
+
+**Success!** You've automated configuration validation using intent-based testing!

@@ -1,5 +1,6 @@
 **Configuration in ISP router**
 
+```
 ISP#sh run | s bgp
 router bgp 65001
  bgp log-neighbor-changes
@@ -21,7 +22,22 @@ interface GigabitEthernet0/1
 end
 
 ISP#
+```
 
+**Configuration in BORDER router to ISP**
+
+
+BORDER#sh run int gig 1
+Building configuration...
+
+Current configuration : 93 bytes
+!
+interface GigabitEthernet1
+ ip address 198.18.100.2 255.255.255.252
+ negotiation auto
+end
+
+BORDER#
 
 
 

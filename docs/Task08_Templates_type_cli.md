@@ -14,13 +14,11 @@ The `cli` template type allows you to include raw IOS XE CLI commands that are p
 
 **When to use 'cli' templates:**
 
-- **Unsupported features**: Configuration not yet in the YAML data model
-- **Legacy configurations**: Migrating existing CLI scripts to Network-as-Code
-- **Complex configurations**: Multi-line configurations that are easier to express as CLI
+- **Unsupported features**: Configuration not yet in the [YAML data model](https://netascode.cisco.com/docs/data_models/)
 - **Temporary workarounds**: Quick fixes before proper YAML support is added
 
 !!! warning "Use with Caution"
-    While `cli` templates are powerful, prefer `model` templates when possible. YAML-based configurations provide better validation, consistency, and are easier to maintain.
+    While `cli` templates are powerful, prefer `model` and `file`  templates when possible. YAML-based configurations provide better validation, consistency, and are easier to maintain.
 
 ## Use Case: Custom Logging Configuration
 
@@ -67,20 +65,31 @@ devices:
 
 ## Step 3: Deploy the Configuration
 
-Run Terraform to apply the logging configuration:
+Open your WSL Ubuntu terminal and run the following steps:
+
+**Step 1:** Navigate to your project directory:
+
+```bash
+cd ~/nac-iosxe
+```
+
+**Step 2:** Preview the changes Terraform will make:
 
 ```bash
 terraform plan
+```
+
+**Step 3:** Apply the configuration:
+
+```bash
 terraform apply
 ```
 
+When prompted, type `yes` to confirm the deployment.
+
 ## Step 4: Verify the Configuration
 
-SSH to one of the configured devices and verify the logging settings:
-
-```bash
-ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_cisco@198.18.1.21
-```
+Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **CORE** or **ACCESS01** in the device list to connect.
 
 Check logging configuration:
 
@@ -101,15 +110,16 @@ logging host 198.18.133.1
 
 ## Combining Template Types
 
-You can combine different template types for the same device:
+You can combine different template types for the same device. For example, an access switch can use the VLAN template from Task06 along with the logging template from this task:
 
 ```yaml
-devices:
-  core:
-    templates:
-      - standard_vlans      # model template from Task06
-      - bgp_core_config     # file template from Task07
-      - enhanced_logging    # cli template from this task
+iosxe:
+  devices:
+    - name: access01
+      host: 198.18.130.11
+      templates:
+        - ACCESS_SWITCH_VLANS   # model template from Task06
+        - enhanced_logging      # cli template from this task
 ```
 
 ## What You've Accomplished

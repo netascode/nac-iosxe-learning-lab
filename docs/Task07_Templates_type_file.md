@@ -40,7 +40,7 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
 
 ## Step 1: Create the Templates Directory
 
-First, create a templates directory in your project:
+First, using WSL Ubuntu terminal, create a templates directory in your project:
 
 ```bash
 mkdir -p ~/nac-iosxe/templates

@@ -65,6 +65,7 @@ nac-validate -s ~/schema.yaml data/
 **NOTE: In the Cisco laptop, we need venv to install nac-validate, it says " If you wish to install a non-Debian-packaged Python package, create a virtual environment using python3 -m venv path/to/venv.    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make sure you have python3-full installed." We need to check this in dcloud!**
 
 **Command breakdown:**
+
 - **`nac-validate`** - The validation tool
 - **`-s ~/schema.yaml`** - Specifies the schema file to validate against
 - **`data/`** - The directory containing your YAML configuration files
