@@ -14,7 +14,7 @@ File templates reference external `.tftpl` files that use **Terraform templating
 
 | Syntax | Purpose | Example |
 |--------|---------|---------|
-| `${ }` | Variable interpolation | `${bgp_asn}` |
+| `${ }` | Variable interpolation | `${bgp_as_number}` |
 | `%{ }` | Control structures | `%{ for neighbor in bgp_neighbors }` |
 | `~` | Whitespace stripping | `%{~ endfor ~}` |
 
@@ -40,15 +40,15 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
 
 ## Step 1: Create the Templates Directory
 
-First, create a templates directory inside your data folder:
+First, create a templates directory in your project:
 
 ```bash
-mkdir -p ~/nac-iosxe/data/templates
+mkdir -p ~/nac-iosxe/templates
 ```
 
 ## Step 2: Create the Template File
 
-Create a new file `data/templates/bgp_config.yaml.tftpl` with the following content:
+Create a new file `templates/bgp_config.yaml.tftpl` with the following content:
 
 ```text
 routing:
@@ -81,7 +81,7 @@ iosxe:
   templates:
     - name: BGP_ISP_PEERING
       type: file
-      file: data/templates/bgp_config.yaml.tftpl
+      file: templates/bgp_config.yaml.tftpl
 
   global:
     configuration:
@@ -116,7 +116,7 @@ iosxe:
 - **`templates:`** (at the top) - Defines the BGP_ISP_PEERING template:
   - **`name`**: Unique identifier for the template
   - **`type: file`**: Specifies this is a file-based template
-  - **`file`**: Path to the `.tftpl` template file (relative to project root where `main.tf` is located)
+  - **`file`**: Path to the `.tftpl` template file (relative to where `main.tf` is located)
 - **`templates:`** (on BORDER device) - References the template by name
 - **`variables:`** - Defines the values that will be substituted in the template
 
