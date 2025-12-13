@@ -16,5 +16,4 @@ This lab consists of:
     - **Windows Subsystem for Linux (WSL)** to run Terraform
 
 !!! tip "Recommendation: Use the Lab Guide from Within the VM"
-    We recommend reading this lab guide directly from the **Windows 10 VM** rather than from your laptop. The lab guide is already bookmarked in **Chrome** on the VM.  
-    **Why?** Copy/paste between your laptop and the RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code, working entirely within the VM will be much more practical and save you time.
+    We recommend reading this lab guide directly from the **Windows 10 VM** rather than from your laptop. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between your laptop and the RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code, working entirely within the VM will be much more practical and save you time.

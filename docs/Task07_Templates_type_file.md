@@ -63,7 +63,7 @@ This template uses:
 
 ## Step 2: Create the Template Definition
 
-Create a new file `data/bgp_template.nac.yaml` with the following content:
+Create a new file `data/templates_definitions.nac.yaml` with the following content:
 
 ```yaml
 iosxe:
@@ -81,11 +81,18 @@ iosxe:
 
 ## Step 3: Define Variables and Apply Template
 
-Update your `data/devices.nac.yaml` to define variables and reference the template for the BORDER switch:
+Update your `data/devices.nac.yaml` to add the BGP template reference and variables to the BORDER switch. Here's the complete file including the global configuration and all devices from previous tasks:
 
 ```yaml
 iosxe:
+  global:
+    configuration:
+      banner:
+        login: "Welcome to Network-as-Code Lab"
+  
   devices:
+    - name: core
+      host: 198.18.130.10
     - name: border
       host: 198.18.130.20
       templates:
@@ -100,7 +107,16 @@ iosxe:
           - ip: 198.18.100.5
             remote_as: 65002
             description: eBGP to ISP2 - Future Migration
+    - name: access01
+      host: 198.18.130.11
+    - name: access02
+      host: 198.18.130.12
 ```
+
+**What's new in this configuration:**
+
+- **`templates:`** - References the BGP_ISP_PEERING template (only on BORDER)
+- **`variables:`** - Defines the values that will be substituted in the template
 
 **Variable Breakdown:**
 
@@ -109,6 +125,9 @@ iosxe:
 - **`bgp_neighbors`**: List of ISP neighbors:
   - **ISP1** (65001): Active production peer
   - **ISP2** (65002): Placeholder for future network migration
+
+!!! note "Template Scope"
+    The BGP template is only applied to the BORDER switch because only BORDER has the `templates:` and `variables:` attributes. The other devices (CORE, ACCESS01, ACCESS02) continue to receive only the global banner configuration.
 
 ## Step 4: Deploy the Configuration
 
