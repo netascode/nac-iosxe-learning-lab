@@ -1,26 +1,23 @@
 nav:
   - Home: index.md
   - Lab:
-      - Learning Objectives: Intro01_overview.md
-      - Accessible to All Learners: Intro02_all_learners.md
-      - Disclaimer: Intro03_disclaimer.md
-      - Getting Started: Intro04_getting_started.md
-      - "[01] SSH to devices": Task01 - SSH to network devices.md
-      - "[02] Editing YAML": Task02 - Editing YAML files.md
-      - "[03] Global configuration": Task03 - Global configuration.md
-      - "[04] Group of devices config": Task04 - Group of devices configuration.md
-      - "[05] Single device config": Task05 - Single device configuration.md
-      - "[06] Templates 'model' (optional)": Task06 (optional) - Templates type model.md
-      - "[07] Templates 'file' (optional)": Task07 (optional) - Templates type file.md
-      - "[08] Templates 'cli' (optional)": Task08 (optional) - Templates type cli.md
-      - "[09] Schema validation": Task09 - Schema validation.md
-      - "[10] (optional) Post-checks": Task10 (optional) - Post-checks with ROBOT.md
-      - "[11] Run CI-CD pipeline": Task11 - Run CI-CD pipeline.md
-      - "[12] Edit CI-CD (optional)": Task12 (optional) - Add Robot testing stage to CI-CD.md
-      - "[13] Branch and merge request (optional)": Task13 (optional) - Branch and merge request.md
-      - Conclusion: Intro06_conclusion.md
-      - APPENDIX I: Task14 - Appendix-I.md
-  - Topologies: Intro07_topologies.md
-
-
-
+      - "Learning Objectives": Intro01_overview.md
+      - "Accessible to All Learners": Intro02_all_learners.md
+      - "Disclaimer": Intro03_disclaimer.md
+      - "Getting Started": Intro04_getting_started.md
+      - "[01] SSH to devices": Task01_SSH_to_network_devices.md
+      - "[02] Editing YAML": Task02_Editing_YAML_files.md
+      - "[03] Global configuration": Task03_Global_configuration.md
+      - "[04] Group of devices config": Task04_Group_of_devices_configuration.md
+      - "[05] Single device config": Task05_Single_device_configuration.md
+      - "[06] Templates 'model' (optional)": Task06_Templates_type_model.md
+      - "[07] Templates 'file' (optional)": Task07_Templates_type_file.md
+      - "[08] Templates 'cli' (optional)": Task08_Templates_type_cli.md
+      - "[09] Schema validation": Task09_Schema_validation.md
+      - "[10] Post-checks with ROBOT (optional)": Task10_Post-checks_with_ROBOT.md
+      - "[11] Run CI-CD pipeline": Task11_Run_CI-CD_pipeline.md
+      - "[12] Edit CI-CD (optional)": Task12_Add_Robot_testing_stage_to_CI-CD.md
+      - "[13] Branch and merge request (optional)": Task13_Branch_and_merge_request.md
+      - "Conclusion": Workend01_conclusion.md
+      - "APPENDIX I": Task14_Appendix-I.md
+  - Topologies: Intro05_topologies.md
