@@ -224,18 +224,18 @@ Type `yes` and press Enter to proceed.
 
 ## Step 6: Verify the Global Configuration
 
-After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four routers automatically.
+After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four switches automatically.
 
-**Open Solar-PuTTY and connect to each router:**
+**Open Solar-PuTTY and connect to each switch:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **border** router first
+2. Connect to the **BORDER** switch first
 3. Run the verification command (shown below)
-4. Repeat for **core**, **access01**, and **access02** routers
+4. Repeat for **CORE**, **ACCESS01**, and **ACCESS02** switches
 
 **Check the banner configuration on each device:**
 
-Once connected to each router, run the following command:
+Once connected to each switch, run the following command:
 
 ```bash
 show run | include banner
@@ -252,10 +252,10 @@ banner login ^CWelcome to Network-as-Code Lab^C
 The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your banner text "Welcome to Network-as-Code Lab" in the output.
 
 **What you should observe:**
-- ✅ The banner appears on the **core** router (198.18.130.10)
-- ✅ The banner appears on the **border** router (198.18.130.20)
-- ✅ The banner appears on the **access01** router (198.18.130.11)
-- ✅ The banner appears on the **access02** router (198.18.130.12)
+- ✅ The banner appears on the **CORE** switch (198.18.130.10)
+- ✅ The banner appears on the **BORDER** switch (198.18.130.20)
+- ✅ The banner appears on the **ACCESS01** switch (198.18.130.11)
+- ✅ The banner appears on the **ACCESS02** switch (198.18.130.12)
 
 **Success!** You've just deployed your first Network-as-Code configuration using Terraform! Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
 
@@ -300,6 +300,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 ## What's Next?
 
 Congratulations! You've successfully:
+
 - ✅ Created YAML configuration files
 - ✅ Initialized Terraform with the Network-as-Code module
 - ✅ Previewed changes with `terraform plan`

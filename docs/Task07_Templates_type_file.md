@@ -24,7 +24,7 @@ Unlike `model` templates that contain YAML-based configuration directly, `file` 
 In this example, you'll configure BGP peering using a `file` template. The BGP configuration will be stored in a separate file and referenced from your device YAML.
 
 !!! info "Pre-configured Neighbor"
-    The BGP neighbor router is already configured with BGP in this lab. When you apply this configuration, the BGP session should establish automatically.
+    The BGP neighbor switch is already configured with BGP in this lab. When you apply this configuration, the BGP session should establish automatically.
 
 ## Step 1: Create the BGP Configuration File
 
@@ -60,9 +60,9 @@ This template definition:
 - **type: file**: Specifies this is a file-based template
 - **path**: Relative path to the configuration file
 
-## Step 3: Apply the Template to the Core Router
+## Step 3: Apply the Template to the CORE Switch
 
-Update your `data/devices.nac.yaml` to reference the template for the core router:
+Update your `data/devices.nac.yaml` to reference the template for the CORE switch:
 
 ```yaml
 devices:
@@ -82,7 +82,7 @@ terraform apply
 
 ## Step 5: Verify the BGP Session
 
-SSH to the core router and verify the BGP session is established:
+SSH to the CORE switch and verify the BGP session is established:
 
 ```bash
 ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_cisco@198.18.1.21

@@ -7,6 +7,7 @@ Pre-change validation is a critical step in the Network-as-Code workflow. It cat
 ## What is Schema Validation?
 
 Schema validation verifies that your YAML configuration files:
+
 - Follow the correct structure (proper indentation, key names, nesting)
 - Contain valid data types (strings, integers, booleans)
 - Use valid values (IP addresses in correct format, enums like 'permit'/'deny')
@@ -18,6 +19,7 @@ This is similar to how a compiler checks code before running it - catching error
 ## The nac-validate Tool
 
 The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines:
+
 - What attributes are allowed
 - What data types are expected
 - What values are valid
@@ -26,6 +28,7 @@ The **nac-validate** tool checks your YAML files against a schema definition. Th
 ## The Schema File
 
 The complete schema for IOS XE Network-as-Code is provided in **Appendix II**. This comprehensive schema includes validation rules for:
+
 - Global configurations
 - Device groups
 - Device-specific configurations
@@ -78,6 +81,7 @@ aarlegui@CSCO-W-PF4BBNDD:~/nac-iosxe$
 ```
 
 **No output means success!** This confirms that:
+
 - ✅ Your YAML syntax is correct
 - ✅ All attributes match the schema
 - ✅ Data types are correct
@@ -186,6 +190,7 @@ By validating before running Terraform, you catch configuration errors immediate
 ## What You've Accomplished
 
 In this task, you have:
+
 - ✅ Understood the importance of pre-change validation
 - ✅ Learned about schema-based validation
 - ✅ Installed and used the nac-validate tool
@@ -197,4 +202,4 @@ In this task, you have:
 
 ---
 
-**Next:** [Task10 - Post-checks with ROBOT](Task10%20-%20Post-checks%20with%20ROBOT.md)
+**Next:** [Task10 - Post-checks with ROBOT](Task10_Post-checks_with_ROBOT.md)

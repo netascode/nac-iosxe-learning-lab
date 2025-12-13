@@ -7,18 +7,19 @@ In this task, you'll learn how to apply configuration to a **group of devices** 
 Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device. As described in [IOS-XE Device Group documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/device_group/), device groups sit in the middle of the configuration hierarchy:
 
 **Configuration Precedence Hierarchy:**
+
 1. **Device** (highest precedence) - device-specific overrides
 2. **Device Group** (medium precedence) - role or location-specific settings  
 3. **Global** (lowest precedence) - organization-wide defaults
 
 Device groups are particularly effective for:
-- **Role-based configuration**: Grouping devices by function (access switches, core routers, edge routers)
+- **Role-based configuration**: Grouping devices by function (access switches, core switches, border switches)
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
 - **Security policies**: Applying common ACLs or security settings to device subsets
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called "ACCESS" that includes the access01 and access02 switches. These routers need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called "ACCESS" that includes the access01 and access02 switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
 
 ## Create the YAML Configuration with Device Groups
 
@@ -59,12 +60,14 @@ The image below illustrates the ACL configuration in VS Code:
 Let's break down the key elements:
 
 **Device Group Section:**
+
 - **`device_groups:`** - Defines one or more device groups
 - **`name: ACCESS`** - The group name identifier
 - **`devices:`** - Lists member devices (access01, access02)
 - **`configuration:`** - Contains settings applied to all group members
 
 **Access List Configuration:**
+
 - **`access_lists:`** - Top-level ACL configuration
 - **`standard:`** - Specifies standard ACL type (filters based on source address only)
 - **`name: StandardAccessList-Amsterdam`** - The ACL name
@@ -97,9 +100,10 @@ When Terraform processes this configuration:
 3. If you later add device-specific configuration to the "access01" device, it would override group settings
 
 This hierarchical approach ensures:
+
 - ✅ No configuration duplication (ACL defined once, applied to multiple devices)
 - ✅ Easy maintenance (update ACL in one place, changes apply to all group members)
-- ✅ Scalability (add more border routers by just adding them to the group's device list)
+- ✅ Scalability (add more switches by just adding them to the group's device list)
 - ✅ Flexibility (individual devices can still override group settings if needed)
 
 
@@ -121,14 +125,14 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
 
 ## Verify Device Group Configuration
 
-After successfully running `terraform apply`, verify that the ACL was deployed only to the routers in the ACCESS group.
+After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the ACCESS group.
 
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **access01** switch
+2. Connect to the **ACCESS01** switch
 3. Check if the ACL is present using the command below
-4. Disconnect and repeat for the **access02** switch
+4. Disconnect and repeat for the **ACCESS02** switch
 
 ```bash
 show access-lists
@@ -142,11 +146,12 @@ show access-lists
 
 This confirms the standard ACL was successfully deployed to both access01 and access02 switches with both network permit entries.
 
-**Key observation:** The ACL only appears on devices that are members of the ACCESS group. If you check border or core routers (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+**Key observation:** The ACL only appears on devices that are members of the ACCESS group. If you check BORDER or CORE switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 ## What You've Accomplished
 
 In this task, you have:
+
 - ✅ Learned about device groups and configuration hierarchy
 - ✅ Created an ACCESS device group with access01 and access02 switches
 - ✅ Applied a standard ACL to multiple devices using a single definition

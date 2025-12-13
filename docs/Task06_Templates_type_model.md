@@ -196,9 +196,9 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **access01** switch (198.18.130.11)
+2. Connect to the **ACCESS01** switch (198.18.130.11)
 3. Run the verification command below
-4. Disconnect and repeat for **access02** switch (198.18.130.12)
+4. Disconnect and repeat for **ACCESS02** switch (198.18.130.12)
 
 ```bash
 show vlan brief
@@ -251,6 +251,7 @@ Templates give you fine-grained control - you choose exactly which devices get t
 One of the most powerful features of templates is the ability to apply **multiple templates** to a single device. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
 
 For example, an access switch might need:
+
 - **VLAN configuration** (from `ACCESS_SWITCH_VLANS`)
 - **QoS policies** (from `ACCESS_SWITCH_QOS`)
 - **Security settings** (from `ACCESS_SWITCH_SECURITY`)
@@ -273,6 +274,7 @@ iosxe:
 ```
 
 **Benefits of multiple templates:**
+
 - **Separation of concerns**: Each template handles one configuration domain
 - **Mix and match**: Different devices can use different template combinations
 - **Easier testing**: Test each template independently before combining
@@ -281,6 +283,7 @@ iosxe:
 ## What You've Accomplished
 
 In this task, you have:
+
 - ✅ Learned about templates and their benefits for Network-as-Code
 - ✅ Created a reusable VLAN template (`ACCESS_SWITCH_VLANS`)
 - ✅ Applied the template to multiple access switches

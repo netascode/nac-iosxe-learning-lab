@@ -246,5 +246,5 @@ In the next task, you'll deploy your first configuration using Terraform to appl
 
 ---
 
-**Next:** [Task03 - Banner Global Configuration](Task03%20-%20Banner%20global%20configuration.md)
+**Next:** [Task03 - Global Configuration](Task03_Global_configuration.md)
 

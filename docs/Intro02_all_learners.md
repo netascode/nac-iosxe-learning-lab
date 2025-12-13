@@ -2,7 +2,7 @@ We are mindful that this lab will be consumed by people with different levels of
 
 The guide is segmented into **recommended tasks**, suitable for all users, and **optional tasks** intended for advanced users.
 
-The recommended tasks include detailed step-by-step guidance while the optional ones aren't prescriptive. Solutions to the optional tasks are in Appendix I. You will find the following tasks:
+The recommended tasks include detailed step-by-step guidance, while the optional ones aren't that prescriptive.This lab includes the following tasks:
 
 **Fundamentals:**
 
