@@ -173,7 +173,6 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
   ![alt text](./assets/vscode-env-file.png){ width="100%" }
 </figure>
 
-**Save the file** by pressing `Ctrl+S`.
 
 ## Edit Terraform main.tf file
 
@@ -190,7 +189,7 @@ module "iosxe" {
 
 - **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
 
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML to IOS XE configurations via RESTCONF API.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML into Terraform provider.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
@@ -200,15 +199,10 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
   ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
-## Save Your Files
+## Auto Save is Enabled
 
-Before moving to the next task, make sure all your files are saved in VS Code.
+VS Code has **auto-save** enabled, so your files are automatically saved after a few seconds of inactivity. At this point, you should have the following files in your project:
 
-**To save all open files at once:**
-
-Press `Ctrl + K` followed by `S` (or click **File** → **Save All**)
-
-You should see that all three files have been saved:
 - `.env` - Contains your device credentials
 - `main.tf` - Contains your Terraform module configuration
 - `data/devices.nac.yaml` - Will contain your network device configurations (to be completed in next task)
