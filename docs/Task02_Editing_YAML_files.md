@@ -1,4 +1,3 @@
-
 In this chapter, you will learn how to use VSCode to edit Network as Code (NAC) IOSXE intent configuration YAML files.
 
 ## What is VS Code?
@@ -233,11 +232,13 @@ Congratulations! In this chapter, you have:
 ## Key Concepts Learned
 
 **File Organization:**
+
 - Configuration files (YAML) in `data/` folder
 - Terraform files (`main.tf`) in project root
 - Credentials (`.env`) in project root
 
 **Tools Introduced:**
+
 - **VS Code** - For editing configuration files
 - **WSL** - For running Linux/Terraform commands
 - **Terraform** - For deploying configurations to devices
