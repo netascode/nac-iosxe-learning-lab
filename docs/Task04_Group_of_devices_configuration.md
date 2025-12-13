@@ -11,17 +11,28 @@ Device groups provide a mechanism for applying configurations to multiple device
 3. **Global** (lowest precedence) - organization-wide defaults
 
 Device groups are particularly effective for:
+
 - **Role-based configuration**: Grouping devices by function (access switches, core switches, border switches)
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
 - **Security policies**: Applying common ACLs or security settings to device subsets
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called "ACCESS" that includes the access01 and access02 switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called "ACCESS" that includes the **ACCESS01** and **ACCESS02** switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
 
 ## Create the YAML Configuration with Device Groups
 
-Use VS Code to create a new file `data/acl.nac.yaml` with the following content. Notice how the ACL is defined once in the device group and automatically applies to both access01 and access02 switches:
+Use VS Code to create a new file `data/acl.nac.yaml`. To create a new file:
+
+1. In VS Code, right-click on the **data** folder in the Explorer panel
+2. Select **New File...**
+3. Type `acl.nac.yaml` as the filename and press Enter
+
+<figure markdown>
+  ![VS Code Create File](./assets/vscode-create-file.png){ width="70%" }
+</figure>
+
+Add the following content to the file. Notice how the ACL is defined once in the device group and automatically applies to both **ACCESS01** and **ACCESS02** switches:
 
 ```text
 iosxe:
@@ -33,7 +44,7 @@ iosxe:
       configuration:
         access_lists:
           standard:
-            - name: StandardAccessList-Amsterdam
+            - name: AccessLayerACL
               entries:
                 - sequence: 10
                   action: permit
@@ -45,7 +56,7 @@ iosxe:
                   prefix_mask: 0.0.0.255
 ```
 
-**Save the file** by pressing `Ctrl+S` in VS Code. You should see the white dot disappear from the file tab, indicating the file has been saved successfully.
+
 
 The image below illustrates the ACL configuration in VS Code:
 

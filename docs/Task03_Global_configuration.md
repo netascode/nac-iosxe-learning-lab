@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **global configuration** to apply settings across all network devices. You'll configure a login banner as an example - a Network-as-Code best practice that ensures consistent settings across your entire infrastructure without repeating the same configuration for each device.
+In this task, you'll learn how to use **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
 
 ## Understanding Global Configuration
 
@@ -14,7 +14,7 @@ By placing the banner in the `global` section, it will automatically apply to al
 
 ## Create the YAML Configuration
 
-Edit your `data/devices.nac.yaml` file with the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices:
+Using VS Code, edit your `data/devices.nac.yaml` file with the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices:
 
 ```text
 iosxe:
@@ -85,6 +85,7 @@ ls -la
 ```
 
 You should see your configuration files: `.env`, `main.tf`, and the `data` directory (which contains `devices.nac.yaml`).
+
 
 
 ## Step 2: Load Environment Variables from .env File

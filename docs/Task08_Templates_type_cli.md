@@ -79,7 +79,7 @@ terraform apply
 SSH to one of the configured devices and verify the logging settings:
 
 ```bash
-ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_admin@198.18.1.21
+ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostkeyAlgorithms=+ssh-rsa nac_cisco@198.18.1.21
 ```
 
 Check logging configuration:

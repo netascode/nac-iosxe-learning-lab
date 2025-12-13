@@ -81,7 +81,7 @@ show run
 Look for these specific configuration lines in the `show run` output:
 
 ```
-username nac_admin privilege 15 secret cisco
+username nac_cisco privilege 15 secret cisco
 ...
 ip http secure-server
 ...
@@ -92,7 +92,7 @@ restconf
 
 - **`ip http secure-server`** - Enables HTTPS server on the switch, required for RESTCONF API access
 - **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
+- **`username nac_cisco privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
 
@@ -104,7 +104,7 @@ If you needed to manually enable RESTCONF on a new device, you would use these c
 config t
 ip http secure-server
 restconf
-username nac_admin privilege 15 secret cisco
+username nac_cisco privilege 15 secret cisco
 end
 write memory
 ```

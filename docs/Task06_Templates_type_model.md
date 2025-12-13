@@ -4,7 +4,7 @@ In this task, you'll learn how to use **templates of type 'model'** to define re
 
 Templates in Network-as-Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
 
-As described in the [IOS XE Template documentation](https://netascode.cisco.com/docs/data_models/iosxe/device/template/), templates provide:
+As described in the [IOS-XE Template documentation](https://netascode.cisco.com/docs/data_models/iosxe/device/template/), templates provide:
 
 - **Reusability**: Define configuration once, use it many times
 - **Consistency**: Ensure identical configuration across devices
