@@ -1,5 +1,3 @@
-## Task11 - Run CI/CD Pipeline in GitLab
-
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line. While this works for learning and testing, production environments require automation. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
 ## Understanding CI/CD for Network-as-Code
@@ -23,12 +21,7 @@ https://198.18.133.101
 !!! note "Certificate Warning"
     You may see a security warning because the lab uses a self-signed certificate. Click **Advanced** and then **Proceed to 198.18.133.101** to continue.
 
-Log in with the following credentials:
-
-| <!-- -->     | <!-- -->       |
-|--------------|----------------|
-| **Username** | `root`         |
-| **Password** | `C1sco12345`   |
+Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 
 <!-- SCREENSHOT: GitLab login page with username/password fields -->
 <figure markdown>
@@ -67,38 +60,47 @@ Before running the pipeline, let's understand how it's configured. Click on `.gi
   ![Pipeline YAML](./assets/gitlab-ci-yml.png){ width="100%" }
 </figure>
 
-The pipeline typically includes these stages:
+The pipeline includes these stages:
 
 ```yaml
 stages:
   - validate
   - plan
-  - apply
+  - deploy
+  - notify
 
 validate:
   stage: validate
   script:
-    - nac-validate
+    - set -o pipefail && terraform fmt -check |& tee fmt_output.txt
+    - set -o pipefail && nac-validate ./data/ |& tee validate_output.txt
 
 plan:
   stage: plan
   script:
-    - terraform init
-    - terraform plan
+    - terraform init -input=false
+    - terraform plan -out=plan.tfplan -input=false
 
-apply:
-  stage: apply
+deploy:
+  stage: deploy
   script:
-    - terraform apply -auto-approve
-  when: manual  # Requires manual approval
+    - terraform init -input=false
+    - terraform apply -input=false -auto-approve plan.tfplan
+
+success:
+  stage: notify
+  script:
+    - python3 .ci/webex-notification-gitlab.py -s
+  when: on_success
 ```
 
 **Key concepts:**
 
-- **stages** - Define the order of execution (validate → plan → apply)
-- **validate** - Runs schema validation on your YAML files
-- **plan** - Shows what changes will be made
-- **apply** - Deploys the configuration (often requires manual approval)
+- **stages** - Define the order of execution (validate → plan → deploy → notify)
+- **validate** - Runs `terraform fmt` check and `nac-validate` schema validation
+- **plan** - Creates the Terraform execution plan
+- **deploy** - Applies the configuration automatically (runs on main branch only)
+- **notify** - Sends Webex notification on success or failure
 
 ## Step 4: View Existing Pipelines
 
@@ -146,7 +148,7 @@ The Web IDE opens with a familiar VS Code-like interface:
 
 ```yaml
 banner:
-  login: "Welcome to Network-as-Code Lab - Updated via CI/CD Pipeline"
+  login: "Welcome to Network-as-Code Lab in CL Amsterdam 2026"
 ```
 
 <!-- SCREENSHOT: Editing devices.nac.yaml in Web IDE -->
@@ -157,14 +159,23 @@ banner:
 ### Commit the Change
 
 1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
+
+<figure markdown>
+  ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
+</figure>
+
 2. You'll see your modified file listed
 3. Enter a commit message: `Update banner via CI/CD`
 4. Click **Commit to 'main'**
 
 <!-- SCREENSHOT: Commit dialog in Web IDE -->
+
 <figure markdown>
-  ![Commit in Web IDE](./assets/gitlab-webide-commit.png){ width="100%" }
+  ![Commit Message](./assets/gitlab-webide-commit-message.png){ width="100%" }
 </figure>
+
+
+
 
 !!! info "Pipeline Auto-Trigger"
     When you commit to the `main` branch, GitLab automatically triggers the CI/CD pipeline. No manual action required!
@@ -191,22 +202,7 @@ Click on any stage to view its detailed logs.
   ![Job Logs](./assets/gitlab-job-logs.png){ width="100%" }
 </figure>
 
-## Step 7: Approve the Apply Stage (if Manual)
-
-If the `apply` stage is configured with `when: manual`, you'll need to approve it:
-
-1. Click on the **apply** stage
-2. Click the **Play** button (▶) to start the job
-
-<!-- SCREENSHOT: Manual job with play button -->
-<figure markdown>
-  ![Manual Apply](./assets/gitlab-manual-apply.png){ width="100%" }
-</figure>
-
-!!! warning "Review Before Applying"
-    Always review the `plan` stage output before approving `apply`. This shows exactly what changes will be made to your network devices.
-
-## Step 8: Verify Pipeline Success
+## Step 7: Verify Pipeline Success
 
 When all stages complete successfully, the pipeline shows a green **passed** status.
 
@@ -217,31 +213,12 @@ When all stages complete successfully, the pipeline shows a green **passed** sta
 
 You can verify the configuration was applied by SSH-ing to a device and checking the running configuration.
 
-## Troubleshooting Failed Pipelines
-
-If a pipeline fails, click on the failed stage to view the error logs:
-
-<!-- SCREENSHOT: Failed pipeline with red stage -->
-<figure markdown>
-  ![Pipeline Failed](./assets/gitlab-pipeline-failed.png){ width="100%" }
-</figure>
-
-Common issues include:
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Schema validation failed | Invalid YAML structure | Check YAML syntax and required fields |
-| Terraform init failed | Provider issues | Verify network connectivity to devices |
-| Terraform apply failed | Device unreachable | Check device IP and credentials |
-| Authentication error | Wrong credentials | Verify IOSXE_USERNAME/PASSWORD in GitLab variables |
-
 ## What You've Accomplished
 
 - ✅ Accessed GitLab and navigated to the NAC-IOSXE project
 - ✅ Understood the CI/CD pipeline configuration
-- ✅ Triggered a pipeline manually
+- ✅ Triggered a pipeline by committing a change
 - ✅ Monitored pipeline execution through all stages
-- ✅ Learned to troubleshoot failed pipelines
 
 ## Next Steps
 

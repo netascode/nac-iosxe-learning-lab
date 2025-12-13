@@ -1,5 +1,3 @@
-## Task07 (optional) - Templates Type 'file'
-
 In this task, you'll learn how to use **templates of type 'file'** to reference external configuration files. The `file` template type allows you to store large or complex configurations in separate files and reference them from your device YAML, keeping your main configuration organized and manageable.
 
 ## Understanding 'file' Templates
