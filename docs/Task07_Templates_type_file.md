@@ -38,9 +38,17 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
     
     When you verify the BGP configuration, the **ISP1 neighbor will show as Established**, while **ISP2 will show as Idle** (since the remote end is not yet configured).
 
-## Step 1: Create the Template File
+## Step 1: Create the Templates Directory
 
-Create a new file `data/templates_bgp_config.tftpl` with the following content:
+First, create a templates directory inside your data folder:
+
+```bash
+mkdir -p ~/nac-iosxe/data/templates
+```
+
+## Step 2: Create the Template File
+
+Create a new file `data/templates/bgp_config.yaml.tftpl` with the following content:
 
 ```text
 bgp:
@@ -61,30 +69,17 @@ This template uses:
 - **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
-## Step 2: Create the Template Definition
+## Step 3: Update devices.nac.yaml with Template and Variables
 
-Create a new file `data/templates_definitions.nac.yaml` with the following content:
+Update your `data/devices.nac.yaml` to include the template definition and apply it to the BORDER switch. Here's the complete file:
 
 ```yaml
 iosxe:
   templates:
     - name: BGP_ISP_PEERING
       type: file
-      file: templates_bgp_config.tftpl
-```
+      file: templates/bgp_config.yaml.tftpl
 
-**Configuration Breakdown:**
-
-- **`name: BGP_ISP_PEERING`**: Unique identifier for the template
-- **`type: file`**: Specifies this is a file-based template
-- **`file`**: Relative path to the `.tftpl` template file
-
-## Step 3: Define Variables and Apply Template
-
-Update your `data/devices.nac.yaml` to add the BGP template reference and variables to the BORDER switch. Here's the complete file including the global configuration and all devices from previous tasks:
-
-```yaml
-iosxe:
   global:
     configuration:
       banner:
@@ -115,7 +110,11 @@ iosxe:
 
 **What's new in this configuration:**
 
-- **`templates:`** - References the BGP_ISP_PEERING template (only on BORDER)
+- **`templates:`** (at the top) - Defines the BGP_ISP_PEERING template:
+  - **`name`**: Unique identifier for the template
+  - **`type: file`**: Specifies this is a file-based template
+  - **`file`**: Relative path to the `.tftpl` template file
+- **`templates:`** (on BORDER device) - References the template by name
 - **`variables:`** - Defines the values that will be substituted in the template
 
 **Variable Breakdown:**
