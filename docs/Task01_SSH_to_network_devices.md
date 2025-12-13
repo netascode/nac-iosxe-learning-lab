@@ -31,6 +31,14 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 - **ACCESS01** - Access switch (198.18.130.11)
 - **ACCESS02** - Access switch (198.18.130.12)
 
+<figure markdown>
+  ![CML Topology](./assets/cml-topology.png){ width="100%" }
+</figure>
+
+
+!!! note "Additional Devices"
+    The lab topology also includes **Host01**, **Host02**, and **ISP** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
+
 **To connect to a device:**
 
 1. In Solar-PuTTY, select the **CORE** switch from the device list
