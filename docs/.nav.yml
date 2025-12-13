@@ -14,11 +14,11 @@ nav:
       - "[07] Templates 'file' (optional)": Task07_Templates_type_file.md
       - "[08] Templates 'cli' (optional)": Task08_Templates_type_cli.md
       - "[09] Schema validation": Task09_Schema_validation.md
-      - "[10] Post-checks with ROBOT (optional)": Task10_Post-checks_with_ROBOT.md
+      - "[10] Post-checks (optional)": Task10_Post-checks_with_ROBOT.md
       - "[11] Cleanup": Task11_Cleanup.md
       - "[12] Run CI-CD pipeline": Task12_Run_CI-CD_pipeline.md
       - "[13] Edit CI-CD (optional)": Task13_Add_Robot_testing_stage_to_CI-CD.md
-      - "[14] Branch and merge request (optional)": Task14_Branch_and_merge_request.md
+      - "[14] Merge request (optional)": Task14_Branch_and_merge_request.md
       - "Conclusion": Workend01_conclusion.md
       - "APPENDIX I": Task15_Appendix-I.md
       - "APPENDIX II": Task16_Appendix-II.md
