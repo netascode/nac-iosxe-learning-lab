@@ -124,19 +124,19 @@ When Terraform processes your configuration:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    TEMPLATE: ACCESS_SWITCH_VLANS            │
-│                                                             │
-│  vlan:                                                      │
-│    vlans:                                                   │
-│      - id: 10, name: DATA                                   │
-│      - id: 20, name: VOICE                                  │
-│      - id: 99, name: MGMT                                   │
+│                    TEMPLATE: ACCESS_SWITCH_VLANS          │
+│                                                           │
+│  vlan:                                                    │
+│    vlans:                                                 │
+│      - id: 10, name: DATA                                 │
+│      - id: 20, name: VOICE                                │
+│      - id: 99, name: MGMT                                 │
 └──────────────────────┬──────────────────────────────────────┘
                        │
          ┌─────────────┴─────────────┐
          │                           │
          ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐
+┌──────────────────┐         ┌──────────────────┐
 │    ACCESS01     │         │    ACCESS02     │
 │                 │         │                 │
 │ templates:      │         │ templates:      │
@@ -146,7 +146,7 @@ When Terraform processes your configuration:
 │ - VLAN 10 DATA  │         │ - VLAN 10 DATA  │
 │ - VLAN 20 VOICE │         │ - VLAN 20 VOICE │
 │ - VLAN 99 MGMT  │         │ - VLAN 99 MGMT  │
-└─────────────────┘         └─────────────────┘
+└──────────────────┘         └──────────────────┘
 ```
 
 ## Verify Project Structure
@@ -168,17 +168,30 @@ At this point, your `data/` folder should contain these files:
 
 ## Apply Template Configuration
 
-Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the VLAN configuration via template:
+Open your WSL Ubuntu terminal and run the following steps:
+
+**Step 1:** Navigate to your project directory:
 
 ```bash
 cd ~/nac-iosxe
+```
+
+**Step 2:** Preview the changes Terraform will make:
+
+```bash
 terraform plan
+```
+
+**Step 3:** Apply the configuration:
+
+```bash
 terraform apply
 ```
 
 When prompted, type `yes` to confirm the deployment. Terraform will create the three VLANs on both ACCESS01 and ACCESS02 switches.
 
 **What to observe in the plan output:**
+
 - Terraform shows VLAN creation for ACCESS01
 - Terraform shows VLAN creation for ACCESS02
 - Both devices receive identical VLAN configuration
