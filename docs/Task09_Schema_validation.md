@@ -16,37 +16,40 @@ This is similar to how a compiler checks code before running it - catching error
 
 ## The nac-validate Tool
 
-The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines:
-
-- What attributes are allowed
-- What data types are expected
-- What values are valid
-- What fields are mandatory vs. optional
+The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. For the complete schema documentation, see the [NAC IOS XE Data Models](https://netascode.cisco.com/docs/data_models/iosxe/) on the Cisco NetAsCode website.
 
 ## The Schema File
 
-The complete schema for IOS XE Network-as-Code is provided in **Appendix II**. This comprehensive schema includes validation rules for:
-
-- Global configurations
-- Device groups
-- Device-specific configurations
-- All IOS XE features (banners, ACLs, BGP, OSPF, VLANs, etc.)
+The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/). For this lab, **Appendix II** contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, and BGP.
 
 **Create the schema file in your project:**
 
-1. Use VS Code to create a new file named `.schema.yaml` (starting with a dot) in your project root folder (`\\wsl$\Ubuntu\home\aarlegui\nac-iosxe`)
-2. Copy the complete schema content from **Appendix II**
-3. Paste it into the `.schema.yaml` file
-4. Save the file
+First, create the file using the `touch` command in your WSL Ubuntu terminal:
+
+```bash
+cd ~/nac-iosxe
+touch .schema.yaml
+```
+
+Then use **VS Code** to copy-paste the schema content from **Appendix II** into the file. This approach is cleaner and avoids typos:
+
+1. Open VS Code and navigate to your `nac-iosxe` folder
+2. Open the `.schema.yaml` file you just created
+3. Copy the complete schema content from **Appendix II**
+4. Paste it into the file and save
 
 Your project structure should now include:
+
 ```
-/home/aarlegui/nac-iosxe/
+/home/cisco/nac-iosxe/
 ├── .env
 ├── .schema.yaml         # ← New schema file
 ├── main.tf
 └── data/
-    └── devices.nac.yaml
+    ├── devices.nac.yaml       # Task03: Global banner + devices
+    ├── acl.nac.yaml           # Task04: Device group ACL
+    ├── core.nac.yaml          # Task05: IP hosts for CORE
+    └── templates-vlan.nac.yaml # Task06: VLAN template
 ```
 
 ## The nac-validate Tool in This Lab
@@ -59,15 +62,13 @@ Navigate to your project directory and run validation:
 
 ```bash
 cd ~/nac-iosxe
-nac-validate -s ~/schema.yaml data/
+nac-validate -s .schema.yaml data/
 ```
-
-**NOTE: In the Cisco laptop, we need venv to install nac-validate, it says " If you wish to install a non-Debian-packaged Python package, create a virtual environment using python3 -m venv path/to/venv.    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make sure you have python3-full installed." We need to check this in dcloud!**
 
 **Command breakdown:**
 
 - **`nac-validate`** - The validation tool
-- **`-s ~/schema.yaml`** - Specifies the schema file to validate against
+- **`-s .schema.yaml`** - Specifies the schema file to validate against
 - **`data/`** - The directory containing your YAML configuration files
 
 ## Successful Validation
@@ -75,8 +76,8 @@ nac-validate -s ~/schema.yaml data/
 If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
 ```
-aarlegui@CSCO-W-PF4BBNDD:~/nac-iosxe$ nac-validate -s ~/schema.yaml data/
-aarlegui@CSCO-W-PF4BBNDD:~/nac-iosxe$
+cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
+cisco@wkst1:~/nac-iosxe$
 ```
 
 **No output means success!** This confirms that:
@@ -92,18 +93,18 @@ Let's intentionally introduce an error to see how validation catches it.
 
 **Example 1: Invalid IP address**
 
-If you accidentally typed an invalid IP like `10.10.20.999` in your devices.nac.yaml:
+If you accidentally typed an invalid IP like `198.18.130.999` in your devices.nac.yaml:
 
 ```yaml
 devices:
-  - name: internet
-    host: 10.10.20.999  # Invalid - octet > 255
+  - name: core
+    host: 198.18.130.999  # Invalid - octet > 255
 ```
 
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/devices.nac.yaml': iosxe.devices.0.host: '10.10.20.999' is not a valid IP address.
+ERROR - Syntax error 'data/devices.nac.yaml': iosxe.devices.0.host: '198.18.130.999' is not a valid IP address.
 ```
 
 **Example 2: Wrong attribute name**
@@ -114,7 +115,7 @@ If you misspelled an attribute like `banner` as `banners`:
 global:
   configuration:
     banners:  # Should be "banner" (singular)
-      login: "Welcome"
+      login: "Welcome to Network-as-Code Lab"
 ```
 
 Running `nac-validate` would produce:
@@ -130,7 +131,7 @@ If you used an invalid action in an ACL:
 ```yaml
 access_lists:
   standard:
-    - name: StandardAccessList-bcn
+    - name: AccessLayerACL
       entries:
         - sequence: 10
           action: allow  # Should be "permit" or "deny"
@@ -141,15 +142,17 @@ access_lists:
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/devices.nac.yaml': iosxe.device_groups.0.configuration.access_lists.standard.0.entries.0.action: 'allow' not in enum('deny', 'permit')
+ERROR - Syntax error 'data/acl.nac.yaml': iosxe.device_groups.0.configuration.access_lists.standard.0.entries.0.action: 'allow' not in enum('deny', 'permit')
 ```
 
 ## Validate Your Current Configuration
 
-Let's validate the configuration you created in previous tasks. Your `data/devices.nac.yaml` should contain:
-- Global banner
-- Device group with ACL
-- Device definitions
+Let's validate the configurations you created in previous tasks. Your `data/` folder should contain:
+
+- **devices.nac.yaml** - Global banner + device definitions (Task03)
+- **acl.nac.yaml** - Device group with ACL (Task04)
+- **core.nac.yaml** - IP hosts for CORE switch (Task05)
+- **templates-vlan.nac.yaml** - VLAN template (Task06)
 
 **Run the validation:**
 

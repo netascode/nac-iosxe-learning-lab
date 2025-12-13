@@ -29,18 +29,18 @@ In this example, you'll configure advanced logging settings using a `cli` templa
 Create a new file `data/logging_template.nac.yaml` with the following content:
 
 ```yaml
-templates:
-  - name: enhanced_logging
-    type: cli
-    content: |
-      logging buffered 16384 informational
-      logging console critical
-      logging monitor warnings
-      logging trap notifications
-      logging source-interface Loopback0
-      logging host 198.18.133.1
-      service timestamps log datetime msec localtime show-timezone
-      service timestamps debug datetime msec localtime show-timezone
+iosxe:
+  templates:
+    - name: enhanced_logging
+      type: cli
+      content: |
+        logging buffered 16384 informational
+        logging console critical
+        logging monitor warnings
+        logging trap notifications
+        logging host 198.18.133.1
+        service timestamps log datetime msec localtime show-timezone
+        service timestamps debug datetime msec localtime show-timezone
 ```
 
 This template:
@@ -51,16 +51,19 @@ This template:
 
 ## Step 2: Apply the Template to Devices
 
-Update your `data/devices.nac.yaml` to apply the template to desired devices:
+Update your `data/devices.nac.yaml` to apply the template to the desired devices. Add the `templates` reference to each device:
 
 ```yaml
-devices:
-  core:
-    templates:
-      - enhanced_logging
-  access01:
-    templates:
-      - enhanced_logging
+iosxe:
+  devices:
+    - name: core
+      host: 198.18.130.10
+      templates:
+        - enhanced_logging
+    - name: access01
+      host: 198.18.130.11
+      templates:
+        - enhanced_logging
 ```
 
 ## Step 3: Deploy the Configuration
@@ -104,8 +107,9 @@ logging buffered 16384 informational
 logging console critical
 logging monitor warnings
 logging trap notifications
-logging source-interface Loopback0
 logging host 198.18.133.1
+service timestamps log datetime msec localtime show-timezone
+service timestamps debug datetime msec localtime show-timezone
 ```
 
 ## Combining Template Types
