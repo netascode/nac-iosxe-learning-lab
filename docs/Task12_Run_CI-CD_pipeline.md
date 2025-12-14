@@ -139,19 +139,38 @@ The Web IDE opens with a familiar VS Code-like interface:
   ![Web IDE Interface](./assets/gitlab-webide-interface.png){ width="100%" }
 </figure>
 
+### Understanding the File Naming Convention
+
+In the GitLab repository, you'll notice that most configuration files in the `data/` folder have a `.yaml_` extension (with an underscore) instead of `.yaml`. This is intentional - **files with the `.yaml_` extension are ignored by Terraform**, so no configuration is applied.
+
+To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
+
+For this task, let's update the banner configuration - similar to what we did earlier in the guide, but now the banner is in its own dedicated file.
+
+
+
 ### Edit the Banner Configuration
 
-1. In the file explorer (left panel), navigate to **data** folder
-2. Click on `devices.nac.yaml` to open it
-3. Find the `banner` section under `global` → `configuration`
-4. Change the banner text to something new, for example:
+1. In the file explorer (left panel), navigate to the **data** folder
+2. Find the file `config-global.nac.yaml_` (note the underscore at the end)
+3. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
+4. Click on the file to open it and verify the banner content:
 
 ```yaml
-banner:
-  login: "Welcome to Network-as-Code Lab in CL Amsterdam 2026"
+iosxe:
+  global:
+    configuration:
+      banner:
+        login: "Welcome to Network-as-Code Lab"
 ```
 
-<!-- SCREENSHOT: Editing devices.nac.yaml in Web IDE -->
+5. Optionally, change the banner text to something new, for example:
+
+```yaml
+        login: "Welcome to Network-as-Code Lab - Deployed via CI/CD Pipeline"
+```
+
+<!-- SCREENSHOT: Editing config-global.nac.yaml in Web IDE -->
 <figure markdown>
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
 </figure>
