@@ -18,17 +18,17 @@ Device groups are particularly effective for:
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called "ACCESS" that includes the **ACCESS01** and **ACCESS02** switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called "ACCESS" that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
 
-## Create the YAML Configuration with Device Groups
+## Create the Device Group Configuration File
 
 First, create the file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/acl.nac.yaml
+touch ~/nac-iosxe/data/config-group-access.nac.yaml
 ```
 
-The file will appear in VS Code's Explorer panel. Click on `acl.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **ACCESS01** and **ACCESS02** switches:
+The file will appear in VS Code's Explorer panel. Click on `config-group-access.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **access01** and **access02** switches:
 
 ```text
 iosxe:

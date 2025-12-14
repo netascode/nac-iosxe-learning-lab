@@ -18,7 +18,7 @@ The key insight is that **tests are rendered from your intent configuration YAML
 
 In Task04, you deployed an access-list to the ACCESS01 and ACCESS02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
 
-Here's the intent configuration you deployed (`data/acl.nac.yaml`):
+Here's the intent configuration you deployed (`data/config-group-access.nac.yaml`):
 
 ```yaml
 iosxe:
@@ -50,7 +50,7 @@ To run Robot Framework tests, you need the following file structure:
 nac-iosxe/
 │
 ├── data/
-│   └── acl.nac.yaml
+│   └── config-group-access.nac.yaml
 │
 └── tests/
     ├── filters/
@@ -106,7 +106,7 @@ After creating the files, they will appear in VS Code's file explorer. Open each
 
 **File descriptions:**
 
-- **`data/acl.nac.yaml`** - Your intent configuration from Task04 (already exists)
+- **`data/config-group-access.nac.yaml`** - Your intent configuration from Task04 (already exists)
 - **`tests/filters/url_encode.py`** - Custom Jinja2 filter for URL-encoding ACL names in REST API calls
 - **`tests/templates/lib/UtilsLib.py`** - Python utility library with helper functions for Robot Framework
 - **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing
@@ -246,7 +246,7 @@ Now that you understand the process, try expanding your tests:
 
 **Add more access-list entries:**
 
-1. Update `data/acl.nac.yaml` with additional entries
+1. Update `data/config-group-access.nac.yaml` with additional entries
 2. Run `terraform apply` to deploy the changes (this also regenerates `model.yaml`)
 3. Run `nac-test` again
 4. Check the updated `access_lists.robot` file - it will include tests for your new entries

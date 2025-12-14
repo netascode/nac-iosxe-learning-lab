@@ -26,12 +26,12 @@ File templates reference external `.tftpl` files that use **Terraform templating
 | `file` | External `.tftpl` template files | Dynamic configs with variables - *This task* |
 | `cli` | Raw CLI commands inline | Features not in data model - *Task08* |
 
-## Use Case: BGP Configuration on BORDER Switch
+## Use Case: BGP Configuration on border Switch
 
-In this example, you'll configure BGP on the **BORDER** switch for peering with ISP providers. The template will use variables to define BGP neighbors dynamically.
+In this example, you'll configure BGP on the **border** switch for peering with ISP providers. The template will use variables to define BGP neighbors dynamically.
 
 !!! info "Lab Scenario"
-    The BORDER switch connects to two ISP providers:
+    The **border** switch connects to two ISP providers:
     
     - **ISP1** (198.18.100.1) - Currently active and pre-configured in the lab
     - **ISP2** (198.18.100.5) - Placeholder for a future connection that will be deployed as part of a network migration project
@@ -40,13 +40,14 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
 
 ## Step 1: Create the Template File
 
-First, create the file using your **WSL Ubuntu terminal**:
+First, create the `tftpl` directory and the template file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/template-bgp.yaml.tftpl
+mkdir -p ~/nac-iosxe/tftpl
+touch ~/nac-iosxe/tftpl/bgp.yaml.tftpl
 ```
 
-Then open `data/template-bgp.yaml.tftpl` in VS Code and add the following content:
+Then open `tftpl/bgp.yaml.tftpl` in VS Code and add the following content:
 
 ```text
 routing:
@@ -67,27 +68,42 @@ This template uses:
 - **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
-## Step 2: Update devices.nac.yaml with Template and Variables
+## Step 2: Create the Template Definition File
 
-Update your `data/devices.nac.yaml` to include the template definition and apply it to the BORDER switch. Here's the complete file:
+Create a new file `data/template-bgp.nac.yaml` that defines the template:
+
+```bash
+touch ~/nac-iosxe/data/template-bgp.nac.yaml
+```
+
+Then open `data/template-bgp.nac.yaml` in VS Code and add the following content:
 
 ```yaml
 iosxe:
   templates:
     - name: bgp_isp_peering
       type: file
-      file: data/template-bgp.yaml.tftpl
+      file: tftpl/bgp.yaml.tftpl
+```
 
-  global:
-    configuration:
-      banner:
-        login: "Welcome to Network-as-Code Lab"
-  
-  devices:
-    - name: core
-      host: 198.18.130.10
-    - name: border
-      host: 198.18.130.20
+This separates the template definition from the device configuration, making it easier to manage and reuse.
+
+## Step 3: Apply the Template to Border Device
+
+Now create a file to apply the BGP template to the border switch with the required variables:
+
+```bash
+touch ~/nac-iosxe/data/config-group-border-templates.nac.yaml
+```
+
+Then open `data/config-group-border-templates.nac.yaml` in VS Code and add the following content:
+
+```yaml
+iosxe:
+  device_groups:
+    - name: BORDER
+      devices:
+        - border
       templates:
         - bgp_isp_peering
       variables:
@@ -99,32 +115,27 @@ iosxe:
           - ip: 198.18.100.5
             remote_as: 65002
             description: eBGP to ISP2 - Future Migration
-    - name: access01
-      host: 198.18.130.11
-    - name: access02
-      host: 198.18.130.12
 ```
 
-**What's new in this configuration:**
+**What's in this configuration:**
 
-- **`templates:`** (at the top) - Defines the bgp_isp_peering template:
-  - **`name`**: Unique identifier for the template
-  - **`type: file`**: Specifies this is a file-based template
-  - **`file`**: Path to the `.tftpl` template file (relative to where `main.tf` is located)
-- **`templates:`** (on BORDER device) - References the template by name
-- **`variables:`** - Defines the values that will be substituted in the template
+- **`device_groups:`** - Groups devices by role for easier template management
+- **`name: BORDER`** - Group name for border devices
+- **`devices:`** - List of devices in the group (just **border** in this case)
+- **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
+- **`variables:`** - Variables that will be substituted into the template
 
 **Variable Breakdown:**
 
-- **`bgp_as_number: 65000`**: BORDER switch AS number
+- **`bgp_as_number: 65000`**: **border** switch AS number
 - **`bgp_neighbors`**: List of ISP neighbors:
   - **ISP1** (65001): Active production peer
   - **ISP2** (65002): Placeholder for future network migration
 
-!!! note "Template Scope"
-    The BGP template is only applied to the BORDER switch because only BORDER has the `templates:` and `variables:` attributes. The other devices (CORE, ACCESS01, ACCESS02) continue to receive only the global banner configuration.
+!!! note "Template Scope with Device Groups"
+    The BGP template is applied to the **border** switch through the `DEVICE_GROUP_BORDER` device group. This approach makes it easy to add more border switches in the future - just add them to the `devices` list in the group.
 
-## Step 3: Deploy the Configuration
+## Step 4: Deploy the Configuration
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -149,11 +160,11 @@ terraform apply
 When prompted, type `yes` to confirm the deployment.
 
 !!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. This shows exactly what configuration will be applied to the device.
+    After running `terraform plan`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. The `model.yaml` file is located in the main project directory, so it will appear just below `main.tf` in VS Code's Explorer panel. This shows exactly what configuration will be applied to the device.
 
-## Step 4: Verify BGP Configuration
+## Step 5: Verify BGP Configuration
 
-Use **Solar-PuTTY** to connect to the BORDER switch and verify the BGP configuration:
+Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
 
 ```bash
 show ip bgp summary
@@ -181,10 +192,12 @@ Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 
 ## What You've Accomplished
 
-- ✅ Created a `.tftpl` template file with Terraform templating syntax
+- ✅ Created a `.tftpl` template file with Terraform templating syntax in `tftpl/` folder
+- ✅ Created a separate template definition file (`template-bgp.nac.yaml`)
 - ✅ Used variable interpolation (`${ }`) for dynamic values
 - ✅ Used loops (`%{ for }`) for multiple BGP neighbors
-- ✅ Configured BGP peering on BORDER switch for ISP connectivity
+- ✅ Applied templates using device groups (`DEVICE_GROUP_BORDER`)
+- ✅ Configured BGP peering on **border** switch for ISP connectivity
 - ✅ Understood expected behavior with pre-configured but inactive peers
 
 ## Template Variable Precedence

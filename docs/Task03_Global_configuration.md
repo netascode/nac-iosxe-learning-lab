@@ -12,42 +12,39 @@ As describe in the [IOS XE Global Configuration documentation](https://netascode
 
 By placing the banner in the `global` section, it will automatically apply to all devices listed in your configuration, ensuring consistency without duplication.
 
-## Create the YAML Configuration
+## Create the Global Configuration File
 
-Using VS Code, edit your `data/devices.nac.yaml` file with the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices:
+First, create the global configuration file using your **WSL Ubuntu terminal**:
 
-```text
+```bash
+touch ~/nac-iosxe/data/config-global.nac.yaml
+```
+
+Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices defined in `devices.nac.yaml`:
+
+```yaml
 iosxe:
   global:
     configuration:
       banner:
         login: "Welcome to Network-as-Code Lab"
-  
-  devices:
-    - name: core
-      host: 198.18.130.10
-    - name: border
-      host: 198.18.130.20
-    - name: access01
-      host: 198.18.130.11
-    - name: access02
-      host: 198.18.130.12
 ```
 
 **Key elements explained:**
 
+- **`iosxe:`** - Root key indicating IOS XE specific configuration
 - **`global:`** - Defines configurations that apply to all devices
 - **`configuration:`** - Contains the actual configuration settings
 - **`banner:`** - Specifies banner configurations (note: singular, not "banners")
 - **`login:`** - The login banner text shown when users connect to the device
-- **`devices:`** - Lists the devices in the lab topology. All the devices will receive the global configuration
-- **`host:`** - Specifies the device IP address (note: use `host:` instead of deprecated `url:` attribute)
 
+!!! note "Separation of Concerns"
+    Notice how the global configuration is in a separate file (`config-global.nac.yaml`) from the device inventory (`devices.nac.yaml`). This modular approach keeps your configurations organized and maintainable. The NAC module automatically merges all YAML files in the `data/` directory.
 
-The figure below illustrates how to create the `data/devices.nac.yaml` file with Visual Studio Code:
+The figure below illustrates how to create the `data/config-global.nac.yaml` file with Visual Studio Code:
 
 <figure markdown>
-  ![alt text](./assets/vscode-global-banner.png){ width="100%" }
+  ![VS Code Global Banner](./assets/vscode-global-banner.png){ width="100%" }
 </figure>
 
 ## Applying Configuration with Terraform CLI
@@ -84,7 +81,16 @@ List the files in your directory:
 tree -a
 ```
 
-You should see your project structure with `.env`, `main.tf`, and the `data` directory containing `devices.nac.yaml`.
+You should see your project structure:
+
+```
+/home/cisco/nac-iosxe/
+├── .env
+├── main.tf
+└── data/
+    ├── config-global.nac.yaml    # ← New file you're creating
+    └── devices.nac.yaml
+```
 
 
 

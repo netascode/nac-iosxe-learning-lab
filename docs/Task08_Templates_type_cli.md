@@ -55,22 +55,53 @@ This template:
 - **content**: Multi-line string containing the actual CLI commands
 - Configures comprehensive logging with buffer, console, monitor, and remote syslog settings
 
-## Step 2: Apply the Template to Devices
+## Step 2: Apply the Template to Device Groups
 
-Update your `data/devices.nac.yaml` to apply the template to the desired devices. Add the `templates` reference to each device:
+Now you can add the logging template to your existing device group files. 
+
+**Update `data/config-group-access-templates.nac.yaml`** to include the logging template:
 
 ```yaml
 iosxe:
-  devices:
-    - name: core
-      host: 198.18.130.10
+  device_groups:
+    - name: ACCESS
+      devices:
+        - access01
+        - access02
       templates:
-        - enhanced_logging
-    - name: access01
-      host: 198.18.130.11
-      templates:
+        - access_switch_vlans
         - enhanced_logging
 ```
+
+**Update `data/config-group-border-templates.nac.yaml`** to include the logging template:
+
+```yaml
+iosxe:
+  device_groups:
+    - name: BORDER
+      devices:
+        - border
+      templates:
+        - bgp_isp_peering
+        - enhanced_logging
+      variables:
+        bgp_as_number: 65000
+        bgp_neighbors:
+          - ip: 198.18.100.1
+            remote_as: 65001
+            description: eBGP to ISP1 - Production
+          - ip: 198.18.100.5
+            remote_as: 65002
+            description: eBGP to ISP2 - Future Migration
+```
+
+**What's new:**
+
+- **ACCESS group** now includes both `access_switch_vlans` and `enhanced_logging` templates
+- **BORDER group** now includes both `bgp_isp_peering` and `enhanced_logging` templates
+
+!!! note "Template Organization"
+    Notice how the `enhanced_logging` template is applied to both access switches and the border switch, while `bgp_isp_peering` is only applied to the border switch. Device groups make it easy to manage which templates apply to which devices.
 
 ## Step 3: Deploy the Configuration
 
@@ -123,17 +154,21 @@ service timestamps debug datetime msec localtime show-timezone
 
 ## Combining Template Types
 
-You can combine different template types for the same device. For example, an access switch can use the VLAN template from Task06 along with the logging template from this task:
+You can combine different template types for the same device group. For example, the access switches can use both the VLAN template from Task06 and the logging template from this task:
 
 ```yaml
 iosxe:
-  devices:
-    - name: access01
-      host: 198.18.130.11
+  device_groups:
+    - name: DEVICE_GROUP_ACCESS
+      devices:
+        - access01
+        - access02
       templates:
         - access_switch_vlans   # model template from Task06
         - enhanced_logging      # cli template from this task
 ```
+
+This applies both templates to all devices in the `DEVICE_GROUP_ACCESS` group.
 
 ## What You've Accomplished
 

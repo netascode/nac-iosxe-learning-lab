@@ -121,13 +121,13 @@ Create the `main.tf` file for Terraform configuration. Terraform uses this file 
 touch main.tf
 ```
 
-Create the `devices.nac.yaml` file inside the data folder for device configurations:
+Create the `devices.nac.yaml` file inside the data folder for device inventory:
 
 ```bash
 touch data/devices.nac.yaml
 ```
 
-This YAML file will contain your network device definitions and configurations in a human-readable format.
+This YAML file will contain your network device inventory - the list of devices that NAC will manage.
 
 You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
 
@@ -219,13 +219,44 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
   ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
+## Edit devices.nac.yaml - Device Inventory
+
+Now edit the `data/devices.nac.yaml` file to define your network device inventory. This file contains the list of devices that the NAC module will manage, along with their management IP addresses:
+
+```yaml
+iosxe:
+  devices:
+    - name: core
+      host: 198.18.130.10
+    - name: border
+      host: 198.18.130.20
+    - name: access01
+      host: 198.18.130.11
+    - name: access02
+      host: 198.18.130.12
+```
+
+**Understanding the configuration:**
+
+- **`iosxe:`** - Root key indicating IOS XE specific configuration
+- **`devices:`** - List of devices to be managed
+- **`name:`** - Unique identifier for each device (used to reference the device in other configuration files)
+- **`host:`** - Management IP address for device connectivity
+
+!!! note "Device Inventory vs Configuration"
+    This file contains only the device **inventory** - the list of devices and their connection details. Actual device **configurations** (banners, ACLs, VLANs, etc.) will be defined in separate files in subsequent tasks. This separation keeps your configurations modular and easy to manage.
+
+<figure markdown>
+  ![VS Code Devices File](./assets/vscode-devices-file.png){ width="100%" }
+</figure>
+
 ## Auto Save is Enabled
 
 VS Code has **auto-save** enabled, so your files are automatically saved after a few seconds of inactivity. At this point, you should have the following files in your project:
 
 - `.env` - Contains your device credentials
 - `main.tf` - Contains your Terraform module configuration
-- `data/devices.nac.yaml` - Will contain your network device configurations (to be completed in next task)
+- `data/devices.nac.yaml` - Contains your network device inventory (4 switches)
 
 ## What You've Accomplished
 
@@ -237,7 +268,7 @@ Congratulations! In this chapter, you have:
 - ✅ **Organized configuration files** - Created a `data/` folder to separate YAML configs from Terraform files
 - ✅ **Created credentials file** - Set up `.env` with IOS XE device authentication
 - ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
-- ✅ **Prepared YAML file** - Created `data/devices.nac.yaml` ready for device configuration
+- ✅ **Prepared device inventory** - Created `data/devices.nac.yaml` with network device definitions
 
 ## Key Concepts Learned
 

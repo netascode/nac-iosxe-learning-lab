@@ -23,7 +23,7 @@ In this task, you'll use the `model` type to create a VLAN template as a practic
 
 ## Use Case: Standard VLANs for Access Switches
 
-Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for ACCESS01 and ACCESS02, you'll create a single template and apply it to both devices.
+Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for **access01** and **access02**, you'll create a single template and apply it to both devices.
 
 **VLANs to configure:**
 
@@ -85,46 +85,44 @@ Let's break down the key elements:
 
 ## Apply Template to Access Switches
 
-Now you need to tell the access switches to use this template. Edit your existing `data/devices.nac.yaml` file and add the `templates` reference to the access switches:
+Now you need to apply the template to the access switches. Create a new file that references the template for the ACCESS group:
+
+```bash
+touch ~/nac-iosxe/data/config-group-access-templates.nac.yaml
+```
+
+Then open `data/config-group-access-templates.nac.yaml` in VS Code and add the following content:
 
 ```yaml
 iosxe:
-  global:
-    configuration:
-      banner:
-        login: "Welcome to Network-as-Code Lab"
-  
-  devices:
-    - name: core
-      host: 198.18.130.10
-    - name: border
-      host: 198.18.130.20
-    - name: access01
-      host: 198.18.130.11
-      templates:
-        - access_switch_vlans
-    - name: access02
-      host: 198.18.130.12
+  device_groups:
+    - name: ACCESS
+      devices:
+        - access01
+        - access02
       templates:
         - access_switch_vlans
 ```
 
 **Save the file** by pressing `Ctrl+S` in VS Code.
 
-The image below illustrates how devices reference the template:
+**What's in this configuration:**
 
-<figure markdown>
-  ![VS Code Devices with Templates](./assets/vscode-devices-templates.png){ width="100%" }
-</figure>
+- **`device_groups:`** - Defines groups of devices with shared configurations
+- **`name: ACCESS`** - References the same ACCESS group from Task04
+- **`templates:`** - Applies the `access_switch_vlans` template to all devices in the group
+
+!!! note "Modular Configuration"
+    Notice how we keep template application in a separate file from the direct configuration (ACL) defined in Task04's `config-group-access.nac.yaml`. This modular approach keeps your configurations organized - one file for direct configurations, another for template references.
 
 ## How Templates Work
 
 When Terraform processes your configuration:
 
 1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `access_switch_vlans` template
-2. **Device Processing**: For each device in `devices.nac.yaml`, Terraform checks for template references
-3. **Configuration Merge**: For ACCESS01 and ACCESS02 (which reference the template), the template's configuration is merged with their settings
-4. **Deployment**: VLANs are created on both ACCESS01 and ACCESS02 (but not on CORE or BORDER)
+2. **Device Group Processing**: Terraform finds the ACCESS group and its associated template
+3. **Configuration Merge**: For **access01** and **access02** (members of the group), the template's configuration is merged with their settings
+4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
 **Visual representation:**
 
@@ -136,13 +134,13 @@ When Terraform processes your configuration:
 │    vlans:                                               │
 │      - id: 10, name: DATA                               │
 │      - id: 20, name: VOICE                              │
-│      - id: 99, name: MGMT                           6    │
+│      - id: 99, name: MGMT                               │
 └──────────────────────┬──────────────────────────────────────┘
                        │
          ┌─────────────┴─────────────┐
          │                           │
          ▼                           ▼
-┌──────────────────┐         ┌──────────────────┐
+┌───────────────────┐         ┌──────────────────┐
 │    ACCESS01     │         │    ACCESS02     │
 │                 │         │                 │
 │ templates:      │         │ templates:      │
@@ -152,7 +150,7 @@ When Terraform processes your configuration:
 │ - VLAN 10 DATA  │         │ - VLAN 10 DATA  │
 │ - VLAN 20 VOICE │         │ - VLAN 20 VOICE │
 │ - VLAN 99 MGMT  │         │ - VLAN 99 MGMT  │
-└──────────────────┘         └──────────────────┘
+└───────────────────┘         └──────────────────┘
 ```
 
 ## Verify Project Structure
@@ -170,7 +168,6 @@ At this point, your `data/` folder should contain these files:
     └── templates-vlan.nac.yaml # Template definitions (VLANs)
 ```
 
-**Remember to save both files** by pressing `Ctrl+S` in VS Code before proceeding.
 
 ## Apply Template Configuration
 
@@ -194,12 +191,12 @@ terraform plan
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the three VLANs on both ACCESS01 and ACCESS02 switches.
+When prompted, type `yes` to confirm the deployment. Terraform will create the three VLANs on both **access01** and **access02** switches.
 
 **What to observe in the plan output:**
 
-- Terraform shows VLAN creation for ACCESS01
-- Terraform shows VLAN creation for ACCESS02
+- Terraform shows VLAN creation for **access01**
+- Terraform shows VLAN creation for **access02**
 - Both devices receive identical VLAN configuration
 
 !!! tip "View the Merged Model"
@@ -216,9 +213,9 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **ACCESS01** switch (198.18.130.11)
+2. Connect to the **access01** switch (198.18.130.11)
 3. Run the verification command below
-4. Disconnect and repeat for **ACCESS02** switch (198.18.130.12)
+4. Disconnect and repeat for **access02** switch (198.18.130.12)
 
 ```bash
 show vlan brief
@@ -247,7 +244,7 @@ Here's a comparison of when to use templates versus other configuration approach
 | Method | Best For | Example |
 |--------|----------|---------|
 | **Global** | Settings that apply to ALL devices | Login banners, NTP, Syslog |
-| **Device Group** | Role-based settings for device subsets | ACLs for access layer, routing for CORE |
+| **Device Group** | Role-based settings for device subsets | ACLs for access layer, routing for core |
 | **Device** | Unique settings for one device | Management IP hosts, special features |
 | **Template** | Reusable configurations across selected devices | Standard VLANs, interface templates |
 
@@ -273,8 +270,8 @@ One of the most powerful features of templates is the ability to apply **multipl
 For example, an access switch might need:
 
 - **VLAN configuration** (from `access_switch_vlans`)
-- **QoS policies** (from `ACCESS_SWITCH_QOS`)
-- **Security settings** (from `ACCESS_SWITCH_SECURITY`)
+- **QoS policies** (from `access_switch_qos`)
+- **Security settings** (from `access_switch_security`)
 
 ```yaml
 iosxe:
@@ -283,14 +280,14 @@ iosxe:
       host: 198.18.130.11
       templates:
         - access_switch_vlans
-        - ACCESS_SWITCH_QOS
-        - ACCESS_SWITCH_SECURITY
+        - access_switch_qos
+        - access_switch_security
     - name: access02
       host: 198.18.130.12
       templates:
         - access_switch_vlans
-        - ACCESS_SWITCH_QOS
-        - ACCESS_SWITCH_SECURITY
+        - access_switch_qos
+        - access_switch_security
 ```
 
 **Benefits of multiple templates:**
