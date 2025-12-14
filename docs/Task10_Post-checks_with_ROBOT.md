@@ -18,6 +18,9 @@ The key insight is that **tests are rendered from your intent configuration YAML
 
 In Task04, you deployed an access-list to the ACCESS01 and ACCESS02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
 
+!!! note "Lab Scope vs Production"
+    In production environments, Robot Framework tests validate the **full configuration** - including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.
+
 Here's the intent configuration you deployed (`data/config-group-access.nac.yaml`):
 
 ```yaml
@@ -101,8 +104,7 @@ After creating the files, they will appear in VS Code's file explorer. Open each
 - Copy the **iosxe_common.resource** content into `tests/templates/iosxe_common.resource`
 - Copy the **access_lists.robot** content into `tests/templates/config/access_lists.robot`
 
-!!! tip "Using VS Code"
-    After running the `touch` commands, the empty files will appear in VS Code. Simply click on each file to open it, then paste the corresponding content from Appendix III. VS Code will auto-save your changes.
+
 
 **File descriptions:**
 
@@ -150,8 +152,6 @@ nac-test \
   --output /mnt/c/Users/admin/Desktop/TestResults
 ```
 
-!!! info "Output Location"
-    The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
 
 **What this command does:**
 
@@ -160,8 +160,8 @@ nac-test \
 3. **Renders templates** - Each template in `./tests/templates` is rendered with your configuration data
 4. **Executes tests** - Pabot runs all test suites in parallel and creates reports in `./tests/results`
 
-!!! note "Environment Variables"
-    Pabot uses the `IOSXE_USERNAME` and `IOSXE_PASSWORD` environment variables you defined earlier to connect to devices.
+!!! info "Output Location"
+    The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
 
 ## Step 5: Review the Generated Robot Test
 
@@ -210,8 +210,6 @@ Verify Standard Access List AccessLayerACL Device access01
     Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log   
 ```
 
-!!! info "Scaling Up"
-    This chapter walks you through a single Robot test file. In production environments, you'll typically work with 100+ Robot test files covering all configuration aspects.
 
 ## Step 6: Review the Test Results
 
@@ -260,14 +258,10 @@ Now that you understand the process, try expanding your tests:
 
 **Add more access-list entries:**
 
-1. Update `data/config-group-access.nac.yaml` with additional entries
+1. Update `data/config-group-access.nac.yaml` with additional access-list entries
 2. Run `terraform apply` to deploy the changes (this also regenerates `model.yaml`)
 3. Run `nac-test` again
 4. Check the updated `access_lists.robot` file - it will include tests for your new entries
-
-**Add more Robot test templates:**
-
-Additional Robot test templates for other configuration types (banner, VLANs, routing, etc.) can be found in the [NAC IOS XE repository](https://github.com/netascode/terraform-iosxe-nac-iosxe). Place them in `~/nac-iosxe/tests/templates/config/`.
 
 ## What You've Accomplished
 
