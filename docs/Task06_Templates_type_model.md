@@ -124,13 +124,13 @@ When Terraform processes your configuration:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    TEMPLATE: ACCESS_SWITCH_VLANS          │
-│                                                           │
-│  vlan:                                                    │
-│    vlans:                                                 │
-│      - id: 10, name: DATA                                 │
-│      - id: 20, name: VOICE                                │
-│      - id: 99, name: MGMT                                 │
+│                    TEMPLATE: ACCESS_SWITCH_VLANS        │
+│                                                         │
+│  vlan:                                                  │
+│    vlans:                                               │
+│      - id: 10, name: DATA                               │
+│      - id: 20, name: VOICE                              │
+│      - id: 99, name: MGMT                               │
 └──────────────────────┬──────────────────────────────────────┘
                        │
          ┌─────────────┴─────────────┐
