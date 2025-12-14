@@ -23,7 +23,7 @@ Here's the intent configuration you deployed (`data/config-group-access.nac.yaml
 ```yaml
 iosxe:
   device_groups:
-    - name: ACCESS
+    - name: ACCESS_SWITCHES
       devices:
         - access01
         - access02
@@ -129,7 +129,15 @@ This generates two files in your project directory:
 - **`model.yaml`** - The merged YAML data model (all your configuration files combined)
 - **`defaults.yaml`** - The default values used by the module
 
-## Step 3: Run nac-test
+## Step 3: Install nac-test
+
+Install the **nac-test** tool using pip in your **WSL Ubuntu terminal**:
+
+```bash
+pip install nac-test
+```
+
+## Step 4: Run nac-test
 
 Once you have the model files and test templates in place, run the `nac-test` command in your **WSL Ubuntu terminal**:
 
@@ -155,7 +163,7 @@ nac-test \
 !!! note "Environment Variables"
     Pabot uses the `IOSXE_USERNAME` and `IOSXE_PASSWORD` environment variables you defined earlier to connect to devices.
 
-## Step 4: Review the Generated Robot Test
+## Step 5: Review the Generated Robot Test
 
 After running `nac-test`, check the generated test file:
 
@@ -163,6 +171,12 @@ After running `nac-test`, check the generated test file:
 C:\Users\admin\Desktop\TestResults\
 └── config/
     └── access_lists.robot
+```
+
+This is the **TestResults** folder on the Windows 10 desktop. You can view the generated test file using your **WSL Ubuntu terminal**:
+
+```bash
+cat /mnt/c/Users/admin/Desktop/TestResults/config/access_lists.robot
 ```
 
 The `access_lists.robot` file contains tests automatically generated from your intent configuration:
@@ -199,7 +213,7 @@ Verify Standard Access List AccessLayerACL Device access01
 !!! info "Scaling Up"
     This chapter walks you through a single Robot test file. In production environments, you'll typically work with 100+ Robot test files covering all configuration aspects.
 
-## Step 5: Review the Test Results
+## Step 6: Review the Test Results
 
 The terminal output from `nac-test` shows the test execution:
 
@@ -240,7 +254,7 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
   ![Robot Framework Report](./assets/iosxe-manual-robot.png){ width="100%" }
 </figure>
 
-## Step 6: Try Additional Tests (Optional)
+## Step 7: Try Additional Tests (Optional)
 
 Now that you understand the process, try expanding your tests:
 

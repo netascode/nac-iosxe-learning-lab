@@ -23,3 +23,7 @@ By completing this lab, you will gain hands-on experience with:
 - Implementing CI/CD pipelines for network changes
 - Validating and testing configurations
 - Applying best practices for network automation
+
+!!! note "About This Guide"
+  
+    Created by Asier Arlegui and Balu Novak-Bohak, with AI-assisted content development using Claude 4.5 Opus in agentic mode. The writing style and phrasing throughout this guide may reflect AI-assisted drafting. 

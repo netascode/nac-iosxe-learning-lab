@@ -65,9 +65,19 @@ Your project structure should now include:
 !!! note "Generated Files"
     The `model.yaml` and `defaults.yaml` files are automatically generated when you run `terraform plan` or `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
-## The nac-validate Tool in This Lab
+## Install the nac-validate Tool
 
-The **nac-validate** tool is pre-installed in this lab environment and ready to use. You don't need to install anything - you can start validating your YAML files immediately.
+First, install the **nac-validate** tool using pip in your **WSL Ubuntu terminal**:
+
+```bash
+pip install nac-validate
+```
+
+Then add the local bin directory to your PATH:
+
+```bash
+export PATH=$PATH:~/.local/bin
+```
 
 ## Run Schema Validation
 
@@ -106,20 +116,20 @@ Let's intentionally introduce errors to see how validation catches them.
 
 **Example 1: Invalid IP address**
 
-If you accidentally typed an invalid IP like `198.18.128.999` in your `data/core.nac.yaml` (from Task05):
+If you accidentally typed an invalid IP like `198.18.128.999` in your `data/config-device-core.nac.yaml` (from Task05):
 
 ```yaml
 system:
   ip_hosts:
     - name: ntp-server
       ips:
-        - 198.18.128.999  # Invalid - octet > 255
+        - 198.18.128.1999  # Invalid - octet > 255
 ```
 
-Running `nac-validate` would produce:
+Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```
-ERROR - Syntax error 'data/core.nac.yaml': iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.128.999' is not a ip.
+ERROR - Syntax error 'data/config-device-core.nac.yaml': iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.128.999' is not a ip.
 ```
 
 !!! note "Device host field"
@@ -136,7 +146,7 @@ global:
       login: "Welcome to Network-as-Code Lab"
 ```
 
-Running `nac-validate` would produce:
+Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```
 ERROR - Syntax error 'data/devices.nac.yaml': iosxe.global.configuration.banners: Unexpected element
@@ -144,7 +154,7 @@ ERROR - Syntax error 'data/devices.nac.yaml': iosxe.global.configuration.banners
 
 **Example 3: Invalid enum value**
 
-If you used an invalid action in an ACL in `data/acl.nac.yaml`:
+If you used an invalid action in an ACL in `data/config-group-access.nac.yaml`:
 
 ```yaml
 access_lists:
@@ -157,41 +167,21 @@ access_lists:
           prefix_mask: 0.0.0.255
 ```
 
-Running `nac-validate` would produce:
+Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```
-ERROR - Syntax error 'data/acl.nac.yaml': iosxe.device_groups.[name=ACCESS].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
+ERROR - Syntax error 'data/config-group-access.nac.yaml': iosxe.device_groups.[name=ACCESS_SWITCHES].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
 ```
 
-## Validate Your Current Configuration
 
-Let's validate the configurations you created in previous tasks. Your `data/` folder should contain:
 
-- **devices.nac.yaml** - Device inventory (Task02)
-- **config-global.nac.yaml** - Global banner (Task03)
-- **config-group-access.nac.yaml** - ACCESS_SWITCHES group ACL + templates (Task04, Task06, Task08)
-- **config-device-core.nac.yaml** - IP hosts for CORE switch (Task05)
-- **config-device-border.nac.yaml** - Border device BGP + logging templates (Task05, Task07, Task08)
-- **template-vlan.nac.yaml** - VLAN template, model type (Task06)
-- **template-bgp.nac.yaml** - BGP template definition (Task07)
-- **template-logging.nac.yaml** - Logging template, cli type (Task08)
 
-**In `tftpl/` folder:**
 
-- **bgp.yaml.tftpl** - BGP template file with Terraform templating (Task07)
-
-**Run the validation:**
-
-Navigate to your project directory and run nac-validate:
-
-```bash
-cd ~/nac-iosxe
-nac-validate -s .schema.yaml data/
-```
-
-**Note:** The `-s .schema.yaml` flag points to the schema file you just created in your project root folder.
 
 If everything is correct, you'll get your prompt back with no output. If there are errors, the tool will tell you exactly what's wrong and where.
+
+!!! tip "Fix and Re-validate"
+    Correct the introduced typos in your YAML files and run `nac-validate -s .schema.yaml data/` again to confirm that all files are now correct.
 
 ## Common Validation Errors and Fixes
 
