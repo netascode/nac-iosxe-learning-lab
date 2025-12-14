@@ -78,10 +78,10 @@ You should see your project structure:
 ```
 /home/cisco/nac-iosxe/
 ├── .env
-├── main.tf
-└── data/
-    ├── config-global.nac.yaml    # ← File with banner configuration
-    └── devices.nac.yaml
+├── data/
+│   ├── config-global.nac.yaml    # ← File with banner configuration
+│   └── devices.nac.yaml
+└── main.tf
 ```
 
 ## Step 2: Load Environment Variables from .env File
@@ -208,7 +208,7 @@ Type `yes` and press Enter to proceed.
 **What happens during apply:**
 
 - Terraform connects to each device via HTTPS
-- Translates your YAML configuration into IOS XE CLI commands
+- Uses the Network as Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and sends it via RESTCONF
 - Applies the commands to the devices
 - Tracks the applied state in `terraform.tfstate` file
 
@@ -274,6 +274,7 @@ Here's a quick reference of the most common Terraform commands:
 ## Understanding Terraform State
 
 After running `terraform apply`, Terraform creates a `terraform.tfstate` file that tracks:
+
 - What resources have been created
 - Current configuration of each resource
 - Device connection details
