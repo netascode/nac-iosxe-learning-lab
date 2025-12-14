@@ -158,7 +158,7 @@ To begin working with your project in a development-friendly environment, open y
 1. Double-click the **VS Code** icon on the Windows desktop
 2. Click **File** → **Open Folder**
 3. In the address bar, type or paste: `/home/cisco/nac-iosxe`
-4. Click **Select Folder**
+4. Click **OK**
 
 <figure markdown>
   ![WSL Open Project Folder](./assets/wsl-open-project-folder.png){ width="100%" }
