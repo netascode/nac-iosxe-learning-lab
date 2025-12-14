@@ -4,13 +4,9 @@ This appendix contains the Robot Framework test files and custom Jinja2 filters 
 
 ---
 
-## Custom Jinja2 Filters
+## 'url_encode.py'
 
-The Robot templates use custom Jinja2 filters. Create the filters directory and file before running `nac-test`.
 
-----------------------
-**File 'tests/filters/url_encode.py'**
-----------------------
 
 ```python
 # Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
@@ -40,13 +36,8 @@ class Filter:
 
 ---
 
-## Python Library
+## 'UtilsLib.py'
 
-The Robot Framework resource file uses a custom Python library for utility functions.
-
-----------------------
-**File 'tests/templates/lib/UtilsLib.py'**
-----------------------
 
 ```python
 # Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
@@ -87,13 +78,10 @@ class UtilsLib(object):
 
 ---
 
-## Robot Test Templates
+## 'access_lists.robot'
 
 {% raw %}
 
-----------------------
-**File 'access_lists.robot'**
-----------------------
 ```
 *** Settings ***
 Documentation   Verify Access Lists Configuration
@@ -375,8 +363,7 @@ Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
 ```
 
 
-
-**File 'iosxe_common'**
+## 'iosxe_common'
 
 ```
 *** Settings ***
