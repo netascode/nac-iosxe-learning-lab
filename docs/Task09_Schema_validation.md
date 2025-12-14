@@ -89,26 +89,26 @@ cisco@wkst1:~/nac-iosxe$
 - ✅ Data types are correct
 - ✅ Values are valid (e.g., IP addresses are properly formatted)
 
-## Validation Error Example
+## Validation Error Examples
 
-Let's intentionally introduce an error to see how validation catches it. 
+Let's intentionally introduce errors to see how validation catches them. 
 
 **Example 1: Invalid IP address**
 
-If you accidentally typed an invalid IP like `192.168.999.1` in your core.nac.yaml (from Task05):
+If you accidentally typed an invalid IP like `198.18.128.999` in your `data/core.nac.yaml` (from Task05):
 
 ```yaml
 system:
   ip_hosts:
-    - name: server1
+    - name: ntp-server
       ips:
-        - 192.168.999.1  # Invalid - octet > 255
+        - 198.18.128.999  # Invalid - octet > 255
 ```
 
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/core.nac.yaml': iosxe.devices.0.configuration.system.ip_hosts.0.ips.0: '192.168.999.1' is not a valid IP address.
+ERROR - Syntax error 'data/core.nac.yaml': iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.128.999' is not a ip.
 ```
 
 !!! note "Device host field"
@@ -116,7 +116,7 @@ ERROR - Syntax error 'data/core.nac.yaml': iosxe.devices.0.configuration.system.
 
 **Example 2: Wrong attribute name**
 
-If you misspelled an attribute like `banner` as `banners`:
+If you misspelled an attribute like `banner` as `banners` in `data/devices.nac.yaml`:
 
 ```yaml
 global:
@@ -128,12 +128,12 @@ global:
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/devices.nac.yaml': iosxe.global.configuration: key 'banners' is not defined in schema
+ERROR - Syntax error 'data/devices.nac.yaml': iosxe.global.configuration.banners: Unexpected element
 ```
 
 **Example 3: Invalid enum value**
 
-If you used an invalid action in an ACL:
+If you used an invalid action in an ACL in `data/acl.nac.yaml`:
 
 ```yaml
 access_lists:
@@ -149,7 +149,7 @@ access_lists:
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/acl.nac.yaml': iosxe.device_groups.0.configuration.access_lists.standard.0.entries.0.action: 'allow' not in enum('deny', 'permit')
+ERROR - Syntax error 'data/acl.nac.yaml': iosxe.device_groups.[name=ACCESS].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
 ```
 
 ## Validate Your Current Configuration
@@ -197,6 +197,9 @@ If everything is correct, you'll get your prompt back with no output. If there a
 5. Run `terraform apply` to deploy
 
 By validating before running Terraform, you catch configuration errors immediately without attempting to connect to devices. This saves time and prevents partial deployments of invalid configurations.
+
+!!! tip "CI/CD Integration"
+    In [Task12 - Run CI/CD Pipeline](Task12_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment—without manual intervention.
 
 ## What You've Accomplished
 

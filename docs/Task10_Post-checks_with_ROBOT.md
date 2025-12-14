@@ -1,11 +1,11 @@
-!!! warning "Time Check"
-    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 11: Cleanup** followed by **Task 12: Run CI/CD Pipeline**.
+After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? Manual verification doesn't scale.
 
 In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
 
-## Understanding Post-Change Validation
+!!! warning "Time Check"
+    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 11: Cleanup** followed by **Task 12: Run CI/CD Pipeline**.
 
-After deploying configuration changes, you need to verify they were applied correctly. For simple configurations, you might run `show running-config` manually, but this approach doesn't scale when managing dozens or hundreds of devices.
+## Understanding Post-Change Validation
 
 The Network-as-Code framework automates post-change validations using:
 
@@ -16,7 +16,7 @@ The key insight is that **tests are rendered from your intent configuration YAML
 
 ## Use Case: Validating Access-List Configuration
 
-In Task04, you deployed an access-list to the ACCESS switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
+In Task04, you deployed an access-list to the ACCESS01 and ACCESS02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
 
 Here's the intent configuration you deployed (`data/acl.nac.yaml`):
 
@@ -59,26 +59,43 @@ nac-iosxe/
             └── access_lists.robot
 ```
 
-Create the directory structure and files:
+Create the directory structure and files in your **WSL Ubuntu terminal**:
 
 ```bash
 mkdir -p ~/nac-iosxe/tests/templates/config
+```
+
+```bash
 touch ~/nac-iosxe/tests/templates/iosxe_common.resource
+```
+
+```bash
 touch ~/nac-iosxe/tests/templates/config/access_lists.robot
 ```
+
+After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III - Robot Testing Files](Task17_Appendix-III.md)**:
+
+- Copy the **iosxe_common.resource** content into `tests/templates/iosxe_common.resource`
+- Copy the **access_lists.robot** content into `tests/templates/config/access_lists.robot`
+
+!!! tip "Using VS Code"
+    After running the `touch` commands, the empty files will appear in VS Code. Simply click on each file to open it, then paste the corresponding content from Appendix III. VS Code will auto-save your changes.
 
 **File descriptions:**
 
 - **`data/acl.nac.yaml`** - Your intent configuration from Task04 (already exists)
-- **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing. Download from [NAC IOS XE Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/)
-- **`tests/templates/config/access_lists.robot`** - Jinja2 template for generating access-list tests. Download from [IOS XE Robot Test Templates](https://wwwin-github.cisco.com/netascode/nac-iosxe-terraform/tree/master/tests/templates/config)
+- **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing
+- **`tests/templates/config/access_lists.robot`** - Jinja2 template for generating access-list tests
 
 ## Step 2: Run nac-test
 
-Once you have all the files, run the `nac-test` command from your project directory:
+Once you have all the files in place, run the `nac-test` command from your project directory in the **WSL Ubuntu terminal**:
 
 ```bash
 cd ~/nac-iosxe
+```
+
+```bash
 nac-test \
   --data ./data \
   --templates ./tests/templates \
@@ -206,3 +223,10 @@ In this task, you have:
 - ✅ Understood how to interpret test results and reports
 
 **Success!** You've automated configuration validation using intent-based testing!
+
+!!! tip "CI/CD Integration"
+    In [Task13 - Add Robot Testing Stage to CI/CD](Task13_Add_Robot_testing_stage_to_CI-CD.md), you'll see how Robot Framework tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
+
+---
+
+**Next:** [Task11 - Cleanup](Task11_Cleanup.md)
