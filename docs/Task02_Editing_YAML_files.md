@@ -164,7 +164,7 @@ To begin working with your project in a development-friendly environment, open y
   ![WSL Open Project Folder](./assets/wsl-open-project-folder.png){ width="100%" }
 </figure>
 
-VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files 
+VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
 <figure markdown>
   ![alt text](./assets/vscode-list-of-files.png){ width="100%" }

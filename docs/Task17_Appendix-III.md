@@ -2,9 +2,8 @@
 
 This appendix contains the Robot Framework test files and custom Jinja2 filters required for post-change validation in Task10.
 
----
 
-## 'url_encode.py'
+## 'tests/filters/url_encode.py'
 
 
 
@@ -34,9 +33,8 @@ class Filter:
             return text
 ```
 
----
 
-## 'UtilsLib.py'
+## 'tests/templates/lib/UtilsLib.py'
 
 
 ```python
@@ -76,9 +74,9 @@ class UtilsLib(object):
             return text
 ```
 
----
 
-## 'access_lists.robot'
+
+## 'tests/templates/configs/access_lists.robot'
 
 {% raw %}
 
@@ -363,7 +361,7 @@ Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
 ```
 
 
-## 'iosxe_common'
+## 'tests/templates/iosxe_common'
 
 ```
 *** Settings ***

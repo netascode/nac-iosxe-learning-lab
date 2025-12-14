@@ -161,7 +161,7 @@ show run | include ip host
   ![Show IP Host Core](./assets/sh-ip-host-core.png){ width="100%" }
 </figure>
 
-You should see both IP host entries configured on the CORE switch.
+You should see both IP host entries configured on the **CORE** switch.
 
 **Step 2: Verify on Other Devices (should NOT have the configuration)**
 
@@ -190,30 +190,30 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 **Visual representation:**
 
 ```text
-┌──────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    GLOBAL CONFIGURATION                  │
 │                   (applies to ALL devices)               │
 │                                                          │
-│  ┌───────────────────────────────────────────────────┐   │
-│  │              DEVICE GROUP: ACCESS_SWITCHES                 │   │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │              DEVICE GROUP: ACCESS_SWITCHES        │   │
 │  │           (applies to ACCESS01, ACCESS02)         │   │
 │  │                                                   │   │
-│  │  ┌──────────────┐        ┌─────────────┐          │   │
+│  │  ┌──────────────┐        ┌──────────────┐         │   │
 │  │  │  ACCESS01   │        │  ACCESS02   │           │   │
 │  │  │             │        │             │           │   │
 │  │  │ - Banner    │        │ - Banner    │           │   │
 │  │  │ - ACL       │        │ - ACL       │           │   │
-│  │  └──────────────┘        └─────────────┘          │   │
-│  └───────────────────────────────────────────────────┘   │
+│  │  └──────────────┘        └──────────────┘         │   │
+│  └─────────────────────────────────────────────────────┘ │
 │                                                          │
-│  ┌──────────────────┐        ┌─────────────────┐         │
+│  ┌───────────────────┐        ┌─────────────────┐        │
 │  │      CORE       │        │     BORDER      │          │
 │  │                 │        │                 │          │
 │  │ - Banner        │        │ - Banner        │          │
 │  │ - IP Hosts      │        │                 │          │
-│  │   (device-only) │        │                 │          │
-│  └──────────────────┘        └─────────────────┘         │
-└──────────────────────────────────────────────────────────┘
+│  │                 │        │                 │          │
+│  └───────────────────┘        └─────────────────┘        │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ## When to Use Each Configuration Level
