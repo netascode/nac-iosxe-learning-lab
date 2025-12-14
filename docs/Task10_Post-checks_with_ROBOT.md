@@ -58,6 +58,8 @@ nac-iosxe/
     │
     └── templates/
         ├── iosxe_common.resource
+        ├── lib/
+        │   └── UtilsLib.py
         └── config/
             └── access_lists.robot
 ```
@@ -69,11 +71,19 @@ mkdir -p ~/nac-iosxe/tests/templates/config
 ```
 
 ```bash
+mkdir -p ~/nac-iosxe/tests/templates/lib
+```
+
+```bash
 mkdir -p ~/nac-iosxe/tests/filters
 ```
 
 ```bash
 touch ~/nac-iosxe/tests/templates/iosxe_common.resource
+```
+
+```bash
+touch ~/nac-iosxe/tests/templates/lib/UtilsLib.py
 ```
 
 ```bash
@@ -87,6 +97,7 @@ touch ~/nac-iosxe/tests/filters/url_encode.py
 After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III - Robot Testing Files](Task17_Appendix-III.md)**:
 
 - Copy the **url_encode.py** content into `tests/filters/url_encode.py`
+- Copy the **UtilsLib.py** content into `tests/templates/lib/UtilsLib.py`
 - Copy the **iosxe_common.resource** content into `tests/templates/iosxe_common.resource`
 - Copy the **access_lists.robot** content into `tests/templates/config/access_lists.robot`
 
@@ -97,6 +108,7 @@ After creating the files, they will appear in VS Code's file explorer. Open each
 
 - **`data/acl.nac.yaml`** - Your intent configuration from Task04 (already exists)
 - **`tests/filters/url_encode.py`** - Custom Jinja2 filter for URL-encoding ACL names in REST API calls
+- **`tests/templates/lib/UtilsLib.py`** - Python utility library with helper functions for Robot Framework
 - **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing
 - **`tests/templates/config/access_lists.robot`** - Jinja2 template for generating access-list tests
 
@@ -127,8 +139,11 @@ nac-test \
   --data ./defaults.yaml \
   --templates ./tests/templates \
   --filters ./tests/filters \
-  --output ./tests/results
+  --output /mnt/c/Users/admin/Desktop/TestResults
 ```
+
+!!! info "Output Location"
+    The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
 
 **What this command does:**
 
@@ -145,11 +160,9 @@ nac-test \
 After running `nac-test`, check the generated test file:
 
 ```text
-nac-iosxe/
-└── tests/
-    └── results/
-        └── config/
-            └── access_lists.robot
+C:\Users\admin\Desktop\TestResults\
+└── config/
+    └── access_lists.robot
 ```
 
 The `access_lists.robot` file contains tests automatically generated from your intent configuration:
@@ -196,17 +209,17 @@ cisco@wkst1:~/nac-iosxe$ nac-test \
   --data ./defaults.yaml \
   --templates ./tests/templates \
   --filters ./tests/filters \
-  --output ./tests/results
+  --output /mnt/c/Users/admin/Desktop/TestResults
 Robot Framework remote server at 127.0.0.1:50179 started.
 Storing .pabotsuitenames file
 2025-06-21 06:24:01.385307 [PID:517] [0] [ID:0] EXECUTING Iosxe.Config.Access Lists
 2025-06-21 06:24:02.793314 [PID:517] [0] [ID:0] PASSED Iosxe.Config.Access Lists in 1.4 seconds
 1 tests, 1 passed, 0 failed, 0 skipped.
 ===================================================
-Output:  ~/nac-iosxe/tests/results/output.xml
-XUnit:   ~/nac-iosxe/tests/results/xunit.xml
-Log:     ~/nac-iosxe/tests/results/log.html
-Report:  ~/nac-iosxe/tests/results/report.html
+Output:  /mnt/c/Users/admin/Desktop/TestResults/output.xml
+XUnit:   /mnt/c/Users/admin/Desktop/TestResults/xunit.xml
+Log:     /mnt/c/Users/admin/Desktop/TestResults/log.html
+Report:  /mnt/c/Users/admin/Desktop/TestResults/report.html
 Stopping PabotLib process
 Robot Framework remote server at 127.0.0.1:50179 stopped.
 PabotLib process stopped
@@ -221,7 +234,7 @@ Elapsed time:  1.80 seconds
 - **log.html** - Detailed execution log
 - **report.html** - Human-readable summary report
 
-Open the report in a browser to see the visual results:
+Open the report in a browser to see the visual results. Navigate to your Desktop and open the `TestResults` folder, then double-click `report.html`:
 
 <figure markdown>
   ![Robot Framework Report](./assets/iosxe-manual-robot.png){ width="100%" }
