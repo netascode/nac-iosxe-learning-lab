@@ -46,6 +46,9 @@ Once connected, check that the banner and other configurations you applied are n
 
 ```bash
 show running-config | include banner
+```
+
+```bash
 show ip access-lists
 ```
 
@@ -55,6 +58,9 @@ Now remove the manually created project folder from WSL:
 
 ```bash
 cd ~
+```
+
+```bash
 rm -rf nac-iosxe
 ```
 
