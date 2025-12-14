@@ -59,16 +59,13 @@ Terraform uses a declarative approach where you define the desired state (in you
 2. **Plan** - Preview what changes Terraform will make
 3. **Apply** - Execute the changes on your devices
 
-## Step 1: Open WSL (Ubuntu) and Navigate to Your Project
+## Step 1: In WSL (Ubuntu) and Navigate to Your Project
 
 In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
 
 ```bash
 cd ~/nac-iosxe
 ```
-
-
-
 
 List the files in your directory:
 
@@ -83,11 +80,9 @@ You should see your project structure:
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-global.nac.yaml    # ← New file you're creating
+    ├── config-global.nac.yaml    # ← File with banner configuration
     └── devices.nac.yaml
 ```
-
-
 
 ## Step 2: Load Environment Variables from .env File
 
@@ -157,7 +152,7 @@ terraform init
 **What happens during initialization:**
 
 - Terraform reads your `main.tf` file
-- Downloads the `netascode/nac-iosxe` module from the Terraform Registry
+- Downloads the `netascode/nac-iosxe` modules from the Terraform Registry
 - Creates a `.terraform` directory with downloaded modules
 - Creates a `.terraform.lock.hcl` file to lock module versions
 
@@ -177,7 +172,7 @@ terraform plan
 
 **What Terraform plan does:**
 
-- Reads your `data/devices.nac.yaml` configuration
+- Reads your `data/\*.yaml` configuration files
 - Connects to your IOS XE devices (using credentials from environment variables)
 - Compares desired state (YAML) vs. current state (device configuration)
 - Shows you what will be added, changed, or deleted

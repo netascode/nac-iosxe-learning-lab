@@ -179,8 +179,6 @@ IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
 ```
 
-**Note:** These variables will be exported when you source the `.env` file in WSL using the proper commands (covered in the next task).
-
 The figure below illustrates how to edit the `.env` file using Visual Studio Code. 
 
 <figure markdown>
