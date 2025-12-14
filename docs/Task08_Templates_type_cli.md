@@ -159,8 +159,6 @@ logging console critical
 logging monitor warnings
 logging trap notifications
 logging host 198.18.133.1
-service timestamps log datetime msec localtime show-timezone
-service timestamps debug datetime msec localtime show-timezone
 ```
 
 

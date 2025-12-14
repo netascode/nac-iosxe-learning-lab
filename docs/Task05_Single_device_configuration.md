@@ -195,23 +195,23 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │                   (applies to ALL devices)               │
 │                                                          │
 │  ┌─────────────────────────────────────────────────────┐ │
-│  │              DEVICE GROUP: ACCESS_SWITCHES        │   │
-│  │           (applies to ACCESS01, ACCESS02)         │   │
-│  │                                                   │   │
+│  │              DEVICE GROUP: ACCESS_SWITCHES       │   │
+│  │           (applies to ACCESS01, ACCESS02)        │   │
+│  │                                                  │   │
 │  │  ┌──────────────┐        ┌──────────────┐         │   │
-│  │  │  ACCESS01   │        │  ACCESS02   │           │   │
-│  │  │             │        │             │           │   │
-│  │  │ - Banner    │        │ - Banner    │           │   │
-│  │  │ - ACL       │        │ - ACL       │           │   │
+│  │  │  ACCESS01   │        │  ACCESS02   │          │   │
+│  │  │             │        │             │          │   │
+│  │  │ - Banner    │        │ - Banner    │          │   │
+│  │  │ - ACL       │        │ - ACL       │          │   │
 │  │  └──────────────┘        └──────────────┘         │   │
 │  └─────────────────────────────────────────────────────┘ │
 │                                                          │
 │  ┌───────────────────┐        ┌─────────────────┐        │
-│  │      CORE       │        │     BORDER      │          │
-│  │                 │        │                 │          │
-│  │ - Banner        │        │ - Banner        │          │
-│  │ - IP Hosts      │        │                 │          │
-│  │                 │        │                 │          │
+│  │      CORE       │        │     BORDER      │         │
+│  │                 │        │                 │         │
+│  │ - Banner        │        │ - Banner        │         │
+│  │ - IP Hosts      │        │                 │         │
+│  │                 │        │                 │         │
 │  └───────────────────┘        └─────────────────┘        │
 └──────────────────────────────────────────────────────────────┘
 ```

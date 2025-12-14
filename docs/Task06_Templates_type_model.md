@@ -141,8 +141,8 @@ When Terraform processes your configuration:
 │      - id: 20, name: VOICE                              │
 │      - id: 99, name: MGMT                               │
 └──────────────────────┬───────────────────────────────────────┘
-                       │
-         ┌─────────────┴─────────────┐
+                      │
+         ┌─────────────┴───────────────┐
          │                           │
          ▼                           ▼
 ┌───────────────────┐         ┌──────────────────┐
@@ -174,7 +174,7 @@ At this point, your `data/` folder should contain these files:
     ├── config-global.nac.yaml           # Task03: Global banner
     ├── config-group-access.nac.yaml     # Task04 + Task06: ACL + templates
     ├── devices.nac.yaml                 # Task02: Device inventory
-    └── template-vlan.nac.yaml          # Task06: VLAN template (model)
+    └── template-vlan.nac.yaml           # Task06: VLAN template (type: model)
 ```
 
 
@@ -274,25 +274,23 @@ Templates give you fine-grained control - you choose exactly which devices get t
 
 ## Applying Multiple Templates
 
-One of the most powerful features of templates is the ability to apply **multiple templates** to a single device. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
+One of the most powerful features of templates is the ability to apply **multiple templates** to a device or device group. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
 
-For example, an access switch might need:
+For example, access switches might need:
 
 - **VLAN configuration** (from `access_switch_vlans`)
 - **QoS policies** (from `access_switch_qos`)
 - **Security settings** (from `access_switch_security`)
 
+Using device groups (as we did in this task), you can apply multiple templates to all group members:
+
 ```yaml
 iosxe:
-  devices:
-    - name: access01
-      host: 198.18.130.11
-      templates:
-        - access_switch_vlans
-        - access_switch_qos
-        - access_switch_security
-    - name: access02
-      host: 198.18.130.12
+  device_groups:
+    - name: ACCESS_SWITCHES
+      devices:
+        - access01
+        - access02
       templates:
         - access_switch_vlans
         - access_switch_qos
@@ -302,7 +300,7 @@ iosxe:
 **Benefits of multiple templates:**
 
 - **Separation of concerns**: Each template handles one configuration domain
-- **Mix and match**: Different devices can use different template combinations
+- **Mix and match**: Different device groups can use different template combinations
 - **Easier testing**: Test each template independently before combining
 - **Team collaboration**: Different teams can own different templates
 
