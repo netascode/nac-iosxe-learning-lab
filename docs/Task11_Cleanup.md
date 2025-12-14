@@ -15,10 +15,17 @@ Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate a
 
 ## Step 1: Destroy Terraform Resources
 
-First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal and run:
+First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal.
+
+Navigate to the project folder:
 
 ```bash
 cd ~/nac-iosxe
+```
+
+Run Terraform destroy:
+
+```bash
 terraform destroy
 ```
 
