@@ -82,11 +82,14 @@ class UtilsLib(object):
             else:
                 return text
         except AttributeError:
-            return text```
+            return text
+```
 
 ---
 
 ## Robot Test Templates
+
+{% raw %}
 
 ----------------------
 **File 'access_lists.robot'**
@@ -435,3 +438,5 @@ Should Be Equal Value Json Bool
         Fail   Expected False but got ${r_value}[0]
     END
 ```
+
+{% endraw %}
