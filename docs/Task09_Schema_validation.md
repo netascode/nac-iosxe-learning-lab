@@ -16,11 +16,11 @@ This is similar to how a compiler checks code before running it - catching error
 
 ## The nac-validate Tool
 
-The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. For the complete schema documentation, see the [NAC IOS XE Data Models](https://netascode.cisco.com/docs/data_models/iosxe/) on the Cisco NetAsCode website.
+The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. For the complete schema documentation, see the [NAC IOS XE Data Models](https://netascode.cisco.com/docs/data_models/iosxe/overview/) on the Cisco NetAsCode website.
 
 ## The Schema File
 
-The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/). For this lab, **Appendix II** contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, and BGP.
+The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, **Appendix II** contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings.
 
 **Create the schema file in your project:**
 
@@ -43,13 +43,15 @@ Your project structure should now include:
 ```
 /home/cisco/nac-iosxe/
 ├── .env
-├── .schema.yaml         # ← New schema file
+├── .schema.yaml              # ← New schema file
 ├── main.tf
 └── data/
-    ├── devices.nac.yaml       # Task03: Global banner + devices
-    ├── acl.nac.yaml           # Task04: Device group ACL
-    ├── core.nac.yaml          # Task05: IP hosts for CORE
-    └── templates-vlan.nac.yaml # Task06: VLAN template
+    ├── devices.nac.yaml           # Task03: Global banner + devices + BGP template
+    ├── acl.nac.yaml               # Task04: Device group ACL
+    ├── core.nac.yaml              # Task05: IP hosts for CORE
+    ├── templates-vlan.nac.yaml    # Task06: VLAN template (model)
+    ├── template-bgp.yaml.tftpl    # Task07: BGP template file
+    └── template-logging.nac.yaml  # Task08: Logging template (cli)
 ```
 
 ## The nac-validate Tool in This Lab
@@ -73,7 +75,7 @@ nac-validate -s .schema.yaml data/
 
 ## Successful Validation
 
-If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
+Run the validation in your **WSL Ubuntu terminal**. If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
 ```
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
@@ -93,19 +95,24 @@ Let's intentionally introduce an error to see how validation catches it.
 
 **Example 1: Invalid IP address**
 
-If you accidentally typed an invalid IP like `198.18.130.999` in your devices.nac.yaml:
+If you accidentally typed an invalid IP like `192.168.999.1` in your core.nac.yaml (from Task05):
 
 ```yaml
-devices:
-  - name: core
-    host: 198.18.130.999  # Invalid - octet > 255
+system:
+  ip_hosts:
+    - name: server1
+      ips:
+        - 192.168.999.1  # Invalid - octet > 255
 ```
 
 Running `nac-validate` would produce:
 
 ```
-ERROR - Syntax error 'data/devices.nac.yaml': iosxe.devices.0.host: '198.18.130.999' is not a valid IP address.
+ERROR - Syntax error 'data/core.nac.yaml': iosxe.devices.0.configuration.system.ip_hosts.0.ips.0: '192.168.999.1' is not a valid IP address.
 ```
+
+!!! note "Device host field"
+    The `host` field under `devices` is defined as a string in the schema, so schema validation won't catch invalid IPs there. However, fields like `ips` in IP hosts and `ip` in BGP neighbors ARE validated as IP addresses.
 
 **Example 2: Wrong attribute name**
 
@@ -149,10 +156,12 @@ ERROR - Syntax error 'data/acl.nac.yaml': iosxe.device_groups.0.configuration.ac
 
 Let's validate the configurations you created in previous tasks. Your `data/` folder should contain:
 
-- **devices.nac.yaml** - Global banner + device definitions (Task03)
+- **devices.nac.yaml** - Global banner, device definitions, and BGP template (Task03, Task07)
 - **acl.nac.yaml** - Device group with ACL (Task04)
 - **core.nac.yaml** - IP hosts for CORE switch (Task05)
-- **templates-vlan.nac.yaml** - VLAN template (Task06)
+- **templates-vlan.nac.yaml** - VLAN template, model type (Task06)
+- **template-bgp.yaml.tftpl** - BGP template file (Task07)
+- **template-logging.nac.yaml** - Logging template, cli type (Task08)
 
 **Run the validation:**
 

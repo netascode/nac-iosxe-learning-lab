@@ -38,7 +38,7 @@ Use VS Code to create a new file `data/templates-vlan.nac.yaml` with the followi
 ```yaml
 iosxe:
   templates:
-    - name: ACCESS_SWITCH_VLANS
+    - name: access_switch_vlans
       type: model
       configuration:
         vlan:
@@ -66,7 +66,7 @@ Let's break down the key elements:
 **Template Definition:**
 
 - **`templates:`** - List of template definitions at the top level
-- **`name: ACCESS_SWITCH_VLANS`** - Unique identifier for this template
+- **`name: access_switch_vlans`** - Unique identifier for this template
 - **`type: model`** - Indicates this is a YAML-based configuration template
 - **`configuration:`** - Contains the actual configuration to be applied
 
@@ -96,11 +96,11 @@ iosxe:
     - name: access01
       host: 198.18.130.11
       templates:
-        - ACCESS_SWITCH_VLANS
+        - access_switch_vlans
     - name: access02
       host: 198.18.130.12
       templates:
-        - ACCESS_SWITCH_VLANS
+        - access_switch_vlans
 ```
 
 **Save the file** by pressing `Ctrl+S` in VS Code.
@@ -115,7 +115,7 @@ The image below illustrates how devices reference the template:
 
 When Terraform processes your configuration:
 
-1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `ACCESS_SWITCH_VLANS` template
+1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `access_switch_vlans` template
 2. **Device Processing**: For each device in `devices.nac.yaml`, Terraform checks for template references
 3. **Configuration Merge**: For ACCESS01 and ACCESS02 (which reference the template), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both ACCESS01 and ACCESS02 (but not on CORE or BORDER)
@@ -124,13 +124,13 @@ When Terraform processes your configuration:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    TEMPLATE: ACCESS_SWITCH_VLANS        │
+│                    TEMPLATE: access_switch_vlans        │
 │                                                         │
 │  vlan:                                                  │
 │    vlans:                                               │
 │      - id: 10, name: DATA                               │
 │      - id: 20, name: VOICE                              │
-│      - id: 99, name: MGMT                               │
+│      - id: 99, name: MGMT                           6    │
 └──────────────────────┬──────────────────────────────────────┘
                        │
          ┌─────────────┴─────────────┐
@@ -263,7 +263,7 @@ One of the most powerful features of templates is the ability to apply **multipl
 
 For example, an access switch might need:
 
-- **VLAN configuration** (from `ACCESS_SWITCH_VLANS`)
+- **VLAN configuration** (from `access_switch_vlans`)
 - **QoS policies** (from `ACCESS_SWITCH_QOS`)
 - **Security settings** (from `ACCESS_SWITCH_SECURITY`)
 
@@ -273,13 +273,13 @@ iosxe:
     - name: access01
       host: 198.18.130.11
       templates:
-        - ACCESS_SWITCH_VLANS
+        - access_switch_vlans
         - ACCESS_SWITCH_QOS
         - ACCESS_SWITCH_SECURITY
     - name: access02
       host: 198.18.130.12
       templates:
-        - ACCESS_SWITCH_VLANS
+        - access_switch_vlans
         - ACCESS_SWITCH_QOS
         - ACCESS_SWITCH_SECURITY
 ```
@@ -296,7 +296,7 @@ iosxe:
 In this task, you have:
 
 - ✅ Learned about templates and their benefits for Network-as-Code
-- ✅ Created a reusable VLAN template (`ACCESS_SWITCH_VLANS`)
+- ✅ Created a reusable VLAN template (`access_switch_vlans`)
 - ✅ Applied the template to multiple access switches
 - ✅ Verified consistent VLAN deployment across devices
 - ✅ Understood when to use templates vs global/group/device configurations

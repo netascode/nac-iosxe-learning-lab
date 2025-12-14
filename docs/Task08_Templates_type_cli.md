@@ -14,7 +14,7 @@ The `cli` template type allows you to include raw IOS XE CLI commands that are p
 
 **When to use 'cli' templates:**
 
-- **Unsupported features**: Configuration not yet in the [YAML data model](https://netascode.cisco.com/docs/data_models/)
+- **Unsupported features**: Configuration not yet in the [YAML data model](https://netascode.cisco.com/docs/data_models/iosxe/overview/)
 - **Temporary workarounds**: Quick fixes before proper YAML support is added
 
 !!! warning "Use with Caution"
@@ -26,7 +26,7 @@ In this example, you'll configure advanced logging settings using a `cli` templa
 
 ## Step 1: Create the CLI Template
 
-Create a new file `data/logging_template.nac.yaml` with the following content:
+Create a new file `data/template-logging.nac.yaml` with the following content:
 
 ```yaml
 iosxe:
@@ -122,7 +122,7 @@ iosxe:
     - name: access01
       host: 198.18.130.11
       templates:
-        - ACCESS_SWITCH_VLANS   # model template from Task06
+        - access_switch_vlans   # model template from Task06
         - enhanced_logging      # cli template from this task
 ```
 

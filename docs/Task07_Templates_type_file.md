@@ -38,17 +38,9 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
     
     When you verify the BGP configuration, the **ISP1 neighbor will show as Established**, while **ISP2 will show as Idle** (since the remote end is not yet configured).
 
-## Step 1: Create the Templates Directory
+## Step 1: Create the Template File
 
-First, using WSL Ubuntu terminal, create a templates directory in your project:
-
-```bash
-mkdir -p ~/nac-iosxe/templates
-```
-
-## Step 2: Create the Template File
-
-Create a new file `templates/bgp_config.yaml.tftpl` with the following content:
+Create a new file `data/template-bgp.yaml.tftpl` with the following content:
 
 ```text
 routing:
@@ -69,16 +61,16 @@ This template uses:
 - **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
-## Step 3: Update devices.nac.yaml with Template and Variables
+## Step 2: Update devices.nac.yaml with Template and Variables
 
 Update your `data/devices.nac.yaml` to include the template definition and apply it to the BORDER switch. Here's the complete file:
 
 ```yaml
 iosxe:
   templates:
-    - name: BGP_ISP_PEERING
+    - name: bgp_isp_peering
       type: file
-      file: templates/bgp_config.yaml.tftpl
+      file: data/template-bgp.yaml.tftpl
 
   global:
     configuration:
@@ -91,7 +83,7 @@ iosxe:
     - name: border
       host: 198.18.130.20
       templates:
-        - BGP_ISP_PEERING
+        - bgp_isp_peering
       variables:
         bgp_as_number: 65000
         bgp_neighbors:
@@ -109,7 +101,7 @@ iosxe:
 
 **What's new in this configuration:**
 
-- **`templates:`** (at the top) - Defines the BGP_ISP_PEERING template:
+- **`templates:`** (at the top) - Defines the bgp_isp_peering template:
   - **`name`**: Unique identifier for the template
   - **`type: file`**: Specifies this is a file-based template
   - **`file`**: Path to the `.tftpl` template file (relative to where `main.tf` is located)
@@ -126,7 +118,7 @@ iosxe:
 !!! note "Template Scope"
     The BGP template is only applied to the BORDER switch because only BORDER has the `templates:` and `variables:` attributes. The other devices (CORE, ACCESS01, ACCESS02) continue to receive only the global banner configuration.
 
-## Step 4: Deploy the Configuration
+## Step 3: Deploy the Configuration
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -150,7 +142,7 @@ terraform apply
 
 When prompted, type `yes` to confirm the deployment.
 
-## Step 5: Verify BGP Configuration
+## Step 4: Verify BGP Configuration
 
 Use **Solar-PuTTY** to connect to the BORDER switch and verify the BGP configuration:
 
