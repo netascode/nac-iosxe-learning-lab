@@ -172,7 +172,7 @@ terraform plan
 
 **What Terraform plan does:**
 
-- Reads your `data/\*.yaml` configuration files
+- Reads your `data/*.yaml` configuration files
 - Connects to your IOS XE devices (using credentials from environment variables)
 - Compares desired state (YAML) vs. current state (device configuration)
 - Shows you what will be added, changed, or deleted
