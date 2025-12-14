@@ -26,7 +26,13 @@ In this example, you'll configure advanced logging settings using a `cli` templa
 
 ## Step 1: Create the CLI Template
 
-Create a new file `data/template-logging.nac.yaml` with the following content:
+First, create the file using your **WSL Ubuntu terminal**:
+
+```bash
+touch ~/nac-iosxe/data/template-logging.nac.yaml
+```
+
+Then open `data/template-logging.nac.yaml` in VS Code and add the following content:
 
 ```yaml
 iosxe:

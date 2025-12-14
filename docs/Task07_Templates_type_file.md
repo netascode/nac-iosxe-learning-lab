@@ -40,7 +40,13 @@ In this example, you'll configure BGP on the **BORDER** switch for peering with 
 
 ## Step 1: Create the Template File
 
-Create a new file `data/template-bgp.yaml.tftpl` with the following content:
+First, create the file using your **WSL Ubuntu terminal**:
+
+```bash
+touch ~/nac-iosxe/data/template-bgp.yaml.tftpl
+```
+
+Then open `data/template-bgp.yaml.tftpl` in VS Code and add the following content:
 
 ```text
 routing:

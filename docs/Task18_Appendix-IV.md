@@ -26,7 +26,7 @@ ISP#
 
 **Configuration in BORDER router to ISP**
 
-
+```
 BORDER#sh run int gig 1
 Building configuration...
 
@@ -38,7 +38,7 @@ interface GigabitEthernet1
 end
 
 BORDER#
-
+```
 
 
 

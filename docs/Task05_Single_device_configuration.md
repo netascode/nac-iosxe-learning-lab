@@ -10,9 +10,9 @@ Device-specific configurations are applied directly to individual devices and ta
 
 **Configuration Precedence Hierarchy (reminder):**
 
-1. **Device** (highest precedence) - device-specific overrides ← *This task*
+1. **Global** (lowest precedence) - organization-wide defaults ← *Task03*
 2. **Device Group** (medium precedence) - role or location-specific settings ← *Task04*
-3. **Global** (lowest precedence) - organization-wide defaults ← *Task03*
+3. **Device** (highest precedence) - device-specific overrides ← *This task*
 
 ## Use Case: IP Host Entries for Core Switch
 
@@ -25,7 +25,13 @@ You'll configure the CORE switch to resolve these hostnames:
 
 ## Create the Device-Specific YAML Configuration
 
-Use VS Code to create a new file `data/core.nac.yaml` with the following content. Notice how the configuration is placed directly under a specific device in the `devices` section:
+First, create the file using your **WSL Ubuntu terminal**:
+
+```bash
+touch ~/nac-iosxe/data/core.nac.yaml
+```
+
+Then open `data/core.nac.yaml` in VS Code and add the following content. Notice how the configuration is placed directly under a specific device in the `devices` section:
 
 ```yaml
 iosxe:

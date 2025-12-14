@@ -68,14 +68,14 @@ Let's break down the key elements:
 
 - **`device_groups:`** - Defines one or more device groups
 - **`name: ACCESS`** - The group name identifier
-- **`devices:`** - Lists member devices (ACCESS01, ACCESS02)
+- **`devices:`** - Lists member devices (access01, access02)
 - **`configuration:`** - Contains settings applied to all group members
 
 **Access List Configuration:**
 
 - **`access_lists:`** - Top-level ACL configuration
 - **`standard:`** - Specifies standard ACL type (filters based on source address only)
-- **`name: StandardAccessList-Amsterdam`** - The ACL name
+- **`name: AccessLayerACL`** - The ACL name
 - **`entries:`** - Individual ACL rules (processed in sequence order)
 
 **ACL Entry Details:**
@@ -100,9 +100,9 @@ Let's break down the key elements:
 
 When Terraform processes this configuration:
 
-1. The **global banner** applies to all devices (BORDER, CORE, ACCESS01, ACCESS02)
-2. The **ACCESS group ACL** applies only to ACCESS01 and ACCESS02 switches
-3. If you later add device-specific configuration to the ACCESS01 device, it would override group settings
+1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
+2. The **ACCESS group ACL** applies only to **access01** and **access02** switches
+3. If you later add device-specific configuration to the **access01** device, it would override group settings
 
 This hierarchical approach ensures:
 
@@ -118,11 +118,17 @@ Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraf
 
 ```bash
 cd ~/nac-iosxe
+```
+
+```bash
 terraform plan
+```
+
+```bash
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (ACCESS01 and ACCESS02).
+When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (**access01** and **access02**).
 
 <figure markdown>
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
@@ -158,7 +164,7 @@ This confirms the standard ACL was successfully deployed to both ACCESS01 and AC
 In this task, you have:
 
 - ✅ Learned about device groups and configuration hierarchy
-- ✅ Created an ACCESS device group with ACCESS01 and ACCESS02 switches
+- ✅ Created an ACCESS device group with **access01** and **access02** switches
 - ✅ Applied a standard ACL to multiple devices using a single definition
 - ✅ Understood the precedence: Global < Device Group < Device
 - ✅ Verified selective configuration deployment to group members only

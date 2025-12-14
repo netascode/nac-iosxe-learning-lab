@@ -5,7 +5,7 @@ Before moving to CI/CD automation, you need to clean up the manual work you've d
 In the previous tasks, you:
 
 - Created configuration files manually in VS Code
-- Ran Terraform commands directly from WSL
+- Ran Terraform commands directly from WSL Ubuntu
 - Deployed configurations to the IOS XE devices
 
 Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate all of this. The GitLab repository already contains a complete project setup, so you need to:

@@ -33,7 +33,13 @@ Access switches typically share the same VLAN configuration - they need identica
 
 ## Create the Template File
 
-Use VS Code to create a new file `data/templates-vlan.nac.yaml` with the following content. This file defines a reusable VLAN template:
+First, create the file using your **WSL Ubuntu terminal**:
+
+```bash
+touch ~/nac-iosxe/data/templates-vlan.nac.yaml
+```
+
+Then open `data/templates-vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
 
 ```yaml
 iosxe:

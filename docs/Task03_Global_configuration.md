@@ -108,6 +108,7 @@ export $(cat .env | xargs)
 
 
 **What this command does:**
+
 - `cat .env` - Reads the contents of the `.env` file
 - `xargs` - Converts the file contents into command-line arguments
 - `export` - Exports all the variables, making them available to child processes like Terraform
@@ -120,8 +121,10 @@ env | grep IOSXE
 
 You should see both variables displayed:
 ```
+cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
+cisco@wkst1:~/nac-iosxe$
 ```
 
 These credentials allow Terraform to authenticate with your IOS XE devices.
@@ -150,6 +153,7 @@ terraform init
 ```
 
 **What happens during initialization:**
+
 - Terraform reads your `main.tf` file
 - Downloads the `netascode/nac-iosxe` module from the Terraform Registry
 - Creates a `.terraform` directory with downloaded modules
@@ -170,6 +174,7 @@ terraform plan
 ```
 
 **What Terraform plan does:**
+
 - Reads your `data/devices.nac.yaml` configuration
 - Connects to your IOS XE devices (using credentials from environment variables)
 - Compares desired state (YAML) vs. current state (device configuration)
@@ -204,6 +209,7 @@ Do you want to perform these actions?
 Type `yes` and press Enter to proceed.
 
 **What happens during apply:**
+
 - Terraform connects to each device via HTTPS
 - Translates your YAML configuration into IOS XE CLI commands
 - Applies the commands to the devices
@@ -276,7 +282,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 - Device connection details
 
 <figure markdown>
-  ![Terraform State Files](./assets/terraform-state-files.png){ width="100%" }
+  ![Terraform State Files](./assets/terraform-state-files.png){ width="70%" }
 </figure>
 
 **Important:** The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
