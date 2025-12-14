@@ -241,5 +241,5 @@ You can verify the configuration was applied by SSH-ing to a device and checking
 
 In the next optional tasks, you can:
 
-- **Task12**: Add ROBOT testing stage to the pipeline
-- **Task13**: Create branches and merge requests for change approval workflows
+- **Task13**: Add ROBOT testing stage to the pipeline
+- **Task14**: Create branches and merge requests for change approval workflows

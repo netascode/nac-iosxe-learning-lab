@@ -190,7 +190,7 @@ Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 - ✅ Created a separate template definition file (`template-bgp.nac.yaml`)
 - ✅ Used variable interpolation (`${ }`) for dynamic values
 - ✅ Used loops (`%{ for }`) for multiple BGP neighbors
-- ✅ Applied templates using device groups (`DEVICE_GROUP_BORDER`)
+- ✅ Applied templates at device level to the **border** switch
 - ✅ Configured BGP peering on **border** switch for ISP connectivity
 - ✅ Understood expected behavior with pre-configured but inactive peers
 

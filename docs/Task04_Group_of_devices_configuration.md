@@ -33,7 +33,7 @@ The file will appear in VS Code's Explorer panel. Click on `config-group-access.
 ```text
 iosxe:
   device_groups:
-    - name: ACCESS_SWITCHESS
+    - name: ACCESS_SWITCHES
       devices:
         - access01
         - access02

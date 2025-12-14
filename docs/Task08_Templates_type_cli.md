@@ -83,7 +83,7 @@ iosxe:
                   prefix_mask: 0.0.0.255
       templates:
         - access_switch_vlans
-        - enhanced_logging  # This is the line we add
+        - enhanced_logging  # This is the line we add to apply the template
 ```
 
 **Update `data/config-device-border.nac.yaml`** to include the logging template:
@@ -94,7 +94,7 @@ iosxe:
     - name: border
       templates:
         - bgp_isp_peering
-        - enhanced_logging
+        - enhanced_logging # This is the line we add to apply the template
       variables:
         bgp_as_number: 65000
         bgp_neighbors:
@@ -143,7 +143,7 @@ When prompted, type `yes` to confirm the deployment.
 
 ## Step 4: Verify the Configuration
 
-Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **CORE** or **ACCESS01** in the device list to connect.
+Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **ACCESS01** or **BORDER** in the device list to connect (these are the devices where logging was applied).
 
 Check logging configuration:
 
@@ -163,23 +163,6 @@ service timestamps log datetime msec localtime show-timezone
 service timestamps debug datetime msec localtime show-timezone
 ```
 
-## Combining Template Types
-
-You can combine different template types for the same device group. For example, the access switches can use both the VLAN template from Task06 and the logging template from this task:
-
-```yaml
-iosxe:
-  device_groups:
-    - name: DEVICE_GROUP_ACCESS
-      devices:
-        - access01
-        - access02
-      templates:
-        - access_switch_vlans   # model template from Task06
-        - enhanced_logging      # cli template from this task
-```
-
-This applies both templates to all devices in the `DEVICE_GROUP_ACCESS` group.
 
 ## What You've Accomplished
 

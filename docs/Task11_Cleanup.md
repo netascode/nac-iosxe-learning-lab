@@ -69,6 +69,8 @@ This deletes:
 - `.env` - Credentials file
 - `main.tf` - Terraform configuration
 - `data/` - All YAML configuration files
+- `tftpl/` - Template files (.tftpl)
+- `tests/` - Robot Framework test files
 - `.terraform/` - Downloaded modules and providers
 - `terraform.tfstate` - State file
 

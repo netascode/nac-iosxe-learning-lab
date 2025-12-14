@@ -4,7 +4,7 @@ In this task, you'll learn how to use **global configuration** to apply settings
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. This provides the foundation layer of your network configuration hierarchy.
 
-As describe in the [IOS XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
+As described in the [IOS XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
 
 1. **Device** (highest precedence) - device-specific overrides
 2. **Device Group** (medium precedence) - role or location-specific settings  
@@ -97,7 +97,6 @@ You should see your project structure:
 ## Step 2: Load Environment Variables from .env File
 
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
-
 
 
 **Convert the file to Unix format to avoid encoding issues:**
@@ -290,7 +289,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 - Device connection details
 
 <figure markdown>
-  ![Terraform State Files](./assets/terraform-state-files.png){ width="70%" }
+  ![Terraform State Files](./assets/terraform-state-files.png){ width="50%" }
 </figure>
 
 **Important:** The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
