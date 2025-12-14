@@ -142,6 +142,9 @@ terraform apply
 
 When prompted, type `yes` to confirm the deployment.
 
+!!! tip "View the Merged Model"
+    After running `terraform plan`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. This shows exactly what configuration will be applied to the device.
+
 ## Step 4: Verify BGP Configuration
 
 Use **Solar-PuTTY** to connect to the BORDER switch and verify the BGP configuration:

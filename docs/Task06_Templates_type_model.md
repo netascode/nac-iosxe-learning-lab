@@ -196,6 +196,9 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
 - Terraform shows VLAN creation for ACCESS02
 - Both devices receive identical VLAN configuration
 
+!!! tip "View the Merged Model"
+    After running `terraform plan`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task10.
+
 <figure markdown>
   ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="100%" }
 </figure>

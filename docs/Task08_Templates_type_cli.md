@@ -90,6 +90,9 @@ terraform apply
 
 When prompted, type `yes` to confirm the deployment.
 
+!!! tip "View the Merged Model"
+    After running `terraform plan`, open the `model.yaml` file in VS Code to see how CLI templates are expanded and merged with other configurations. Notice how the raw CLI commands appear in the merged model alongside YAML-based configurations.
+
 ## Step 4: Verify the Configuration
 
 Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **CORE** or **ACCESS01** in the device list to connect.

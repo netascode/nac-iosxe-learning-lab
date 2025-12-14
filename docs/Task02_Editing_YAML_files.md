@@ -18,6 +18,20 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 - **Multi-file editing** - Work with multiple configuration files simultaneously
 - **File explorer** - Easy navigation through project folders and files
 
+### YAML Linting with RedHat Extension
+
+Since Network-as-Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
+
+This extension provides:
+
+- **Real-time syntax validation** - Highlights errors as you type
+- **Auto-completion** - Suggests valid YAML structures
+- **Formatting** - Automatically formats your YAML files
+- **Schema validation** - Can validate against predefined schemas
+
+!!! info "Pre-installed Extension"
+    The Red Hat YAML extension is already installed in your lab environment. You'll see syntax highlighting and error detection automatically as you edit YAML files. For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
+
 For this lab, VS Code is pre-installed on your Windows workstation and ready to use. You'll use it to view, edit, and create YAML configuration files that define your network infrastructure.
 
 
@@ -182,6 +196,8 @@ Next, edit a Terraform `main.tf` file with the following content. This file serv
 module "iosxe" {
   source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
   yaml_directories = ["data/"]
+  write_model_file = "model.yaml"
+  write_default_values_file = "defaults.yaml"
 }
 ```
 
@@ -192,6 +208,10 @@ module "iosxe" {
 - **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML into Terraform provider.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
+
+- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration.
+
+- **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
 
 The figure below illustrates how to create the `main.tf` file using Visual Studio Code.
 
@@ -230,6 +250,7 @@ Congratulations! In this chapter, you have:
 **Tools Introduced:**
 
 - **VS Code** - For editing configuration files
+- **Red Hat YAML Extension** - For YAML syntax validation and linting
 - **WSL** - For running Linux/Terraform commands
 - **Terraform** - For deploying configurations to devices
 

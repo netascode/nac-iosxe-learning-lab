@@ -1,9 +1,46 @@
 **ROBOT Testing Files**
 
-!!! note "Simplified Templates"
-    The templates below have been simplified for this lab environment. In production deployments, the full templates from the [NAC IOS XE repository](https://github.com/netascode/nac-iosxe) include additional filters like `url_encode` for handling special characters in names.
+This appendix contains the Robot Framework test files and custom Jinja2 filters required for post-change validation in Task10.
 
-{% raw %}
+---
+
+## Custom Jinja2 Filters
+
+The Robot templates use custom Jinja2 filters. Create the filters directory and file before running `nac-test`.
+
+----------------------
+**File 'tests/filters/url_encode.py'**
+----------------------
+
+```python
+# Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
+from urllib.parse import quote_plus
+
+
+class Filter:
+    name = "url_encode"
+
+    @classmethod
+    def filter(cls, text):
+        """url encodes a string with characters in order to make them safe for restconf
+
+        Example: converts "/" to "%2F" to make them not break the restconf uri.
+
+        Args:
+            text: The string to url encode. If not a string, returns unchanged.
+
+        Returns:
+            str: The url encoded string.
+        """
+        try:
+            return quote_plus(str(text))
+        except AttributeError:
+            return text
+```
+
+---
+
+## Robot Test Templates
 
 ----------------------
 **File 'access_lists.robot'**
@@ -21,7 +58,7 @@ Default Tags    config   iosxe   access_lists
 {% if device.configuration.access_lists.standard is defined %}
 {% for acl in device.configuration.access_lists.standard | default([]) %}
 Verify Standard Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard={{ acl.name }}   expected_status=200
+    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard={{ acl.name | url_encode }}   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
 {% for entry in acl.entries | default([]) %}
@@ -39,7 +76,7 @@ Verify Standard Access List {{ acl.name }} Device {{ device.name }}
 {% if device.configuration.access_lists.extended is defined %}
 {% for acl in device.configuration.access_lists.extended | default([]) %}
 Verify Extended Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:extended={{ acl.name }}   expected_status=200
+    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:extended={{ acl.name | url_encode }}   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
 {% for entry in acl.entries | default([]) %}
@@ -163,7 +200,7 @@ Verify Extended Access List {{ acl.name }} Device {{ device.name }}
 {% if device.configuration.access_lists.role_based is defined %}
 {% for acl in device.configuration.access_lists.role_based | default([]) %}
 Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:role-based={{ acl.name }}   expected_status=200
+    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:role-based={{ acl.name | url_encode }}   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
 {% for entry in acl.entries | default([]) %}
@@ -352,5 +389,3 @@ Should Be Equal Value Json Bool
         Fail   Expected False but got ${r_value}[0]
     END
 ```
-
-{% endraw %}
