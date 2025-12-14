@@ -50,7 +50,7 @@ Your project structure should now include:
 ├── data/
 │   ├── devices.nac.yaml                # Task02: Device inventory
 │   ├── config-global.nac.yaml          # Task03: Global banner
-│   ├── config-group-access.nac.yaml    # Task04: ACCESS group ACL
+│   ├── config-group-access.nac.yaml    # Task04: ACCESS_SWITCHES group ACL
 │   ├── config-device-core.nac.yaml     # Task05: IP hosts for CORE
 │   ├── config-device-border.nac.yaml   # Task05: Border device config
 │   ├── config-device-access01.nac.yaml # Task05: Access01 device config
@@ -171,10 +171,10 @@ Let's validate the configurations you created in previous tasks. Your `data/` fo
 
 - **devices.nac.yaml** - Device inventory (Task02)
 - **config-global.nac.yaml** - Global banner (Task03)
-- **config-group-access.nac.yaml** - ACCESS group ACL configuration (Task04)
+- **config-group-access.nac.yaml** - ACCESS_SWITCHES group ACL configuration (Task04)
 - **config-device-core.nac.yaml** - IP hosts for CORE switch (Task05)
 - **templates-vlan.nac.yaml** - VLAN template, model type (Task06)
-- **config-group-access-templates.nac.yaml** - Template application for ACCESS group (Task06)
+- **config-group-access-templates.nac.yaml** - Template application for ACCESS_SWITCHES group (Task06)
 - **template-bgp.nac.yaml** - BGP template definition (Task07)
 - **config-group-border-templates.nac.yaml** - Template application for BORDER group (Task07)
 - **template-logging.nac.yaml** - Logging template, cli type (Task08)

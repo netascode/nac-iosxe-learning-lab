@@ -98,9 +98,11 @@ You should see your project structure:
 
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
 
+
+
 **Convert the file to Unix format to avoid encoding issues:**
 
-Because you edited the `.env` file in VS Code on Windows, it may have Windows-style line endings (CRLF). Convert it to Unix format:
+Because you edited the `.env` file in VS Code on Windows, it may have Windows-style line endings (CRLF). Run the following command in your **WSL Ubuntu terminal** to convert it to Unix format:
 
 ```bash
 dos2unix .env

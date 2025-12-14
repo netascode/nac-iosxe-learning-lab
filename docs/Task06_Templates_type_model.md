@@ -85,7 +85,7 @@ Let's break down the key elements:
 
 ## Apply Template to Access Switches
 
-Now you need to apply the template to the access switches. Create a new file that references the template for the ACCESS group:
+Now you need to apply the template to the access switches. Create a new file that references the template for the ACCESS_SWITCHES group:
 
 ```bash
 touch ~/nac-iosxe/data/config-group-access-templates.nac.yaml
@@ -96,7 +96,7 @@ Then open `data/config-group-access-templates.nac.yaml` in VS Code and add the f
 ```yaml
 iosxe:
   device_groups:
-    - name: ACCESS
+    - name: ACCESS_SWITCHES
       devices:
         - access01
         - access02
@@ -109,7 +109,7 @@ iosxe:
 **What's in this configuration:**
 
 - **`device_groups:`** - Defines groups of devices with shared configurations
-- **`name: ACCESS`** - References the same ACCESS group from Task04
+- **`name: ACCESS_SWITCHES`** - References the same ACCESS_SWITCHES group from Task04
 - **`templates:`** - Applies the `access_switch_vlans` template to all devices in the group
 
 !!! note "Modular Configuration"
@@ -120,7 +120,7 @@ iosxe:
 When Terraform processes your configuration:
 
 1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `access_switch_vlans` template
-2. **Device Group Processing**: Terraform finds the ACCESS group and its associated template
+2. **Device Group Processing**: Terraform finds the ACCESS_SWITCHES group and its associated template
 3. **Configuration Merge**: For **access01** and **access02** (members of the group), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 

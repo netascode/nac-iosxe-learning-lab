@@ -64,7 +64,7 @@ Now you can add the logging template to your existing device group files.
 ```yaml
 iosxe:
   device_groups:
-    - name: ACCESS
+    - name: ACCESS_SWITCHES
       devices:
         - access01
         - access02
@@ -97,7 +97,7 @@ iosxe:
 
 **What's new:**
 
-- **ACCESS group** now includes both `access_switch_vlans` and `enhanced_logging` templates
+- **ACCESS_SWITCHES** group now includes both `access_switch_vlans` and `enhanced_logging` templates
 - **BORDER group** now includes both `bgp_isp_peering` and `enhanced_logging` templates
 
 !!! note "Template Organization"

@@ -92,16 +92,16 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
 ├── .env
 ├── main.tf
 └── data/
-    ├── devices.nac.yaml              # Device inventory (name + host)
-    ├── config-global.nac.yaml        # Global configuration (banner)
-    ├── config-group-access.nac.yaml  # Device Group configuration (ACL)
-    ├── config-device-core.nac.yaml   # Device-specific (IP hosts)
-    ├── config-device-border.nac.yaml # Device-specific (placeholder)
     ├── config-device-access01.nac.yaml  # Device-specific (placeholder)
-    └── config-device-access02.nac.yaml  # Device-specific (placeholder)
+    ├── config-device-access02.nac.yaml  # Device-specific (placeholder)
+    ├── config-device-border.nac.yaml    # Device-specific (placeholder)
+    ├── config-device-core.nac.yaml      # Device-specific (IP hosts)
+    ├── config-global.nac.yaml           # Global configuration (banner)
+    ├── config-group-access.nac.yaml     # Device Group configuration (ACL)
+    └── devices.nac.yaml                 # Device inventory (name + host)
 ```
 
-This modular approach keeps configurations organized and easy to maintain:
+This modular approach keeps configurations organized and easy to maintain. This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment:
 
 - **Device inventory** in `devices.nac.yaml` - the device list
 - **Global settings** in `config-global.nac.yaml` - applies to all devices
@@ -195,7 +195,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │                   (applies to ALL devices)               │
 │                                                          │
 │  ┌───────────────────────────────────────────────────┐   │
-│  │              DEVICE GROUP: ACCESS                 │   │
+│  │              DEVICE GROUP: ACCESS_SWITCHES                 │   │
 │  │           (applies to ACCESS01, ACCESS02)         │   │
 │  │                                                   │   │
 │  │  ┌──────────────┐        ┌─────────────┐          │   │

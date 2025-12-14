@@ -33,7 +33,7 @@ The file will appear in VS Code's Explorer panel. Click on `config-group-access.
 ```text
 iosxe:
   device_groups:
-    - name: ACCESS
+    - name: ACCESS_SWITCHESS
       devices:
         - access01
         - access02
@@ -67,7 +67,7 @@ Let's break down the key elements:
 **Device Group Section:**
 
 - **`device_groups:`** - Defines one or more device groups
-- **`name: ACCESS`** - The group name identifier
+- **`name: ACCESS_SWITCHES`** - The group name identifier
 - **`devices:`** - Lists member devices (access01, access02)
 - **`configuration:`** - Contains settings applied to all group members
 
@@ -101,7 +101,7 @@ Let's break down the key elements:
 When Terraform processes this configuration:
 
 1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
-2. The **ACCESS group ACL** applies only to **access01** and **access02** switches
+2. The **ACCESS_SWITCHES group ACL** applies only to **access01** and **access02** switches
 3. If you later add device-specific configuration to the **access01** device, it would override group settings
 
 This hierarchical approach ensures:
@@ -128,7 +128,7 @@ terraform plan
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS group (**access01** and **access02**).
+When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS_SWITCHES group (**access01** and **access02**).
 
 <figure markdown>
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
@@ -136,7 +136,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
 
 ## Verify Device Group Configuration
 
-After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the ACCESS group.
+After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the ACCESS_SWITCHES group.
 
 **Use Solar-PuTTY to connect and verify:**
 
@@ -155,9 +155,9 @@ show access-lists
   ![Show Access List](./assets/sh-access-list.png){ width="100%" }
 </figure>
 
-This confirms the standard ACL was successfully deployed to both ACCESS01 and ACCESS02 switches with both network permit entries.
+This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
 
-**Key observation:** The ACL only appears on devices that are members of the ACCESS group. If you check BORDER or CORE switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+**Key observation:** The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check BORDER or CORE switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 ## What You've Accomplished
 
