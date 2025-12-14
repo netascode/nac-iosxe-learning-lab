@@ -50,15 +50,13 @@ Your project structure should now include:
 ├── data/
 │   ├── devices.nac.yaml                # Task02: Device inventory
 │   ├── config-global.nac.yaml          # Task03: Global banner
-│   ├── config-group-access.nac.yaml    # Task04: ACCESS_SWITCHES group ACL
+│   ├── config-group-access.nac.yaml    # Task04: ACCESS_SWITCHES group ACL + templates
 │   ├── config-device-core.nac.yaml     # Task05: IP hosts for CORE
-│   ├── config-device-border.nac.yaml   # Task05: Border device config
+│   ├── config-device-border.nac.yaml   # Task05 + Task07: Border device + BGP templates
 │   ├── config-device-access01.nac.yaml # Task05: Access01 device config
 │   ├── config-device-access02.nac.yaml # Task05: Access02 device config
-│   ├── templates-vlan.nac.yaml         # Task06: VLAN template (model)
-│   ├── config-group-access-templates.nac.yaml  # Task06: Apply templates to ACCESS
+│   ├── template-vlan.nac.yaml          # Task06: VLAN template (model)
 │   ├── template-bgp.nac.yaml           # Task07: BGP template definition
-│   ├── config-group-border-templates.nac.yaml  # Task07: Apply templates to BORDER
 │   └── template-logging.nac.yaml       # Task08: Logging template (cli)
 └── tftpl/
     └── bgp.yaml.tftpl                  # Task07: BGP template file
@@ -171,12 +169,11 @@ Let's validate the configurations you created in previous tasks. Your `data/` fo
 
 - **devices.nac.yaml** - Device inventory (Task02)
 - **config-global.nac.yaml** - Global banner (Task03)
-- **config-group-access.nac.yaml** - ACCESS_SWITCHES group ACL configuration (Task04)
+- **config-group-access.nac.yaml** - ACCESS_SWITCHES group ACL + templates (Task04, Task06, Task08)
 - **config-device-core.nac.yaml** - IP hosts for CORE switch (Task05)
-- **templates-vlan.nac.yaml** - VLAN template, model type (Task06)
-- **config-group-access-templates.nac.yaml** - Template application for ACCESS_SWITCHES group (Task06)
+- **config-device-border.nac.yaml** - Border device BGP + logging templates (Task05, Task07, Task08)
+- **template-vlan.nac.yaml** - VLAN template, model type (Task06)
 - **template-bgp.nac.yaml** - BGP template definition (Task07)
-- **config-group-border-templates.nac.yaml** - Template application for BORDER group (Task07)
 - **template-logging.nac.yaml** - Logging template, cli type (Task08)
 
 **In `tftpl/` folder:**

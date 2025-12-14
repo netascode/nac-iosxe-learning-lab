@@ -17,7 +17,7 @@ As described in the [IOS-XE Template documentation](https://netascode.cisco.com/
 |------|-------------|----------|
 | `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) |
 | `file` | External file reference | Large configurations stored separately |
-| `cli` | Raw CLI commands | Legacy or complex CLI configurations |
+| `cli` | Raw CLI commands | IOS XE features not supported in the NAC data model |
 
 In this task, you'll use the `model` type to create a VLAN template as a practical example.
 
@@ -36,10 +36,10 @@ Access switches typically share the same VLAN configuration - they need identica
 First, create the file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/templates-vlan.nac.yaml
+touch ~/nac-iosxe/data/template-vlan.nac.yaml
 ```
 
-Then open `data/templates-vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
+Then open `data/template-vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
 
 ```yaml
 iosxe:
@@ -85,13 +85,7 @@ Let's break down the key elements:
 
 ## Apply Template to Access Switches
 
-Now you need to apply the template to the access switches. Create a new file that references the template for the ACCESS_SWITCHES group:
-
-```bash
-touch ~/nac-iosxe/data/config-group-access-templates.nac.yaml
-```
-
-Then open `data/config-group-access-templates.nac.yaml` in VS Code and add the following content:
+Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section:
 
 ```yaml
 iosxe:
@@ -100,26 +94,37 @@ iosxe:
       devices:
         - access01
         - access02
+      configuration:
+        access_lists:
+          standard:
+            - name: AccessLayerACL
+              entries:
+                - sequence: 10
+                  action: permit
+                  prefix: 10.0.0.0
+                  prefix_mask: 0.0.0.255
+                - sequence: 20
+                  action: permit
+                  prefix: 20.0.0.0
+                  prefix_mask: 0.0.0.255
       templates:
         - access_switch_vlans
 ```
 
-**Save the file** by pressing `Ctrl+S` in VS Code.
+![VS Code with template configuration](assets/vscode-adding-template-vlans.png){width=80%}
 
-**What's in this configuration:**
 
-- **`device_groups:`** - Defines groups of devices with shared configurations
-- **`name: ACCESS_SWITCHES`** - References the same ACCESS_SWITCHES group from Task04
-- **`templates:`** - Applies the `access_switch_vlans` template to all devices in the group
+**What we added:**
 
-!!! note "Modular Configuration"
-    Notice how we keep template application in a separate file from the direct configuration (ACL) defined in Task04's `config-group-access.nac.yaml`. This modular approach keeps your configurations organized - one file for direct configurations, another for template references.
+- **`templates:`** - Applies the `access_switch_vlans` template to all devices in the ACCESS_SWITCHES group
+
+The template reference is added alongside the existing ACL configuration, so both the access list and VLANs will be deployed to **access01** and **access02**.
 
 ## How Templates Work
 
 When Terraform processes your configuration:
 
-1. **Template Resolution**: Terraform reads `templates-vlan.nac.yaml` and loads the `access_switch_vlans` template
+1. **Template Resolution**: Terraform reads `template-vlan.nac.yaml` and loads the `access_switch_vlans` template
 2. **Device Group Processing**: Terraform finds the ACCESS_SWITCHES group and its associated template
 3. **Configuration Merge**: For **access01** and **access02** (members of the group), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
@@ -127,7 +132,7 @@ When Terraform processes your configuration:
 **Visual representation:**
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    TEMPLATE: access_switch_vlans        │
 │                                                         │
 │  vlan:                                                  │
@@ -135,7 +140,7 @@ When Terraform processes your configuration:
 │      - id: 10, name: DATA                               │
 │      - id: 20, name: VOICE                              │
 │      - id: 99, name: MGMT                               │
-└──────────────────────┬──────────────────────────────────────┘
+└──────────────────────┬───────────────────────────────────────┘
                        │
          ┌─────────────┴─────────────┐
          │                           │
@@ -162,10 +167,14 @@ At this point, your `data/` folder should contain these files:
 ├── .env
 ├── main.tf
 └── data/
-    ├── devices.nac.yaml        # Device definitions + Global config + Template references
-    ├── acl.nac.yaml            # Device Group configuration (ACL)
-    ├── core.nac.yaml           # Device-specific configuration (IP hosts)
-    └── templates-vlan.nac.yaml # Template definitions (VLANs)
+    ├── config-device-access01.nac.yaml  # Task05: Access01 device config
+    ├── config-device-access02.nac.yaml  # Task05: Access02 device config
+    ├── config-device-border.nac.yaml    # Task05: Border device config
+    ├── config-device-core.nac.yaml      # Task05: IP hosts for CORE
+    ├── config-global.nac.yaml           # Task03: Global banner
+    ├── config-group-access.nac.yaml     # Task04 + Task06: ACL + templates
+    ├── devices.nac.yaml                 # Task02: Device inventory
+    └── template-vlan.nac.yaml          # Task06: VLAN template (model)
 ```
 
 

@@ -24,7 +24,7 @@ File templates reference external `.tftpl` files that use **Terraform templating
 |------|-------------|----------|
 | `model` | YAML-based inline configuration | Standard configs - *Task06* |
 | `file` | External `.tftpl` template files | Dynamic configs with variables - *This task* |
-| `cli` | Raw CLI commands inline | Features not in data model - *Task08* |
+| `cli` | Raw CLI commands inline | IOS XE features not in NAC data model - *Task08* |
 
 ## Use Case: BGP Configuration on border Switch
 
@@ -44,6 +44,9 @@ First, create the `tftpl` directory and the template file using your **WSL Ubunt
 
 ```bash
 mkdir -p ~/nac-iosxe/tftpl
+```
+
+```bash
 touch ~/nac-iosxe/tftpl/bgp.yaml.tftpl
 ```
 
@@ -90,20 +93,12 @@ This separates the template definition from the device configuration, making it 
 
 ## Step 3: Apply the Template to Border Device
 
-Now create a file to apply the BGP template to the border switch with the required variables:
-
-```bash
-touch ~/nac-iosxe/data/config-group-border-templates.nac.yaml
-```
-
-Then open `data/config-group-border-templates.nac.yaml` in VS Code and add the following content:
+Now open the existing `data/config-device-border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
 ```yaml
 iosxe:
-  device_groups:
-    - name: BORDER
-      devices:
-        - border
+  devices:
+    - name: border
       templates:
         - bgp_isp_peering
       variables:
@@ -119,9 +114,8 @@ iosxe:
 
 **What's in this configuration:**
 
-- **`device_groups:`** - Groups devices by role for easier template management
-- **`name: BORDER`** - Group name for border devices
-- **`devices:`** - List of devices in the group (just **border** in this case)
+- **`devices:`** - Device-specific configuration
+- **`name: border`** - The **border** switch where BGP will be configured
 - **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
 - **`variables:`** - Variables that will be substituted into the template
 
@@ -132,8 +126,8 @@ iosxe:
   - **ISP1** (65001): Active production peer
   - **ISP2** (65002): Placeholder for future network migration
 
-!!! note "Template Scope with Device Groups"
-    The BGP template is applied to the **border** switch through the `DEVICE_GROUP_BORDER` device group. This approach makes it easy to add more border switches in the future - just add them to the `devices` list in the group.
+!!! note "Device-Level Templates"
+    Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task06).
 
 ## Step 4: Deploy the Configuration
 
@@ -217,6 +211,6 @@ This allows you to define default values globally and override them per device.
 | Standard YAML configurations | `model` |
 | Dynamic configs with loops/conditionals | `file` |
 | Configs with device-specific variables | `file` |
-| Raw CLI for unsupported features | `cli` |
+| IOS XE features not in NAC data model | `cli` |
 | Simple, static configurations | `model` |
 

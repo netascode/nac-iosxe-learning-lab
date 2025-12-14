@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The `cli` template type is useful when you need to configure features that aren't yet supported by the YAML data model, or when you have legacy CLI configurations you want to integrate.
+In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The `cli` template type is useful when you need to configure IOS XE features that aren't yet supported by the NAC data model.
 
 ## Understanding 'cli' Templates
 
@@ -10,7 +10,7 @@ The `cli` template type allows you to include raw IOS XE CLI commands that are p
 |------|-------------|----------|
 | `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) - *Task06* |
 | `file` | External file reference | Large configurations stored separately - *Task07* |
-| `cli` | Raw CLI commands | Legacy or complex CLI configurations - *This task* |
+| `cli` | Raw CLI commands | IOS XE features not supported in the NAC data model - *This task* |
 
 **When to use 'cli' templates:**
 
@@ -59,7 +59,7 @@ This template:
 
 Now you can add the logging template to your existing device group files. 
 
-**Update `data/config-group-access-templates.nac.yaml`** to include the logging template:
+**Update `data/config-group-access.nac.yaml`** to include the logging template:
 
 ```yaml
 iosxe:
@@ -68,19 +68,30 @@ iosxe:
       devices:
         - access01
         - access02
+      configuration:
+        access_lists:
+          standard:
+            - name: AccessLayerACL
+              entries:
+                - sequence: 10
+                  action: permit
+                  prefix: 10.0.0.0
+                  prefix_mask: 0.0.0.255
+                - sequence: 20
+                  action: permit
+                  prefix: 20.0.0.0
+                  prefix_mask: 0.0.0.255
       templates:
         - access_switch_vlans
-        - enhanced_logging
+        - enhanced_logging  # This is the line we add
 ```
 
-**Update `data/config-group-border-templates.nac.yaml`** to include the logging template:
+**Update `data/config-device-border.nac.yaml`** to include the logging template:
 
 ```yaml
 iosxe:
-  device_groups:
-    - name: BORDER
-      devices:
-        - border
+  devices:
+    - name: border
       templates:
         - bgp_isp_peering
         - enhanced_logging
@@ -98,7 +109,7 @@ iosxe:
 **What's new:**
 
 - **ACCESS_SWITCHES** group now includes both `access_switch_vlans` and `enhanced_logging` templates
-- **BORDER group** now includes both `bgp_isp_peering` and `enhanced_logging` templates
+- **border** device now includes both `bgp_isp_peering` and `enhanced_logging` templates
 
 !!! note "Template Organization"
     Notice how the `enhanced_logging` template is applied to both access switches and the border switch, while `bgp_isp_peering` is only applied to the border switch. Device groups make it easy to manage which templates apply to which devices.
