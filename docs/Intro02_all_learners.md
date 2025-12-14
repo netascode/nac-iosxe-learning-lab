@@ -6,7 +6,7 @@ The recommended tasks include detailed step-by-step guidance, while the optional
 
 **Fundamentals:**
 
-- Task01: SSH to network devices
+- Task01: SSH to network devices in the lab
 - Task02: Edit intent configuration YAML files with VS Code
 
 **Deploy configuration to devices with Terraform manually:**
@@ -18,15 +18,15 @@ The recommended tasks include detailed step-by-step guidance, while the optional
 - Task07 (optional) : Templates type 'file'
 - Task08 (optional) : Templates type 'cli'
 
-**Pre-checks and Post-checks:**
+**Pre-checks and Post-checks manually:**
 
-- Task09 : Schema validation
-- Task10 (optional) : ROBOT tests
+- Task09 : Pre-checks with schema validation
+- Task10 (optional) : Post-checks with ROBOT testing
 
 **CI/CD Pipelines:**
 
-- Task11 : Cleanup (destroy Terraform state and local files)
+- Task11 : Cleanup the lab (destroy Terraform state and local files)
 - Task12 : Run a CI/CD pipeline (nac-validate, Terraform plan, Terraform apply) in main branch
 - Task13 (optional) : Modify CI/CD pipeline to add Robot testing
-- Task14 (optional) : Create a branch, make a change, create a merge request, approval and merge to main
+- Task14 (optional) : Create a Git branch, make a change, create a merge request, approval and merge to main
 

@@ -1,4 +1,4 @@
-From your workstation, you will work on a Web RDP session to the Windows 10 VM with IP address 198.18.133.20 and credentials admin / C1sco12345.
+From your workstation, you will work on a Web RDP session to the dCloud lab Windows 10 VM  with IP address 198.18.133.20 and credentials admin / C1sco12345.
 
 Below is the dCloud lab topology diagram:
 
@@ -12,9 +12,10 @@ This lab consists of:
 - **GitLab** as Git repository and to run CI/CD pipelines, running in an Ubuntu VM
 - Windows 10 VM with:
     - **VS Code** for editing Infrastructure as Code YAML files
-    - SSH client **Solar-PuTTY** to access the IOS XE devices
+    - **Solar-PuTTY** SSH client to access the IOS XE devices
     - **Windows Subsystem for Linux (WSL)** to run Terraform
+    - **Web Browser** to read this lab guide
 
-!!! tip "Recommendation: Use the Lab Guide from Within the VM"
-    We recommend reading this lab guide directly from the **Windows 10 VM** rather than from your laptop. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between your laptop and the RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code, working entirely within the VM will be much more practical and save you time.
+!!! tip "Recommendation: Use the Lab Guide from within the VM"
+    We recommend reading this lab guide directly from the **Windows 10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.
 

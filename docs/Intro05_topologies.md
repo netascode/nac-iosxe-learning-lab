@@ -9,12 +9,13 @@ Below is the dCloud lab topology diagram:
 
 This lab consists of:
 
-- Multiple **IOS XE** virtual switches running in CML
+- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs - network simulation platform)
 - **GitLab** as Git repository and to run CI/CD pipelines, running in an Ubuntu VM
 - Windows 10 VM with:
-   - **VS Code** for editing Infrastructure as Code YAML files
-   - SSH client **Solar-PuTTY** to access the IOS XE devices
-   - **Windows Subsystem for Linux (WSL)** to run Terraform
+    - **VS Code** for editing Infrastructure as Code YAML files
+    - **Solar-PuTTY** SSH client to access the IOS XE devices
+    - **Windows Subsystem for Linux (WSL)** to run Terraform
+    - **Web Browser** to read this lab guide
 
 
 The topology below shows the IOS XE switches running in **Cisco Modeling Labs (CML)**. CML is a network simulation platform that allows you to create virtual network environments using real Cisco operating systems like IOS XE. In this lab, CML hosts four Catalyst 9000v virtual switches that you'll configure using Network-as-Code:
