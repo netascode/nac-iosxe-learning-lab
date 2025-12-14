@@ -81,21 +81,16 @@ You should see `/home/cisco/nac-iosxe` displayed.
 List the files in your directory:
 
 ```bash
-ls -la
+tree -a
 ```
 
-You should see your configuration files: `.env`, `main.tf`, and the `data` directory (which contains `devices.nac.yaml`).
+You should see your project structure with `.env`, `main.tf`, and the `data` directory containing `devices.nac.yaml`.
 
 
 
 ## Step 2: Load Environment Variables from .env File
 
-Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs:
-
-```bash
-IOSXE_USERNAME=nac_admin
-IOSXE_PASSWORD=cisco
-```
+Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
 
 **Convert the file to Unix format to avoid encoding issues:**
 

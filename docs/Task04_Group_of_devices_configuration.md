@@ -22,17 +22,13 @@ In this example, you'll create a device group called "ACCESS" that includes the 
 
 ## Create the YAML Configuration with Device Groups
 
-Use VS Code to create a new file `data/acl.nac.yaml`. To create a new file:
+First, create the file using your **WSL Ubuntu terminal**:
 
-1. In VS Code, right-click on the **data** folder in the Explorer panel
-2. Select **New File...**
-3. Type `acl.nac.yaml` as the filename and press Enter
+```bash
+touch ~/nac-iosxe/data/acl.nac.yaml
+```
 
-<figure markdown>
-  ![VS Code Create File](./assets/vscode-create-file.png){ width="70%" }
-</figure>
-
-Add the following content to the file. Notice how the ACL is defined once in the device group and automatically applies to both **ACCESS01** and **ACCESS02** switches:
+The file will appear in VS Code's Explorer panel. Click on `acl.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **ACCESS01** and **ACCESS02** switches:
 
 ```text
 iosxe:
