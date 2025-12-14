@@ -61,19 +61,14 @@ Terraform uses a declarative approach where you define the desired state (in you
 
 ## Step 1: Open WSL (Ubuntu) and Navigate to Your Project
 
-Open Windows Subsystem for Linux (WSL) terminal and navigate to your project directory:
+In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
 
 ```bash
 cd ~/nac-iosxe
 ```
 
-Verify you're in the correct directory:
 
-```bash
-pwd
-```
 
-You should see `/home/cisco/nac-iosxe` displayed.
 
 List the files in your directory:
 

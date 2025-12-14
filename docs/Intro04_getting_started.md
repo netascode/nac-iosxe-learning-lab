@@ -14,7 +14,7 @@ This lab consists of:
     - **VS Code** for editing Infrastructure as Code YAML files
     - **Solar-PuTTY** SSH client to access the IOS XE devices
     - **Windows Subsystem for Linux (WSL)** to run Terraform
-    - **Web Browser** to read this lab guide
+    - **Web Browser** to read this lab guide and access GitLab
 
 !!! tip "Recommendation: Use the Lab Guide from within the VM"
     We recommend reading this lab guide directly from the **Windows 10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.

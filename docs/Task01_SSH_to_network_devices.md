@@ -8,11 +8,11 @@ Before diving into Network-as-Code automation, it's important to establish basel
 
 ## Open Solar-PuTTY
 
-Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for managing multiple device connections. The application is pre-installed and ready to use.
+Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for managing multiple device connections. The application is pre-installed in the lab Windows 10 VM and ready to use.
 
 **To launch Solar-PuTTY:**
 
-1. Look for the **Solar-PuTTY** icon on your Windows desktop
+1. Look for the **Solar-PuTTY** icon on your lab's Windows 10 VM
 2. Double-click to open the application
 3. You'll see the Solar-PuTTY interface with a list of devices
 
@@ -26,8 +26,8 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 **Devices in this lab:**
 
-- **CORE** - Core switch (198.18.130.10)
 - **BORDER** - Border switch (198.18.130.20)
+- **CORE** - Core switch (198.18.130.10)
 - **ACCESS01** - Access switch (198.18.130.11)
 - **ACCESS02** - Access switch (198.18.130.12)
 
@@ -41,7 +41,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 **To connect to a device:**
 
-1. In Solar-PuTTY, **double-click** on the **CORE** switch in the device list
+1. In Solar-PuTTY, **double-click** on the device in the list
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
@@ -74,7 +74,7 @@ show run
 ```
 
 !!! note
-    The configuration is **almost empty** - this is intentional! The switch has minimal configuration, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the device.
+    The lab device configurations are almost empty - this is intentional! The switches have minimal configurations, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the devices.
 
 ## Configuration Required for Terraform Access
 
@@ -112,14 +112,7 @@ write memory
 !!! note
     You don't need to do this now - it's already configured on all lab devices.
 
-## Connect to Other Switches
-
-After reviewing the **CORE** switch:
-
-1. Connect to the **BORDER** switch and repeat the same verification
-2. Optionally, connect to **ACCESS01** and **ACCESS02** switches and repeat the same verification
-
-What to observe across all devices:
+## What to observe across all devices
 
 - All devices have minimal configuration
 - All devices have RESTCONF enabled

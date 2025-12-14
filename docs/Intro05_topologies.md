@@ -15,8 +15,7 @@ This lab consists of:
     - **VS Code** for editing Infrastructure as Code YAML files
     - **Solar-PuTTY** SSH client to access the IOS XE devices
     - **Windows Subsystem for Linux (WSL)** to run Terraform
-    - **Web Browser** to read this lab guide
-
+    - **Web Browser** to read this lab guide and access GitLab
 
 The topology below shows the IOS XE switches running in **Cisco Modeling Labs (CML)**. CML is a network simulation platform that allows you to create virtual network environments using real Cisco operating systems like IOS XE. In this lab, CML hosts four Catalyst 9000v virtual switches that you'll configure using Network-as-Code:
 <figure markdown>
