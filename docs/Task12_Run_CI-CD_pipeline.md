@@ -63,29 +63,56 @@ Before running the pipeline, let's understand how it's configured. Click on `.gi
 The pipeline includes these stages:
 
 ```yaml
+image: danischm/nac:0.1.6
 stages:
   - validate
   - plan
   - deploy
   - notify
 
+variables:
+  IOSXE_USERNAME:
+    description: "Cisco IOS-XE Username"
+  IOSXE_PASSWORD:
+    description: "Cisco IOS-XE Password"
+  # ... additional variables for GitLab tokens, Terraform state, Webex notifications ...
+
+cache:
+  key: terraform_modules_and_lock
+  paths:
+    - .terraform
+    - .terraform.lock.hcl
+    - defaults.yaml
+    - model.yaml
+
 validate:
   stage: validate
   script:
     - set -o pipefail && terraform fmt -check |& tee fmt_output.txt
     - set -o pipefail && nac-validate ./data/ |& tee validate_output.txt
+  # ... artifacts and rules configuration ...
 
 plan:
   stage: plan
   script:
     - terraform init -input=false
     - terraform plan -out=plan.tfplan -input=false
+    - terraform show -no-color plan.tfplan > plan.txt
+    # ... additional plan output processing ...
+  # ... artifacts, dependencies, and branch rules ...
 
 deploy:
   stage: deploy
   script:
     - terraform init -input=false
     - terraform apply -input=false -auto-approve plan.tfplan
+  # ... runs only on main branch ...
+
+failure:
+  stage: notify
+  script:
+    - python3 .ci/webex-notification-gitlab.py -f
+  when: on_failure
 
 success:
   stage: notify
@@ -94,13 +121,19 @@ success:
   when: on_success
 ```
 
+!!! info "Abbreviated View"
+    The YAML above shows the key structure of `.gitlab-ci.yml`. The actual file (~130 lines) includes additional configuration for variables, artifacts, caching, and branch rules. You can view the complete file in the GitLab repository.
+
 **Key concepts:**
 
+- **image** - Uses a pre-built Docker container with Terraform, nac-validate, and other tools
 - **stages** - Define the order of execution (validate → plan → deploy → notify)
+- **variables** - Pipeline variables for credentials (IOS XE, GitLab, Webex) - entered at runtime
+- **cache** - Preserves Terraform modules and state between pipeline runs
 - **validate** - Runs `terraform fmt` check and `nac-validate` schema validation
-- **plan** - Creates the Terraform execution plan
+- **plan** - Creates the Terraform execution plan and generates reports
 - **deploy** - Applies the configuration automatically (runs on main branch only)
-- **notify** - Sends Webex notification on success or failure
+- **failure/success** - Send Webex notifications based on pipeline outcome
 
 ## Step 4: View Existing Pipelines
 
@@ -199,7 +232,7 @@ iosxe:
 
 ## Step 6: Monitor Pipeline Execution
 
-Once the pipeline starts, click on the pipeline ID to view its progress.
+To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the pipeline showing **running** status.
 
 <!-- SCREENSHOT: Pipeline detail view showing stages -->
 <figure markdown>

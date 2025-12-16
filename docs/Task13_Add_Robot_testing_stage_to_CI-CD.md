@@ -13,17 +13,23 @@ You'll add two test jobs:
 - **`test-integration`** - Runs `nac-test` to verify configurations match expected state
 - **`test-idempotency`** - Runs `terraform plan` again to confirm no drift
 
-## Step 1: Open the Pipeline Configuration File
+## Step 1: Open the Web IDE
 
-In GitLab, navigate to **netascode/nac-iosxe-terraform** project and open the `.gitlab-ci.yml` file for editing:
+!!! tip "Already Open?"
+    You probably still have the Web IDE open in another Google Chrome tab from Task 12. If so, simply switch to that tab and skip to the next step.
 
-1. Click on `.gitlab-ci.yml` in the file list
-2. Click the **Edit** button (or press `e`)
+If you need to reopen it, navigate to the **netascode/nac-iosxe-terraform** project in GitLab:
 
-<!-- SCREENSHOT: GitLab file edit button -->
+1. From the project page, click the **Edit** dropdown button (with a pencil icon)
+2. Select **Web IDE**
+
+Once the Web IDE opens, click on `.gitlab-ci.yml` in the file explorer to open it for editing.
+
+<!-- SCREENSHOT: GitLab Web IDE -->
 <figure markdown>
-  ![Edit GitLab CI File](./assets/gitlab-edit-ci-file.png){ width="100%" }
+  ![Open Web IDE](./assets/gitlab-open-webide-pipeline-view.png){ width="100%" }
 </figure>
+
 
 ## Step 2: Add the Test Stage
 
@@ -52,7 +58,7 @@ stages:
 
 ## Step 3: Add the Test-Integration Job
 
-After the `deploy` job section, add the `test-integration` job. This job runs `nac-test` to verify your configurations.
+After the `deploy` job section (around line 111 in the file), add the `test-integration` job. This job runs `nac-test` to verify your configurations.
 
 **Add this new job after the `deploy:` section:**
 
@@ -112,23 +118,28 @@ test-idempotency:
 - **resource_group: iosxe**: Prevents concurrent access to devices
 - If this job passes, it confirms your deployment is idempotent
 
+<!-- SCREENSHOT: Web IDE with test stage added -->
+<figure markdown>
+  ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
+</figure>
+
 ## Step 5: Commit Your Changes
 
 After making all the changes:
 
-1. Scroll down to the **Commit changes** section
-2. Enter a commit message: `Add test stage to CI/CD pipeline`
-3. Ensure **main** branch is selected
-4. Click **Commit changes**
+1. Click on **Source Control** icon in the left sidebar (as you did in Task 12)
+2. You'll see the modified `.gitlab-ci.yml` file listed
+3. Enter a commit message: `Add test stage to CI/CD pipeline`
+4. Click **Commit and push to 'main'**
 
-<!-- SCREENSHOT: GitLab commit changes dialog -->
+<!-- SCREENSHOT: GitLab Web IDE commit dialog -->
 <figure markdown>
-  ![Commit Changes](./assets/gitlab-commit-changes.png){ width="100%" }
+  ![Commit Changes](./assets/gitlab-commit-changes-in-ci-file.png){ width="100%" }
 </figure>
 
 ## Step 6: Verify the Pipeline
 
-After committing, a new pipeline will automatically start. Navigate to **Build** → **Pipelines** to watch its progress.
+After committing, a new pipeline will automatically start. Navigate to **Build** → **Pipelines** and click on the pipeline showing **running** status to watch its progress.
 
 You should now see **5 stages** in the pipeline:
 
