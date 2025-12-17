@@ -143,7 +143,7 @@ ERROR - Syntax error 'data/config-device-core.nac.yaml': iosxe.devices.[name=cor
 
 **Example 2: Wrong attribute name**
 
-If you misspelled an attribute like `banner` as `banners` in `data/devices.nac.yaml`:
+If you misspelled an attribute like `banner` as `banners` in `data/config-global.nac.yaml`:
 
 ```yaml
 global:
@@ -155,7 +155,7 @@ global:
 Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```
-ERROR - Syntax error 'data/devices.nac.yaml': iosxe.global.configuration.banners: Unexpected element
+ERROR - Syntax error 'data/config-global.nac.yaml': iosxe.global.configuration.banners: Unexpected element
 ```
 
 **Example 3: Invalid enum value**
