@@ -251,7 +251,7 @@ iosxe:
     This file contains only the device **inventory** - the list of devices and their connection details. Actual device **configurations** (banners, ACLs, VLANs, etc.) will be defined in separate files in subsequent tasks. This separation keeps your configurations modular and easy to manage.
 
 <figure markdown>
-  ![VS Code Devices File](./assets/vscode-devices-file.png){ width="100%" }
+  ![VS Code Devices File](./assets/vscode-devices-list){ width="100%" }
 </figure>
 
 ## Auto Save is Enabled

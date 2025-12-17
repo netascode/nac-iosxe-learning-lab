@@ -1,9 +1,0 @@
-routing:
-  bgp:
-    as_number: ${bgp_as_number}
-    neighbors:
-%{ for neighbor in bgp_neighbors ~}
-      - ip: ${neighbor.ip}
-        remote_as: ${neighbor.remote_as}
-        description: "${neighbor.description}"
-%{ endfor ~}

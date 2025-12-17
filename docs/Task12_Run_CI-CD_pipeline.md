@@ -218,7 +218,7 @@ iosxe:
 
 2. You'll see your modified file listed
 3. Enter a commit message: `Update banner via CI/CD`
-4. Click **Commit to 'main'**
+4. Click **Commit and push to 'main'**
 
 <!-- SCREENSHOT: Commit dialog in Web IDE -->
 
