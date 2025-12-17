@@ -199,6 +199,9 @@ module "iosxe" {
 }
 ```
 
+!!! tip "Formatting Matters"
+    Terraform (`.tf`) files use braces `{}` and proper indentation for structure. While Terraform is more forgiving than YAML, consistent formatting makes your code readable and maintainable. When copying code from this guide, formatting is preserved, but be careful when typing manually.
+
 **Understanding the configuration:**
 
 - **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
@@ -233,6 +236,9 @@ iosxe:
     - name: access02
       host: 198.18.130.12
 ```
+
+!!! warning "Indentation Matters in YAML!"
+    YAML uses **spaces for indentation** (not tabs) to define structure. Each level of nesting requires consistent spacing (typically 2 spaces). Incorrect indentation will cause parsing errors. When copying YAML from this guide, the formatting is preserved - but if you type manually, pay close attention to alignment. The Red Hat YAML extension will highlight indentation errors with red squiggly lines.
 
 **Understanding the configuration:**
 
