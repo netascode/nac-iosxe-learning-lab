@@ -239,5 +239,10 @@ In this task, you have:
 
 ---
 
-**Next:** Continue with the remaining tasks to explore more advanced Network-as-Code features like schema validation and CI/CD pipelines.
+**Next Steps:**
+
+You can either explore **optional** tasks or continue with the **mandatory** path:
+
+- **Optional:** [Task06 - Variables](Task06_Variables.md) - Learn how to use variables for dynamic configurations
+- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip optional tasks and continue with pre-change validation
 

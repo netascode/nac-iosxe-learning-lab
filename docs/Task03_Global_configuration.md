@@ -310,3 +310,7 @@ Congratulations! You've successfully:
 - ✅ Verified the banner on your device
 
 In the next task, you'll learn how to use device groups to apply configurations to multiple devices efficiently.
+
+---
+
+**Next:** [Task04 - Group of Devices Configuration](Task04_Group_of_devices_configuration.md)

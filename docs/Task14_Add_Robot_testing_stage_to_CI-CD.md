@@ -1,4 +1,4 @@
-In Task11, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied.
+In Task13, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied.
 
 ## Understanding the Test Stage
 
@@ -185,3 +185,12 @@ Here's a complete summary of what you added to `.gitlab-ci.yml`:
 ## Reference
 
 For the complete `.gitlab-ci.yml` file with all changes, see **Appendix I**.
+
+---
+
+**Next Steps:**
+
+You can explore the **optional** merge request workflow or proceed to the **conclusion**:
+
+- **Optional:** [Task15 - Branch and Merge Request](Task15_Branch_and_merge_request.md) - Learn change approval workflows with branches and merge requests
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned

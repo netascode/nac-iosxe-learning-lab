@@ -100,3 +100,7 @@ In the next task, you'll work with **GitLab** to:
 
 This transition from manual Terraform commands to automated CI/CD pipelines represents the real-world Network-as-Code workflow used in production environments.
 
+---
+
+**Next:** [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md)
+

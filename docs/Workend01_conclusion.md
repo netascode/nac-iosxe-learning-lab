@@ -1,6 +1,6 @@
 # Conclusion
 
-Congratulations on completing the **Network-as-Code for IOS XE** lab! 🎉
+Congratulations on completing the **Network-as-Code for IOS XE** lab!
 
 ## What You've Accomplished
 
@@ -8,11 +8,11 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 
 **Core Skills**
 
-- ✅ **YAML Configuration** - Wrote declarative network configurations in human-readable YAML format
-- ✅ **Terraform Workflows** - Used `terraform init`, `plan`, `apply`, and `destroy` to manage network infrastructure
-- ✅ **Configuration Hierarchy** - Applied settings at global, device group, and device levels
-- ✅ **Schema Validation** - Validated configurations before deployment using `nac-validate`
-- ✅ **CI/CD Automation** - Ran automated pipelines in GitLab to validate, plan, and deploy changes
+- **YAML Configuration** - Wrote declarative network configurations in human-readable YAML format
+- **Terraform Workflows** - Used `terraform init`, `plan`, `apply`, and `destroy` to manage network infrastructure
+- **Configuration Hierarchy** - Applied settings at global, device group, and device levels
+- **Schema Validation** - Validated configurations before deployment using `nac-validate`
+- **CI/CD Automation** - Ran automated pipelines in GitLab to validate, plan, and deploy changes
 
 **Configuration Types Deployed**
 
@@ -23,10 +23,11 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 
 **Optional Skills (if completed)**
 
-- 📝 Template types: model, file, and CLI
-- 🤖 Robot Framework post-change validation
-- 🔀 GitLab merge request workflows
-- ⚙️ Customizing CI/CD pipelines
+- Variables for dynamic configurations
+- Template types: model, file, and CLI
+- Robot Framework post-change validation
+- GitLab merge request workflows
+- Customizing CI/CD pipelines
 
 ## Key Takeaways
 

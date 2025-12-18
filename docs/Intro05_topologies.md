@@ -1,5 +1,29 @@
 # Lab topologies
 
+## Lab Devices
+
+The following devices are available in this lab:
+
+| Device | IP Address | Username | Password | SSH Access |
+|--------|------------|----------|----------|------------|
+| **core** | 198.18.130.10 | cisco | cisco | [Open SSH](ssh://cisco@198.18.130.10) |
+| **access01** | 198.18.130.11 | cisco | cisco | [Open SSH](ssh://cisco@198.18.130.11) |
+| **access02** | 198.18.130.12 | cisco | cisco | [Open SSH](ssh://cisco@198.18.130.12) |
+| **border** | 198.18.130.20 | cisco | cisco | [Open SSH](ssh://cisco@198.18.130.20) |
+| **host01** | 192.168.100.100 | cisco | cisco | [Open SSH](ssh://cisco@192.168.100.100) |
+| **host02** | 192.168.100.200 | cisco | cisco | [Open SSH](ssh://cisco@192.168.100.200) |
+| **isp** | 198.18.130.200 | cisco | cisco | [Open SSH](ssh://cisco@198.18.130.200) |
+| **ntp-server** | 192.168.128.11 | cisco | cisco | [Open SSH](ssh://cisco@192.168.128.11) |
+| **syslog-server** | 192.168.128.12 | cisco | cisco | [Open SSH](ssh://cisco@192.168.128.12) |
+
+!!! tip "SSH from WSL Terminal"
+    To connect via SSH from your WSL terminal, use:
+    ```bash
+    ssh cisco@<IP_ADDRESS>
+    ```
+    For example: `ssh cisco@198.18.130.10`
+
+---
 
 Below is the dCloud lab topology diagram:
 

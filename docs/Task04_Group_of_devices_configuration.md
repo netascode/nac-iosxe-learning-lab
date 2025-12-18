@@ -173,5 +173,5 @@ In this task, you have:
 
 ---
 
-**Next:** Continue with the remaining tasks to explore more advanced Network-as-Code features.
+**Next:** [Task05 - Single Device Configuration](Task05_Single_device_configuration.md)
 

@@ -172,9 +172,9 @@ At this point, your `data/` folder should contain these files:
     ├── config-device-border.nac.yaml    # Task05: Border device config
     ├── config-device-core.nac.yaml      # Task05: IP hosts for CORE
     ├── config-global.nac.yaml           # Task03: Global banner
-    ├── config-group-access.nac.yaml     # Task04 + Task06: ACL + templates
+    ├── config-group-access.nac.yaml     # Task04 + Task07: ACL + templates
     ├── devices.nac.yaml                 # Task02: Device inventory
-    └── template-vlan.nac.yaml           # Task06: VLAN template (type: model)
+    └── template-vlan.nac.yaml           # Task07: VLAN template (type: model)
 ```
 
 
@@ -209,7 +209,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
 - Both devices receive identical VLAN configuration
 
 !!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task10.
+    After running `terraform plan`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task11.
 
 <figure markdown>
   ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="100%" }
@@ -318,4 +318,9 @@ In this task, you have:
 
 ---
 
-**Next:** Continue with the remaining optional tasks or proceed to Task09 for schema validation.
+**Next Steps:**
+
+You can continue exploring **optional** template tasks or proceed to the **mandatory** path:
+
+- **Optional:** [Task08 - Templates Type File](Task08_Templates_type_file.md) - Learn how to use external template files with dynamic content
+- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation

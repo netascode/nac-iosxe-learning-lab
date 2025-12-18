@@ -277,8 +277,8 @@ In this task, you have:
 **Success!** You've automated configuration validation using intent-based testing!
 
 !!! tip "CI/CD Integration"
-    In [Task13 - Add Robot Testing Stage to CI/CD](Task13_Add_Robot_testing_stage_to_CI-CD.md), you'll see how Robot Framework tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
+    In [Task14 - Add Robot Testing Stage to CI/CD](Task14_Add_Robot_testing_stage_to_CI-CD.md), you'll see how Robot Framework tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
 
 ---
 
-**Next:** [Task11 - Cleanup](Task11_Cleanup.md)
+**Next:** [Task12 - Cleanup](Task12_Cleanup.md)

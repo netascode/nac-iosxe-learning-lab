@@ -10,18 +10,19 @@ nav:
       - "[03] Global configuration": Task03_Global_configuration.md
       - "[04] Group of devices config": Task04_Group_of_devices_configuration.md
       - "[05] Single device config": Task05_Single_device_configuration.md
-      - "[06] Templates 'model' (optional)": Task06_Templates_type_model.md
-      - "[07] Templates 'file' (optional)": Task07_Templates_type_file.md
-      - "[08] Templates 'cli' (optional)": Task08_Templates_type_cli.md
-      - "[09] Schema validation": Task09_Schema_validation.md
-      - "[10] Post-checks (optional)": Task10_Post-checks_with_ROBOT.md
-      - "[11] Cleanup": Task11_Cleanup.md
-      - "[12] Run CI-CD pipeline": Task12_Run_CI-CD_pipeline.md
-      - "[13] Edit CI-CD (optional)": Task13_Add_Robot_testing_stage_to_CI-CD.md
-      - "[14] Merge request (optional)": Task14_Branch_and_merge_request.md
+      - "[06] Variables (optional)": Task06_Variables.md
+      - "[07] Templates 'model' (optional)": Task07_Templates_type_model.md
+      - "[08] Templates 'file' (optional)": Task08_Templates_type_file.md
+      - "[09] Templates 'cli' (optional)": Task09_Templates_type_cli.md
+      - "[10] Schema validation": Task10_Schema_validation.md
+      - "[11] Post-checks (optional)": Task11_Post-checks_with_ROBOT.md
+      - "[12] Cleanup": Task12_Cleanup.md
+      - "[13] Run CI-CD pipeline": Task13_Run_CI-CD_pipeline.md
+      - "[14] Edit CI-CD (optional)": Task14_Add_Robot_testing_stage_to_CI-CD.md
+      - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
       - "Conclusion": Workend01_conclusion.md
-      - "APPENDIX I": Task15_Appendix-I.md
-      - "APPENDIX II": Task16_Appendix-II.md
-      - "APPENDIX III": Task17_Appendix-III.md
-      - "APPENDIX IV": Task18_Appendix-IV.md
+      - "APPENDIX I": Task16_Appendix-I.md
+      - "APPENDIX II": Task17_Appendix-II.md
+      - "APPENDIX III": Task18_Appendix-III.md
+      - "APPENDIX IV": Task19_Appendix-IV.md
   - Topologies: Intro05_topologies.md

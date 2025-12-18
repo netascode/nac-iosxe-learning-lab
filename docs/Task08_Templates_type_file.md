@@ -14,17 +14,17 @@ File templates reference external `.tftpl` files that use **Terraform templating
 
 | Syntax | Purpose | Example |
 |--------|---------|---------|
-| `${ }` | Variable interpolation | `${bgp_as_number}` |
-| `%{ }` | Control structures | `%{ for neighbor in bgp_neighbors }` |
+| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}` |
+| `%{ }` | Control structures | `%{ for neighbor in BGP_NEIGHBORS }` |
 | `~` | Whitespace stripping | `%{~ endfor ~}` |
 
 **Template Types (reminder):**
 
 | Type | Description | Use Case |
 |------|-------------|----------|
-| `model` | YAML-based inline configuration | Standard configs - *Task06* |
+| `model` | YAML-based inline configuration | Standard configs - *Task07* |
 | `file` | External `.tftpl` template files | Dynamic configs with variables - *This task* |
-| `cli` | Raw CLI commands inline | IOS XE features not in NAC data model - *Task08* |
+| `cli` | Raw CLI commands inline | IOS XE features not in NAC data model - *Task09* |
 
 ## Use Case: BGP Configuration on border Switch
 
@@ -55,9 +55,9 @@ Then open `tftpl/bgp.yaml.tftpl` in VS Code and add the following content:
 ```text
 routing:
   bgp:
-    as_number: ${bgp_as_number}
+    as_number: ${BGP_AS_NUMBER}
     neighbors:
-%{ for neighbor in bgp_neighbors ~}
+%{ for neighbor in BGP_NEIGHBORS ~}
       - ip: ${neighbor.ip}
         remote_as: ${neighbor.remote_as}
         description: "${neighbor.description}"
@@ -67,8 +67,8 @@ routing:
 This template uses:
 
 - **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOS XE schema
-- **`${bgp_as_number}`**: Variable for the local AS number
-- **`%{ for neighbor in bgp_neighbors }`**: Loop through list of neighbors
+- **`${BGP_AS_NUMBER}`**: Variable for the local AS number
+- **`%{ for neighbor in BGP_NEIGHBORS }`**: Loop through list of neighbors
 - **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
 
 ## Step 2: Create the Template Definition File
@@ -102,8 +102,8 @@ iosxe:
       templates:
         - bgp_isp_peering
       variables:
-        bgp_as_number: 65000
-        bgp_neighbors:
+        BGP_AS_NUMBER: 65000
+        BGP_NEIGHBORS:
           - ip: 198.18.100.1
             remote_as: 65001
             description: eBGP to ISP1 - Production
@@ -121,13 +121,13 @@ iosxe:
 
 **Variable Breakdown:**
 
-- **`bgp_as_number: 65000`**: **border** switch AS number
-- **`bgp_neighbors`**: List of ISP neighbors:
+- **`BGP_AS_NUMBER: 65000`**: **border** switch AS number
+- **`BGP_NEIGHBORS`**: List of ISP neighbors:
   - **ISP1** (65001): Active production peer
   - **ISP2** (65002): Placeholder for future network migration
 
 !!! note "Device-Level Templates"
-    Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task06).
+    Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task07).
 
 ## Step 4: Deploy the Configuration
 
@@ -213,4 +213,13 @@ This allows you to define default values globally and override them per device.
 | Configs with device-specific variables | `file` |
 | IOS XE features not in NAC data model | `cli` |
 | Simple, static configurations | `model` |
+
+---
+
+**Next Steps:**
+
+You can continue exploring **optional** template tasks or proceed to the **mandatory** path:
+
+- **Optional:** [Task09 - Templates Type CLI](Task09_Templates_type_cli.md) - Learn how to use raw CLI commands for unsupported features
+- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation
 

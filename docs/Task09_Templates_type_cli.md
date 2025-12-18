@@ -8,8 +8,8 @@ The `cli` template type allows you to include raw IOS XE CLI commands that are p
 
 | Type | Description | Use Case |
 |------|-------------|----------|
-| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) - *Task06* |
-| `file` | External file reference | Large configurations stored separately - *Task07* |
+| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) - *Task07* |
+| `file` | External file reference | Large configurations stored separately - *Task08* |
 | `cli` | Raw CLI commands | IOS XE features not supported in the NAC data model - *This task* |
 
 **When to use 'cli' templates:**
@@ -175,11 +175,15 @@ You've now learned all three template types:
 
 | Task | Template Type | Example Use Case |
 |------|---------------|------------------|
-| Task06 | `model` | VLAN configuration in YAML format |
-| Task07 | `file` | BGP configuration from external file |
-| Task08 | `cli` | Logging configuration as raw CLI |
+| Task07 | `model` | VLAN configuration in YAML format |
+| Task08 | `file` | BGP configuration from external file |
+| Task09 | `cli` | Logging configuration as raw CLI |
 
-Choose the appropriate template type based on your configuration needs and maintainability requirements
+Choose the appropriate template type based on your configuration needs and maintainability requirements.
+
+---
+
+**Next:** [Task10 - Schema Validation](Task10_Schema_validation.md)
 
 
 
