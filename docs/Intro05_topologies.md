@@ -13,8 +13,8 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
 | **host01**        | 192.168.100.100 | cisco    | cisco    |
 | **host02**        | 192.168.100.200 | cisco    | cisco    |
 | **isp**           | 198.18.130.200  | cisco    | cisco    |
-| **ntp-server**    | 192.168.128.11  | cisco    | cisco    |
-| **syslog-server** | 192.168.128.12  | cisco    | cisco    |
+| **ntp-server**    | 198.18.129.11   | cisco    | cisco    |
+| **syslog-server** | 198.18.129.12   | cisco    | cisco    |
 
 !!! tip "SSH from WSL Terminal"
     To connect via SSH from your WSL terminal, use:
