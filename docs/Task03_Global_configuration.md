@@ -7,7 +7,7 @@ Global configurations define network-wide settings that apply to all devices unl
 As described in the [IOS XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
 
 1. **Device** (highest precedence) - device-specific overrides
-2. **Device Group** (medium precedence) - role or location-specific settings  
+2. **Device Group** (medium precedence) - role or location-specific settings
 3. **Global** (lowest precedence) - organization-wide defaults
 
 By placing the banner in the `global` section, it will automatically apply to all devices listed in your configuration, ensuring consistency without duplication.
@@ -20,9 +20,16 @@ First, create the global configuration file using your **WSL Ubuntu terminal**:
 touch ~/nac-iosxe/data/config-global.nac.yaml
 ```
 
+!!! tip "Create File with VS Code"
+    You can also create the file using VS Code by clicking on the `data/` folder in the Explorer sidebar, then on the *new file* icon next to the `NAC-IOSXE` folder name,
+    or by **right-clicking** the `data/` folder and selecting **New File**.
+
+    Throughout this lab guide we will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
+
 Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices defined in `devices.nac.yaml`:
 
 ```yaml
+---
 iosxe:
   global:
     configuration:
@@ -32,6 +39,7 @@ iosxe:
 
 **Key elements explained:**
 
+- **`---`** - YAML document start marker
 - **`iosxe:`** - Root key indicating IOS XE specific configuration
 - **`global:`** - Defines configurations that apply to all devices
 - **`configuration:`** - Contains the actual configuration settings
@@ -66,6 +74,12 @@ In Windows Subsystem for Linux (WSL) terminal, navigate to your project director
 ```bash
 cd ~/nac-iosxe
 ```
+
+!!! tip "Integrated Terminal in VS Code"
+    You can also open the WSL terminal directly in VS Code by going to the menu and selecting **Terminal > New Terminal**. This opens a terminal at the root of your project, making it easy to run Terraform commands without switching windows.
+
+    Whenever we mention running commands in WSL, you can use either the standalone WSL terminal or the integrated terminal in VS Code.
+
 
 List the files in your directory:
 

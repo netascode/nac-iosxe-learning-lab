@@ -237,6 +237,7 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
 Now edit the `data/devices.nac.yaml` file to define your network device inventory. This file contains the list of devices that the NAC module will manage, along with their management IP addresses:
 
 ```yaml
+---
 iosxe:
   devices:
     - name: core
@@ -253,7 +254,7 @@ iosxe:
     YAML uses **spaces for indentation** (not tabs) to define structure. Each level of nesting requires consistent spacing (typically 2 spaces). Incorrect indentation will cause parsing errors. When copying YAML from this guide, the formatting is preserved - but if you type manually, pay close attention to alignment. The Red Hat YAML extension will highlight indentation errors with red squiggly lines.
 
 **Understanding the configuration:**
-
+- **`---`** - YAML document start marker
 - **`iosxe:`** - Root key indicating IOS XE specific configuration
 - **`devices:`** - List of devices to be managed
 - **`name:`** - Unique identifier for each device (used to reference the device in other configuration files)
