@@ -60,4 +60,5 @@ The **isp** device simulates an external Internet Service Provider connection fo
 
 The host devices (**host01** and **host02**) are ubuntu-based simulated end-user devices connected to the network. They are configured with static IP addresses and default gateway `192.168.100.1`.
 
-**Note:** The lab topology also includes **ntp-server** and **syslog-server** devices. These are empty Ubuntu VMs, only intended to perform reachability tests from the IOS XE devices.
+!!! tip "Additional Servers"
+    The lab topology also includes **ntp-server** and **syslog-server** devices. Similarly to the host devices, these are empty Ubuntu VMs, only intended to perform reachability tests from the IOS XE devices.
