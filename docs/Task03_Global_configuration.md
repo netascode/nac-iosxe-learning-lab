@@ -103,26 +103,34 @@ You should see your project structure:
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
 
 
-**Convert the file to Unix format to avoid encoding issues:**
+!!! tip "Convert the file to Unix format to avoid encoding issues"
+    You might encounter a situation where you have edited the `.env` file on Windows, causing it to have Windows-style line endings (CRLF). Run the following command in your **WSL Ubuntu terminal** to convert the `.env` file to Unix format:
 
-Because you edited the `.env` file in VS Code on Windows, it may have Windows-style line endings (CRLF). Run the following command in your **WSL Ubuntu terminal** to convert it to Unix format:
-
-```bash
-dos2unix .env
-```
+    ```bash
+    dos2unix .env
+    ```
 
 To load these variables and make them available to Terraform, use this simple command:
 
 ```bash
-export $(cat .env | xargs)
+source .env
 ```
 
+!!! note "Using source vs. export"
+    The `source` command reads and executes the contents of the `.env` file.
+    As we included `export` in each line of the `.env` file, using `source` is sufficient to load and export the variables.
 
-**What this command does:**
+    Alternatively, you can ommit the `export` keywords in the `.env` file and run the following command to export all variables at once:
 
-- `cat .env` - Reads the contents of the `.env` file
-- `xargs` - Converts the file contents into command-line arguments
-- `export` - Exports all the variables, making them available to child processes like Terraform
+    ```bash
+    export $(cat .env | xargs)
+    ```
+
+    This command does three things:
+    - `cat .env` - Reads the contents of the `.env` file
+    - `xargs` - Converts the file contents into command-line arguments
+    - `export` - Exports all the variables, making them available to child processes like Terraform
+
 
 **Verify the variables are loaded:**
 
@@ -142,17 +150,20 @@ These credentials allow Terraform to authenticate with your IOS XE devices.
 
 **Making Environment Variables Persistent:**
 
-Environment variables exported in your current shell session are not persistent - they disappear when you close the terminal. If you exit WSL and later open a new session, you must re-export them by executing `export $(cat .env | xargs)` again.
+Environment variables exported in your current shell session are not persistent - they disappear when you close the terminal. If you exit WSL and later open a new session, you must export them again.
 
 To avoid manually exporting variables every time you open WSL, you can add the export command to your `~/.bashrc` file. This file runs automatically whenever you start a new bash session, so your environment variables will be loaded automatically.
 
-**To make the export permanent, add it to your bashrc:**
+**To make the export permanent, add it to your bashrc**
+
+!!! note
+    This has already been done for you in the lab environment. You don't need to run this command now.
 
 ```bash
-echo 'export $(cat ~/nac-iosxe/.env | xargs)' >> ~/.bashrc
+echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 ```
 
-This appends the export command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
+This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
 
 
 ## Step 3: Initialize Terraform

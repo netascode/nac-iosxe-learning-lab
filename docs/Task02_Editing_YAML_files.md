@@ -187,8 +187,8 @@ VS Code will now open with your project folder, and you'll see the file explorer
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
 ```bash
-source IOSXE_USERNAME=nac_admin
-source IOSXE_PASSWORD=cisco
+export IOSXE_USERNAME=nac_admin
+export IOSXE_PASSWORD=cisco
 ```
 
 The figure below illustrates how to edit the `.env` file using Visual Studio Code.
