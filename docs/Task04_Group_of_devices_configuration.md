@@ -117,7 +117,7 @@ Let's break down the key elements:
 When Terraform processes this configuration:
 
 1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
-2. The **ACCESS_SWITCHES group ACL** applies only to **access01** and **access02** switches
+2. The **ACCESS_SWITCHES** group ACL applies only to **access01** and **access02** switches
 3. If you later add device-specific configuration to the **access01** device, it would override group settings
 
 This hierarchical approach ensures:
@@ -136,15 +136,19 @@ Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraf
 cd ~/nac-iosxe
 ```
 
-```bash
-terraform plan
-```
+!!! note "terraform init not required"
+    You do not need to run `terraform init` again, as the project has already been initialized in a previous task.
+
+!!! note "terraform plan can be skipped"
+    You can skip `terraform plan` if you want to go straight to applying the configuration.
+
+    However, it's good practice to run `terraform plan` first to preview the changes that will be made.
 
 ```bash
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the ACCESS_SWITCHES group (**access01** and **access02**).
+When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the **ACCESS_SWITCHES** group (**access01** and **access02**).
 
 <figure markdown>
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
@@ -152,7 +156,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
 
 ## Verify Device Group Configuration
 
-After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the ACCESS_SWITCHES group.
+After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the **ACCESS_SWITCHES** group.
 
 **Use Solar-PuTTY to connect and verify:**
 
@@ -175,11 +179,16 @@ This confirms the standard ACL was successfully deployed to both **access01** an
 
 
 !!! note "Key Observation"
-    The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+    The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 
 !!! tip "Generated Model File"
-    As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the ACCESS_SWITCHES group is included only under the relevant devices.
+    As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the **ACCESS_SWITCHES** group is included only under the relevant devices.
+
+    ???+ info "model.yaml file"
+      <figure markdown>
+        ![Model YAML File](./assets/vscode-model-file.png){ width="100%" }
+      </figure>
 
     Reviewing the `model.yaml` file helps you understand how configurations are structured, and it is very useful for troubleshooting too.
 
@@ -189,7 +198,7 @@ This confirms the standard ACL was successfully deployed to both **access01** an
 In this task, you have:
 
 - ✅ Learned about device groups and configuration hierarchy
-- ✅ Created an ACCESS device group with **access01** and **access02** switches
+- ✅ Created an **ACCESS_SWITCHES** device group with **access01** and **access02** switches
 - ✅ Applied a standard ACL to multiple devices using a single definition
 - ✅ Understood the precedence: Global < Device Group < Device
 - ✅ Verified selective configuration deployment to group members only
