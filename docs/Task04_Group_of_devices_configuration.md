@@ -165,18 +165,34 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 3. Check if the ACL is present using the command below
 4. Disconnect and repeat for the **access02** switch
 
-```bash
-show access-lists | section AccessLayerACL
-```
+!!! info "Validation via `show access-lists`"
+    Use the following command on both **access01** and **access02** switches to verify the ACL:
+    ```bash
+    show access-lists | section AccessLayerACL
+    ```
 
-**Expected output:**
+    ???+ quote "Expected output"
+        <figure markdown>
+          ![Show Access List](./assets/sh-access-list.png){ width="100%" }
+        </figure>
 
-<figure markdown>
-  ![Show Access List](./assets/sh-access-list.png){ width="100%" }
-</figure>
+    This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
 
-This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
+!!! info "Validation via `show run`"
+    Alternatively, you can verify the ACL configuration by checking the running configuration:
 
+    ```bash
+    show run | section AccessLayerACL
+    ```
+
+    ???+ quote "Expected output"
+        ```
+        access01#show run | section AccessLayerACL
+        ip access-list standard AccessLayerACL
+        10 permit 10.0.0.0 0.0.0.255
+        20 permit 20.0.0.0 0.0.0.255
+        access01#
+        ```
 
 !!! note "Key Observation"
     The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.

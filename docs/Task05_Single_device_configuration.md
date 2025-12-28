@@ -161,7 +161,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
     ping vrf Mgmt-vrf syslog-server
     ```
 
-    ???+ info "Expected output"
+    ???+ quote "Expected output"
         ```
         core#ping vrf Mgmt-vrf ntp-server
         Type escape sequence to abort.
@@ -182,7 +182,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
     show hosts vrf Mgmt-vrf
     ```
 
-    ???+ info "Expected output"
+    ???+ quote "Expected output"
         ```
         core#show hosts vrf Mgmt-vrf
         Name lookup VRF: Mgmt-vrf
@@ -205,13 +205,13 @@ After successfully running `terraform apply`, verify that the IP host entries we
     show run | include ip host
     ```
 
-    ???+ info "Expected output"
+    ???+ quote "Expected output"
         ```
         core#show run | include ip host
         ip host vrf Mgmt-vrf ntp-server 198.18.129.11
         ip host vrf Mgmt-vrf syslog-server 198.18.129.12
         core#
-      ```
+        ```
 
 You should see both IP host entries configured on the **core** switch.
 
