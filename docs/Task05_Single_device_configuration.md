@@ -196,8 +196,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
         syslog-server  10      IN      A       198.18.129.12
 
         core#
-
-    ```
+        ```
 
 
 ??? info "Verification via `show run | include ip host`"
