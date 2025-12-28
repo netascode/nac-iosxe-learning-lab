@@ -186,9 +186,9 @@ This confirms the standard ACL was successfully deployed to both **access01** an
     As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the **ACCESS_SWITCHES** group is included only under the relevant devices.
 
     ???+ info "model.yaml file"
-      <figure markdown>
-        ![Model YAML File](./assets/vscode-model-file.png){ width="100%" }
-      </figure>
+        <figure markdown>
+          ![Model YAML File](./assets/vscode-model-file.png){ width="100%" }
+        </figure>
 
     Reviewing the `model.yaml` file helps you understand how configurations are structured, and it is very useful for troubleshooting too.
 
