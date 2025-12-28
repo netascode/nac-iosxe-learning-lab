@@ -264,7 +264,7 @@ banner login ^C
 #####################################
 #                                   #
 #   Welcome to Network-as-Code Lab  #
-#                                   # 
+#                                   #
 #####################################
 Device: core
 ^C
@@ -306,5 +306,5 @@ In this task, you have:
 You can either explore **optional** template tasks or continue with the **recommended** path:
 
 - **Optional:** [Task07 - Templates Type Model](Task07_Templates_type_model.md) - Learn how to create reusable YAML-based configuration templates
-- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip templates and continue with pre-change validation
+- **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip templates and continue with pre-change validation
 

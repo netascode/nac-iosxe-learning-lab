@@ -323,4 +323,4 @@ In this task, you have:
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:
 
 - **Optional:** [Task08 - Templates Type File](Task08_Templates_type_file.md) - Learn how to use external template files with dynamic content
-- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation
+- **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation

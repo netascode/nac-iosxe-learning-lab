@@ -20,8 +20,8 @@ In this example, you'll add IP host entries to the **core** switch only. IP host
 
 You'll configure the core switch to resolve these hostnames:
 
-- `ntp-server` → 198.18.128.1
-- `syslog-server` → 198.18.128.2
+- `ntp-server` → `198.18.129.11`
+- `syslog-server` → `198.18.129.12`
 
 ## Create Device-Specific Configuration Files
 
@@ -40,6 +40,7 @@ touch ~/nac-iosxe/data/config-device-access02.nac.yaml
 Now open `data/config-device-core.nac.yaml` in VS Code and add the following content. Notice how the configuration references the device by name:
 
 ```yaml
+---
 iosxe:
   devices:
     - name: core
@@ -48,10 +49,10 @@ iosxe:
           ip_hosts:
             - name: ntp-server
               ips:
-                - 198.18.128.1
+                - 198.18.129.11
             - name: syslog-server
               ips:
-                - 198.18.128.2
+                - 198.18.129.12
 ```
 
 The image below illustrates the device-specific configuration in VS Code:
@@ -81,7 +82,8 @@ Let's break down the key elements:
 - **`ips:`** - List of IP addresses associated with the hostname
 - **`198.18.128.1`** - The IP address that resolves when using the hostname
 
-**Important:** This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
+!!! note
+    This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
 
 ## Understanding File Organization
 
@@ -95,10 +97,10 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
     ├── config-device-access01.nac.yaml  # Device-specific (placeholder)
     ├── config-device-access02.nac.yaml  # Device-specific (placeholder)
     ├── config-device-border.nac.yaml    # Device-specific (placeholder)
-    ├── config-device-core.nac.yaml      # Device-specific (IP hosts)
-    ├── config-global.nac.yaml           # Global configuration (banner)
-    ├── config-group-access.nac.yaml     # Device Group configuration (ACL)
-    └── devices.nac.yaml                 # Device inventory (name + host)
+    ├── config-device-core.nac.yaml      # Device-specific (IP hosts) ← This task
+    ├── config-global.nac.yaml           # Global configuration (banner) ← Task03
+    ├── config-group-access.nac.yaml     # Device Group configuration (ACL) ← Task04
+    └── devices.nac.yaml                 # Device inventory (name + host) ← Task02
 ```
 
 This modular approach keeps configurations organized and easy to maintain. This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment:
@@ -118,7 +120,7 @@ Open your WSL Ubuntu terminal and run the following steps:
 cd ~/nac-iosxe
 ```
 
-**Step 2:** Preview the changes Terraform will make:
+**Step 2:** Optionally, preview the changes Terraform will make:
 
 ```bash
 terraform plan
@@ -148,24 +150,73 @@ After successfully running `terraform apply`, verify that the IP host entries we
 **Step 1: Verify on core Switch (should have the configuration)**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **core** switch (198.18.130.10)
-3. Run the verification command below
+2. Connect to the **core** switch (`198.18.130.10`)
+3. Run the verification commands below
 
-```bash
-show run | include ip host
-```
+???+ info "Verification via host resolution and ping"
+    ```bash
+    ping vrf Mgmt-vrf ntp-server
+    ping vrf Mgmt-vrf syslog-server
+    ```
 
-**Expected output on core:**
+    ???+ info "Expected output"
+        ```
+        core#ping vrf Mgmt-vrf ntp-server
+        Type escape sequence to abort.
+        Sending 5, 100-byte ICMP Echos to 198.18.129.11, timeout is 2 seconds:
+        !!!!!
+        Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+        core#ping vrf Mgmt-vrf syslog-server
+        Type escape sequence to abort.
+        Sending 5, 100-byte ICMP Echos to 198.18.129.12, timeout is 2 seconds:
+        !!!!!
+        Success rate is 100 percent (5/5), round-trip min/avg/max = 1/201/1002 ms
+        core#
+        ```
 
-<figure markdown>
-  ![Show IP Host core](./assets/sh-ip-host-core.png){ width="100%" }
-</figure>
+
+??? info "Verification via `show hosts`"
+    ```bash
+    show hosts vrf Mgmt-vrf
+    ```
+
+    ???+ info "Expected output"
+        ```
+        core#show hosts vrf Mgmt-vrf
+        Name lookup VRF: Mgmt-vrf
+        Default domain is not set
+        Name servers are 255.255.255.255
+        NAME  TTL  CLASS   TYPE      DATA/ADDRESS
+        -----------------------------------------
+        11.129.18.198.in-addr.arpa     10      IN      PTR     ntp-server
+        12.129.18.198.in-addr.arpa     10      IN      PTR     syslog-server
+        ntp-server     10      IN      A       198.18.129.11
+        syslog-server  10      IN      A       198.18.129.12
+
+        core#
+
+    ```
+
+
+??? info "Verification via `show run | include ip host`"
+    ```bash
+    show run | include ip host
+    ```
+
+    ???+ info "Expected output"
+        ```
+        core#show run | include ip host
+        ip host vrf Mgmt-vrf ntp-server 198.18.129.11
+        ip host vrf Mgmt-vrf syslog-server 198.18.129.12
+        core#
+      ```
 
 You should see both IP host entries configured on the **core** switch.
 
+
 **Step 2: Verify on Other Devices (should NOT have the configuration)**
 
-Connect to the **border** switch (198.18.130.20) and run the same command:
+Connect to the **border** switch (`198.18.130.20`) and run the same command:
 
 ```bash
 show run | include ip host
@@ -175,55 +226,35 @@ show run | include ip host
 
 The command should return no output, confirming that the IP host entries were NOT applied to the border switch.
 
-**Key observation:** The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
+
+!!! info "Key observation"
+    The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
+
 
 ## Configuration Hierarchy Comparison
 
 Now that you've completed Tasks 03, 04, and 05, you've experienced all three levels of the configuration hierarchy. Here's a summary:
 
-| Level | Scope | Example | File |
-|-------|-------|---------|------|
-| **Global** | All devices | Login banner | `config-global.nac.yaml` |
+| Level            | Scope             | Example      | File                           |
+|------------------|-------------------|--------------|--------------------------------|
+| **Global**       | All devices       | Login banner | `config-global.nac.yaml`       |
 | **Device Group** | Subset of devices | Standard ACL | `config-group-access.nac.yaml` |
-| **Device** | Single device | IP hosts | `config-device-core.nac.yaml` |
+| **Device**       | Single device     | IP hosts     | `config-device-core.nac.yaml`  |
 
-**Visual representation:**
+**Visual representation**
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                    GLOBAL CONFIGURATION                  │
-│                   (applies to ALL devices)               │
-│                                                          │
-│  ┌─────────────────────────────────────────────────────┐ │
-│  │              DEVICE GROUP: ACCESS_SWITCHES       │   │
-│  │           (applies to access01, access02)        │   │
-│  │                                                  │   │
-│  │  ┌──────────────┐        ┌──────────────┐         │   │
-│  │  │  access01   │        │  access02   │          │   │
-│  │  │             │        │             │          │   │
-│  │  │ - Banner    │        │ - Banner    │          │   │
-│  │  │ - ACL       │        │ - ACL       │          │   │
-│  │  └──────────────┘        └──────────────┘         │   │
-│  └─────────────────────────────────────────────────────┘ │
-│                                                          │
-│  ┌───────────────────┐        ┌─────────────────┐        │
-│  │      core       │        │     border      │         │
-│  │                 │        │                 │         │
-│  │ - Banner        │        │ - Banner        │         │
-│  │ - IP Hosts      │        │                 │         │
-│  │                 │        │                 │         │
-│  └───────────────────┘        └─────────────────┘        │
-└──────────────────────────────────────────────────────────────┘
-```
+<figure markdown>
+  ![Configuration Hierarchy](./assets/config-hierarchy.png){ width="70%" }
+</figure>
 
 ## When to Use Each Configuration Level
 
-| Use Case | Recommended Level |
-|----------|-------------------|
-| Organization-wide standards (banners, NTP, logging) | **Global** |
-| Role-based settings (ACLs for access layer, routing for core) | **Device Group** |
-| Unique device requirements (management IPs, special features) | **Device** |
-| Overriding group or global settings for one device | **Device** |
+| Use Case                                                      | Recommended Level |
+|---------------------------------------------------------------|-------------------|
+| Organization-wide standards (banners, NTP, logging)           | **Global**        |
+| Role-based settings (ACLs for access layer, routing for core) | **Device Group**  |
+| Unique device requirements (management IPs, special features) | **Device**        |
+| Overriding group or global settings for one device            | **Device**        |
 
 ## What You've Accomplished
 
@@ -244,5 +275,5 @@ In this task, you have:
 You can either explore **optional** tasks or continue with the **recommended** path:
 
 - **Optional:** [Task06 - Variables](Task06_Variables.md) - Learn how to use variables for dynamic configurations
-- **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip optional tasks and continue with pre-change validation
+- **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip optional tasks and continue with pre-change validation
 
