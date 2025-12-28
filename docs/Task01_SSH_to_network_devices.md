@@ -36,7 +36,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 </figure>
 
 
-!!! note "Additional Devices"
+!!! info "Additional Devices"
     The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
 
 **To connect to a device:**
@@ -45,7 +45,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="80%" }
+  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="100%" }
 </figure>
 
 ## Verify Device Information
@@ -55,6 +55,9 @@ Once connected to the switch, run the following command to verify the device inf
 ```bash
 show version
 ```
+
+!!! tip "Copy from the lab guide"
+    You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into Solar-PuTTY using **right-click**.
 
 This displays:
 
@@ -73,7 +76,7 @@ Now let's check the running configuration to see what's currently configured on 
 show run
 ```
 
-!!! note
+!!! info
     The lab device configurations are almost empty - this is intentional! The switches have minimal configurations, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the devices.
 
 ## Configuration Required for Terraform Access

@@ -22,6 +22,10 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 
 Since Network-as-Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
 
+<figure markdown>
+  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
+</figure>
+
 This extension provides:
 
 - **Real-time syntax validation** - Highlights errors as you type
@@ -30,9 +34,12 @@ This extension provides:
 - **Schema validation** - Can validate against predefined schemas
 
 !!! info "Pre-installed Extension"
-    The Red Hat YAML extension is already installed in your lab environment. You'll see syntax highlighting and error detection automatically as you edit YAML files. For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
+    The Red Hat YAML extension is already installed in your lab environment. You'll see syntax highlighting and error detection automatically as you edit YAML files.
+    For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
 
-For this lab, VS Code is pre-installed on your Windows workstation and ready to use. You'll use it to view, edit, and create YAML configuration files that define your network infrastructure.
+
+!!! tip "File Extension"
+    The YAML extension recognizes only files with `.nac.yaml` extension as Network-as-Code YAML files. To use the extension, ensure your configuration files end with `.nac.yaml`.
 
 
 ## Create Project Directory in WSL
