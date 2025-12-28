@@ -18,7 +18,7 @@ Device groups are particularly effective for:
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called "ACCESS" that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (10.0.0.0/24 and 20.0.0.0/24) - a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) - a typical requirement for access layer devices controlling traffic from known networks.
 
 ## Create the Device Group Configuration File
 
@@ -31,6 +31,7 @@ touch ~/nac-iosxe/data/config-group-access.nac.yaml
 The file will appear in VS Code's Explorer panel. Click on `config-group-access.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **access01** and **access02** switches:
 
 ```text
+---
 iosxe:
   device_groups:
     - name: ACCESS_SWITCHES
@@ -52,8 +53,6 @@ iosxe:
                   prefix_mask: 0.0.0.255
 ```
 
-
-
 The image below illustrates the ACL configuration in VS Code:
 
 <figure markdown>
@@ -68,8 +67,27 @@ Let's break down the key elements:
 
 - **`device_groups:`** - Defines one or more device groups
 - **`name: ACCESS_SWITCHES`** - The group name identifier
-- **`devices:`** - Lists member devices (access01, access02)
+- **`devices:`** - Lists member devices (`access01`, `access02`)
 - **`configuration:`** - Contains settings applied to all group members
+
+??? tip "Adding Devices to Groups"
+    You can also add a device to a device group from under the device configuration section by specifying the `device_groups` attribute. This is useful when you want to assign a device to multiple groups or prefer defining group membership alongside device-specific settings.
+
+    ```yaml
+    ---
+    iosxe:
+      devices:
+        - name: example-device
+          device_groups:
+            - EXAMPLE_GROUP1
+            - EXAMPLE_GROUP2
+            - EXAMPLE_GROUP3
+          configuration:
+            # device-specific configuration here
+            ...
+    ```
+
+    The reference between the device and device group can be configured from both sides.
 
 **Access List Configuration:**
 
@@ -80,20 +98,18 @@ Let's break down the key elements:
 
 **ACL Entry Details:**
 
-- **Sequence 10**: Permits traffic from the 10.0.0.0/24 network
+- **Sequence 10**: Permits traffic from the `10.0.0.0/24` network
   - `action: permit` - Allows matching traffic
   - `prefix: 10.0.0.0` - The network address
-  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches 10.0.0.0 through 10.0.0.255)
+  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches `10.0.0.0` through `10.0.0.255`)
 
-- **Sequence 20**: Permits traffic from the 20.0.0.0/24 network
+- **Sequence 20**: Permits traffic from the `20.0.0.0/24` network
   - `action: permit` - Allows matching traffic
   - `prefix: 20.0.0.0` - The network address
-  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches 20.0.0.0 through 20.0.0.255)
-  
+  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches `20.0.0.0` through `20.0.0.255`)
 
-!!! note
+!!! info "About Standard ACLs"
     Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
-
 
 
 ## How Device Groups Work
@@ -106,10 +122,10 @@ When Terraform processes this configuration:
 
 This hierarchical approach ensures:
 
-- ✅ No configuration duplication (ACL defined once, applied to multiple devices)
-- ✅ Easy maintenance (update ACL in one place, changes apply to all group members)
-- ✅ Scalability (add more switches by just adding them to the group's device list)
-- ✅ Flexibility (individual devices can still override group settings if needed)
+- No configuration duplication (ACL defined once, applied to multiple devices)
+- Easy maintenance (update ACL in one place, changes apply to all group members)
+- Scalability (add more switches by just adding them to the group's device list)
+- Flexibility (individual devices can still override group settings if needed)
 
 
 ## Apply Access-list Configuration
@@ -146,7 +162,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 4. Disconnect and repeat for the **access02** switch
 
 ```bash
-show access-lists
+show access-lists | section AccessLayerACL
 ```
 
 **Expected output:**
@@ -157,7 +173,16 @@ show access-lists
 
 This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
 
-**Key observation:** The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+
+!!! note "Key Observation"
+    The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+
+
+!!! tip "Generated Model File"
+    As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the ACCESS_SWITCHES group is included only under the relevant devices.
+
+    Reviewing the `model.yaml` file helps you understand how configurations are structured, and it is very useful for troubleshooting too.
+
 
 ## What You've Accomplished
 
