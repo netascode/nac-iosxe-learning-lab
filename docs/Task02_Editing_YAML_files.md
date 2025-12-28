@@ -38,8 +38,8 @@ This extension provides:
     For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
 
 
-!!! tip "File Extension"
-    The YAML extension recognizes only files with `.nac.yaml` extension as Network-as-Code YAML files. To use the extension, ensure your configuration files end with `.nac.yaml`.
+!!! warning "File Extension"
+    The YAML extension recognizes only files ending with `.nac.yaml` as Network-as-Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
 
 
 ## Create Project Directory in WSL
@@ -174,7 +174,7 @@ To begin working with your project in a development-friendly environment, open y
 !!! note
     When you open VS Code, it automatically connects to WSL.
     Notice the `WSL: Ubuntu-22.04` indicator in the bottom-left corner of VS Code. This confirms that VS Code is connected to your WSL Ubuntu environment, allowing you to edit files directly in WSL.
-    This is achieved using the **Remote - WSL** extension, which is pre-installed in your lab environment.
+    This is achieved using the **WSL** VS Code extension, which is pre-installed in your lab environment.
 
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
@@ -187,8 +187,8 @@ VS Code will now open with your project folder, and you'll see the file explorer
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
 ```bash
-IOSXE_USERNAME=nac_admin
-IOSXE_PASSWORD=cisco
+source IOSXE_USERNAME=nac_admin
+source IOSXE_PASSWORD=cisco
 ```
 
 The figure below illustrates how to edit the `.env` file using Visual Studio Code.
