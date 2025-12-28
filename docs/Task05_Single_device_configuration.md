@@ -18,7 +18,7 @@ Device-specific configurations are applied directly to individual devices and ta
 
 In this example, you'll add IP host entries to the **core** switch only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core switches that need to reference multiple infrastructure devices.
 
-You'll configure the core switch to resolve these hostnames:
+You'll configure the core switch to resolve these hostnames in its management VRF:
 
 - `ntp-server` → `198.18.129.11`
 - `syslog-server` → `198.18.129.12`
@@ -50,9 +50,11 @@ iosxe:
             - name: ntp-server
               ips:
                 - 198.18.129.11
+              vrf: Mgmt-vrf
             - name: syslog-server
               ips:
                 - 198.18.129.12
+              vrf: Mgmt-vrf
 ```
 
 The image below illustrates the device-specific configuration in VS Code:
@@ -81,6 +83,7 @@ Let's break down the key elements:
 - **`name: ntp-server`** - The hostname to create
 - **`ips:`** - List of IP addresses associated with the hostname
 - **`198.18.128.1`** - The IP address that resolves when using the hostname
+- **`vrf: Mgmt-vrf`** - Specifies the VRF context for the IP host entry
 
 !!! note
     This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
@@ -103,12 +106,11 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
     └── devices.nac.yaml                 # Device inventory (name + host) ← Task02
 ```
 
-This modular approach keeps configurations organized and easy to maintain. This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment:
+!!! tip "File Organization"
+    This modular approach keeps configurations organized and easy to maintain.
 
-- **Device inventory** in `devices.nac.yaml` - the device list
-- **Global settings** in `config-global.nac.yaml` - applies to all devices
-- **Group-specific settings** in `config-group-*.nac.yaml` files
-- **Device-specific settings** in `config-device-*.nac.yaml` files
+    This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment.
+
 
 ## Apply Device-Specific Configuration
 
