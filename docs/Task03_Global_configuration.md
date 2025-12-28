@@ -116,7 +116,7 @@ To load these variables and make them available to Terraform, use this simple co
 source .env
 ```
 
-!!! note "Using source vs. export"
+??? note "Using source vs. export"
     The `source` command reads and executes the contents of the `.env` file.
     As we included `export` in each line of the `.env` file, using `source` is sufficient to load and export the variables.
 
@@ -264,10 +264,11 @@ Type `yes` and press Enter to proceed.
 
     This is useful for automation scenarios, such as CI/CD pipelines, where manual intervention is not feasible.
 
-!!! note
-    As we've seen, the plan stage is part of the apply process. When you run `terraform apply`, it first generates and displays the plan for your review before asking for confirmation to proceed with the changes.
-    When performing `terraform apply` manually, you may chose skip the previous separate `terraform plan` step.
-    When automating with CI/CD pipelines, you can save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
+!!! note "Skipping the Plan Step"
+    As we've seen, `terraform apply` first generates and displays the plan before asking for confirmation to proceed with the changes.
+    This makes it possible to skip the previous redundant `terraform plan` step when performing `terraform apply` manually.
+
+    However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
 
 
 ## Step 6: Verify the Global Configuration
@@ -302,7 +303,7 @@ Upon successful config deployment, you should see the following banner message:
     <hostname>#
     ```
 
-    The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your banner text "Welcome to Network-as-Code Lab" in the output.
+    The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your configured text in the output.
 
 **What you should observe:**
 
@@ -340,17 +341,27 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 </figure>
 
 !!! warning "Important"
-    The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
+    The state file is sensitive and critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
+
+???+ note "State File Location"
+    In this lab, we are using the default local state file (`terraform.tfstate`) stored in your project directory.
+
+    While this is easy to use for learning and small projects, it's not suitable for production environments.
+    In real-world scenarios, consider using remote state backends like **Terraform Cloud**, **AWS S3**, **Azure Blob Storage**, **HTTP backends**, **Postgres databases**, etc. to securely store and share state files.
+
+    For more information, refer to the Terraform documentation [here](https://developer.hashicorp.com/terraform/language/backend).
+
+
 
 ## Troubleshooting Common Issues
 
-??? error "Error: Failed to connect to device"
+??? failure "Error: Failed to connect to device"
     **Solution:** Verify your device host address is correct and the device is reachable.
 
-??? error "Error: Invalid credentials"
+??? failure "Error: Invalid credentials"
     **Solution:** Check that your environment variables are set correctly with `env | grep IOSXE`. If they're not set, run `source .env` again
 
-??? error "Module not found"
+??? failure "Module not found"
     **Solution:** Run `terraform init` again to download the required modules
 
 
