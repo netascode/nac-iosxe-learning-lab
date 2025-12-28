@@ -1,4 +1,4 @@
-From your workstation, you will work on a Web RDP session to the dCloud lab Windows 10 VM  with IP address 198.18.133.20 and credentials admin / C1sco12345.
+From your workstation, you will work on a Web RDP session to the dCloud lab Windows 10 VM  with IP address 198.18.133.20 and credentials admin / cisco.
 
 Below is the dCloud lab topology diagram:
 
