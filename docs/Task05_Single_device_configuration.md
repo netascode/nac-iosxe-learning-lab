@@ -241,7 +241,7 @@ In this task, you have:
 
 **Next Steps:**
 
-You can either explore **optional** tasks or continue with the **mandatory** path:
+You can either explore **optional** tasks or continue with the **recommended** path:
 
 - **Optional:** [Task06 - Variables](Task06_Variables.md) - Learn how to use variables for dynamic configurations
 - **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip optional tasks and continue with pre-change validation

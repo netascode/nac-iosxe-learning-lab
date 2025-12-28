@@ -228,7 +228,7 @@ In this task, you have:
 
 **Next Steps:**
 
-You can explore the **optional** Robot Framework task or continue with the **mandatory** cleanup:
+You can explore the **optional** Robot Framework task or continue with the **recommended** cleanup:
 
 - **Optional:** [Task11 - Post-checks with ROBOT](Task11_Post-checks_with_ROBOT.md) - Learn how to automate post-change validation
 - **Mandatory:** [Task12 - Cleanup](Task12_Cleanup.md) - Skip Robot Framework and proceed to cleanup before CI/CD

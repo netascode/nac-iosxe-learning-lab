@@ -218,7 +218,7 @@ This allows you to define default values globally and override them per device.
 
 **Next Steps:**
 
-You can continue exploring **optional** template tasks or proceed to the **mandatory** path:
+You can continue exploring **optional** template tasks or proceed to the **recommended** path:
 
 - **Optional:** [Task09 - Templates Type CLI](Task09_Templates_type_cli.md) - Learn how to use raw CLI commands for unsupported features
 - **Mandatory:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation
