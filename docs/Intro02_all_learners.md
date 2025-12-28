@@ -25,7 +25,6 @@ The guide is segmented into **recommended tasks**, suitable for all users, and *
 **CI/CD Pipelines:**
 
 - Task12 : Cleanup the lab (destroy Terraform state and local files)
-- Task13 : Run a CI/CD pipeline (nac-validate, Terraform plan, Terraform apply) in main branch
+- Task13 : Run a CI/CD pipeline (nac-validate, terraform plan, terraform apply)
 - Task14 (optional) : Modify CI/CD pipeline to add tests
 - Task15 (optional) : Merge Request workflow (Create branch, make a change, create a merge request, approve and merge to main)
-
