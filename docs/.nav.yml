@@ -21,8 +21,9 @@ nav:
       - "[14] Edit CI-CD (optional)": Task14_Add_Robot_testing_stage_to_CI-CD.md
       - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
       - "Conclusion": Workend01_conclusion.md
-      - "APPENDIX I": Task16_Appendix-I.md
-      - "APPENDIX II": Task17_Appendix-II.md
-      - "APPENDIX III": Task18_Appendix-III.md
-      - "APPENDIX IV": Task19_Appendix-IV.md
   - Topologies: Intro05_topologies.md
+  - Appendices:
+      - "APPENDIX I": Appendix-I.md
+      - "APPENDIX II": Appendix-II.md
+      - "APPENDIX III": Appendix-III.md
+      - "APPENDIX IV": Appendix-IV.md
