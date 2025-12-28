@@ -74,7 +74,7 @@ access_lists_standard_entries:
 
 # System - IP Hosts (Task05), Hostname (Task06)
 system:
-  hostname: str(required=False)
+  hostname: regex('^[^\s]*$', required=False)
   ip_hosts: list(include('system_ip_hosts'), required=False)
 
 system_ip_hosts:
