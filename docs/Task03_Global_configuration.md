@@ -369,11 +369,11 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 
 Congratulations! You've successfully:
 
-- ✅ Created YAML configuration files
-- ✅ Initialized Terraform with the Network-as-Code module
-- ✅ Previewed changes with `terraform plan`
-- ✅ Applied configuration to your network devices with `terraform apply`
-- ✅ Verified the banner on your device
+- [x] Created YAML configuration files
+- [x] Initialized Terraform with the Network-as-Code module
+- [x] Previewed changes with `terraform plan`
+- [x] Applied configuration to your network devices with `terraform apply`
+- [x] Verified the banner on your devices
 
 ## What's Next?
 
