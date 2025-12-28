@@ -4,7 +4,7 @@ Before diving into Network-as-Code automation, it's important to establish basel
 
 - How to connect to IOS XE devices using Solar-PuTTY
 - How to verify device information with basic show commands
-- What minimal configuration is required for Terraform/RESTCONF automation
+- What minimal configuration is required for Network-as-Code/RESTCONF automation
 
 ## Open Solar-PuTTY
 
@@ -17,7 +17,7 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 3. You'll see the Solar-PuTTY interface with a list of devices
 
 <figure markdown>
-  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="100%" }
+  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="60%" }
 </figure>
 
 ## Connect to the lab devices
@@ -26,18 +26,18 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 **Devices in this lab:**
 
-- **border** - Border switch (198.18.130.20)
-- **core** - Core switch (198.18.130.10)
 - **access01** - Access switch (198.18.130.11)
 - **access02** - Access switch (198.18.130.12)
+- **border** - Border switch (198.18.130.20)
+- **core** - Core switch (198.18.130.10)
 
 <figure markdown>
-  ![CML Topology](./assets/cml-topology.png){ width="80%" }
+  ![CML Topology](./assets/cml-topology.png){ width="70%" }
 </figure>
 
 
 !!! note "Additional Devices"
-    The lab topology also includes **host01**, **host02**, and **isp** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
+    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
 
 **To connect to a device:**
 
@@ -45,7 +45,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="100%" }
+  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="80%" }
 </figure>
 
 ## Verify Device Information
@@ -92,9 +92,30 @@ restconf
 
 - **`ip http secure-server`** - Enables HTTPS server on the switch, required for RESTCONF API access
 - **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication
+- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication. In the `show run` output, you will see the password is encrypted for security.
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
+
+!!! note "Dedicated User"
+    It is good practice to have a dedicated administrative user configured for automation tasks, as shown above with the `nac_admin` user. This helps separate human and automated access for better security and auditing.
+
+    With the Network-as-Code framework, this user needs to be configured on all devices that Terraform will manage.
+
+
+## Enabling RESTCONF Manually
+!!! tip
+    You don't need to do this now - it's already configured on all lab devices.
+
+If you needed to manually enable RESTCONF on a new device, you would use these commands:
+
+```
+config t
+ip http secure-server
+restconf
+username nac_admin privilege 15 secret cisco
+end
+write memory
+```
 
 !!! note
     If you are configuring your own devices outside of this lab, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
@@ -109,22 +130,6 @@ restconf
     ```bash
     curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u cisco:cisco
     ```
-
-## Enabling RESTCONF Manually
-
-If you needed to manually enable RESTCONF on a new device, you would use these commands:
-
-```
-config t
-ip http secure-server
-restconf
-username nac_admin privilege 15 secret cisco
-end
-write memory
-```
-
-!!! note
-    You don't need to do this now - it's already configured on all lab devices.
 
 ## What to observe across all devices
 
