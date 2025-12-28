@@ -96,6 +96,20 @@ restconf
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
 
+!!! note
+    If you are configuring your own devices outside of this lab, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
+    You can verify RESTCONF availability with the following command:
+
+    ```bash
+    curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
+    ```
+
+    For example, in the lab, you can check RESTCONF on the access01 device with:
+
+    ```bash
+    curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u cisco:cisco
+    ```
+
 ## Enabling RESTCONF Manually
 
 If you needed to manually enable RESTCONF on a new device, you would use these commands:
