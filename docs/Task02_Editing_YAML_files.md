@@ -171,6 +171,11 @@ To begin working with your project in a development-friendly environment, open y
   ![WSL Open Project Folder](./assets/wsl-open-project-folder.png){ width="100%" }
 </figure>
 
+!!! note
+    When you open VS Code, it automatically connects to WSL.
+    Notice the `WSL: Ubuntu-22.04` indicator in the bottom-left corner of VS Code. This confirms that VS Code is connected to your WSL Ubuntu environment, allowing you to edit files directly in WSL.
+    This is achieved using the **Remote - WSL** extension, which is pre-installed in your lab environment.
+
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
 <figure markdown>
@@ -186,7 +191,7 @@ IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
 ```
 
-The figure below illustrates how to edit the `.env` file using Visual Studio Code. 
+The figure below illustrates how to edit the `.env` file using Visual Studio Code.
 
 <figure markdown>
   ![alt text](./assets/vscode-env-file.png){ width="100%" }
