@@ -129,9 +129,7 @@ source .env
     This command does three things:
 
       1. `cat .env` - Reads the contents of the `.env` file
-
       2. `xargs` - Converts the file contents into command-line arguments
-
       3. `export` - Exports all the variables, making them available to processes like Terraform
 
 
@@ -190,8 +188,14 @@ terraform init
   ![Terraform Init](./assets/terraform-init.png){ width="100%" }
 </figure>
 
+
 !!! warning "Internet Connection Required"
     As shown in this lab, the `terraform init` step requires an active internet connection to download the necessary modules from the Terraform Registry. In production environments, you may want to set up a private module registry or use a local mirror to avoid dependency on external connectivity.
+
+
+!!! note "Initialization Only Once"
+    You only need to run `terraform init` once per project. To add or update modules later, you can run it again to download any additional dependencies.
+    If you want to download the latest version of the modules, you can use `terraform init -upgrade` instead.
 
 
 ## Step 4: Preview Changes with Terraform Plan
@@ -216,6 +220,7 @@ terraform plan
 </figure>
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
+
 
 ## Step 5: Apply Configuration to Devices
 
@@ -250,6 +255,20 @@ Type `yes` and press Enter to proceed.
   ![Terraform Apply](./assets/terraform-apply.png){ width="100%" }
 </figure>
 
+!!! tip "Automate Approval"
+    To skip the confirmation prompt and apply changes automatically, you can use the `-auto-approve` flag:
+
+    ```bash
+    terraform apply -auto-approve
+    ```
+
+    This is useful for automation scenarios, such as CI/CD pipelines, where manual intervention is not feasible.
+
+!!! note
+    As we've seen, the plan stage is part of the apply process. When you run `terraform apply`, it first generates and displays the plan for your review before asking for confirmation to proceed with the changes.
+    When performing `terraform apply` manually, you may chose skip the previous separate `terraform plan` step.
+    When automating with CI/CD pipelines, you can save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
+
 
 ## Step 6: Verify the Global Configuration
 
@@ -259,26 +278,31 @@ After Terraform completes successfully, verify the banner was applied to **all d
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to the **border** switch first
-3. Run the verification command (shown below)
+3. Verify that the pre-authentication banner appears upon ssh connection (shown below)
 4. Repeat for **core**, **access01**, and **access02** switches
 
-**Check the banner configuration on each device:**
+Upon successful config deployment, you should see the following banner message:
 
-Once connected to each switch, run the following command:
+<figure markdown>
+  ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="100%" }
+</figure>
 
-```bash
-show run | include banner
-```
+???+ tip "Banner Verification via show run"
+    Additionally, you can also verify the banner configuration by examining the running configuration. Once connected to each switch, run the following command:
 
-**Expected output (same on all four devices):**
+    ```bash
+    show run | include banner
+    ```
 
-```
-<hostname>#show run | include banner
-banner login ^CWelcome to Network-as-Code Lab^C
-<hostname>#
-```
+    **Expected output (same on all four devices):**
 
-The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your banner text "Welcome to Network-as-Code Lab" in the output.
+    ```
+    <hostname>#show run | include banner
+    banner login ^CWelcome to Network-as-Code Lab^C
+    <hostname>#
+    ```
+
+    The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your banner text "Welcome to Network-as-Code Lab" in the output.
 
 **What you should observe:**
 
@@ -289,19 +313,19 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 
 **Success!** You've just deployed your first Network-as-Code configuration using Terraform! Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
 
-## Terraform Command Reference
+???+ note "Terraform Command Reference"
+    Here's a quick reference of the most common Terraform commands:
 
-Here's a quick reference of the most common Terraform commands:
+    | Command                          | Purpose                                 |
+    |----------------------------------|-----------------------------------------|
+    | `terraform init`                 | Initialize project and download modules |
+    | `terraform plan`                 | Preview changes without applying them   |
+    | `terraform apply`                | Apply configuration to devices          |
+    | `terraform apply -auto-approve`  | Apply without confirmation prompt       |
+    | `terraform destroy`              | Remove all managed resources            |
+    | `terraform show`                 | Display current state                   |
+    | `terraform validate`             | Check configuration syntax              |
 
-| Command | Purpose |
-|---------|---------|
-| `terraform init` | Initialize project and download modules |
-| `terraform plan` | Preview changes without applying them |
-| `terraform apply` | Apply configuration to devices |
-| `terraform apply -auto-approve` | Apply without confirmation prompt |
-| `terraform destroy` | Remove all managed resources |
-| `terraform show` | Display current state |
-| `terraform validate` | Check configuration syntax |
 
 ## Understanding Terraform State
 
@@ -315,23 +339,22 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
   ![Terraform State Files](./assets/terraform-state-files.png){ width="50%" }
 </figure>
 
-**Important:** The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
+!!! warning "Important"
+    The state file is critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
 
 ## Troubleshooting Common Issues
 
-**Issue: "Error: Failed to connect to device"**
+??? error "Error: Failed to connect to device"
+    **Solution:** Verify your device host address is correct and the device is reachable.
 
-- **Solution:** Verify your device host address is correct and the device is reachable. 
+??? error "Error: Invalid credentials"
+    **Solution:** Check that your environment variables are set correctly with `env | grep IOSXE`. If they're not set, run `source .env` again
 
-**Issue: "Error: Invalid credentials"**
+??? error "Module not found"
+    **Solution:** Run `terraform init` again to download the required modules
 
-- **Solution:** Check that your environment variables are set correctly with `env | grep IOSXE`. If they're not set, run `export $(cat .env | xargs)` again
 
-**Issue: "Module not found"**
-
-- **Solution:** Run `terraform init` again to download the required modules
-
-## What's Next?
+## What You've Accomplished
 
 Congratulations! You've successfully:
 
@@ -340,6 +363,8 @@ Congratulations! You've successfully:
 - ✅ Previewed changes with `terraform plan`
 - ✅ Applied configuration to your network devices with `terraform apply`
 - ✅ Verified the banner on your device
+
+## What's Next?
 
 In the next task, you'll learn how to use device groups to apply configurations to multiple devices efficiently.
 

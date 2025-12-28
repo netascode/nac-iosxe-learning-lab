@@ -258,6 +258,7 @@ iosxe:
     YAML uses **spaces for indentation** (not tabs) to define structure. Each level of nesting requires consistent spacing (typically 2 spaces). Incorrect indentation will cause parsing errors. When copying YAML from this guide, the formatting is preserved - but if you type manually, pay close attention to alignment. The Red Hat YAML extension will highlight indentation errors with red squiggly lines.
 
 **Understanding the configuration:**
+
 - **`---`** - YAML document start marker
 - **`iosxe:`** - Root key indicating IOS XE specific configuration
 - **`devices:`** - List of devices to be managed
