@@ -189,6 +189,7 @@ Edit `.env` file containing the environment variables required by the Network-as
 ```bash
 export IOSXE_USERNAME=nac_admin
 export IOSXE_PASSWORD=cisco
+export IOSXE_PROTOCOL=restconf
 ```
 
 The figure below illustrates how to edit the `.env` file using Visual Studio Code.
@@ -196,6 +197,9 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 <figure markdown>
   ![alt text](./assets/vscode-env-file.png){ width="100%" }
 </figure>
+
+!!! note "Protocol Selection"
+    In this lab, we are using **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly. The default protocol in the latest relese of the ciscodevnet/iosxe Terraform provider is now NETCONF.
 
 
 ## Edit Terraform main.tf file

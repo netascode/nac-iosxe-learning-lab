@@ -104,6 +104,8 @@ restconf
 
     With the Network-as-Code framework, this user needs to be configured on all devices that Terraform will manage.
 
+!!! info "RESTCONF and NETCONF"
+    This version of the lab guide focuses on using RESTCONF for device configuration only. Very recently, NETCONF support has also been added to the ciscodevnet/iosxe Terraform provider as the default protocol. Future versions of this lab may include NETCONF examples as well. Currently the lab devices are not configured to support NETCONF. For more information, refer to the provider documentation [here](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3).
 
 ## Enabling RESTCONF Manually
 !!! tip

@@ -127,9 +127,12 @@ source .env
     ```
 
     This command does three things:
-    - `cat .env` - Reads the contents of the `.env` file
-    - `xargs` - Converts the file contents into command-line arguments
-    - `export` - Exports all the variables, making them available to child processes like Terraform
+
+      1. `cat .env` - Reads the contents of the `.env` file
+
+      2. `xargs` - Converts the file contents into command-line arguments
+
+      3. `export` - Exports all the variables, making them available to processes like Terraform
 
 
 **Verify the variables are loaded:**
@@ -187,6 +190,10 @@ terraform init
   ![Terraform Init](./assets/terraform-init.png){ width="100%" }
 </figure>
 
+!!! warning "Internet Connection Required"
+    As shown in this lab, the `terraform init` step requires an active internet connection to download the necessary modules from the Terraform Registry. In production environments, you may want to set up a private module registry or use a local mirror to avoid dependency on external connectivity.
+
+
 ## Step 4: Preview Changes with Terraform Plan
 
 Before making any changes, preview what Terraform will do:
@@ -225,7 +232,7 @@ Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.
 
-  Enter a value: 
+  Enter a value:
 ```
 
 Type `yes` and press Enter to proceed.
