@@ -18,12 +18,12 @@ This lab demonstrates how Network-as-Code solves these challenges using:
 
 By completing this lab, you will gain hands-on experience with:
 
-- Writing desired state network configurations in YAML format
-- Using Terraform to manage Cisco IOS XE devices
-- Implementing CI/CD pipelines for network changes
+- Writing desired state network configurations in YAML format for IOS-XE devices
+- Deploying the desired state using the Terraform implementation of NAC
+- Automating the network deployment lifecycle using GitLab CI/CD pipelines
 - Validating and testing configurations
 - Applying best practices for network automation
 
 **About This Guide**
 
-Created by Asier Arlegui and Balu Novak-Bohak. Claude 4.5 Opus was used to assist the authors. 
+Created by Asier Arlegui and Balu Novak-Bohak. Claude 4.5 Opus was used to assist the authors.
