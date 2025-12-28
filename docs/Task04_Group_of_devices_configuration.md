@@ -198,7 +198,8 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
     The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 
-**Generated Model File**
+## Generated Model File
+
 As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the **ACCESS_SWITCHES** group is included only under the relevant devices.
 
 <figure markdown>
