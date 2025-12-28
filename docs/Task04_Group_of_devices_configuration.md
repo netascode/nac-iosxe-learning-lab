@@ -165,7 +165,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 3. Check if the ACL is present using the command below
 4. Disconnect and repeat for the **access02** switch
 
-!!! info "Validation via `show access-lists`"
+???+ info "Validation via `show access-lists`"
     Use the following command on both **access01** and **access02** switches to verify the ACL:
     ```bash
     show access-lists | section AccessLayerACL
@@ -178,7 +178,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 
     This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
 
-!!! info "Validation via `show run`"
+??? info "Validation via `show run`"
     Alternatively, you can verify the ACL configuration by checking the running configuration:
 
     ```bash
