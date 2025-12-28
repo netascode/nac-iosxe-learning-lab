@@ -100,10 +100,10 @@ iosxe:
         bgp_neighbors:
           - ip: 198.18.100.1
             remote_as: 65001
-            description: eBGP to ISP1 - Production
+            description: eBGP to isp1 - Production
           - ip: 198.18.100.5
             remote_as: 65002
-            description: eBGP to ISP2 - Future Migration
+            description: eBGP to isp2 - Future Migration
 ```
 
 **What's new:**
@@ -143,7 +143,7 @@ When prompted, type `yes` to confirm the deployment.
 
 ## Step 4: Verify the Configuration
 
-Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **ACCESS01** or **BORDER** in the device list to connect (these are the devices where logging was applied).
+Use **Solar-PuTTY** to connect to one of the configured devices (as described in Task 1). Double-click on **access01** or **border** in the device list to connect (these are the devices where logging was applied).
 
 Check logging configuration:
 

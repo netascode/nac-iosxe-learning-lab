@@ -26,10 +26,10 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 **Devices in this lab:**
 
-- **BORDER** - Border switch (198.18.130.20)
-- **CORE** - Core switch (198.18.130.10)
-- **ACCESS01** - Access switch (198.18.130.11)
-- **ACCESS02** - Access switch (198.18.130.12)
+- **border** - Border switch (198.18.130.20)
+- **core** - Core switch (198.18.130.10)
+- **access01** - Access switch (198.18.130.11)
+- **access02** - Access switch (198.18.130.12)
 
 <figure markdown>
   ![CML Topology](./assets/cml-topology.png){ width="80%" }
@@ -37,7 +37,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 
 !!! note "Additional Devices"
-    The lab topology also includes **Host01**, **Host02**, and **ISP** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
+    The lab topology also includes **host01**, **host02**, and **isp** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
 
 **To connect to a device:**
 
@@ -45,7 +45,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to Core](./assets/solarputty-ssh-core.png){ width="100%" }
+  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="100%" }
 </figure>
 
 ## Verify Device Information

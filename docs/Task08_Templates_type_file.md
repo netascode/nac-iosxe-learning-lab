@@ -33,10 +33,10 @@ In this example, you'll configure BGP on the **border** switch for peering with 
 !!! info "Lab Scenario"
     The **border** switch connects to two ISP providers:
     
-    - **ISP1** (198.18.100.1) - Currently active and pre-configured in the lab
-    - **ISP2** (198.18.100.5) - Placeholder for a future connection that will be deployed as part of a network migration project
+    - **isp1** (198.18.100.1) - Currently active and pre-configured in the lab
+    - **isp2** (198.18.100.5) - Placeholder for a future connection that will be deployed as part of a network migration project
     
-    When you verify the BGP configuration, the **ISP1 neighbor will show as Established**, while **ISP2 will show as Idle** (since the remote end is not yet configured).
+    When you verify the BGP configuration, the **isp1 neighbor will show as Established**, while **isp2 will show as Idle** (since the remote end is not yet configured).
 
 ## Step 1: Create the Template File
 
@@ -106,10 +106,10 @@ iosxe:
         BGP_NEIGHBORS:
           - ip: 198.18.100.1
             remote_as: 65001
-            description: eBGP to ISP1 - Production
+            description: eBGP to isp1 - Production
           - ip: 198.18.100.5
             remote_as: 65002
-            description: eBGP to ISP2 - Future Migration
+            description: eBGP to isp2 - Future Migration
 ```
 
 **What's in this configuration:**
@@ -123,8 +123,8 @@ iosxe:
 
 - **`BGP_AS_NUMBER: 65000`**: **border** switch AS number
 - **`BGP_NEIGHBORS`**: List of ISP neighbors:
-  - **ISP1** (65001): Active production peer
-  - **ISP2** (65002): Placeholder for future network migration
+  - **isp1** (65001): Active production peer
+  - **isp2** (65002): Placeholder for future network migration
 
 !!! note "Device-Level Templates"
     Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task07).
@@ -178,11 +178,11 @@ Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 
 | Neighbor | Status | Explanation |
 |----------|--------|-------------|
-| 198.18.100.1 (ISP1) | **Established** (shows prefix count) | Active peer - ISP1 is pre-configured in the lab |
-| 198.18.100.5 (ISP2) | **Idle** | Expected - ISP2 is a placeholder for future migration |
+| 198.18.100.1 (isp1) | **Established** (shows prefix count) | Active peer - isp1 is pre-configured in the lab |
+| 198.18.100.5 (isp2) | **Idle** | Expected - isp2 is a placeholder for future migration |
 
 !!! tip "This is Expected Behavior"
-    The ISP2 neighbor showing as **Idle** is expected. In real-world scenarios, you often pre-configure BGP neighbors before the remote end is ready. This allows for seamless cutover during network migrations.
+    The isp2 neighbor showing as **Idle** is expected. In real-world scenarios, you often pre-configure BGP neighbors before the remote end is ready. This allows for seamless cutover during network migrations.
 
 ## What You've Accomplished
 

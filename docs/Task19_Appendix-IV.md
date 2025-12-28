@@ -1,15 +1,15 @@
-**Configuration in ISP router**
+**Configuration on isp router**
 
 ```
-ISP#sh run | s bgp
+isp#sh run | s bgp
 router bgp 65001
  bgp log-neighbor-changes
  neighbor 198.18.100.1 remote-as 65000
- neighbor 198.18.100.1 description eBGP to BORDER
+ neighbor 198.18.100.1 description eBGP to border
  neighbor 198.18.100.2 remote-as 65000
- neighbor 198.18.100.2 description eBGP to BORDER
-ISP#
-ISP#sh run int gig 0/1
+ neighbor 198.18.100.2 description eBGP to border
+isp#
+isp#sh run int gig 0/1
 Building configuration...
 
 Current configuration : 119 bytes
@@ -21,13 +21,13 @@ interface GigabitEthernet0/1
  media-type rj45
 end
 
-ISP#
+isp#
 ```
 
-**Configuration in BORDER router to ISP**
+**Configuration in border router to isp**
 
 ```
-BORDER#sh run int gig 1
+border#sh run int gig 1
 Building configuration...
 
 Current configuration : 93 bytes
@@ -37,7 +37,7 @@ interface GigabitEthernet1
  negotiation auto
 end
 
-BORDER#
+border#
 ```
 
 

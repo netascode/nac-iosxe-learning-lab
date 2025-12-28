@@ -44,10 +44,10 @@ Your project structure should now include:
 /home/cisco/nac-iosxe/
 
 ├── data/
-│   ├── config-device-access01.nac.yaml # Task05: Access01 device config
-│   ├── config-device-access02.nac.yaml # Task05: Access02 device config
+│   ├── config-device-access01.nac.yaml # Task05: access01 device config
+│   ├── config-device-access02.nac.yaml # Task05: access02 device config
 │   ├── config-device-border.nac.yaml   # Task05 + Task08: Border device + BGP templates
-│   ├── config-device-core.nac.yaml     # Task05: IP hosts for CORE
+│   ├── config-device-core.nac.yaml     # Task05: IP hosts for core
 │   ├── config-global.nac.yaml          # Task03: Global banner
 │   ├── config-group-access.nac.yaml    # Task04: ACCESS_SWITCHES group ACL + templates
 │   ├── devices.nac.yaml                # Task02: Device inventory

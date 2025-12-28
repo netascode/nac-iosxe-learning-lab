@@ -40,7 +40,7 @@ When prompted, type `yes` to confirm. Terraform will:
 
 ## Step 2: Verify Devices are Clean (Optional)
 
-You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 1, double-click on the **CORE** switch to connect.
+You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 1, double-click on the **core** switch to connect.
 
 Once connected, check that the banner and other configurations you applied are no longer present:
 

@@ -146,7 +146,7 @@ When Terraform processes your configuration:
          │                           │
          ▼                           ▼
 ┌───────────────────┐         ┌──────────────────┐
-│    ACCESS01     │         │    ACCESS02     │
+│    access01     │         │    access02     │
 │                 │         │                 │
 │ templates:      │         │ templates:      │
 │  - ACCESS_...   │         │  - ACCESS_...   │
@@ -167,10 +167,10 @@ At this point, your `data/` folder should contain these files:
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-device-access01.nac.yaml  # Task05: Access01 device config
-    ├── config-device-access02.nac.yaml  # Task05: Access02 device config
-    ├── config-device-border.nac.yaml    # Task05: Border device config
-    ├── config-device-core.nac.yaml      # Task05: IP hosts for CORE
+    ├── config-device-access01.nac.yaml  # Task05: access01 device config
+    ├── config-device-access02.nac.yaml  # Task05: access02 device config
+    ├── config-device-border.nac.yaml    # Task05: border device config
+    ├── config-device-core.nac.yaml      # Task05: IP hosts for core
     ├── config-global.nac.yaml           # Task03: Global banner
     ├── config-group-access.nac.yaml     # Task04 + Task07: ACL + templates
     ├── devices.nac.yaml                 # Task02: Device inventory

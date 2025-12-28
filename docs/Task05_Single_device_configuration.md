@@ -14,11 +14,11 @@ Device-specific configurations are applied directly to individual devices and ta
 2. **Device Group** (medium precedence) - role or location-specific settings ← *Task04*
 3. **Device** (highest precedence) - device-specific overrides ← *This task*
 
-## Use Case: IP Host Entries for Core Switch
+## Use Case: IP Host Entries for core Switch
 
-In this example, you'll add IP host entries to the **CORE** switch only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core switches that need to reference multiple infrastructure devices.
+In this example, you'll add IP host entries to the **core** switch only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core switches that need to reference multiple infrastructure devices.
 
-You'll configure the CORE switch to resolve these hostnames:
+You'll configure the core switch to resolve these hostnames:
 
 - `ntp-server` → 198.18.128.1
 - `syslog-server` → 198.18.128.2
@@ -130,7 +130,7 @@ terraform plan
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the IP host entries only on the CORE device.
+When prompted, type `yes` to confirm the deployment. Terraform will create the IP host entries only on the core device.
 
 **What to observe in the plan output:**
 
@@ -138,44 +138,44 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
 - No changes are proposed for **border**, **access01**, or **access02**
 
 <figure markdown>
-  ![Terraform Apply Core](./assets/terraform-apply-core.png){ width="100%" }
+  ![Terraform Apply core](./assets/terraform-apply-core.png){ width="100%" }
 </figure>
 
 ## Verify Device-Specific Configuration
 
-After successfully running `terraform apply`, verify that the IP host entries were deployed only to the CORE switch.
+After successfully running `terraform apply`, verify that the IP host entries were deployed only to the core switch.
 
-**Step 1: Verify on CORE Switch (should have the configuration)**
+**Step 1: Verify on core Switch (should have the configuration)**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **CORE** switch (198.18.130.10)
+2. Connect to the **core** switch (198.18.130.10)
 3. Run the verification command below
 
 ```bash
 show run | include ip host
 ```
 
-**Expected output on CORE:**
+**Expected output on core:**
 
 <figure markdown>
-  ![Show IP Host Core](./assets/sh-ip-host-core.png){ width="100%" }
+  ![Show IP Host core](./assets/sh-ip-host-core.png){ width="100%" }
 </figure>
 
-You should see both IP host entries configured on the **CORE** switch.
+You should see both IP host entries configured on the **core** switch.
 
 **Step 2: Verify on Other Devices (should NOT have the configuration)**
 
-Connect to the **BORDER** switch (198.18.130.20) and run the same command:
+Connect to the **border** switch (198.18.130.20) and run the same command:
 
 ```bash
 show run | include ip host
 ```
 
-**Expected output on BORDER:**
+**Expected output on border:**
 
-The command should return no output, confirming that the IP host entries were NOT applied to the BORDER switch.
+The command should return no output, confirming that the IP host entries were NOT applied to the border switch.
 
-**Key observation:** The IP host configuration only appears on the CORE device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
+**Key observation:** The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
 
 ## Configuration Hierarchy Comparison
 
@@ -196,10 +196,10 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │                                                          │
 │  ┌─────────────────────────────────────────────────────┐ │
 │  │              DEVICE GROUP: ACCESS_SWITCHES       │   │
-│  │           (applies to ACCESS01, ACCESS02)        │   │
+│  │           (applies to access01, access02)        │   │
 │  │                                                  │   │
 │  │  ┌──────────────┐        ┌──────────────┐         │   │
-│  │  │  ACCESS01   │        │  ACCESS02   │          │   │
+│  │  │  access01   │        │  access02   │          │   │
 │  │  │             │        │             │          │   │
 │  │  │ - Banner    │        │ - Banner    │          │   │
 │  │  │ - ACL       │        │ - ACL       │          │   │
@@ -207,7 +207,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 │  └─────────────────────────────────────────────────────┘ │
 │                                                          │
 │  ┌───────────────────┐        ┌─────────────────┐        │
-│  │      CORE       │        │     BORDER      │         │
+│  │      core       │        │     border      │         │
 │  │                 │        │                 │         │
 │  │ - Banner        │        │ - Banner        │         │
 │  │ - IP Hosts      │        │                 │         │
@@ -230,7 +230,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 In this task, you have:
 
 - ✅ Learned about device-specific configuration and its place in the hierarchy
-- ✅ Created a dedicated YAML file for CORE switch configuration
+- ✅ Created a dedicated YAML file for core switch configuration
 - ✅ Configured IP host entries for infrastructure services
 - ✅ Verified selective deployment to a single device only
 - ✅ Understood the complete configuration precedence hierarchy

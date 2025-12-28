@@ -446,7 +446,7 @@ After the pipeline completes successfully, verify the changes on the network dev
 Use **Solar-PuTTY** to connect to any of the switches:
 
 1. Open **Solar-PuTTY** from the desktop
-2. Connect to the **CORE** switch (198.18.130.10)
+2. Connect to the **core** switch (198.18.130.10)
 
 ### Verify the Banner
 

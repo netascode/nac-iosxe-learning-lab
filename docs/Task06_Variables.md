@@ -167,7 +167,7 @@ system:
             │                   │                   │
             ▼                   ▼                   ▼
 ┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
-│      CORE         │  │     BORDER        │  │    ACCESS01       │
+│      core         │  │     border        │  │    access01       │
 │                   │  │                   │  │                   │
 │ variables:        │  │ variables:        │  │ variables:        │
 │   HOSTNAME: core  │  │   HOSTNAME: border│  │   HOSTNAME: access01│
@@ -235,7 +235,7 @@ After Terraform completes successfully, verify the configuration was applied cor
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **CORE** switch (198.18.130.10)
+2. Connect to the **core** switch (198.18.130.10)
 3. Run the verification commands below
 4. Repeat for other switches to see their specific hostnames
 
@@ -245,7 +245,7 @@ After Terraform completes successfully, verify the configuration was applied cor
 show running-config | include hostname
 ```
 
-**Expected output on CORE:**
+**Expected output on core:**
 
 ```
 hostname core
@@ -257,7 +257,7 @@ hostname core
 show running-config | section banner
 ```
 
-**Expected output on CORE:**
+**Expected output on core:**
 
 ```
 banner login ^C
@@ -272,7 +272,7 @@ Device: core
 
 **Verify on other devices:**
 
-Connect to **BORDER**, **ACCESS01**, and **ACCESS02** and run the same commands. Each device should show its own hostname in the banner - demonstrating that the same template produced device-specific results.
+Connect to **border**, **access01**, and **access02** and run the same commands. Each device should show its own hostname in the banner - demonstrating that the same template produced device-specific results.
 
 ## Common Variable Use Cases
 

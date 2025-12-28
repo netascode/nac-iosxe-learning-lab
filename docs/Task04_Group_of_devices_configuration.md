@@ -141,9 +141,9 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **ACCESS01** switch
+2. Connect to the **access01** switch
 3. Check if the ACL is present using the command below
-4. Disconnect and repeat for the **ACCESS02** switch
+4. Disconnect and repeat for the **access02** switch
 
 ```bash
 show access-lists
@@ -157,7 +157,7 @@ show access-lists
 
 This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
 
-**Key observation:** The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check BORDER or CORE switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+**Key observation:** The ACL only appears on devices that are members of the ACCESS_SWITCHES group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 ## What You've Accomplished
 

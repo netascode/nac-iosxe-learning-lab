@@ -16,7 +16,7 @@ The key insight is that **tests are rendered from your intent configuration YAML
 
 ## Use Case: Validating Access-List Configuration
 
-In Task04, you deployed an access-list to the ACCESS01 and ACCESS02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
+In Task04, you deployed an access-list to the access01 and access02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
 
 !!! note "Lab Scope vs Production"
     In production environments, Robot Framework tests validate the **full configuration** - including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.

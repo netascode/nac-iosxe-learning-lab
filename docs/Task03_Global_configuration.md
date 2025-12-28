@@ -226,9 +226,9 @@ After Terraform completes successfully, verify the banner was applied to **all d
 **Open Solar-PuTTY and connect to each switch:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **BORDER** switch first
+2. Connect to the **border** switch first
 3. Run the verification command (shown below)
-4. Repeat for **CORE**, **ACCESS01**, and **ACCESS02** switches
+4. Repeat for **core**, **access01**, and **access02** switches
 
 **Check the banner configuration on each device:**
 
@@ -250,10 +250,10 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 
 **What you should observe:**
 
-- ✅ The banner appears on the **CORE** switch (198.18.130.10)
-- ✅ The banner appears on the **BORDER** switch (198.18.130.20)
-- ✅ The banner appears on the **ACCESS01** switch (198.18.130.11)
-- ✅ The banner appears on the **ACCESS02** switch (198.18.130.12)
+- ✅ The banner appears on the **core** switch (198.18.130.10)
+- ✅ The banner appears on the **border** switch (198.18.130.20)
+- ✅ The banner appears on the **access01** switch (198.18.130.11)
+- ✅ The banner appears on the **access02** switch (198.18.130.12)
 
 **Success!** You've just deployed your first Network-as-Code configuration using Terraform! Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
 
