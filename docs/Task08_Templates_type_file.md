@@ -14,7 +14,7 @@ File templates reference external `.tftpl` files that use **Terraform templating
 | Syntax | Purpose                | Example                              |
 |--------|------------------------|--------------------------------------|
 | `${ }` | Variable interpolation | `${BGP_AS_NUMBER}`                   |
-| `%{ }` | Control structures     | `%{ for neighbor in BGP_NEIGHBORS }` |
+| `%{ }` | Control structures     | `%{ for NEIGHBOR in BGP_NEIGHBORS }` |
 | `~`    | Whitespace stripping   | `%{~ endfor ~}`                      |
 
 **Template Types (reminder):**
@@ -76,12 +76,12 @@ routing:
 
 This template uses:
 
-- **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOSXE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
-- **`${BGP_AS_NUMBER}`**: Variable for the local AS number
-- **`%{ for NEIGHBOR in BGP_NEIGHBORS }`**: Loop through list of neighbors (twice, in two sections)
-- **`%{ endfor }`**: End of the loops
-- **Whitespace stripping (`~`)**: Cleans up extra spaces/newlines in the rendered output
-- **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`**: Access neighbor variables for attributes
+- **`routing: bgp:`** - BGP configuration must be nested under `routing` per the NAC IOSXE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
+- **`${BGP_AS_NUMBER}`** - Variable for the local AS number
+- **`%{ for NEIGHBOR in BGP_NEIGHBORS }`** - Loop through list of neighbors (twice, in two sections)
+- **`%{ endfor }`** - End of the loops
+- **Whitespace stripping (`~`)** - Cleans up extra spaces/newlines in the rendered output
+- **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`** - Access neighbor variables for attributes
 
 !!! note "Template Location"
     The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though we don't include the `tftpl/` folder in our modul configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
@@ -153,8 +153,8 @@ iosxe:
 
 - **`BGP_AS_NUMBER: 65000`**: **border** switch AS number
 - **`BGP_NEIGHBORS`**: List of ISP neighbors:
-  - **isp1** (65001): Active production peer
-  - **isp2** (65002): Placeholder for future network migration
+  - **isp** (65001): Active production peer
+  - **isp-x** (65002): Placeholder for future network migration
 - **`IP`, `REMOTE_AS`, `DESCRIPTION`**: Attributes used in the template for each neighbor
 
 !!! note "Device-Level Templates"
@@ -221,35 +221,35 @@ The **isp** neighbor shows as **Established** with 1 prefix received, while **is
     You can find the pre-configured BGP settings on the **isp** device in [Appendix IV](Appendix-IV.md) of this lab guide.
 
 
-!!! info "Advertised Networks"
+### Advertised Network
 
-    The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a looback address configured on the **isp** device.
+The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a looback address configured on the **isp** device.
 
-    You can verify the received route with:
+You can verify the received route with:
 
+```
+show ip route
+```
+
+???+ quote "Expected output"
+    ``` hl_lines="19"
+    border#show ip route
+    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+    ...
+
+    Gateway of last resort is 198.18.128.1 to network 0.0.0.0
+
+    S*    0.0.0.0/0 [1/0] via 198.18.128.1
+          8.0.0.0/24 is subnetted, 1 subnets
+    B        8.8.8.0 [20/0] via 198.18.100.1, 00:20:04
+          198.18.100.0/24 is variably subnetted, 2 subnets, 2 masks
+    C        198.18.100.0/30 is directly connected, GigabitEthernet1
+    L        198.18.100.2/32 is directly connected, GigabitEthernet1
+    C     198.18.128.0/20 is directly connected, GigabitEthernet2
+          198.18.130.0/32 is subnetted, 1 subnets
+    L        198.18.130.20 is directly connected, GigabitEthernet2
+    border#
     ```
-    show ip route
-    ```
-
-    ???+ quote "Expected output"
-        ``` hl_lines="19"
-        border#show ip route
-        Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
-        ...
-
-        Gateway of last resort is 198.18.128.1 to network 0.0.0.0
-
-        S*    0.0.0.0/0 [1/0] via 198.18.128.1
-              8.0.0.0/24 is subnetted, 1 subnets
-        B        8.8.8.0 [20/0] via 198.18.100.1, 00:20:04
-              198.18.100.0/24 is variably subnetted, 2 subnets, 2 masks
-        C        198.18.100.0/30 is directly connected, GigabitEthernet1
-        L        198.18.100.2/32 is directly connected, GigabitEthernet1
-        C     198.18.128.0/20 is directly connected, GigabitEthernet2
-              198.18.130.0/32 is subnetted, 1 subnets
-        L        198.18.130.20 is directly connected, GigabitEthernet2
-        border#
-        ```
 
 
 ## Challenge (Optional): Add default gateway for host01 and host02
