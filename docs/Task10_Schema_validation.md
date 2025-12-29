@@ -14,9 +14,11 @@ Schema validation verifies that your YAML configuration files:
 
 This is similar to how a compiler checks code before running it - catching errors at "build time" rather than "run time".
 
+
 ## The nac-validate Tool
 
-The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. For the complete schema documentation, see the [NAC IOS XE Data Models](https://netascode.cisco.com/docs/data_models/iosxe/overview/) on the Cisco NetAsCode website.
+The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation. The tool can also perform semantic validation based on custom rules, but for this lab, we'll focus on the schema-based syntactic validation.
+
 
 ## The Schema File
 
@@ -219,11 +221,11 @@ By validating before running Terraform, you catch configuration errors immediate
     In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment—without manual intervention.
 
 
-## Extensibility
+## Extensibility - Semantic Validation
 
-The `nac-validate` tool is extensible. It doesn't only allow for syntax validation, but also semantic checks based custom rules. Cisco CX has developed additional validation rules that check for best practices, compliance, and organizational policies.
+The `nac-validate` tool is extensible. It doesn't only allow for syntax validation, but also semantic checks based custom rules. Cisco CX has developed additional validation rules that check for best practices and common mistakes.
 
-Customers can also create their own validation rules to enforce specific requirements, such as naming conventions, security policies, or configuration standards.
+Customers can also create their own validation rules to enforce specific requirements, such as naming conventions, security policies, or organizational configuration standards.
 
 
 ## Reference
