@@ -11,12 +11,13 @@ File templates reference external `.tftpl` files that use **Terraform templating
 
 **Terraform Templating Syntax:**
 
-| Syntax | Purpose                | Example                                                           |
-|--------|------------------------|-------------------------------------------------------------------|
-| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}`                                                |
-| `%{ }` | Control structures     | `%{ for NEIGHBOR in BGP_NEIGHBORS }`, `%{ endfor }` - for loop    |
-|        |                        | `%{ if OPTION == "A" }`, `%{ else }`, `%{ endif }` - conditionals |
-| `~`    | Whitespace stripping   | `%{~ endfor ~}`                                                   |
+| Syntax     | Purpose                | Examples                                            |
+|------------|------------------------|-----------------------------------------------------|
+| `${ }`     | Variable interpolation | `${BGP_AS_NUMBER}`                                  |
+| `%{ }`     | Control structures     |                                                     |
+| `%{ for }` | For loop               | `%{ for NEIGHBOR in BGP_NEIGHBORS }`, `%{ endfor }` |
+| `%{ if }`  | Conditional            | `%{ if OPTION == "A" }`, `%{ else }`, `%{ endif }`  |
+| `~`        | Whitespace stripping   | `%{~ endfor ~}`                                     |
 
 **Template Types (reminder):**
 
@@ -81,7 +82,7 @@ This template uses:
 - **`${BGP_AS_NUMBER}`** - Variable for the local AS number
 - **`%{ for NEIGHBOR in BGP_NEIGHBORS }`** - Loop through list of neighbors (twice, in two sections)
 - **`%{ endfor }`** - End of the loops
-- **Whitespace stripping (`~`)** - Cleans up extra spaces/newlines in the rendered output
+- **`~`** - Whitespace stripping, cleans up extra spaces/newlines in the rendered output
 - **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`** - Access neighbor variables for attributes
 
 !!! note "Template Location"
