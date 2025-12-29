@@ -49,8 +49,8 @@ Once connected, check that the banner, hostname and other configurations you app
 show running-config
 ```
 
-!!! note "Default Hostname"
-    You should see that the hostname has reverted to the default hosname (e.g., `Switch`). Note that even thougt these devices were configured with some hostnames already, running `terraform destroy` removes all changes made by Terraform, reverting to the default state, not the pre-configured hostnames. Those are lost forever! Don't worry though, we'll re-apply configurations in the next tasks.
+!!! note "Default Hostnames"
+    You should see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, we'll re-apply configurations in the next tasks.
 
 
 ## Step 3: Delete the Local Project Folder (Optional)
