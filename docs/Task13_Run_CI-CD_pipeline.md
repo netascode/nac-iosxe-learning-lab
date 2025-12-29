@@ -274,6 +274,6 @@ You can verify the configuration was applied by SSH-ing to a device and checking
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:
 
-- **Optional:** [Task14 - Add Robot Testing Stage to CI/CD](Task14_Add_Robot_testing_stage_to_CI-CD.md) - Enhance your pipeline with automated testing
+- **Optional:** [Task14 - Edit CI/CD](Task14_Edit_CI-CD.md) - Enhance your pipeline with automated testing
 - **Optional:** [Task15 - Branch and Merge Request](Task15_Branch_and_merge_request.md) - Learn change approval workflows
 - **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned

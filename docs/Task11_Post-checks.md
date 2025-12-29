@@ -294,7 +294,7 @@ In this task, you have:
 - ✅ Understood how to interpret test results and reports
 
 !!! tip "CI/CD Integration"
-    In [Task14 - Add Robot Testing Stage to CI/CD](Task14_Add_Robot_testing_stage_to_CI-CD.md), you'll see how `nac-test` tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
+    In [Task14 - Edit CI/CD](Task14_Edit_CI-CD.md), you'll see how `nac-test` tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
 
 ---
 
