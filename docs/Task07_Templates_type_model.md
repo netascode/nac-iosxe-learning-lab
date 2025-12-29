@@ -13,11 +13,11 @@ As described in the [IOS XE Template documentation](https://netascode.cisco.com/
 
 **Template Types:**
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) |
-| `file` | External file reference | Large configurations stored separately |
-| `cli` | Raw CLI commands | IOS XE features not supported in the NAC data model |
+| Type    | Description                       | Use Case                                            |
+|---------|-----------------------------------|-----------------------------------------------------|
+| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.)         |
+| `file`  | External file reference           | Large configurations stored separately              |
+| `cli`   | Raw CLI commands                  | IOS XE features not supported in the NAC data model |
 
 In this task, you'll use the `model` type to create a VLAN template as a practical example.
 
@@ -28,7 +28,7 @@ Access switches typically share the same VLAN configuration - they need identica
 **VLANs to configure:**
 
 - VLAN 10: `DATA` - User data traffic
-- VLAN 20: `VOICE` - VoIP traffic  
+- VLAN 20: `VOICE` - VoIP traffic
 - VLAN 99: `MGMT` - Management traffic
 
 ## Create the Template File
@@ -58,10 +58,6 @@ iosxe:
               name: MGMT
 ```
 
-**Save the file** by pressing `Ctrl+S` in VS Code.
-
-The image below illustrates the template configuration in VS Code:
-
 <figure markdown>
   ![VS Code Template Configuration](./assets/vscode-template-vlans.png){ width="100%" }
 </figure>
@@ -88,7 +84,7 @@ Let's break down the key elements:
 
 Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section:
 
-```yaml title="data/config-group-access.nac.yaml"
+```yaml title="data/config-group-access.nac.yaml" hl_lines="21 22"
 ---
 iosxe:
   device_groups:
@@ -113,12 +109,11 @@ iosxe:
         - access_switch_vlans
 ```
 
-![VS Code with template configuration](assets/vscode-adding-template-vlans.png){width=80%}
+![VS Code with template configuration](assets/vscode-adding-template-vlans.png){width=100%}
 
-
-**What we added:**
-
-- **`templates:`** - Applies the `access_switch_vlans` template to all devices in the ACCESS_SWITCHES group
+!!! note "What we added"
+    - **`templates:`** - New section to apply templates to all switches in the `ACCESS_SWITCHES` device group
+    - **`access_switch_vlans`**: Reference to the VLAN template defined in `template-vlan.nac.yaml`
 
 The template reference is added alongside the existing ACL configuration, so both the access list and VLANs will be deployed to **access01** and **access02**.
 
@@ -127,38 +122,14 @@ The template reference is added alongside the existing ACL configuration, so bot
 When Terraform processes your configuration:
 
 1. **Template Resolution**: Terraform reads `template-vlan.nac.yaml` and loads the `access_switch_vlans` template
-2. **Device Group Processing**: Terraform finds the ACCESS_SWITCHES group and its associated template
+2. **Device Group Processing**: Terraform finds the `ACCESS_SWITCHES` group and its associated template
 3. **Configuration Merge**: For **access01** and **access02** (members of the group), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
-**Visual representation:**
+<figure markdown>
+  ![Template Processing Flow](./assets/templates.png){ width="50%" }
+</figure>
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    TEMPLATE: access_switch_vlans        │
-│                                                         │
-│  vlan:                                                  │
-│    vlans:                                               │
-│      - id: 10, name: DATA                               │
-│      - id: 20, name: VOICE                              │
-│      - id: 99, name: MGMT                               │
-└──────────────────────┬───────────────────────────────────────┘
-                      │
-         ┌─────────────┴───────────────┐
-         │                           │
-         ▼                           ▼
-┌───────────────────┐         ┌──────────────────┐
-│    access01     │         │    access02     │
-│                 │         │                 │
-│ templates:      │         │ templates:      │
-│  - ACCESS_...   │         │  - ACCESS_...   │
-│                 │         │                 │
-│ Result:         │         │ Result:         │
-│ - VLAN 10 DATA  │         │ - VLAN 10 DATA  │
-│ - VLAN 20 VOICE │         │ - VLAN 20 VOICE │
-│ - VLAN 99 MGMT  │         │ - VLAN 99 MGMT  │
-└───────────────────┘         └──────────────────┘
-```
 
 ## Verify Project Structure
 
@@ -190,7 +161,7 @@ Open your WSL Ubuntu terminal and run the following steps:
 cd ~/nac-iosxe
 ```
 
-**Step 2:** Preview the changes Terraform will make:
+**Step 2:** Optionally, preview the changes Terraform will make:
 
 ```bash
 terraform plan
@@ -211,7 +182,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
 - Both devices receive identical VLAN configuration
 
 !!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task11.
+    After running `terraform apply`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task11.
 
 <figure markdown>
   ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="100%" }

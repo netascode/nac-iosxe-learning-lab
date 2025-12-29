@@ -291,14 +291,11 @@ In this example, the `ENABLE_SECRET` environment variable is referenced and used
 
 In this task, you have:
 
-- Learned how variables work in Network-as-Code configurations
-- Updated the global configuration to use a variable placeholder
-- Defined device-specific variable values
-- Understood variable substitution and precedence rules
-- Applied and verified variable-based configuration
-- Explored common use cases for variables
-
-**Success!** You've learned how to use variables to create dynamic, reusable configurations that adapt to each device while maintaining a single template!
+- ✅ Learned how variables work in Network-as-Code configurations
+- ✅ Updated the global configuration to use a variable placeholder
+- ✅ Defined device-specific variable values
+- ✅ Understood variable substitution and precedence rules
+- ✅ Applied and verified variable-based configuration
 
 ---
 
@@ -308,4 +305,3 @@ You can either explore **optional** template tasks or continue with the **recomm
 
 - **Optional:** [Task07 - Templates Type Model](Task07_Templates_type_model.md) - Learn how to create reusable YAML-based configuration templates
 - **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip templates and continue with pre-change validation
-
