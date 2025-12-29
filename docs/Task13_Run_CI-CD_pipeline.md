@@ -1,3 +1,7 @@
+!!! warning "Prerequisite"
+    Complete [Task12 - Cleanup](./Task12_Cleanup.md) before starting this task to ensure a clean environment. You need to run `terraform destroy` to remove previous configurations from the lab devices.
+
+
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line. While this works for learning and testing, production environments require automation. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
 ## Understanding CI/CD for Network-as-Code
@@ -73,6 +77,9 @@ variables:
     description: "Cisco IOS-XE Username"
   IOSXE_PASSWORD:
     description: "Cisco IOS-XE Password"
+  IOSXE_PROTOCOL:
+    description: "Cisco IOS-XE Connection Protocol (restconf or netconf)"
+    value: "restconf"
   # ... additional variables for GitLab tokens, Terraform state, Webex notifications ...
 
 cache:
@@ -133,6 +140,10 @@ success:
 - **deploy** - Applies the configuration automatically (runs on main branch only)
 - **failure/success** - Send Webex notifications based on pipeline outcome
 
+!!! note "Webex Notifications"
+    The **notify** job typically use a Python script to send messages to a Webex room. In this lab, this functionality is intentionally omitted, the notify stage is only included as a placeholder for demonstration purposes. If you're interested in implementing notifications, reach out to your instructors for guidance.
+
+
 ## Step 4: View Existing Pipelines
 
 To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
@@ -170,14 +181,16 @@ The Web IDE opens with a familiar VS Code-like interface:
   ![Web IDE Interface](./assets/gitlab-webide-interface.png){ width="100%" }
 </figure>
 
-### Understanding the File Naming Convention
+### Lab configuration files
 
-In the GitLab repository, you'll notice that most configuration files in the `data/` folder have a `.yaml_` extension (with an underscore) instead of `.yaml`. This is intentional - **files with the `.yaml_` extension are ignored by Terraform**, so no configuration is applied.
+Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files that we've used before in this lab in Task 2-6. However, we replaced the file extensions from `.yaml` to `.yaml_` (with an underscore at the end). We did this to intentionally ignore all of these files for now.
+
+!!! note "`.yaml_` vs. `.yaml` files"
+    The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored by Network-as-Code.
 
 To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
 
 For this task, let's update the banner configuration - similar to what we did earlier in the guide, but now the banner is in its own dedicated file.
-
 
 
 ### Edit the Banner Configuration
@@ -197,7 +210,12 @@ iosxe:
 
 5. Optionally, change the banner text to something new, for example:
 
-```yaml
+```yaml hl_lines="6"
+---
+iosxe:
+  global:
+    configuration:
+      banner:
         login: "Welcome to Network-as-Code Lab - Deployed via CI/CD Pipeline"
 ```
 
