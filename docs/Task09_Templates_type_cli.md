@@ -41,7 +41,7 @@ iosxe:
   templates:
     - name: alias_logs
       type: cli
-      content: "alias exec logs show logging"
+      content: alias exec logs show logging
 ```
 
 This template:
@@ -116,7 +116,13 @@ Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` sw
     ???+ quote "Expected output"
         ```
         core#show alias
-        ...
+        Exec mode aliases:
+          h                     help
+          lo                    logout
+          ...
+          logs                  show logging
+
+        core#
         ```
 
     You can also test the alias by running `logs` from exec mode.
@@ -126,31 +132,28 @@ Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` sw
 
 You've now learned all three template types:
 
-| Task | Template Type | Example Use Case |
-|------|---------------|------------------|
-| Task07 | `model` | VLAN configuration in YAML format |
-| Task08 | `file` | BGP configuration from external file |
-| Task09 | `cli` | Logging configuration as raw CLI |
+| Task       | Template Type | Example Use Case                     |
+|------------|---------------|--------------------------------------|
+| **Task07** | `model`       | VLAN configuration in YAML format    |
+| **Task08** | `file`        | BGP configuration from external file |
+| **Task09** | `cli`         | Alias configuration as raw CLI       |
+
 
 ## When to Use Each Template Type
 
-| Scenario | Recommended Type |
-|----------|------------------|
-| Standard YAML configurations | `model` |
-| Dynamic configs with loops/conditionals | `file` |
-| Configs with device-specific variables | `file` |
-| IOS XE features not in NAC data model | `cli` |
-| Simple, static configurations | `model` |
 
-Choose the appropriate template type based on your configuration needs and maintainability requirements.
+| Scenario                                                                    | Recommended Type |
+|-----------------------------------------------------------------------------|------------------|
+| Config that maps directly to the data model and only needs value templating | `model`          |
+| Complex config with loops, conditionals, or dynamic structures              | `file`           |
+| Last resort for features not yet supported in the data model                | `cli`            |
 
 
 ## What You've Accomplished
 
-- ✅ Created a `cli` type template with raw CLI commands
-- ✅ Applied the template to multiple devices
-- ✅ Deployed advanced logging configuration
-- ✅ Learned when to use `cli` templates vs other types
+- ✅ Created a `cli` type template with a raw CLI command
+- ✅ Applied the template to all devices via global configuration
+- ✅ Deployed alias configuration
 
 
 ---
