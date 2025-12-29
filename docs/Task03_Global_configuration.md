@@ -44,7 +44,7 @@ iosxe:
 - **`global:`** - Defines configurations that apply to all devices
 - **`configuration:`** - Contains the actual configuration settings
 - **`banner:`** - Specifies banner configurations (note: singular, not "banners")
-- **`login:`** - The login banner text shown when users connect to the device
+- **`login:`** - The login banner text displayed to users before they log in to the device
 
 !!! note "Separation of Concerns"
     Notice how the global configuration is in a separate file (`config-global.nac.yaml`) from the device inventory (`devices.nac.yaml`). This modular approach keeps your configurations organized and maintainable. The NAC module automatically merges all YAML files in the `data/` directory.
@@ -54,6 +54,21 @@ The figure below illustrates how to create the `data/config-global.nac.yaml` fil
 <figure markdown>
   ![VS Code Global Banner](./assets/vscode-global-banner.png){ width="100%" }
 </figure>
+
+
+## Documentation Reference
+
+But how do you know what configuration options are supported, and what the correct YAML structure is?
+
+The data model documentation is published on the [Network as Code website](https://netascode.cisco.com/).
+Specifically, the banner configuration is described here: [IOS XE Banner Configuration](https://netascode.cisco.com/docs/data_models/iosxe/device/banner/).
+
+<figure markdown>
+  ![NAC IOS XE Banner Documentation](./assets/netascode-documentation.png){ width="100%" }
+</figure>
+
+You can refer to this documentation at any time for more details on available configuration options, data types, and examples.
+
 
 ## Applying Configuration with Terraform CLI
 
