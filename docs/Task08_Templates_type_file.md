@@ -263,21 +263,22 @@ Host devices (`host01` and `host02`) need a default gateway to reach external ne
 
 Your task is to add the default gateway ip address configuration to `border` on its interface GigabitEthernet3, so that it can route traffic from these hosts to the "internet" via the **isp** connection.
 
-You can verify successful connectivity by pinging `8.8.8.8` from both hosts.
+!!! info "Verification"
+    You can verify successful connectivity by pinging `8.8.8.8` from both hosts.
 
-To do that, you need to connect to each host via CML console:
+    To do that, you need to connect to each host via CML console:
 
-1. Open CML web interface: `https://198.18.130.34/login`
-2. Login with credentials: `guest` / `CiscoLive`
-3. Click on **NAC IOSXE-AS-CODE Topology**
-4. Right-click on **host01** and select **Console**
-5. Login with credentials: `cisco` / `cisco`
-6. Run the ping command: `ping 8.8.8.8`
-7. Repeat steps 4-6 for **host02**
+    1. Open CML web interface: `https://198.18.130.34/login`
+    2. Login with credentials: `guest` / `CiscoLive`
+    3. Click on **NAC IOSXE-AS-CODE Topology**
+    4. Right-click on **host01** and select **Console**
+    5. Login with credentials: `cisco` / `cisco`
+    6. Run the ping command: `ping 8.8.8.8`
+    7. Repeat steps 4-6 for **host02**
 
 With what we've covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
 
-??? info "Solution"
+??? tip "Solution"
     Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces:` section:
 
 
