@@ -267,7 +267,7 @@ In this task, you have:
 - ✅ Verified selective deployment to a single device only
 - ✅ Understood the complete configuration precedence hierarchy
 
-**Success!** You've now mastered all three levels of the Network-as-Code configuration hierarchy: Global, Device Group, and Device-specific configurations!
+You've now mastered all three levels of the Network-as-Code configuration hierarchy: Global, Device Group, and Device-specific configurations!
 
 ---
 

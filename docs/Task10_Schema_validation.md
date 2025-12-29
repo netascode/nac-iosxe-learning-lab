@@ -222,7 +222,7 @@ In this task, you have:
 - ✅ Understood common validation errors and how to fix them
 - ✅ Integrated validation into your Network-as-Code workflow
 
-**Success!** You now have a safety check in place to catch configuration errors before they reach your network devices. This is a critical DevOps practice that prevents misconfigurations and improves reliability.
+You now have a safety check in place to catch configuration errors before they reach your network devices. This is a critical DevOps practice that prevents misconfigurations and improves reliability.
 
 ---
 

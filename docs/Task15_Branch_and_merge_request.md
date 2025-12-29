@@ -565,7 +565,7 @@ In this task, you have:
 - ✅ Understood the **two-pipeline mechanism**: one for review, one for deployment
 - ✅ Learned the complete **end-to-end workflow** used in production environments
 
-**Success!** You've learned how network engineers apply DevOps best practices to manage network configurations safely. This branch-based workflow with merge requests, reviews, and automated pipelines is how modern organizations manage their network infrastructure!
+You've learned how network engineers apply DevOps best practices to manage network configurations safely. This branch-based workflow with merge requests, reviews, and automated pipelines is how modern organizations manage their network infrastructure!
 
 ---
 

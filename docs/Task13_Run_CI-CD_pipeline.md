@@ -268,6 +268,8 @@ You can verify the configuration was applied by SSH-ing to a device and checking
 - ✅ Triggered a pipeline by committing a change
 - ✅ Monitored pipeline execution through all stages
 
+---
+
 ## Next Steps
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:

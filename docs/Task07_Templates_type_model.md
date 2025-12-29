@@ -296,8 +296,6 @@ In this task, you have:
 - ✅ Verified consistent VLAN deployment across devices
 - ✅ Understood when to use templates vs global/group/device configurations
 
-**Success!** You've learned how to leverage templates for efficient, maintainable network configuration!
-
 ---
 
 **Next Steps:**

@@ -220,8 +220,6 @@ In this task, you have:
 - ✅ Understood the precedence: Global < Device Group < Device
 - ✅ Verified selective configuration deployment to group members only
 
-**Success!** You've practiced using device groups to apply targeted configurations efficiently while maintaining global settings across all devices!
-
 ---
 
 **Next:** [Task05 - Single Device Configuration](Task05_Single_device_configuration.md)
