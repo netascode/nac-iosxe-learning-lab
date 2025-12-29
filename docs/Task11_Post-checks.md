@@ -1,4 +1,4 @@
-After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? Manual verification doesn't scale.
+After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? What about config that's not in the running configuration, such as the VLAN database? Manual verification doesn't scale.
 
 In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
 
@@ -9,7 +9,7 @@ In this task, you'll learn how to automate **post-change validation** using Robo
 
 The Network-as-Code framework automates post-change validations using:
 
-- **Robot Framework** - An open-source automation framework for acceptance testing. It's keyword-driven, making test cases easy to write and understand.
+- **Robot Framework** - An open-source automation framework for testing. It's keyword-driven, making test cases easy to write and understand.
 - **Pabot** - A parallel executor for Robot Framework that speeds up test execution by running tests simultaneously across multiple processes.
 
 The key insight is that **tests are rendered from your intent configuration YAML files**. This means you don't write tests manually - they're automatically generated based on what you intended to configure.
@@ -48,7 +48,7 @@ iosxe:
 
 ## Step 1: Prepare the File Structure
 
-To run Robot Framework tests, you need the following file structure:
+To run `nac-test` in the lab, you need the following file structure:
 
 ```text
 nac-iosxe/
@@ -68,56 +68,63 @@ nac-iosxe/
             └── access_lists.robot
 ```
 
-Create the directory structure and files in your **WSL Ubuntu terminal**:
+You can copy all files in the `tests/` directory from the WSL Ubuntu home directory:
 
 ```bash
-mkdir -p ~/nac-iosxe/tests/templates/config
+cp -r ~/tests ~/nac-iosxe/
 ```
 
-```bash
-mkdir -p ~/nac-iosxe/tests/templates/lib
-```
+??? info "Alternative: Create Files Manually"
+    If you need to, you can also create the files manually as follows:
 
-```bash
-mkdir -p ~/nac-iosxe/tests/filters
-```
+    Create the directory structure and files in your **WSL Ubuntu terminal**:
 
-```bash
-touch ~/nac-iosxe/tests/templates/iosxe_common.resource
-```
+    ```bash
+    mkdir -p ~/nac-iosxe/tests/templates/config
+    ```
 
-```bash
-touch ~/nac-iosxe/tests/templates/lib/UtilsLib.py
-```
+    ```bash
+    mkdir -p ~/nac-iosxe/tests/templates/lib
+    ```
 
-```bash
-touch ~/nac-iosxe/tests/templates/config/access_lists.robot
-```
+    ```bash
+    mkdir -p ~/nac-iosxe/tests/filters
+    ```
 
-```bash
-touch ~/nac-iosxe/tests/filters/url_encode.py
-```
+    ```bash
+    touch ~/nac-iosxe/tests/templates/iosxe_common.resource
+    ```
 
-After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III - Robot Testing Files](Task17_Appendix-III.md)**:
+    ```bash
+    touch ~/nac-iosxe/tests/templates/lib/UtilsLib.py
+    ```
 
-- Copy the **url_encode.py** content into `tests/filters/url_encode.py`
-- Copy the **UtilsLib.py** content into `tests/templates/lib/UtilsLib.py`
-- Copy the **iosxe_common.resource** content into `tests/templates/iosxe_common.resource`
-- Copy the **access_lists.robot** content into `tests/templates/config/access_lists.robot`
+    ```bash
+    touch ~/nac-iosxe/tests/templates/config/access_lists.robot
+    ```
 
+    ```bash
+    touch ~/nac-iosxe/tests/filters/url_encode.py
+    ```
+
+    After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III - Robot Testing Files](Task17_Appendix-III.md)**:
+
+    - Copy the **url_encode.py** content into `tests/filters/url_encode.py`
+    - Copy the **UtilsLib.py** content into `tests/templates/lib/UtilsLib.py`
+    - Copy the **iosxe_common.resource** content into `tests/templates/iosxe_common.resource`
+    - Copy the **access_lists.robot** content into `tests/templates/config/access_lists.robot`
 
 
 **File descriptions:**
 
 - **`data/config-group-access.nac.yaml`** - Your intent configuration from Task04 (already exists)
-- **`tests/filters/url_encode.py`** - Custom Jinja2 filter for URL-encoding ACL names in REST API calls
-- **`tests/templates/lib/UtilsLib.py`** - Python utility library with helper functions for Robot Framework
-- **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOS XE testing
 - **`tests/templates/config/access_lists.robot`** - Jinja2 template for generating access-list tests
+- **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOSXE testing
+- **`tests/filters/url_encode.py`, `tests/templates/lib/UtilsLib.py`** - Utility files for the `nac-test` tool
 
 ## Step 2: Generate the Model File
 
-Before running Robot tests, you need to generate the merged model file. This is done automatically when you run Terraform:
+Before running `nac-test`, you need to run Terraform to generate the merged model file (`model.yaml`) that `nac-test` uses for rendering tests. If you haven't run the terraform commands below yet, do so now in your **WSL Ubuntu terminal**:
 
 ```bash
 cd ~/nac-iosxe
@@ -126,6 +133,11 @@ cd ~/nac-iosxe
 ```bash
 terraform plan
 ```
+
+```bash
+terraform apply
+```
+When prompted, type `yes` to confirm the deployment.
 
 This generates two files in your project directory:
 
@@ -159,7 +171,7 @@ nac-test \
 1. **Loads data** - Reads the merged model and defaults generated by Terraform
 2. **Loads filters** - Loads custom Jinja2 filters from `./tests/filters`
 3. **Renders templates** - Each template in `./tests/templates` is rendered with your configuration data
-4. **Executes tests** - Pabot runs all test suites in parallel and creates reports in `./tests/results`
+4. **Executes tests** - Pabot runs all test suites in parallel and creates reports in the specified output directory
 
 !!! info "Output Location"
     The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
@@ -196,21 +208,20 @@ Verify Standard Access List AccessLayerACL Device access01
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   10.0.0.0
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.any   
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.host   
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log   
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.any
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.host
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='20')]
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   20.0.0.0
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.any   
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.host   
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log   
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.any
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.host
+    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..permit.std-ace.log
 ```
-
 
 ## Step 6: Review the Test Results
 
@@ -270,13 +281,12 @@ In this task, you have:
 
 - ✅ Learned how Robot Framework automates post-change validation
 - ✅ Created the required file structure for testing (templates and filters)
-- ✅ Generated the merged `model.yaml` using Terraform
 - ✅ Ran `nac-test` to generate and execute tests from your configuration
 - ✅ Reviewed the auto-generated Robot test cases
 - ✅ Understood how to interpret test results and reports
 
 !!! tip "CI/CD Integration"
-    In [Task14 - Add Robot Testing Stage to CI/CD](Task14_Add_Robot_testing_stage_to_CI-CD.md), you'll see how Robot Framework tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
+    In [Task14 - Add Robot Testing Stage to CI/CD](Task14_Add_Robot_testing_stage_to_CI-CD.md), you'll see how `nac-test` tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
 
 ---
 

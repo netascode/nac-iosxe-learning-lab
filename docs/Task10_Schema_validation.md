@@ -253,5 +253,5 @@ You now have a safety check in place to catch configuration errors before they r
 
 You can explore the **optional** Robot Framework task or continue with the **recommended** cleanup:
 
-- **Optional:** [Task11 - Post-checks with ROBOT](Task11_Post-checks_with_ROBOT.md) - Learn how to automate post-change validation
+- **Optional:** [Task11 - Post-checks](Task11_Post-checks.md) - Learn how to automate post-change validation
 - **Recommended:** [Task12 - Cleanup](Task12_Cleanup.md) - Skip Robot Framework and proceed to cleanup before CI/CD

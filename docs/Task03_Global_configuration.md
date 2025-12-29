@@ -396,4 +396,4 @@ In the next task, you'll learn how to use device groups to apply configurations 
 
 ---
 
-**Next:** [Task04 - Group of Devices Configuration](Task04_Group_of_devices_configuration.md)
+**Next:** [Task04 - Device Group Config](Task04_Device_Group_config.md)
