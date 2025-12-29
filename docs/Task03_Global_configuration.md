@@ -67,7 +67,7 @@ Specifically, the banner configuration is described here: [IOS XE Banner Configu
   ![NAC IOS XE Banner Documentation](./assets/netascode-documentation.png){ width="100%" }
 </figure>
 
-You can refer to this documentation at any time for more details on available configuration options, data types, and examples.
+You can refer to this documentation at any time for more details on available configuration options, data types, examples and guides.
 
 
 ## Applying Configuration with Terraform CLI
