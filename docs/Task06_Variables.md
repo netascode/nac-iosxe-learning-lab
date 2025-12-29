@@ -20,7 +20,7 @@ In this example, you'll update the login banners on each device to display its o
 3. Set the `HOSTNAME` variable value per **device**
 4. Let NAC substitute the variable automatically in both the banner and system hostname configuration
 
-!!! note "The power of variables"
+!!! tip "The power of variables"
     One banner template, multiple device-specific outputs!
 
     One place to define the hostname variable per device, used in multiple configuration sections.
@@ -62,7 +62,7 @@ iosxe:
 The image below illustrates the updated global configuration in VS Code:
 
 <figure markdown>
-  ![VS Code Global Variables](./assets/vscode-global-banner.png){ width="100%" }
+  ![VS Code Global Variables](./assets/vscode-global-banner-variables.png){ width="100%" }
 </figure>
 
 !!! warning "YAML Formatting"
@@ -74,7 +74,7 @@ The image below illustrates the updated global configuration in VS Code:
 
 Now you need to define the `HOSTNAME` variable for each device. Open `data/config-device-core.nac.yaml` in VS Code and update it with the following content:
 
-```yaml title="data/config-device-core.nac.yaml" hl_lines="6"
+```yaml title="data/config-device-core.nac.yaml" hl_lines="5 6"
 ---
 iosxe:
   devices:
@@ -97,12 +97,12 @@ iosxe:
 **What's new:**
 
 - **`variables:`** - Section where you define device-specific variables
-- **`HOSTNAME: core`** - Sets the HOSTNAME variable to "core" for this device
+- **`HOSTNAME: core`** - Sets the `HOSTNAME` variable to `core` for this device
 
 The image below illustrates the device configuration with variables in VS Code:
 
 <figure markdown>
-  ![VS Code Device Variables](./assets/vscode-core-config.png){ width="100%" }
+  ![VS Code Device Variables](./assets/vscode-core-config-variables.png){ width="100%" }
 </figure>
 
 ## Step 3: Add Variables to Other Devices
@@ -142,12 +142,16 @@ iosxe:
         HOSTNAME: access02
 ```
 
+!!! note "Name and hostname"
+    The `name` attribute under `devices` identifies the device in NAC. The `HOSTNAME` variable value you set is what will be used in the system hostname and banner configuration. They can be the same or different, depending on your design.
+
+
 ## How Variable Substitution Works
 
 When Terraform processes your configuration, it performs variable substitution at each level, for each device.
 
 <figure markdown>
-  ![Variable Substitution](./assets/variable-substitution.png){ width="100%" }
+  ![Variable Substitution](./assets/variable-substitution.png){ width="70%" }
 </figure>
 
 ## Variable Precedence
@@ -183,22 +187,22 @@ Open your WSL Ubuntu terminal and navigate to your project directory:
 cd ~/nac-iosxe
 ```
 
-Preview the changes Terraform will make:
+Optionally, preview the changes Terraform will make:
 
 ```bash
 terraform plan
 ```
-
-!!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how variables are resolved. You'll see each device with its variable values substituted into the configuration.
 
 Apply the configuration:
 
 ```bash
 terraform apply
 ```
-
 When prompted, type `yes` to confirm the deployment.
+
+!!! tip "View the Merged Model"
+    After running `terraform apply`, open the `model.yaml` file in VS Code to see how variables are resolved. You'll see each device with its variable values substituted into the configuration.
+
 
 ## Step 5: Verify Variable Substitution
 
@@ -207,56 +211,81 @@ After Terraform completes successfully, verify the configuration was applied cor
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **core** switch (198.18.130.10)
-3. Run the verification commands below
-4. Repeat for other switches to see their specific hostnames
+2. Connect to the **core** switch (`198.18.130.10`)
+3. Verify the updated hostname and banner
+4. Repeat for other switches (**border**, **access01**, **access02**) to see their specific hostnames
 
-**Check the hostname:**
+<figure markdown>
+  ![Solar-PuTTY Core Banner](./assets/solarputty-ssh-core-variables.png){ width="100%" }
+</figure>
 
-```bash
-show running-config | include hostname
-```
+??? info "Alternative Verification Commands"
+    You can use the following commands to verify the hostname and banner on each device:
 
-**Expected output on core:**
+    ???+ quote "Verify Hostname via `show run`"
+        ```
+        show running-config | include hostname
+        ```
 
-```
-hostname core
-```
+        ???+ quote "Expected output on **core**:"
+            ```
+            core#show running-config | include hostname
+            hostname core
+            core#
+            ```
 
-**Check the banner:**
+    ???+ quote "Verify Banner via `show banner login`"
+        ```
+        show banner login
+        ```
 
-```bash
-show running-config | section banner
-```
+        ???+ quote "Expected output on **access01**:"
+            ```
+            access01#show banner login
+            ######################################
+            #                                    #
+            #   Welcome to Network-as-Code Lab!  #
+            #                                    #
+            ######################################
+            Device: access01
 
-**Expected output on core:**
+            access01#
+            ```
 
-```
-banner login ^C
-#####################################
-#                                   #
-#   Welcome to Network-as-Code Lab  #
-#                                   #
-#####################################
-Device: core
-^C
-```
+Each device shows its own hostname in the banner - demonstrating that the same template produced device-specific results.
 
-**Verify on other devices:**
-
-Connect to **border**, **access01**, and **access02** and run the same commands. Each device should show its own hostname in the banner - demonstrating that the same template produced device-specific results.
 
 ## Common Variable Use Cases
 
-Variables are powerful for many scenarios beyond hostnames:
+Variables are powerful for many scenarios beyond hostnames (device idntity). Here are some common use cases:
 
-| Use Case | Variable Example | Benefit |
-|----------|-----------------|---------|
-| **Device identity** | `${HOSTNAME}`, `${SITE_CODE}` | Consistent naming across configs |
-| **Network segments** | `${MGMT_VLAN}`, `${DATA_VLAN}` | Easy VLAN changes across devices |
-| **IP addressing** | `${LOOPBACK_IP}`, `${GATEWAY}` | Device-specific IP configuration |
-| **Credentials** | `${SNMP_COMMUNITY}` | Centralized credential management |
-| **Thresholds** | `${LOG_LEVEL}`, `${TIMEOUT}` | Environment-specific tuning |
+| Use Case             | Variable Example               | Benefit                           |
+|----------------------|--------------------------------|-----------------------------------|
+| **Network segments** | `${MGMT_VLAN}`, `${DATA_VLAN}` | Easy VLAN changes across devices  |
+| **IP addressing**    | `${LOOPBACK_IP}`, `${GATEWAY}` | Device-specific IP configuration  |
+| **Credentials**      | `${SNMP_COMMUNITY}`            | Centralized credential management |
+| **Thresholds**       | `${LOG_LEVEL}`, `${TIMEOUT}`   | Environment-specific tuning       |
+
+
+## Environment Variables
+
+Environment variables can also be used in NAC configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
+
+```yaml title="Environment Variable Example"
+---
+iosxe:
+  devices:
+    - name: example-device
+      system:
+        enable_secret: !env ENABLE_SECRET
+        enable_secret_type: "0"
+```
+
+In this example, the `ENABLE_SECRET` environment variable is referenced and used for the device's enable secret.
+
+!!! tip "Security Best Practice"
+    Using environment variables is good practice for sensitive information like passwords.
+
 
 ## What You've Accomplished
 

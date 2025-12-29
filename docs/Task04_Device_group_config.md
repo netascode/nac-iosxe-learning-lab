@@ -194,7 +194,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
         access01#
         ```
 
-!!! note "Key Observation"
+!!! note "Key observation"
     The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
 
 

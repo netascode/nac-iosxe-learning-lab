@@ -228,7 +228,7 @@ show run | include ip host
 The command should return no output, confirming that the IP host entries were NOT applied to the border switch.
 
 
-!!! info "Key observation"
+!!! note "Key observation"
     The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
 
 
