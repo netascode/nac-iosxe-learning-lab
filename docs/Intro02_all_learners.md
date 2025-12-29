@@ -10,7 +10,7 @@ The guide is segmented into **recommended tasks**, suitable for all users, and *
 **Deploy configuration to devices with Terraform manually:**
 
 - Task03 : Global configuration
-- Task04 : Group of devices configuration
+- Task04 : Device group configuration
 - Task05 : Single device configuration
 - Task06 (optional) : Variables
 - Task07 (optional) : Templates type 'model'

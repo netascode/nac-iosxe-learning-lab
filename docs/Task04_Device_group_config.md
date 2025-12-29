@@ -7,7 +7,7 @@ Device groups provide a mechanism for applying configurations to multiple device
 **Configuration Precedence Hierarchy:**
 
 1. **Device** (highest precedence) - device-specific overrides
-2. **Device Group** (medium precedence) - role or location-specific settings  
+2. **Device Group** (medium precedence) - role or location-specific settings
 3. **Global** (lowest precedence) - organization-wide defaults
 
 Device groups are particularly effective for:

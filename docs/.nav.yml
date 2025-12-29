@@ -8,8 +8,8 @@ nav:
       - "[01] SSH to devices": Task01_SSH_to_network_devices.md
       - "[02] Editing YAML": Task02_Editing_YAML_files.md
       - "[03] Global configuration": Task03_Global_configuration.md
-      - "[04] Group of devices config": Task04_Group_of_devices_configuration.md
-      - "[05] Single device config": Task05_Single_device_configuration.md
+      - "[04] Device group config": Task04_Device_group_config.md
+      - "[05] Single device config": Task05_Single_device_config.md
       - "[06] Variables (optional)": Task06_Variables.md
       - "[07] Templates 'model' (optional)": Task07_Templates_type_model.md
       - "[08] Templates 'file' (optional)": Task08_Templates_type_file.md
