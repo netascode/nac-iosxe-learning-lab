@@ -13,29 +13,35 @@ Variables in NAC work similarly to variables in programming languages. You defin
 
 ## Use Case: Dynamic Hostname in Banner and System Config
 
-In this example, you'll configure devices where each device displays its own hostname in the login banner. Instead of creating separate banner configurations for each device, you'll:
+In this example, you'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll:
 
-1. Define the banner template once in the **global** configuration with a variable placeholder
-2. Set the variable value per **device**
-3. Let NAC substitute the variable automatically
+1. Define the banner template once in the **global** configuration with a variable placeholder, called `HOSTNAME`
+2. Define the system hostname once in the **global** configuration using the same variable
+3. Set the `HOSTNAME` variable value per **device**
+4. Let NAC substitute the variable automatically in both the banner and system hostname configuration
 
-This demonstrates the power of variables - one template, multiple device-specific outputs.
+!!! note "The power of variables"
+    One banner template, multiple device-specific outputs!
+
+    One place to define the hostname variable per device, used in multiple configuration sections.
+
 
 ## Step 1: Update the Global Configuration File
 
 First, let's update the global configuration to use a variable in the banner. Open `data/config-global.nac.yaml` in VS Code and update it with the following content:
 
 ```yaml
+---
 iosxe:
   global:
     configuration:
       banner:
         login: |
-          #####################################
-          #                                   #
-          #   Welcome to Network-as-Code Lab  #
-          #                                   # 
-          #####################################
+          ######################################
+          #                                    #
+          #   Welcome to Network-as-Code Lab!  #
+          #                                    #
+          ######################################
           Device: ${HOSTNAME}
       system:
         hostname: ${HOSTNAME}
@@ -49,20 +55,27 @@ iosxe:
 - **`system: hostname:`** - Sets the device hostname using the same variable
 
 !!! note "Variable Syntax"
-    Variables use the `${VARIABLE_NAME}` syntax. The variable name is case-sensitive, so `${HOSTNAME}` and `${hostname}` are different variables. By convention, variable names are typically uppercase.
+    Variables use the `${VARIABLE_NAME}` syntax. The variable name is case-sensitive, so `${HOSTNAME}` and `${hostname}` are different variables.
+
+    In this lab, we're using uppercase variable names by convention, to improve readability and distinguish them from other text. You can choose any naming convention that works for you.
 
 The image below illustrates the updated global configuration in VS Code:
 
-<!-- SCREENSHOT PLACEHOLDER: vscode-global-variables.png -->
 <figure markdown>
   ![VS Code Global Variables](./assets/vscode-global-banner.png){ width="100%" }
 </figure>
+
+!!! warning "YAML Formatting"
+    When pasting multi-line strings in YAML (like this banner), ensure the indentation is correct. The `|` character indicates a multi-line string, and the following lines should be indented properly to be part of that string.
+
+    To learn more about the multi-line string (block scalar) YAML syntax, refer to https://yaml-multiline.info/
 
 ## Step 2: Define Variables at Device Level
 
 Now you need to define the `HOSTNAME` variable for each device. Open `data/config-device-core.nac.yaml` in VS Code and update it with the following content:
 
-```yaml
+```yaml hl_lines="6"
+---
 iosxe:
   devices:
     - name: core
@@ -73,10 +86,12 @@ iosxe:
           ip_hosts:
             - name: ntp-server
               ips:
-                - 198.18.128.1
+                - 198.18.129.11
+              vrf: Mgmt-vrf
             - name: syslog-server
               ips:
-                - 198.18.128.2
+                - 198.18.129.12
+              vrf: Mgmt-vrf
 ```
 
 **What's new:**
