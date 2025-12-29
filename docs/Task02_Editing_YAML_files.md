@@ -186,7 +186,7 @@ VS Code will now open with your project folder, and you'll see the file explorer
 
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
-```bash
+```bash title=".env"
 export IOSXE_USERNAME=nac_admin
 export IOSXE_PASSWORD=cisco
 export IOSXE_PROTOCOL=restconf
@@ -206,7 +206,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 
 Next, edit a Terraform `main.tf` file with the following content. This file serves as the entry point for the Terraform configuration and defines the necessary resources and modules to interact with the IOS XE device:
 
-```text
+```text title="main.tf"
 module "iosxe" {
   source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
   yaml_directories = ["data/"]
@@ -240,7 +240,7 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
 
 Now edit the `data/devices.nac.yaml` file to define your network device inventory. This file contains the list of devices that the NAC module will manage, along with their management IP addresses:
 
-```yaml
+```yaml title="data/devices.nac.yaml"
 ---
 iosxe:
   devices:

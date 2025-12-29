@@ -30,7 +30,7 @@ In this example, you'll update the login banners on each device to display its o
 
 First, let's update the global configuration to use a variable in the banner. Open `data/config-global.nac.yaml` in VS Code and update it with the following content:
 
-```yaml
+```yaml title="data/config-global.nac.yaml" hl_lines="6-14"
 ---
 iosxe:
   global:
@@ -74,7 +74,7 @@ The image below illustrates the updated global configuration in VS Code:
 
 Now you need to define the `HOSTNAME` variable for each device. Open `data/config-device-core.nac.yaml` in VS Code and update it with the following content:
 
-```yaml hl_lines="6"
+```yaml title="data/config-device-core.nac.yaml" hl_lines="6"
 ---
 iosxe:
   devices:
@@ -101,7 +101,6 @@ iosxe:
 
 The image below illustrates the device configuration with variables in VS Code:
 
-<!-- SCREENSHOT PLACEHOLDER: vscode-device-variables.png -->
 <figure markdown>
   ![VS Code Device Variables](./assets/vscode-core-config.png){ width="100%" }
 </figure>
@@ -112,7 +111,8 @@ Now add the `HOSTNAME` variable to the other device configuration files.
 
 **Update `data/config-device-border.nac.yaml`:**
 
-```yaml
+```yaml title="data/config-device-border.nac.yaml"
+---
 iosxe:
   devices:
     - name: border
@@ -122,7 +122,8 @@ iosxe:
 
 **Update `data/config-device-access01.nac.yaml`:**
 
-```yaml
+```yaml title="data/config-device-access01.nac.yaml"
+---
 iosxe:
   devices:
     - name: access01
@@ -132,7 +133,8 @@ iosxe:
 
 **Update `data/config-device-access02.nac.yaml`:**
 
-```yaml
+```yaml title="data/config-device-access02.nac.yaml"
+---
 iosxe:
   devices:
     - name: access02
@@ -140,58 +142,13 @@ iosxe:
         HOSTNAME: access02
 ```
 
-!!! tip "Device Name Convention"
-    In this example, we're using the device name as the hostname variable value. This is a common pattern that keeps device identification consistent across your configuration and the actual device.
-
 ## How Variable Substitution Works
 
-When Terraform processes your configuration, it performs variable substitution at each level. Here's how it works for the **core** switch:
+When Terraform processes your configuration, it performs variable substitution at each level, for each device.
 
-**Before substitution (template):**
-```yaml
-banner:
-  login: |
-    Device: ${HOSTNAME}
-system:
-  hostname: ${HOSTNAME}
-```
-
-**After substitution (rendered for core):**
-```yaml
-banner:
-  login: |
-    Device: core
-system:
-  hostname: core
-```
-
-**Visual representation:**
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    GLOBAL CONFIGURATION                         │
-│                                                                 │
-│  banner:                                                        │
-│    login: |                                                     │
-│      Device: ${HOSTNAME}    ←── Variable placeholder            │
-│  system:                                                        │
-│    hostname: ${HOSTNAME}    ←── Same variable                   │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │
-            ┌───────────────────┼───────────────────┐
-            │                   │                   │
-            ▼                   ▼                   ▼
-┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
-│      core         │  │     border        │  │    access01       │
-│                   │  │                   │  │                   │
-│ variables:        │  │ variables:        │  │ variables:        │
-│   HOSTNAME: core  │  │   HOSTNAME: border│  │   HOSTNAME: access01│
-│                   │  │                   │  │                   │
-│ Result:           │  │ Result:           │  │ Result:           │
-│ hostname: core    │  │ hostname: border  │  │ hostname: access01│
-│ Banner: core      │  │ Banner: border    │  │ Banner: access01  │
-└───────────────────┘  └───────────────────┘  └───────────────────┘
-```
+<figure markdown>
+  ![Variable Substitution](./assets/variable-substitution.png){ width="100%" }
+</figure>
 
 ## Variable Precedence
 

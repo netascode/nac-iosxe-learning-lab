@@ -39,7 +39,7 @@ touch ~/nac-iosxe/data/config-device-access02.nac.yaml
 
 Now open `data/config-device-core.nac.yaml` in VS Code and add the following content. Notice how the configuration references the device by name:
 
-```yaml
+```yaml title="data/config-device-core.nac.yaml"
 ---
 iosxe:
   devices:
