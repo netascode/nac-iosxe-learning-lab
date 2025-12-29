@@ -39,9 +39,9 @@ Then open `data/template-logging.nac.yaml` in VS Code and add the following cont
 ---
 iosxe:
   templates:
-    - name: alias-logs
+    - name: alias_logs
       type: cli
-      content: alias exec logs show logging
+      content: "alias exec logs show logging"
 ```
 
 This template:
@@ -71,7 +71,7 @@ iosxe:
       system:
         hostname: ${HOSTNAME}
     templates:
-      - alias-logs
+      - alias_logs
 ```
 
 
@@ -100,7 +100,7 @@ terraform apply
 When prompted, type `yes` to confirm the deployment.
 
 !!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how the alias-logs CLI template is merged with other configurations.
+    After running `terraform apply`, open the `model.yaml` file in VS Code to see how the alias_logs CLI template is merged with other configurations.
 
 ## Step 4: Verify the Configuration
 
@@ -109,24 +109,17 @@ Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` sw
 !!! info "Verfify alias command"
     After connecting to the device, run the following command to check if the alias was created:
 
-    ```show alias
+    ```
+    show alias
     ```
 
-Check logging configuration:
+    ???+ quote "Expected output"
+        ```
+        core#show alias
+        ...
+        ```
 
-```
-show running-config | section logging
-```
-
-Expected output:
-
-```
-logging buffered 16384 informational
-logging console critical
-logging monitor warnings
-logging trap notifications
-logging host 198.18.133.1
-```
+    You can also test the alias by running `logs` from exec mode.
 
 
 ## Template Type Summary
