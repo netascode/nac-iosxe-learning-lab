@@ -1,20 +1,26 @@
 **Configuration on isp router**
 
 ```
-isp#sh run | s bgp
+isp#show run | sec bgp
 router bgp 65001
  bgp log-neighbor-changes
- neighbor 198.18.100.1 remote-as 65000
- neighbor 198.18.100.1 description eBGP to border
  neighbor 198.18.100.2 remote-as 65000
- neighbor 198.18.100.2 description eBGP to border
+ neighbor 198.18.100.2 description eBGP to BORDER
+ neighbor 198.18.100.2 timers 60 180 30
+ !
+ address-family ipv4
+  network 8.8.8.0 mask 255.255.255.0
+  neighbor 198.18.100.2 activate
+ exit-address-family
 isp#
-isp#sh run int gig 0/1
+isp#
+isp#show run int gig 0/1
 Building configuration...
 
-Current configuration : 119 bytes
+Current configuration : 142 bytes
 !
 interface GigabitEthernet0/1
+ description border G1
  ip address 198.18.100.1 255.255.255.252
  duplex auto
  speed auto
@@ -22,22 +28,6 @@ interface GigabitEthernet0/1
 end
 
 isp#
-```
-
-**Configuration in border router to isp**
-
-```
-border#sh run int gig 1
-Building configuration...
-
-Current configuration : 93 bytes
-!
-interface GigabitEthernet1
- ip address 198.18.100.2 255.255.255.252
- negotiation auto
-end
-
-border#
 ```
 
 
