@@ -226,6 +226,11 @@ The `nac-validate` tool is extensible. It doesn't only allow for syntax validati
 Customers can also create their own validation rules to enforce specific requirements, such as naming conventions, security policies, or configuration standards.
 
 
+## Reference
+
+For more details on the `nac-validate` tool, see the official documentation [here](https://netascode.cisco.com/docs/tools/nac-validate/overview/).
+
+
 ## What You've Accomplished
 
 In this task, you have:
