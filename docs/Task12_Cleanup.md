@@ -6,16 +6,16 @@ In the previous tasks, you:
 
 - Created configuration files manually in VS Code
 - Ran Terraform commands directly from WSL Ubuntu
-- Deployed configurations to the IOS XE devices
+- Deployed configurations to the IOS-XE devices
 
 Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate all of this. The GitLab repository already contains a complete project setup, so you need to:
 
 1. **Remove configurations from devices** - Undo the changes made during manual tasks
-2. **Delete local files** - Clean up the manually created project folder
+2. **(Optionally) Delete local files** - You may clean up the manually created project folder as it's no longer needed
 
 ## Step 1: Destroy Terraform Resources
 
-First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal.
+First, remove all configurations that Terraform deployed to the IOS-XE devices. Open your WSL Ubuntu terminal.
 
 Navigate to the project folder:
 
@@ -31,63 +31,65 @@ terraform destroy
 
 When prompted, type `yes` to confirm. Terraform will:
 
-- Connect to each IOS XE device
+- Connect to each IOS-XE device
 - Remove all configurations it previously applied (banners, ACLs, VLANs, etc.)
 - Update the state file to reflect the clean state
 
 !!! warning "Wait for Completion"
     The destroy process may take a few minutes. Wait until you see "Destroy complete!" before proceeding.
 
+
 ## Step 2: Verify Devices are Clean (Optional)
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 1, double-click on the **core** switch to connect.
 
-Once connected, check that the banner and other configurations you applied are no longer present:
+Once connected, check that the banner, hostname and other configurations you applied are no longer present. You can also check the running configuration.
 
 ```bash
-show running-config | include banner
+show running-config
 ```
 
-```bash
-show ip access-lists
-```
+!!! note "Default Hostname"
+    You should see that the hostname has reverted to the default hosname (e.g., `Switch`). Note that even thougt these devices were configured with some hostnames already, running `terraform destroy` removes all changes made by Terraform, reverting to the default state, not the pre-configured hostnames. Those are lost forever! Don't worry though, we'll re-apply configurations in the next tasks.
 
-## Step 3: Delete the Local Project Folder
 
-Now remove the manually created project folder from WSL:
+## Step 3: Delete the Local Project Folder (Optional)
 
-```bash
-cd ~
-```
+If you wish, you may also remove the manually created project folder, `nac-iosxe`, as it's no longer needed.
 
-```bash
-rm -rf nac-iosxe
-```
+??? info "Remove Project Folder"
+    To delete the project folder, run the following commands in your WSL Ubuntu terminal:
 
-This deletes:
+    ```bash
+    cd ~
+    ```
 
-- `.env` - Credentials file
-- `main.tf` - Terraform configuration
-- `data/` - All YAML configuration files
-- `tftpl/` - Template files (.tftpl)
-- `tests/` - Robot Framework test files
-- `.terraform/` - Downloaded modules and providers
-- `terraform.tfstate` - State file
+    ```bash
+    rm -rf ~/nac-iosxe
+    ```
 
-## Step 4: Verify Cleanup
+    This deletes:
 
-Confirm the folder has been deleted:
+    - `.env` - Credentials file
+    - `main.tf` - Terraform configuration
+    - `data/` - All YAML configuration files
+    - `tftpl/` - Template files (.tftpl)
+    - `tests/` - Robot Framework test files
+    - `.terraform/` - Downloaded modules and providers
+    - `terraform.tfstate` - State file
 
-```bash
-ls -la ~/nac-iosxe
-```
+    You can verify the folder is deleted by listing the home directory contents:
 
-You should see an error: `ls: cannot access '/home/cisco/nac-iosxe': No such file or directory`
+    ```bash
+    ls -la ~/
+    ```
+    You should no longer see the `nac-iosxe` folder listed.
+
 
 ## What You've Accomplished
 
-- ✅ Removed all Terraform-deployed configurations from IOS XE devices
-- ✅ Deleted the manually created project folder
+- ✅ Removed all Terraform-deployed configurations from IOS-XE devices
+- ✅ (Optionally) deleted the manually created project folder
 - ✅ Prepared a clean environment for CI/CD automation
 
 ## Next Steps
