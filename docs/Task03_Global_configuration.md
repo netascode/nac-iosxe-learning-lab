@@ -82,7 +82,7 @@ Terraform uses a declarative approach where you define the desired state (in you
 2. **Plan** - Preview what changes Terraform will make
 3. **Apply** - Execute the changes on your devices
 
-## Step 1: In WSL (Ubuntu) and Navigate to Your Project
+### Step 1: In WSL (Ubuntu) and Navigate to Your Project
 
 In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
 
@@ -113,7 +113,7 @@ You should see your project structure:
 └── main.tf
 ```
 
-## Step 2: Load Environment Variables from .env File
+### Step 2: Load Environment Variables from .env File
 
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
 
@@ -182,7 +182,7 @@ echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
 
 
-## Step 3: Initialize Terraform
+### Step 3: Initialize Terraform
 
 Initialize your Terraform project to download the required Network-as-Code module:
 
@@ -213,7 +213,7 @@ terraform init
     If you want to download the latest version of the modules, you can use `terraform init -upgrade` instead.
 
 
-## Step 4: Preview Changes with Terraform Plan
+### Step 4: Preview Changes with Terraform Plan
 
 Before making any changes, preview what Terraform will do:
 
@@ -237,7 +237,7 @@ terraform plan
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
 
-## Step 5: Apply Configuration to Devices
+### Step 5: Apply Configuration to Devices
 
 If the plan looks good, apply the configuration:
 
@@ -286,7 +286,7 @@ Type `yes` and press Enter to proceed.
     However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
 
 
-## Step 6: Verify the Global Configuration
+### Step 6: Verify the Global Configuration
 
 After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four switches automatically.
 

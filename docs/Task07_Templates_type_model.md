@@ -195,40 +195,52 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **access01** switch (198.18.130.11)
+2. Connect to the **access01** switch (`198.18.130.11`)
 3. Run the verification command below
-4. Disconnect and repeat for **access02** switch (198.18.130.12)
+4. Disconnect and repeat for **access02** switch (`198.18.130.12`)
 
-```bash
-show vlan brief
-```
+!!! info "Validation via `show vlan brief`"
+    Use the following command on both **access01** and **access02** switches to verify the VLANs:
 
-**Expected output on both access switches:**
+    ```
+    show vlan brief
+    ```
 
-<figure markdown>
-  ![Show VLAN Brief](./assets/sh-vlan-brief.png){ width="100%" }
-</figure>
+    ???+ quote "Expected output on both switches"
+        ``` hl_lines="12-14"
+        access01#show vlan brief
 
-You should see all three VLANs (10-DATA, 20-VOICE, 99-MGMT) configured on both devices.
+        VLAN Name                             Status    Ports
+        ---- -------------------------------- --------- -------------------------------
+        1    default                          active    Gi1/0/1, Gi1/0/2, Gi1/0/3, Gi1/0/4,
+                                                        Gi1/0/5, Gi1/0/6, Gi1/0/7, Gi1/0/8,
+                                                        Gi1/0/9, Gi1/0/10, Gi1/0/11, Gi1/0/12,
+                                                        Gi1/0/13, Gi1/0/14, Gi1/0/15, Gi1/0/16,
+                                                        Gi1/0/17, Gi1/0/18, Gi1/0/19, Gi1/0/20,
+                                                        Gi1/0/21, Gi1/0/22, Gi1/0/23, Gi1/0/24
+        10   DATA                             active
+        20   VOICE                            active
+        99   MGMT                             active
+        1002 fddi-default                     act/unsup
+        1003 token-ring-default               act/unsup
+        1004 fddinet-default                  act/unsup
+        1005 trnet-default                    act/unsup
+        access01#
+        ```
 
-**Alternative verification command:**
+    You should see all three VLANs (10-DATA, 20-VOICE, 99-MGMT) configured on both devices.
 
-```bash
-show run | section vlan
-```
-
-This shows the VLAN configuration in the running configuration.
 
 ## Templates vs Other Configuration Methods
 
 Here's a comparison of when to use templates versus other configuration approaches:
 
-| Method | Best For | Example |
-|--------|----------|---------|
-| **Global** | Settings that apply to ALL devices | Login banners, NTP, Syslog |
-| **Device Group** | Role-based settings for device subsets | ACLs for access layer, routing for core |
-| **Device** | Unique settings for one device | Management IP hosts, special features |
-| **Template** | Reusable configurations across selected devices | Standard VLANs, interface templates |
+| Method           | Best For                                          | Example                                                    |
+|------------------|---------------------------------------------------|------------------------------------------------------------|
+| **Global**       | Settings that apply to ALL devices                | Login banners, NTP, Syslog                                 |
+| **Device Group** | Role or location based settings for device groups | ACLs for access layer, routing for core, timezone for site |
+| **Device**       | Unique settings for one device                    | Management IP hosts, special features                      |
+| **Template**     | Reusable configurations across selected devices   | Standard VLANs, interface templates                        |
 
 **Key Differences:**
 
@@ -241,9 +253,10 @@ Templates give you fine-grained control - you choose exactly which devices get t
 ## Benefits of Using Templates
 
 1. **Single Source of Truth**: VLAN definitions exist in one place
-2. **Easy Updates**: Need to add VLAN 30? Update the template once, all devices get it
-3. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
-4. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
+2. **Separation of concerns**: Each template handles one configuration domain
+3. **Easy Updates**: Need to add `VLAN 30`? Update the template once, all devices get it
+4. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
+5. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
 
 ## Applying Multiple Templates
 
@@ -257,7 +270,7 @@ For example, access switches might need:
 
 Using device groups (as we did in this task), you can apply multiple templates to all group members:
 
-```yaml title="data/config-group-access.nac.yaml"
+```yaml
 ---
 iosxe:
   device_groups:
@@ -270,13 +283,6 @@ iosxe:
         - access_switch_qos
         - access_switch_security
 ```
-
-**Benefits of multiple templates:**
-
-- **Separation of concerns**: Each template handles one configuration domain
-- **Mix and match**: Different device groups can use different template combinations
-- **Easier testing**: Test each template independently before combining
-- **Team collaboration**: Different teams can own different templates
 
 ## What You've Accomplished
 
