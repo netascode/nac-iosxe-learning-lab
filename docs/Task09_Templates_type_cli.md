@@ -166,13 +166,6 @@ logging host 198.18.133.1
 ```
 
 
-## What You've Accomplished
-
-- ✅ Created a `cli` type template with raw CLI commands
-- ✅ Applied the template to multiple devices
-- ✅ Deployed advanced logging configuration
-- ✅ Learned when to use `cli` templates vs other types
-
 ## Template Type Summary
 
 You've now learned all three template types:
@@ -183,7 +176,26 @@ You've now learned all three template types:
 | Task08 | `file` | BGP configuration from external file |
 | Task09 | `cli` | Logging configuration as raw CLI |
 
+## When to Use Each Template Type
+
+| Scenario | Recommended Type |
+|----------|------------------|
+| Standard YAML configurations | `model` |
+| Dynamic configs with loops/conditionals | `file` |
+| Configs with device-specific variables | `file` |
+| IOS XE features not in NAC data model | `cli` |
+| Simple, static configurations | `model` |
+
 Choose the appropriate template type based on your configuration needs and maintainability requirements.
+
+
+## What You've Accomplished
+
+- ✅ Created a `cli` type template with raw CLI commands
+- ✅ Applied the template to multiple devices
+- ✅ Deployed advanced logging configuration
+- ✅ Learned when to use `cli` templates vs other types
+
 
 ---
 

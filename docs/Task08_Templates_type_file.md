@@ -11,11 +11,12 @@ File templates reference external `.tftpl` files that use **Terraform templating
 
 **Terraform Templating Syntax:**
 
-| Syntax | Purpose                | Example                              |
-|--------|------------------------|--------------------------------------|
-| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}`                   |
-| `%{ }` | Control structures     | `%{ for NEIGHBOR in BGP_NEIGHBORS }` |
-| `~`    | Whitespace stripping   | `%{~ endfor ~}`                      |
+| Syntax | Purpose                | Example                                                           |
+|--------|------------------------|-------------------------------------------------------------------|
+| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}`                                                |
+| `%{ }` | Control structures     | `%{ for NEIGHBOR in BGP_NEIGHBORS }`, `%{ endfor }` - for loop    |
+|        |                        | `%{ if OPTION == "A" }`, `%{ else }`, `%{ endif }` - conditionals |
+| `~`    | Whitespace stripping   | `%{~ endfor ~}`                                                   |
 
 **Template Types (reminder):**
 
@@ -263,6 +264,10 @@ Host devices (`host01` and `host02`) need a default gateway to reach external ne
 
 Your task is to add the default gateway ip address configuration to `border` on its interface GigabitEthernet3, so that it can route traffic from these hosts to the "internet" via the **isp** connection.
 
+<figure markdown>
+  ![Lab Topology](./assets/cml-topology.png){ width="70%" }
+</figure>
+
 !!! info "Verification"
     You can verify successful connectivity by pinging `8.8.8.8` from both hosts.
 
@@ -328,27 +333,6 @@ With what we've covered so far, you should be able to figure this out on your ow
 - ✅ Used loops (`%{ for }`) for multiple BGP neighbors
 - ✅ Applied templates at device level to the **border** switch
 - ✅ Configured BGP peering on **border** switch for ISP connectivity
-- ✅ Understood expected behavior with pre-configured but inactive peers
-
-## Template Variable Precedence
-
-Variables can be defined at multiple levels. Higher levels override lower:
-
-1. **Device-level variables** (highest priority)
-2. **Device group variables**
-3. **Global variables** (lowest priority)
-
-This allows you to define default values globally and override them per device.
-
-## When to Use Each Template Type
-
-| Scenario | Recommended Type |
-|----------|------------------|
-| Standard YAML configurations | `model` |
-| Dynamic configs with loops/conditionals | `file` |
-| Configs with device-specific variables | `file` |
-| IOS XE features not in NAC data model | `cli` |
-| Simple, static configurations | `model` |
 
 ---
 
