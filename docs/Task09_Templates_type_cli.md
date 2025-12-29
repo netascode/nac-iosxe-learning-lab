@@ -6,11 +6,12 @@ The `cli` template type allows you to include raw IOS XE CLI commands that are p
 
 **Template Types (reminder):**
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) - *Task07* |
-| `file` | External file reference | Large configurations stored separately - *Task08* |
-| `cli` | Raw CLI commands | IOS XE features not supported in the NAC data model - *This task* |
+| Type    | Description                       | Use Case                                               |
+|---------|-----------------------------------|--------------------------------------------------------|
+| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
+| `file`  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*      |
+| `cli`   | Raw CLI commands                  | IOS XE features not in NAC data model ← *This task*    |
+
 
 **When to use 'cli' templates:**
 

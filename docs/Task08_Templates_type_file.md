@@ -7,24 +7,23 @@ For detailed documentation, see: [IOS XE Template Documentation](https://netasco
 File templates reference external `.tftpl` files that use **Terraform templating syntax**. This is ideal for:
 
 - **Dynamic configurations**: Configurations with loops and conditionals
-- **Variable-driven content**: Same template with different values per device
 - **Complex structures**: Multi-line configurations that need programmatic generation
 
 **Terraform Templating Syntax:**
 
-| Syntax | Purpose | Example |
-|--------|---------|---------|
-| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}` |
-| `%{ }` | Control structures | `%{ for neighbor in BGP_NEIGHBORS }` |
-| `~` | Whitespace stripping | `%{~ endfor ~}` |
+| Syntax | Purpose                | Example                              |
+|--------|------------------------|--------------------------------------|
+| `${ }` | Variable interpolation | `${BGP_AS_NUMBER}`                   |
+| `%{ }` | Control structures     | `%{ for neighbor in BGP_NEIGHBORS }` |
+| `~`    | Whitespace stripping   | `%{~ endfor ~}`                      |
 
 **Template Types (reminder):**
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| `model` | YAML-based inline configuration | Standard configs - *Task07* |
-| `file` | External `.tftpl` template files | Dynamic configs with variables - *This task* |
-| `cli` | Raw CLI commands inline | IOS XE features not in NAC data model - *Task09* |
+| Type    | Description                       | Use Case                                               |
+|---------|-----------------------------------|--------------------------------------------------------|
+| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
+| `file`  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
+| `cli`   | Raw CLI commands                  | IOS XE features not in NAC data model ← *Task09*       |
 
 ## Use Case: BGP Configuration on border Switch
 
@@ -32,10 +31,10 @@ In this example, you'll configure BGP on the **border** switch for peering with 
 
 !!! info "Lab Scenario"
     The **border** switch connects to two ISP providers:
-    
-    - **isp1** (198.18.100.1) - Currently active and pre-configured in the lab
-    - **isp2** (198.18.100.5) - Placeholder for a future connection that will be deployed as part of a network migration project
-    
+
+    - **isp1** (`198.18.100.1`) - Currently active and pre-configured in the lab
+    - **isp2** (`198.18.100.5`) - Placeholder for a future connection
+
     When you verify the BGP configuration, the **isp1 neighbor will show as Established**, while **isp2 will show as Idle** (since the remote end is not yet configured).
 
 ## Step 1: Create the Template File
@@ -52,15 +51,15 @@ touch ~/nac-iosxe/tftpl/bgp.yaml.tftpl
 
 Then open `tftpl/bgp.yaml.tftpl` in VS Code and add the following content:
 
-```text
+```text title="tftpl/bgp.yaml.tftpl"
 routing:
   bgp:
     as_number: ${BGP_AS_NUMBER}
     neighbors:
 %{ for neighbor in BGP_NEIGHBORS ~}
-      - ip: ${neighbor.ip}
-        remote_as: ${neighbor.remote_as}
-        description: "${neighbor.description}"
+      - ip: ${neighbor.IP}
+        remote_as: ${neighbor.REMOTE_AS}
+        description: "${neighbor.DESCRIPTION}"
 %{ endfor ~}
 ```
 
@@ -96,30 +95,31 @@ This separates the template definition from the device configuration, making it 
 
 Now open the existing `data/config-device-border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
-```yaml title="data/config-device-border.nac.yaml"
+```yaml title="data/config-device-border.nac.yaml" hl_lines="7-16"
 ---
 iosxe:
   devices:
     - name: border
-      templates:
-        - bgp_isp_peering
       variables:
+        HOSTNAME: border  # Added in Task06
         BGP_AS_NUMBER: 65000
         BGP_NEIGHBORS:
-          - ip: 198.18.100.1
-            remote_as: 65001
-            description: eBGP to isp1 - Production
-          - ip: 198.18.100.5
-            remote_as: 65002
-            description: eBGP to isp2 - Future Migration
+          - IP: 198.18.100.1
+            REMOTE_AS: 65001
+            DESCRIPTION: eBGP to isp1 - Production
+          - IP: 198.18.100.5
+            REMOTE_AS: 65002
+            DESCRIPTION: eBGP to isp2 - Future Migration
+      templates:
+        - bgp_isp_peering
 ```
 
 **What's in this configuration:**
 
 - **`devices:`** - Device-specific configuration
 - **`name: border`** - The **border** switch where BGP will be configured
-- **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
 - **`variables:`** - Variables that will be substituted into the template
+- **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
 
 **Variable Breakdown:**
 
@@ -127,6 +127,7 @@ iosxe:
 - **`BGP_NEIGHBORS`**: List of ISP neighbors:
   - **isp1** (65001): Active production peer
   - **isp2** (65002): Placeholder for future network migration
+- **`IP`, `REMOTE_AS`, `DESCRIPTION`**: Attributes used in the template for each neighbor
 
 !!! note "Device-Level Templates"
     Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task07).
@@ -141,7 +142,7 @@ Open your WSL Ubuntu terminal and run the following steps:
 cd ~/nac-iosxe
 ```
 
-**Step 2:** Preview the changes Terraform will make:
+**Step 2:** Optionally, preview the changes Terraform will make:
 
 ```bash
 terraform plan
@@ -156,7 +157,7 @@ terraform apply
 When prompted, type `yes` to confirm the deployment.
 
 !!! tip "View the Merged Model"
-    After running `terraform plan`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. The `model.yaml` file is located in the main project directory, so it will appear just below `main.tf` in VS Code's Explorer panel. This shows exactly what configuration will be applied to the device.
+    After running `terraform apply`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. This shows exactly what configuration will be applied to the device.
 
 ## Step 5: Verify BGP Configuration
 

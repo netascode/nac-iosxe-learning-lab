@@ -16,7 +16,7 @@ As described in the [IOS XE Template documentation](https://netascode.cisco.com/
 | Type    | Description                       | Use Case                                            |
 |---------|-----------------------------------|-----------------------------------------------------|
 | `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.)         |
-| `file`  | External file reference           | Large configurations stored separately              |
+| `file`  | External `.tftpl` template files  | Large configurations stored separately              |
 | `cli`   | Raw CLI commands                  | IOS XE features not supported in the NAC data model |
 
 In this task, you'll use the `model` type to create a VLAN template as a practical example.
