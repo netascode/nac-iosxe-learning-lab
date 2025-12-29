@@ -207,7 +207,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
     ```
 
     ???+ quote "Expected output on both switches"
-        ``` hl_lines="12-14"
+        ``` hl_lines="11-13"
         access01#show vlan brief
 
         VLAN Name                             Status    Ports
@@ -235,7 +235,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 
 Here's a comparison of when to use templates versus other configuration approaches:
 
-| Method           | Best For                                          | Example                                                    |
+| Method           | Best For                                          | Examples                                                   |
 |------------------|---------------------------------------------------|------------------------------------------------------------|
 | **Global**       | Settings that apply to ALL devices                | Login banners, NTP, Syslog                                 |
 | **Device Group** | Role or location based settings for device groups | ACLs for access layer, routing for core, timezone for site |
@@ -250,13 +250,6 @@ Here's a comparison of when to use templates versus other configuration approach
 
 Templates give you fine-grained control - you choose exactly which devices get the template configuration by adding the template reference to each device.
 
-## Benefits of Using Templates
-
-1. **Single Source of Truth**: VLAN definitions exist in one place
-2. **Separation of concerns**: Each template handles one configuration domain
-3. **Easy Updates**: Need to add `VLAN 30`? Update the template once, all devices get it
-4. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
-5. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
 
 ## Applying Multiple Templates
 
@@ -283,6 +276,15 @@ iosxe:
         - access_switch_qos
         - access_switch_security
 ```
+
+## Benefits of Using Templates
+
+1. **Single Source of Truth**: VLAN definitions exist in one place
+2. **Easy Updates**: Need to add `VLAN 30`? Update the template once, all devices get it
+3. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
+4. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
+5. **Separation of concerns**: Whith multiple templates, each can handle one configuration domain
+
 
 ## What You've Accomplished
 
