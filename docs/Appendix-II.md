@@ -49,6 +49,7 @@ device_configuration:
   system: include('system', required=False)
   vlan: include('vlan', required=False)
   routing: include('routing', required=False)
+  interfaces: include('interfaces', required=False)
 
 # Banner (Task03)
 banner:
@@ -80,6 +81,7 @@ system:
 system_ip_hosts:
   name: str()
   ips: list(ip())
+  vrf: str(required=False)
 
 # VLAN (Task07)
 vlan:
@@ -103,4 +105,19 @@ bgp_neighbors:
   ip: ip()
   remote_as: any(int(), str())
   description: str(required=False)
+
+# Ethernet Interfaces (Task08)
+interfaces:
+  ethernets: list(include('ethernets'), required=False)
+
+ethernets:
+  type: any(enum('GigabitEthernet', 'FastEthernet', 'Ethernet', 'Port-channel', 'FiveGigabitEthernet', 'TenGigabitEthernet', 'TwentyFiveGigE', 'FortyGigabitEthernet', 'HundredGigE', 'TwoHundredGigE', 'FourHundredGigE'), regex("^.*[\$\%]\{.*$"))
+  id: str()
+  description: str(required=False)
+  shutdown: any(bool(), regex("^.*[\$\%]\{.*$"), required=False)
+  ipv4: include('interface_ipv4', required=False)
+
+interface_ipv4:
+  address: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
+  address_mask: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
 ```
