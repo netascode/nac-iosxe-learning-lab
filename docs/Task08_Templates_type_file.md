@@ -1,6 +1,6 @@
 In this task, you'll learn how to use **templates of type 'file'** to reference external template files with dynamic content generation. The `file` template type uses Terraform templating syntax (`.tftpl` files) for complex configurations with loops, conditionals, and variable interpolation.
 
-For detailed documentation, see: [IOS XE Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
+For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
 ## Understanding 'file' Templates
 
@@ -32,10 +32,10 @@ In this example, you'll configure BGP on the **border** switch for peering with 
 !!! info "Lab Scenario"
     The **border** switch connects to two ISP providers:
 
-    - **isp1** (`198.18.100.1`) - Currently active and pre-configured in the lab
-    - **isp2** (`198.18.100.5`) - Placeholder for a future connection
+    - **isp** (`198.18.100.1`) - Currently active and pre-configured in the lab
+    - **isp-x** (`198.18.100.5`) - Placeholder for a future connection
 
-    When you verify the BGP configuration, the **isp1 neighbor will show as Established**, while **isp2 will show as Idle** (since the remote end is not yet configured).
+    When you verify the BGP configuration, the **isp neighbor will show as Established**, while **isp-x will show as Idle** (since the remote end is not yet configured).
 
 ## Step 1: Create the Template File
 
@@ -55,20 +55,37 @@ Then open `tftpl/bgp.yaml.tftpl` in VS Code and add the following content:
 routing:
   bgp:
     as_number: ${BGP_AS_NUMBER}
+    log_neighbor_changes: true
     neighbors:
-%{ for neighbor in BGP_NEIGHBORS ~}
-      - ip: ${neighbor.IP}
-        remote_as: ${neighbor.REMOTE_AS}
-        description: "${neighbor.DESCRIPTION}"
+%{ for NEIGHBOR in BGP_NEIGHBORS ~}
+      - ip: ${NEIGHBOR.IP}
+        remote_as: ${NEIGHBOR.REMOTE_AS}
+        description: "${NEIGHBOR.DESCRIPTION}"
+        timers_keepalive: 60
+        timers_holdtime: 180
+        timers_minimum_neighbor_holdtime: 30
+%{ endfor ~}
+    address_family:
+      ipv4_unicast:
+        neighbors:
+%{ for NEIGHBOR in BGP_NEIGHBORS ~}
+          - ip: ${NEIGHBOR.IP}
+            activate: true
 %{ endfor ~}
 ```
 
 This template uses:
 
-- **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOS XE schema
+- **`routing: bgp:`**: BGP configuration must be nested under `routing` per the NAC IOSXE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
 - **`${BGP_AS_NUMBER}`**: Variable for the local AS number
-- **`%{ for neighbor in BGP_NEIGHBORS }`**: Loop through list of neighbors
-- **`${neighbor.ip}`**, **`${neighbor.remote_as}`**: Access neighbor attributes
+- **`%{ for NEIGHBOR in BGP_NEIGHBORS }`**: Loop through list of neighbors (twice, in two sections)
+- **`%{ endfor }`**: End of the loops
+- **Whitespace stripping (`~`)**: Cleans up extra spaces/newlines in the rendered output
+- **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`**: Access neighbor variables for attributes
+
+!!! note "Template Location"
+    The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though we don't include the `tftpl/` folder in our modul configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
+
 
 ## Step 2: Create the Template Definition File
 
@@ -95,7 +112,7 @@ This separates the template definition from the device configuration, making it 
 
 Now open the existing `data/config-device-border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
-```yaml title="data/config-device-border.nac.yaml" hl_lines="7-16"
+```yaml title="data/config-device-border.nac.yaml" hl_lines="7-26"
 ---
 iosxe:
   devices:
@@ -106,12 +123,22 @@ iosxe:
         BGP_NEIGHBORS:
           - IP: 198.18.100.1
             REMOTE_AS: 65001
-            DESCRIPTION: eBGP to isp1 - Production
+            DESCRIPTION: eBGP to isp - Production
           - IP: 198.18.100.5
             REMOTE_AS: 65002
-            DESCRIPTION: eBGP to isp2 - Future Migration
+            DESCRIPTION: eBGP to isp-x - Future Migration
       templates:
         - bgp_isp_peering
+      configuration:
+        interfaces:
+          ethernets:
+            - type: GigabitEthernet
+              id: "1"
+              description: "isp G0/1"
+              shutdown: false
+              ipv4:
+                address: 198.18.100.2
+                address_mask: 255.255.255.252
 ```
 
 **What's in this configuration:**
@@ -120,6 +147,7 @@ iosxe:
 - **`name: border`** - The **border** switch where BGP will be configured
 - **`variables:`** - Variables that will be substituted into the template
 - **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
+- **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the IOSXE-as-Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
 
 **Variable Breakdown:**
 
@@ -159,33 +187,146 @@ When prompted, type `yes` to confirm the deployment.
 !!! tip "View the Merged Model"
     After running `terraform apply`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. This shows exactly what configuration will be applied to the device.
 
+
 ## Step 5: Verify BGP Configuration
 
-Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
+Use **Solar-PuTTY** to connect to the **border** switch (`198.18.130.20`) and verify the BGP configuration:
 
-```bash
+```
 show ip bgp summary
 ```
 
-**Expected output:**
+!!! quote "Expected output"
+    ```
+    border#show ip bgp summary
+    BGP router identifier 198.18.130.20, local AS number 65000
+    ...
 
-```
-BGP router identifier 198.18.130.20, local AS number 65000
+    Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+    198.18.100.1    4        65001      23      23        2    0    0 00:16:54        1
+    198.18.100.5    4        65002       0       0        1    0    0 never    Idle
+    border#
+    ```
 
-Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-198.18.100.1    4 65001      15      18        1    0    0 00:08:32        2
-198.18.100.5    4 65002       0       0        0    0    0 never    Idle
-```
+**Understanding the output**
 
-**Understanding the output:**
+| Neighbor             | Status                               | Explanation                                                |
+|----------------------|--------------------------------------|------------------------------------------------------------|
+| 198.18.100.1 (isp)   | **Established** (shows prefix count) | Active peer - **isp** is pre-configured in the lab         |
+| 198.18.100.5 (isp-x) | **Idle**                             | Expected - **isp-x** is a placeholder for future migration |
 
-| Neighbor | Status | Explanation |
-|----------|--------|-------------|
-| 198.18.100.1 (isp1) | **Established** (shows prefix count) | Active peer - isp1 is pre-configured in the lab |
-| 198.18.100.5 (isp2) | **Idle** | Expected - isp2 is a placeholder for future migration |
+The **isp** neighbor shows as **Established** with 1 prefix received, while **isp-x** shows as **Idle** since the remote end is not configured. This is expected behavior in this lab. In real-world scenarios, you often pre-configure BGP neighbors before the remote end is ready. This allows for seamless cutover during network migrations.
 
-!!! tip "This is Expected Behavior"
-    The isp2 neighbor showing as **Idle** is expected. In real-world scenarios, you often pre-configure BGP neighbors before the remote end is ready. This allows for seamless cutover during network migrations.
+!!! info "Lab BGP configuration"
+    You can find the pre-configured BGP settings on the **isp** device in [Appendix IV](Appendix-IV.md) of this lab guide.
+
+
+!!! info "Advertised Networks"
+
+    The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a looback address configured on the **isp** device.
+
+    You can verify the received route with:
+
+    ```
+    show ip route
+    ```
+
+    ???+ quote "Expected output"
+        ``` hl_lines="19"
+        border#show ip route
+        Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+              D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+              N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+              E1 - OSPF external type 1, E2 - OSPF external type 2, m - OMP
+              n - NAT, Ni - NAT inside, No - NAT outside, Nd - NAT DIA
+              i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+              ia - IS-IS inter area, * - candidate default, U - per-user static route
+              H - NHRP, G - NHRP registered, g - NHRP registration summary
+              o - ODR, P - periodic downloaded static route, l - LISP
+              a - application route
+              + - replicated route, % - next hop override, p - overrides from PfR
+              & - replicated local route overrides by connected
+
+        Gateway of last resort is 198.18.128.1 to network 0.0.0.0
+
+        S*    0.0.0.0/0 [1/0] via 198.18.128.1
+              8.0.0.0/24 is subnetted, 1 subnets
+        B        8.8.8.0 [20/0] via 198.18.100.1, 00:20:04
+              198.18.100.0/24 is variably subnetted, 2 subnets, 2 masks
+        C        198.18.100.0/30 is directly connected, GigabitEthernet1
+        L        198.18.100.2/32 is directly connected, GigabitEthernet1
+        C     198.18.128.0/20 is directly connected, GigabitEthernet2
+              198.18.130.0/32 is subnetted, 1 subnets
+        L        198.18.130.20 is directly connected, GigabitEthernet2
+        border#
+        ```
+
+
+## Challenge (Optional): Add default gateway for host01 and host02
+
+Host devices (`host01` and `host02`) need a default gateway to reach external networks. They are already pre-configured with static IPs and a default gateway:
+
+| Host Device  | IP Address          | Default Gateway  |
+|--------------|---------------------|------------------|
+| **host01**   | 192.168.100.100/24  | 192.168.100.1    |
+| **host02**   | 192.168.100.200/24  | 192.168.100.1    |
+
+Your task is to add the default gateway ip address configuration to `border` on its interface GigabitEthernet3, so that it can route traffic from these hosts to the "internet" via the **isp** connection.
+
+You can verify successful connectivity by pinging `8.8.8.8` from both hosts.
+
+To do that, you need to connect to each host via CML console:
+
+1. Open CML web interface: `https://198.18.130.34/login`
+2. Login with credentials: `guest` / `CiscoLive`
+3. Click on **NAC IOSXE-AS-CODE Topology**
+4. Right-click on **host01** and select **Console**
+5. Login with credentials: `cisco` / `cisco`
+6. Run the ping command: `ping 8.8.8.8`
+7. Repeat steps 4-6 for **host02**
+
+With what we've covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
+
+??? info "Solution"
+    Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces:` section:
+
+
+    ```yaml title="data/config-device-border.nac.yaml" hl_lines="27-33"
+    ---
+    iosxe:
+      devices:
+        - name: border
+          variables:
+            HOSTNAME: border  # Added in Task06
+            BGP_AS_NUMBER: 65000
+            BGP_NEIGHBORS:
+              - IP: 198.18.100.1
+                REMOTE_AS: 65001
+                DESCRIPTION: eBGP to isp - Production
+              - IP: 198.18.100.5
+                REMOTE_AS: 65002
+                DESCRIPTION: eBGP to isp-x - Future Migration
+          templates:
+            - bgp_isp_peering
+          configuration:
+            interfaces:
+              ethernets:
+                - type: GigabitEthernet
+                  id: "1"
+                  description: "isp G0/1"
+                  shutdown: false
+                  ipv4:
+                    address: 198.18.100.2
+                    address_mask: 255.255.255.252
+                - type: GigabitEthernet
+                  id: "3"
+                  description: "core G1/0/3"
+                  shutdown: false
+                  ipv4:
+                    address: 192.168.100.1
+                    address_mask: 255.255.255.0
+    ```
+
 
 ## What You've Accomplished
 
