@@ -133,14 +133,14 @@ Let's intentionally introduce errors to see how validation catches them.
 
 ### Example 1: Invalid IP address
 
-If you accidentally typed an invalid IP like `198.18.128.999` in your `data/config-device-core.nac.yaml` (from Task05):
+If you accidentally typed an invalid IP like `198.18.129.1111` in your `data/config-device-core.nac.yaml` (from Task05):
 
 ```yaml title="data/config-device-core.nac.yaml" hl_lines="5"
 system:
   ip_hosts:
     - name: ntp-server
       ips:
-        - 198.18.128.1999  # Invalid - octet > 255
+        - 198.18.129.1111  # Invalid - octet > 255
 ```
 
 Running `nac-validate -s .schema.yaml data/` would produce:
@@ -196,14 +196,15 @@ If everything is correct, you'll get your prompt back with no output. If there a
 
 ## Common Validation Errors and Fixes
 
-| Error Message                      | Cause                                         | Fix                                                  |
-|------------------------------------|-----------------------------------------------|------------------------------------------------------|
-| `required field`                   | Missing a mandatory attribute                 | Add the required field to your YAML                  |
-| `key 'X' is not defined in schema` | Attribute name is misspelled or not supported | Check spelling against schema.yaml                   |
-| `not in enum(...)`                 | Using invalid value for a field               | Use one of the allowed values from the error message |
-| `not a ip`                         | Expected IP address but got something else    | Provide valid IP address format                      |
-| `not a valid IP address`           | IP address format is wrong                    | Check IP has 4 octets, each 0-255                    |
-
+| Error Message                         | Cause                                         | Fix                                                  |
+|---------------------------------------|-----------------------------------------------|------------------------------------------------------|
+| `Required field missing`              | Missing a mandatory attribute                 | Add the required field to your YAML                  |
+| `Unexpected element`                  | Attribute name is misspelled or not supported | Check spelling against schema.yaml                   |
+| `mapping values are not allowed here` | Potentially incorrect indentation             | Correct the YAML syntax as per schema.yaml           |
+| `... not in enum(...)`                | Using invalid value for a field               | Use one of the allowed values from the error message |
+| `... is not a regex match`            | String does not match expected pattern        | Ensure string format matches schema requirements     |
+| `... is not a int`                    | Value is not an integer                       | Change value to an integer                           |
+| `... is not a list`                   | Expected a list but got something else        | Use YAML list format (`[]` or `-` before each item)  |
 
 ## Integrating Validation into Your Workflow
 
