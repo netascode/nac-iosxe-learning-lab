@@ -104,7 +104,7 @@ tree -a
 
 You should see your project structure:
 
-``` title="tree -a"
+```
 /home/cisco/nac-iosxe/
 ├── .env
 ├── data/
@@ -155,7 +155,7 @@ env | grep IOSXE
 ```
 
 You should see both variables displayed:
-``` title="env | grep IOSXE"
+```
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
@@ -247,7 +247,7 @@ terraform apply
 
 Terraform will show you the plan again and ask for confirmation:
 
-``` .no-copy
+```
 Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.

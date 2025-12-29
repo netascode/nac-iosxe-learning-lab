@@ -125,7 +125,7 @@ Let's intentionally introduce errors to see how validation catches them.
 
 If you accidentally typed an invalid IP like `198.18.128.999` in your `data/config-device-core.nac.yaml` (from Task05):
 
-```yaml
+```yaml title="data/config-device-core.nac.yaml" hl_lines="5"
 system:
   ip_hosts:
     - name: ntp-server
@@ -145,7 +145,7 @@ ERROR - Syntax error 'data/config-device-core.nac.yaml': iosxe.devices.[name=cor
 
 If you misspelled an attribute like `banner` as `banners` in `data/config-global.nac.yaml`:
 
-```yaml
+```yaml title="data/config-global.nac.yaml" hl_lines="3"
 global:
   configuration:
     banners:  # Should be "banner" (singular)
@@ -162,7 +162,7 @@ ERROR - Syntax error 'data/config-global.nac.yaml': iosxe.global.configuration.b
 
 If you used an invalid action in an ACL in `data/config-group-access.nac.yaml`:
 
-```yaml
+```yaml title="data/config-group-access.nac.yaml" hl_lines="6"
 access_lists:
   standard:
     - name: AccessLayerACL
@@ -188,13 +188,13 @@ If everything is correct, you'll get your prompt back with no output. If there a
 
 ## Common Validation Errors and Fixes
 
-| Error Message | Cause | Fix |
-|--------------|-------|-----|
-| `not a valid IP address` | IP address format is wrong | Check IP has 4 octets, each 0-255 |
-| `key 'X' is not defined in schema` | Attribute name is misspelled or not supported | Check spelling against schema.yaml |
-| `not in enum(...)` | Using invalid value for a field | Use one of the allowed values from the error message |
-| `required field` | Missing a mandatory attribute | Add the required field to your YAML |
-| `not a ip` | Expected IP address but got something else | Provide valid IP address format |
+| Error Message                      | Cause                                         | Fix                                                  |
+|------------------------------------|-----------------------------------------------|------------------------------------------------------|
+| `required field`                   | Missing a mandatory attribute                 | Add the required field to your YAML                  |
+| `key 'X' is not defined in schema` | Attribute name is misspelled or not supported | Check spelling against schema.yaml                   |
+| `not in enum(...)`                 | Using invalid value for a field               | Use one of the allowed values from the error message |
+| `not a ip`                         | Expected IP address but got something else    | Provide valid IP address format                      |
+| `not a valid IP address`           | IP address format is wrong                    | Check IP has 4 octets, each 0-255                    |
 
 ## Integrating Validation into Your Workflow
 

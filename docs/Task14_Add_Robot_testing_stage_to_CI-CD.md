@@ -25,7 +25,6 @@ If you need to reopen it, navigate to the **netascode/nac-iosxe-terraform** proj
 
 Once the Web IDE opens, click on `.gitlab-ci.yml` in the file explorer to open it for editing.
 
-<!-- SCREENSHOT: GitLab Web IDE -->
 <figure markdown>
   ![Open Web IDE](./assets/gitlab-open-webide-pipeline-view.png){ width="100%" }
 </figure>
@@ -118,7 +117,6 @@ test-idempotency:
 - **resource_group: iosxe**: Prevents concurrent access to devices
 - If this job passes, it confirms your deployment is idempotent
 
-<!-- SCREENSHOT: Web IDE with test stage added -->
 <figure markdown>
   ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
 </figure>
@@ -132,7 +130,6 @@ After making all the changes:
 3. Enter a commit message: `Add test stage to CI/CD pipeline`
 4. Click **Commit and push to 'main'**
 
-<!-- SCREENSHOT: GitLab Web IDE commit dialog -->
 <figure markdown>
   ![Commit Changes](./assets/gitlab-commit-changes-in-ci-file.png){ width="100%" }
 </figure>
@@ -149,7 +146,6 @@ You should now see **5 stages** in the pipeline:
 4. **test** - Integration and idempotency tests
 5. **notify** - Success/failure notifications
 
-<!-- SCREENSHOT: Pipeline with 5 stages including test -->
 <figure markdown>
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }
 </figure>
@@ -160,7 +156,6 @@ After the pipeline completes, click on the `test-integration` job to view the te
 
 GitLab displays test results in a user-friendly format:
 
-<!-- SCREENSHOT: Test results in GitLab -->
 <figure markdown>
   ![Test Results](./assets/gitlab-test-results.png){ width="100%" }
 </figure>

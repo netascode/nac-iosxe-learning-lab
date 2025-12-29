@@ -23,7 +23,8 @@ In Task04, you deployed an access-list to the access01 and access02 switches usi
 
 Here's the intent configuration you deployed (`data/config-group-access.nac.yaml`):
 
-```yaml
+```yaml title="data/config-group-access.nac.yaml"
+---
 iosxe:
   device_groups:
     - name: ACCESS_SWITCHES

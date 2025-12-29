@@ -41,7 +41,8 @@ touch ~/nac-iosxe/data/template-vlan.nac.yaml
 
 Then open `data/template-vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
 
-```yaml
+```yaml title="data/template-vlan.nac.yaml"
+---
 iosxe:
   templates:
     - name: access_switch_vlans
@@ -87,7 +88,8 @@ Let's break down the key elements:
 
 Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section:
 
-```yaml
+```yaml title="data/config-group-access.nac.yaml"
+---
 iosxe:
   device_groups:
     - name: ACCESS_SWITCHES
@@ -284,7 +286,8 @@ For example, access switches might need:
 
 Using device groups (as we did in this task), you can apply multiple templates to all group members:
 
-```yaml
+```yaml title="data/config-group-access.nac.yaml"
+---
 iosxe:
   device_groups:
     - name: ACCESS_SWITCHES

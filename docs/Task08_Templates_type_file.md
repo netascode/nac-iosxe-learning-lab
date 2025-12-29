@@ -81,7 +81,8 @@ touch ~/nac-iosxe/data/template-bgp.nac.yaml
 
 Then open `data/template-bgp.nac.yaml` in VS Code and add the following content:
 
-```yaml
+```yaml title="data/template-bgp.nac.yaml"
+---
 iosxe:
   templates:
     - name: bgp_isp_peering
@@ -95,7 +96,8 @@ This separates the template definition from the device configuration, making it 
 
 Now open the existing `data/config-device-border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
-```yaml
+```yaml title="data/config-device-border.nac.yaml"
+---
 iosxe:
   devices:
     - name: border

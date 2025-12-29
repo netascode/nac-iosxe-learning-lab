@@ -34,7 +34,8 @@ touch ~/nac-iosxe/data/template-logging.nac.yaml
 
 Then open `data/template-logging.nac.yaml` in VS Code and add the following content:
 
-```yaml
+```yaml title="data/template-logging.nac.yaml"
+---
 iosxe:
   templates:
     - name: enhanced_logging
@@ -61,7 +62,8 @@ Now you can add the logging template to your existing device group files.
 
 **Update `data/config-group-access.nac.yaml`** to include the logging template:
 
-```yaml
+```yaml title="data/config-group-access.nac.yaml"
+---
 iosxe:
   device_groups:
     - name: ACCESS_SWITCHES
@@ -88,7 +90,8 @@ iosxe:
 
 **Update `data/config-device-border.nac.yaml`** to include the logging template:
 
-```yaml
+```yaml title="data/config-device-border.nac.yaml"
+---
 iosxe:
   devices:
     - name: border

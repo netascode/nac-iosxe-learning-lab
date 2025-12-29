@@ -57,7 +57,7 @@ In a typical Network-as-Code workflow:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         BRANCH WORKFLOW                                  │
+│                             BRANCH WORKFLOW                             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  1. Engineer creates a feature branch from main                         │
@@ -233,7 +233,8 @@ Now you'll make a change to the banner configuration file.
 
 3. Modify the banner text to indicate this change came through a merge request:
 
-```yaml
+```yaml title="data/config-global.nac.yaml" hl_lines="10"
+---
 iosxe:
   global:
     configuration:

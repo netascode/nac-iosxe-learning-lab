@@ -46,7 +46,6 @@ The project page shows your repository files, including:
 - `.schema.yaml` - The Network as Code for IOS XE schema
 
 
-<!-- SCREENSHOT: netascode/nac-iosxe-terraform project page showing files -->
 <figure markdown>
   ![Project Files](./assets/gitlab-project-files.png){ width="100%" }
 </figure>
@@ -55,7 +54,6 @@ The project page shows your repository files, including:
 
 Before running the pipeline, let's understand how it's configured. Click on `.gitlab-ci.yml` to view the pipeline definition:
 
-<!-- SCREENSHOT: .gitlab-ci.yml file content -->
 <figure markdown>
   ![Pipeline YAML](./assets/gitlab-ci-yml.png){ width="100%" }
 </figure>
