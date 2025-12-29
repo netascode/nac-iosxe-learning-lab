@@ -107,7 +107,7 @@ cp -r ~/tests ~/nac-iosxe/
     touch ~/nac-iosxe/tests/filters/url_encode.py
     ```
 
-    After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III - Robot Testing Files](Task17_Appendix-III.md)**:
+    After creating the files, they will appear in VS Code's file explorer. Open each file and copy-paste the content from **[Appendix III](Appendix-III.md)**:
 
     - Copy the **url_encode.py** content into `tests/filters/url_encode.py`
     - Copy the **UtilsLib.py** content into `tests/templates/lib/UtilsLib.py`
@@ -175,6 +175,9 @@ nac-test \
 
 !!! info "Output Location"
     The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
+
+!!! tip
+    You can press `Win + D` to quickly minimize all windows and view your desktop on Windows.
 
 ## Step 5: Review the Generated Robot Test
 
@@ -264,6 +267,11 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
   ![Robot Framework Report](./assets/iosxe-manual-robot.png){ width="100%" }
 </figure>
 
+
+!!! tip "Log Details"
+    The `log.html` file contains detailed step-by-step execution information, including request and response data for each test case. This is useful for troubleshooting any test failures or understanding the test flow in depth.
+
+
 ## Step 7: Try Additional Tests (Optional)
 
 Now that you understand the process, try expanding your tests:
@@ -279,9 +287,9 @@ Now that you understand the process, try expanding your tests:
 
 In this task, you have:
 
-- ✅ Learned how Robot Framework automates post-change validation
+- ✅ Learned how `nac-test` automates post-change validation
 - ✅ Created the required file structure for testing (templates and filters)
-- ✅ Ran `nac-test` to generate and execute tests from your configuration
+- ✅ Executed `nac-test` to generate and execute tests from your configuration
 - ✅ Reviewed the auto-generated Robot test cases
 - ✅ Understood how to interpret test results and reports
 
