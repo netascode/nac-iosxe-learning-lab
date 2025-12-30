@@ -121,6 +121,10 @@ test-idempotency:
   ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
 </figure>
 
+!!! info
+    You can refer to [Appendix I](Appendix-I.md) for the complete `.gitlab-ci.yml` file with all changes included.
+
+
 ## Step 5: Add ACL Configuration
 
 Just as we did in [Task 11 - Post-checks](Task11_Post-checks.md), we will add the ACL configuration to test the pipeline.
@@ -158,7 +162,7 @@ You should now see **5 stages** in the pipeline:
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }
 </figure>
 
-## Step 7: Review Test Results
+## Step 8: Review Test Results
 
 - After the pipeline completes, click on the `test-integration` job to view the test results.
 - Review the logs to see the output of `nac-test`. You should see that all tests have passed successfully: `2 tests, 2 passed, 0 failed, 0 skipped.`
@@ -176,17 +180,10 @@ You should now see **5 stages** in the pipeline:
 - Go back to the job page and find the **Job artifacts** section on the right sidebar. Click on **Download** to download the test report and log HTML files.
 - Open and inspect the `report.html` and `log.html` files in your web browser. The report will show the same tests as in [Task 11 - Post-checks](Task11_Post-checks.md), confirming the configurations were applied correctly.
 
-  <figure markdown>
-    ![Test Summary](./assets/gitlab-test-log.png){ width="100%" }
-  </figure>
+<figure markdown>
+  ![Test Summary](./assets/gitlab-test-log.png){ width="100%" }
+</figure>
 
-## Summary of Changes
-
-Here's a complete summary of what you added to `.gitlab-ci.yml`:
-
-- **Add `test` stage** in the `stages:` section - New stage between deploy and notify
-- **Add `test-integration` job** after `deploy:` - Runs nac-test for configuration validation
-- **Add `test-idempotency` job** after `test-integration:` - Verifies no configuration drift
 
 ## What You've Accomplished
 

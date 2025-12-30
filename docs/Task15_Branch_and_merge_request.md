@@ -4,7 +4,7 @@ Task 15: Git Branches and Merge Requests
 
 In Tasks 13 and 14, you learned to trigger CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
 
-!!! warning "Best Practice Alert"
+!!! warning "Best Practice"
     Committing directly to the main branch - as we did in earlier tasks - is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
 ### DevOps for Network Operations

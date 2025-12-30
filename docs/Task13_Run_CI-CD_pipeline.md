@@ -331,6 +331,14 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
   ![New Banner](./assets/solarputty-gitlab-banner.png){ width="80%" }
 </figure>
 
+
+## Validation Test (Optional)
+
+You may test the validation stage by introducing an error in the configuration, just like we did in [Task 10 - Schema validation](Task10_Schema_validation.md).
+
+If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
+
+
 ## What You've Accomplished
 
 - ✅ Accessed GitLab and navigated to the NAC-IOSXE project
