@@ -3,7 +3,7 @@ After deploying configuration changes, how do you verify they were applied corre
 In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
 
 !!! warning "Time Check"
-    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 11: Cleanup** followed by **Task 12: Run CI/CD Pipeline**.
+    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 12: Cleanup** followed by **Task 13: Run CI/CD Pipeline**.
 
 ## Understanding Post-Change Validation
 

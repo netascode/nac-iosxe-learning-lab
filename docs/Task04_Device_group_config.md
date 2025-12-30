@@ -112,7 +112,7 @@ Let's break down the key elements:
     Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
 
 
-### How Device Groups Work
+## How Device Groups Work
 
 When Terraform processes this configuration:
 

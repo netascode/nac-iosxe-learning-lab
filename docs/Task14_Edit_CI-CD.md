@@ -1,4 +1,4 @@
-In Task13, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied.
+In Task13, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied, similarly to how you ran `nac-test` manually in [Task 11 - Post-checks](Task11_Post-checks.md).
 
 ## Understanding the Test Stage
 
@@ -16,7 +16,7 @@ You'll add two test jobs:
 ## Step 1: Open the Web IDE
 
 !!! tip "Already Open?"
-    You probably still have the Web IDE open in another Google Chrome tab from Task 12. If so, simply switch to that tab and skip to the next step.
+    You probably still have the Web IDE open in another Google Chrome tab from Task 13. If so, simply switch to that tab and skip to the next step.
 
 If you need to reopen it, navigate to the **netascode/nac-iosxe-terraform** project in GitLab:
 
@@ -44,9 +44,9 @@ stages:
   - notify
 ```
 
-**Change it to:**
+**Add `test` so it looks like this:**
 
-```yaml
+```yaml hl_lines="5"
 stages:
   - validate
   - plan
@@ -125,7 +125,7 @@ test-idempotency:
 
 After making all the changes:
 
-1. Click on **Source Control** icon in the left sidebar (as you did in Task 12)
+1. Click on **Source Control** icon in the left sidebar (as you did in Task 13)
 2. You'll see the modified `.gitlab-ci.yml` file listed
 3. Enter a commit message: `Add test stage to CI/CD pipeline`
 4. Click **Commit and push to 'main'**
