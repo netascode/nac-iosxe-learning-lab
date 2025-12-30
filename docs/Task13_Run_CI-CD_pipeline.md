@@ -147,7 +147,24 @@ success:
     The **notify** job typically use a Python script to send messages to a Webex room. In this lab, this functionality is intentionally omitted, the notify stage is only included as a placeholder for demonstration purposes. If you're interested in implementing notifications, reach out to your instructors for guidance.
 
 
-**State File Management**
+## View Existing Pipelines
+
+To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
+
+<!-- SCREENSHOT: Left sidebar with Build > Pipelines highlighted -->
+<figure markdown>
+  ![Pipelines Menu](./assets/gitlab-pipelines-menu.png){ width="100%" }
+</figure>
+
+You'll see a list of past pipeline runs with their status (passed, failed, running).
+
+<!-- SCREENSHOT: Pipeline list showing multiple runs with status -->
+<figure markdown>
+  ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
+</figure>
+
+
+## State File Management
 
 The pipeline uses GitLab's http backend to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
 This is configured in the `main.tf` file with the following backend block:
@@ -166,21 +183,6 @@ terraform {
 For more details on how this is set up, refer to the [GitLab Docs](https://docs.gitlab.com/user/infrastructure/iac/terraform_state/#initialize-an-opentofu-state-as-a-backend-by-using-gitlab-cicd).
 
 
-## View Existing Pipelines
-
-To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
-
-<!-- SCREENSHOT: Left sidebar with Build > Pipelines highlighted -->
-<figure markdown>
-  ![Pipelines Menu](./assets/gitlab-pipelines-menu.png){ width="100%" }
-</figure>
-
-You'll see a list of past pipeline runs with their status (passed, failed, running).
-
-<!-- SCREENSHOT: Pipeline list showing multiple runs with status -->
-<figure markdown>
-  ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
-</figure>
 
 
 ## Step 3: Make a Change
@@ -262,7 +264,7 @@ iosxe:
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
 </figure>
 
-### Step 4: Commit Change to Trigger Pipeline
+## Step 4: Commit Change to Trigger Pipeline
 
 1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
 
@@ -323,7 +325,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 3. Check the banner and hostname
 
 <figure markdown>
-  ![New Banner](./assets/solarputty-gitlab-banner.png){ width="100%" }
+  ![New Banner](./assets/solarputty-gitlab-banner.png){ width="80%" }
 </figure>
 
 ## What You've Accomplished
