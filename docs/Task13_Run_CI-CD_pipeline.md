@@ -2,11 +2,14 @@
     Complete [Task12 - Cleanup](./Task12_Cleanup.md) before starting this task to ensure a clean environment. You need to run `terraform destroy` to remove previous configurations from the lab devices.
 
 
-In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line. While this works for learning and testing, production environments require automation. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
+In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
+While this works for learning and testing, production environments require automation. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
 ## Understanding CI/CD for Network-as-Code
 
-CI/CD (Continuous Integration / Continuous Deployment) automates the process of validating and deploying your network configurations. When you push changes to GitLab, a pipeline automatically:
+CI/CD (Continuous Integration / Continuous Deployment) automates the process of validating and deploying your network configurations.
+In this lab, there is a pre-configured GitLab repository with a CI/CD pipeline already set up for you.
+When you push changes to GitLab, a pipeline automatically:
 
 1. **Validates** your YAML configurations with `nac-validate`
 2. **Plans** the changes with `terraform plan`
@@ -127,13 +130,13 @@ success:
 ```
 
 !!! info "Abbreviated View"
-    The YAML above shows the key structure of `.gitlab-ci.yml`. The actual file (~130 lines) includes additional configuration for variables, artifacts, caching, and branch rules. You can view the complete file in the GitLab repository.
+    The YAML above shows the key structure of `.gitlab-ci.yml`. The actual file (~140 lines) includes additional configuration for variables, artifacts, caching, and branch rules. You can view the complete file in the GitLab repository.
 
 **Key concepts:**
 
 - **image** - Uses a pre-built Docker container with Terraform, nac-validate, and other tools
 - **stages** - Define the order of execution (validate → plan → deploy → notify)
-- **variables** - Pipeline variables for credentials (IOS XE, GitLab, Webex) - entered at runtime
+- **variables** - Pipeline variables for credentials (IOS XE, GitLab) - entered at runtime
 - **cache** - Preserves Terraform modules and state between pipeline runs
 - **validate** - Runs `terraform fmt` check and `nac-validate` schema validation
 - **plan** - Creates the Terraform execution plan and generates reports
@@ -160,9 +163,12 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
   ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
 </figure>
 
+
 ## Step 5: Make a Change to Trigger the Pipeline
 
-The best way to see the CI/CD pipeline in action is to make a configuration change. You'll update the login banner using GitLab's built-in **Web IDE** - an editor similar to VS Code that runs directly in your browser.
+The best way to see the CI/CD pipeline in action is to make a configuration change.
+You'll add the global configuration (from [Task 03 - Global configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
+To edit the configuration files, we'll use GitLab's built-in **Web IDE** - an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
 
