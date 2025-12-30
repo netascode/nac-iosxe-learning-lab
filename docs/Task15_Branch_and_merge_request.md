@@ -291,7 +291,7 @@ After the pipeline completes successfully, you can verify the changes on the net
     2. Fix the issues in your feature branch
     3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
 
-If you need help, feel free to ask your instructor!
+If you need help, feel free to ask your instructors!
 
 
 ---
@@ -300,7 +300,6 @@ If you need help, feel free to ask your instructor!
 
 In this task, you have:
 
-- ✅ Understood why **direct commits to main** (as done in Tasks 13-14) are not a best practice
 - ✅ Configured the main branch as **protected** to enforce change control
 - ✅ Created a **feature branch** for your configuration changes
 - ✅ Modified configuration safely in your branch
