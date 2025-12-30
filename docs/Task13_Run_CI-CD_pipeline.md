@@ -268,9 +268,9 @@ iosxe:
 
 1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
 
-<figure markdown>
-  ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
-</figure>
+  <figure markdown>
+    ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
+  </figure>
 
 2. You'll see your modified file listed
 3. Enter a commit message: `Add global config for banner and hostname`

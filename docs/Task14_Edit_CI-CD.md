@@ -163,24 +163,22 @@ You should now see **5 stages** in the pipeline:
 1. After the pipeline completes, click on the `test-integration` job to view the test results.
 2. Review the logs to see the output of `nac-test`. You should see that all tests have passed successfully: `2 tests, 2 passed, 0 failed, 0 skipped.`
 
-<figure markdown>
-  ![Test Results](./assets/gitlab-test-job-output.png){ width="100%" }
-</figure>
+  <figure markdown>
+    ![Test Results](./assets/gitlab-test-job-output.png){ width="100%" }
+  </figure>
 
-1. Click on **Test Summary** on the right sidebar.
+3. Click on **Test Summary** on the right sidebar. This is where GitLab displays the test results from the JUnit report.
 
-<figure markdown>
-  ![Test Summary](./assets/gitlab-test-summary.png){ width="100%" }
-</figure>
+  <figure markdown>
+    ![Test Summary](./assets/gitlab-test-summary.png){ width="100%" }
+  </figure>
 
 4. Go back to the job page and find the **Job artifacts** section on the right sidebar. Click on **Download** to download the test report and log HTML files.
-
-<figure markdown>
-  ![Test Summary](./assets/gitlab-test-log.png){ width="100%" }
-</figure>
-
 5. Open and inspect the `report.html` and `log.html` files in your web browser. The report will show the same tests as in [Task 11 - Post-checks](Task11_Post-checks.md), confirming the configurations were applied correctly.
 
+  <figure markdown>
+    ![Test Summary](./assets/gitlab-test-log.png){ width="100%" }
+  </figure>
 
 ## Summary of Changes
 
