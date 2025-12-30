@@ -288,7 +288,10 @@ iosxe:
 
 ## Step 5: Monitor Pipeline Execution
 
-To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the pipeline showing **running** status.
+To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the top pipeline showing **running** status.
+
+!!! tip
+    You need to click on the pipeline status icon or the pipeline ID.
 
 <!-- SCREENSHOT: Pipeline detail view showing stages -->
 <figure markdown>
