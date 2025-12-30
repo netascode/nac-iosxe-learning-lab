@@ -233,7 +233,7 @@ You can now proceed to merge the changes into `main`.
     Your changes have been merged into the main branch! This triggers the deployment pipeline.
 
 
-## Step 10: Observe the Second Pipeline (Deploy + Test + Notify)
+## Step 10: Observe the Deployment Pipeline
 
 Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
 
@@ -249,6 +249,7 @@ Merging to main triggers a new pipeline - this time including the deployment and
 </figure>
 
 The main branch pipeline runs ALL stages:
+
 - **validate**
 - **plan**
 - **deploy**
@@ -260,23 +261,35 @@ After the pipeline completes successfully, you can verify the changes on the net
 
 ## Troubleshooting - Common Issues
 
-!!! error "You cannot push to this branch"
+??? failure "You cannot push to this branch"
     This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
 
-!!! error "Pipeline failures"
-    This can happen for various reasons. Common steps to resolve:
+??? failure "Validation failed"
+    Check the job logs for `nac-validate` to see what schema or syntax errors occurred. Fix them in your feature branch and push again.
 
-    1. Check the job logs for specific errors
-    2. Fix the issues in your feature branch
-    3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
+    For more details, refer to [Task 10 - Schema Validation](Task10_Schema_validation.md).
 
-!!! error "Merge conflicts"
+??? failure "Merge conflicts"
     If there are merge conflicts, GitLab will notify you on the MR page. To resolve:
 
     1. Fetch the latest main branch into your feature branch
     2. Resolve conflicts locally or in the Web IDE
     3. Commit and push the resolved changes to your feature branch
     4. The MR will update automatically
+
+??? failure "Terraform plan or apply failed"
+    Check the job logs for `terraform plan` or `terraform apply` to see what went wrong. Common issues include:
+
+    - Connectivity issues to devices
+    - Authentication failures
+    - Configuration errors
+
+??? failure "Pipeline failures"
+    This can happen for various reasons. Common steps to resolve:
+
+    1. Check the job logs for specific errors
+    2. Fix the issues in your feature branch
+    3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
 
 If you need help, feel free to ask your instructor!
 
