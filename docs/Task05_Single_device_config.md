@@ -23,7 +23,7 @@ You'll configure the core switch to resolve these hostnames in its management VR
 - `ntp-server` → `198.18.129.11`
 - `syslog-server` → `198.18.129.12`
 
-## Create Device-Specific Configuration Files
+## Step 1: Create Device-Specific Configuration Files
 
 First, create placeholder files for each device using your **WSL Ubuntu terminal**. This establishes a consistent structure for device-specific configurations:
 
@@ -63,7 +63,7 @@ The image below illustrates the device-specific configuration in VS Code:
   ![VS Code Core Configuration](./assets/vscode-core-config.png){ width="100%" }
 </figure>
 
-## Configuration Breakdown
+### Configuration Breakdown
 
 Let's break down the key elements:
 
@@ -88,7 +88,7 @@ Let's break down the key elements:
 !!! note
     This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
 
-## Understanding File Organization
+### Understanding File Organization
 
 At this point, your `data/` folder contains multiple YAML files, each serving a different purpose:
 
@@ -112,7 +112,7 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
     This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment.
 
 
-## Apply Device-Specific Configuration
+## Step 2: Apply Device-Specific Configuration
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -145,11 +145,11 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
   ![Terraform Apply core](./assets/terraform-apply-core.png){ width="100%" }
 </figure>
 
-## Verify Device-Specific Configuration
+## Step 3: Verify Device-Specific Configuration
 
 After successfully running `terraform apply`, verify that the IP host entries were deployed only to the core switch.
 
-**Step 1: Verify on core Switch (should have the configuration)**
+**Verify on core Switch (should have the configuration)**
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to the **core** switch (`198.18.130.10`)
@@ -215,7 +215,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
 You should see both IP host entries configured on the **core** switch.
 
 
-**Step 2: Verify on Other Devices (should NOT have the configuration)**
+**Verify on Other Devices (should NOT have the configuration)**
 
 Connect to the **border** switch (`198.18.130.20`) and run the same command:
 

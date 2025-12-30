@@ -20,7 +20,7 @@ Device groups are particularly effective for:
 
 In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) - a typical requirement for access layer devices controlling traffic from known networks.
 
-## Create the Device Group Configuration File
+## Step 1: Create the Device Group Configuration File
 
 First, create the file using your **WSL Ubuntu terminal**:
 
@@ -59,7 +59,7 @@ The image below illustrates the ACL configuration in VS Code:
   ![VS Code ACL Configuration](./assets/vscode-acl.png){ width="100%" }
 </figure>
 
-## Configuration Breakdown
+### Configuration Breakdown
 
 Let's break down the key elements:
 
@@ -112,7 +112,7 @@ Let's break down the key elements:
     Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
 
 
-## How Device Groups Work
+### How Device Groups Work
 
 When Terraform processes this configuration:
 
@@ -128,7 +128,7 @@ This hierarchical approach ensures:
 - Flexibility (individual devices can still override group settings if needed)
 
 
-## Apply Access-list Configuration
+## Step 2: Apply Access-list Configuration
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the ACL configuration to the device group:
 
@@ -154,7 +154,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
 </figure>
 
-## Verify Device Group Configuration
+## Step 3: Verify Device Group Configuration
 
 After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the **ACCESS_SWITCHES** group.
 
