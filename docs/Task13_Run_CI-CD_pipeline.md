@@ -189,14 +189,23 @@ The Web IDE opens with a familiar VS Code-like interface:
 
 ### Lab configuration files
 
-Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files that we've used before in this lab in Task 2-6. However, we replaced the file extensions from `.yaml` to `.yaml_` (with an underscore at the end). We did this to intentionally ignore all of these files for now.
+Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files that we've used before in this lab in Task 2-6. However, we replaced some of the file extensions from `.yaml` to `.yaml_` (with an underscore at the end). We did this intentionally to ignore these files for now.
 
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored by Network-as-Code.
 
 To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
 
-For this task, let's update the banner configuration - similar to what we did earlier in the guide, but now the banner is in its own dedicated file.
+The only files that are currently not ignored are:
+- `devices.nac.yaml` - Device inventory file (Same as in Task 02)
+- `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
+
+!!! note "Variables file"
+    If you skipped Task 06, you can ignore the `devices-variables.nac.yaml` file for now.
+
+    If you completed Task 06, you can inspect the file to see how the `HOSTNAME` variables are defined. You'll see that the file contains the same `HOSTNAME` variables you created in Task 06 for each device. The only difference is that this time, all variables are defined in a single file instead of separate files per device.
+
+For this task, you'll update the global configuration - similar to what we did in Task 03 and Task 06.
 
 
 ### Edit the Banner Configuration
@@ -204,26 +213,30 @@ For this task, let's update the banner configuration - similar to what we did ea
 1. In the file explorer (left panel), navigate to the **data** folder
 2. Find the file `config-global.nac.yaml_` (note the underscore at the end)
 3. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
-4. Click on the file to open it and verify the banner content:
+4. Click on the file to open it and inspect the banner content:
 
-```yaml
-iosxe:
-  global:
-    configuration:
-      banner:
-        login: "Welcome to Network-as-Code Lab"
-```
-
-5. Optionally, change the banner text to something new, for example:
-
-```yaml hl_lines="6"
+```yaml hl_lines="10"
 ---
 iosxe:
   global:
     configuration:
       banner:
-        login: "Welcome to Network-as-Code Lab - Deployed via CI/CD Pipeline"
+        login: |
+          ######################################
+          #                                    #
+          #   Welcome to Network-as-Code Lab!  #
+          #           GitLab - CI/CD           #
+          #                                    #
+          ######################################
+          Device: ${HOSTNAME}
+      system:
+        hostname: ${HOSTNAME}
+
 ```
+
+5. Note that the banner text is modified to indicate that we're using GitLab CI/CD for deployment.
+6. Optionally, you can also change the banner text to something new, if you'd like.
+
 
 <!-- SCREENSHOT: Editing config-global.nac.yaml in Web IDE -->
 <figure markdown>
@@ -239,7 +252,7 @@ iosxe:
 </figure>
 
 2. You'll see your modified file listed
-3. Enter a commit message: `Update banner via CI/CD`
+3. Enter a commit message: `Add global config for banner and hostname`
 4. Click **Commit and push to 'main'**
 
 <!-- SCREENSHOT: Commit dialog in Web IDE -->
@@ -264,8 +277,9 @@ To view the pipeline progress, navigate to **Build** → **Pipelines** in the le
 You'll see each stage progressing:
 
 1. **validate** - Green checkmark when YAML validation passes
-2. **plan** - Shows planned changes
-3. **apply** - Waiting for manual approval (if configured)
+2. **plan** - Generates the Terraform plan
+3. **deploy** - Applies the configuration to devices
+4. **notify** - Sends success or failure notifications (not used in this lab)
 
 Click on any stage to view its detailed logs.
 
@@ -283,7 +297,14 @@ When all stages complete successfully, the pipeline shows a green **passed** sta
   ![Pipeline Passed](./assets/gitlab-pipeline-passed.png){ width="100%" }
 </figure>
 
-You can verify the configuration was applied by SSH-ing to a device and checking the running configuration.
+You can verify the configuration was applied to the devices using **Solar-PuTTY**:
+1. Open **Solar-PuTTY** from your desktop
+2. Connect to one of the devices (e.g., `core` switch)
+3. Check the banner and hostname
+
+<figure markdown>
+  ![New Banner](./assets/solarputty-gitlab-banner.png){ width="100%" }
+</figure>
 
 ## What You've Accomplished
 
