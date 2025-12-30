@@ -26,7 +26,7 @@ In this exercise, you will:
 7. Observe the second pipeline (validate + plan + deploy + test + notify)
 
 <figure markdown>
-  ![Branch and Merge Request Workflow](./assets/mr-workflow.png){ width="100%" }
+  ![Branch and Merge Request Workflow](./assets/mr-workflow.png){ width="70%" }
 </figure>
 
 !!! note "Merge Request (MR) vs. Pull Request (PR)"
@@ -44,20 +44,16 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 
 - **Direct commits are blocked**: No one can push changes directly to main
 - **Force push is not allowed**: History cannot be rewritten
-- **Merge requests are required**: All changes must go through the review process
-- **Approval required**: Changes need explicit approval before merging
+- **Merge requests are required**: All changes must go through the review/approval process
 
 
 ### Configure Main Branch Protection
 
 **Access GitLab**
 
-Open **Chrome** on the Windows 10 VM and navigate to GitLab: `https://198.18.133.101`
-
-Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
-
-Navigate to the **netascode/nac-iosxe-terraform** project.
-
+1. Open **Chrome** on the Windows 10 VM and navigate to GitLab: https://198.18.133.101
+2. Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
+3. Navigate to the **netascode/nac-iosxe-terraform** project.
 
 **Open Branch Protection Settings**
 
@@ -192,7 +188,7 @@ The pipeline uses the config from your feature branch (`feature/core`) and runs 
 | **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance (See Task 10) |
 | **plan**     | `terraform plan`                | Show what changes will be made to the network         |
 
-!!! warning "No Deploy Stage!"
+!!! note "No Deploy Stage!"
     Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional - you want to see what will change without actually changing anything yet.
 
 The **plan** stage also adds the terraform plan output as a comment to the merge request for easy review. Once the pipeline completes, you can expand the **Terraform plan** section in the comment under **Activity**.
@@ -221,13 +217,15 @@ In this lab, the approval step is not required to merge. In production environme
 !!! warning "Verify Pipeline Passed"
     Before merging, ensure that the pipeline completed successfully, all stages passed, and the plan looks good.
 
+You can now proceed to merge the changes into `main`.
+
 1. On the merge request page, review the changes and the merge options
 2. You may see options like:
-   - **Merge immediately** - Merge right away
-   - **Set to auto-merge** - Merge automatically when all merge checks pass
-   - **Delete source branch** - Remove the feature branch after merging
-   - **Squash commits** - Combine all commits into one before merging
-   - **Edit commit message** - Change the commit message for the merge commit
+    - **Merge immediately** - Merge right away
+    - **Set to auto-merge** - Merge automatically when all merge checks pass
+    - **Delete source branch** - Remove the feature branch after merging
+    - **Squash commits** - Combine all commits into one before merging
+    - **Edit commit message** - Change the commit message for the merge commit
 3. Leave the **Delete source branch** option checked - to keep the repository clean
 4. Click **Merge**
 
