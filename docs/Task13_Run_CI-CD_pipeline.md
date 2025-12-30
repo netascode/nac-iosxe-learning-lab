@@ -57,7 +57,7 @@ The project page shows your repository files, including:
   ![Project Files](./assets/gitlab-project-files.png){ width="100%" }
 </figure>
 
-## Step 3: Understanding the Pipeline Configuration
+## Understanding the Pipeline Configuration
 
 Before running the pipeline, let's understand how it's configured. Click on `.gitlab-ci.yml` to view the pipeline definition:
 
@@ -147,7 +147,26 @@ success:
     The **notify** job typically use a Python script to send messages to a Webex room. In this lab, this functionality is intentionally omitted, the notify stage is only included as a placeholder for demonstration purposes. If you're interested in implementing notifications, reach out to your instructors for guidance.
 
 
-## Step 4: View Existing Pipelines
+**State File Management**
+
+The pipeline uses GitLab's http backend to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
+This is configured in the `main.tf` file with the following backend block:
+
+```text
+terraform {
+  backend "http" {
+    skip_cert_verification = true
+  }
+}
+```
+
+!!! note "Certificate Verification"
+    The `skip_cert_verification = true` setting is used here because the lab environment uses self-signed certificates. In production, you should use valid certificates.
+
+For more details on how this is set up, refer to the [GitLab Docs](https://docs.gitlab.com/user/infrastructure/iac/terraform_state/#initialize-an-opentofu-state-as-a-backend-by-using-gitlab-cicd).
+
+
+## View Existing Pipelines
 
 To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
 
@@ -164,7 +183,7 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
 </figure>
 
 
-## Step 5: Make a Change to Trigger the Pipeline
+## Step 3: Make a Change
 
 The best way to see the CI/CD pipeline in action is to make a configuration change.
 You'll add the global configuration (from [Task 03 - Global configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
@@ -208,7 +227,7 @@ The only files that are currently not ignored are:
 For this task, you'll update the global configuration - similar to what we did in Task 03 and Task 06.
 
 
-### Edit the Banner Configuration
+### Add Global Configuration
 
 1. In the file explorer (left panel), navigate to the **data** folder
 2. Find the file `config-global.nac.yaml_` (note the underscore at the end)
@@ -243,7 +262,7 @@ iosxe:
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
 </figure>
 
-### Commit the Change
+### Step 4: Commit Change to Trigger Pipeline
 
 1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
 
@@ -265,7 +284,7 @@ iosxe:
 !!! info "Pipeline Auto-Trigger"
     When you commit to the `main` branch, GitLab automatically triggers the CI/CD pipeline. No manual action required!
 
-## Step 6: Monitor Pipeline Execution
+## Step 5: Monitor Pipeline Execution
 
 To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the pipeline showing **running** status.
 
@@ -288,7 +307,7 @@ Click on any stage to view its detailed logs.
   ![Job Logs](./assets/gitlab-job-logs.png){ width="100%" }
 </figure>
 
-## Step 7: Verify Pipeline Success
+## Step 6: Verify Pipeline Success
 
 When all stages complete successfully, the pipeline shows a green **passed** status.
 
@@ -298,6 +317,7 @@ When all stages complete successfully, the pipeline shows a green **passed** sta
 </figure>
 
 You can verify the configuration was applied to the devices using **Solar-PuTTY**:
+
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to one of the devices (e.g., `core` switch)
 3. Check the banner and hostname
