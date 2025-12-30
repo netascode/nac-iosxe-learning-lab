@@ -236,7 +236,7 @@ For this task, you'll update the global configuration - similar to what we did i
 3. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
 4. Click on the file to open it and inspect the banner content:
 
-```yaml hl_lines="10"
+```yaml title="config-global.nac.yaml" hl_lines="10"
 ---
 iosxe:
   global:
@@ -254,9 +254,10 @@ iosxe:
         hostname: ${HOSTNAME}
 
 ```
+!!! note
+    The banner text is modified to indicate that we're using GitLab CI/CD for deployment.
 
-5. Note that the banner text is modified to indicate that we're using GitLab CI/CD for deployment.
-6. Optionally, you can also change the banner text to something new, if you'd like.
+Optionally, you can also change the banner text to something new, if you'd like.
 
 
 <!-- SCREENSHOT: Editing config-global.nac.yaml in Web IDE -->
@@ -266,12 +267,11 @@ iosxe:
 
 ## Step 4: Commit Change to Trigger Pipeline
 
+<figure markdown>
+  ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
+</figure>
+
 1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
-
-  <figure markdown>
-    ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
-  </figure>
-
 2. You'll see your modified file listed
 3. Enter a commit message: `Add global config for banner and hostname`
 4. Click **Commit and push to 'main'**
