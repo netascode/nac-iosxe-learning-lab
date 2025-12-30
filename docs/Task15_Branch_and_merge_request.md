@@ -9,13 +9,13 @@ In Tasks 13 and 14, you triggered CI/CD pipelines by committing directly to the 
 In Network-as-Code the `main` represents the live production network configuration.
 In real-world scenarios, many engineers collaborate on the same codebase. To ensure stability, reliability, and accountability, changes must go through a structured review process before being applied to production.
 
-!!! warning "Best Practice"
+!!! note "Best Practice"
     Committing directly to the main branch - as we did in earlier tasks - is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
 
-## Lab Exercise: Complete Branch Workflow
+## Lab Exercise: Complete Branch and Merge Request Workflow
 
-In this exercise, you'll:
+In this exercise, you will:
 
 1. Protect the `main` branch to require merge requests
 2. Create a feature branch for your changes: `feature/core`
@@ -25,40 +25,9 @@ In this exercise, you'll:
 6. Approve and merge the request
 7. Observe the second pipeline (validate + plan + deploy + test + notify)
 
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                             BRANCH WORKFLOW                                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   - Engineer creates a feature branch from main (2)                         │
-│     main ─────●─────────────────────────────────────────────────────────    │
-│               │                                                             │
-│               └── feature/core                                              │
-│                                                                             │
-│   - Engineer makes changes and commits to feature branch (3)                │
-│     main ─────●─────────────────────────────────────────────────────────    │
-│               │                                                             │
-│               └──●──●──● feature/core                                       │
-│                                                                             │
-│   - Engineer creates Merge Request for team review (4)                      │
-│     main ─────●─────────────────────────────────────────────────────────    │
-│               │                                                             │
-│               └──●──●──● feature/core                                       │
-│                        │                                                    │
-│                        └─ Pipeline (5): validate + plan (no deploy!)        │
-│                                                                             │
-│   - Team lead reviews the changes and the Terraform plan                    │
-│                                                                             │
-│   - Team lead approves and merges to main (7)                               │
-│     main ─────●───────────────────●─────────────────────────────────────    │
-│               │                   │                                         │
-│               └──●──●──●──────────┘                                         │
-│                                   │                                         │
-│                                   └─ Pipeline (8): deploy + test + notify   │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+<figure markdown>
+  ![Branch and Merge Request Workflow](./assets/mr-workflow.png){ width="100%" }
+</figure>
 
 !!! note "Merge Request (MR) vs. Pull Request (PR)"
     Different version control platforms use different terminology. In GitLab, the term is **Merge Request (MR)**, while in GitHub, it's called a **Pull Request (PR)**. Both serve the same purpose: to propose changes from one branch to another and facilitate code review.
@@ -130,6 +99,7 @@ To confirm that the `main` branch is protected:
 
 <figure markdown>
   ![Verify Commit to Main is Blocked](./assets/gitlab-commit-to-protected-branch.png){ width="100%" }
+</figure>
 
 !!! warning "You can't push to the main branch"
     You should see an error message indicating that pushing to the protected branch is not allowed. This confirms that the `main` branch is successfully protected.
