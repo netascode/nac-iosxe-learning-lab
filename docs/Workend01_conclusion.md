@@ -32,8 +32,8 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 
 1. **Declarative over Imperative** - Define *what* you want, not *how* to get there
 2. **Version Control Everything** - Track all changes with Git for audit trails and rollbacks
-3. **Validate Before Deploy** - Catch errors early with `nac-validate` schema validation
-4. **Automate the Workflow** - CI/CD pipelines ensure consistency and reduce human error
+3. **Automate the Workflow** - CI/CD pipelines ensure consistency and reduce human error
+4. **Validate Before Deploy** - Catch errors early with `nac-validate` schema validation
 5. **Test After Deploy** - `nac-test` validates that configurations were applied correctly
 
 ## Continue Your Journey

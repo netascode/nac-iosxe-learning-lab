@@ -1,571 +1,333 @@
-Task 15: Git Branches and Merge Requests
+!!! warning "Prerequisite"
+    This is an advanced task that requires a basic understanding of **Git** and **GitLab** concepts such as branches and merge requests.
+
 
 ## Why This Task Matters
 
-In Tasks 13 and 14, you learned to trigger CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
+In Tasks 13 and 14, you triggered CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
+
+In Network-as-Code the `main` represents the live production network configuration.
+In real-world scenarios, many engineers collaborate on the same codebase. To ensure stability, reliability, and accountability, changes must go through a structured review process before being applied to production.
 
 !!! warning "Best Practice"
     Committing directly to the main branch - as we did in earlier tasks - is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
-### DevOps for Network Operations
 
-This chapter introduces **DevOps practices** that software developers have used for years, now applied to network operations:
+## Lab Exercise: Complete Branch Workflow
 
-| Traditional Network Ops | DevOps / NetDevOps Approach |
-|------------------------|----------------------------|
-| Make changes directly on devices | Define changes in code (YAML) |
-| No review process | Peer review via merge requests |
-| Manual change windows | Automated pipelines |
-| Limited audit trail | Complete Git history |
-| "It worked on my laptop" | Consistent, tested deployments |
-| Single engineer makes changes | Team collaboration with branches |
+In this exercise, you'll:
 
-By adopting these practices, network teams benefit from:
+1. Protect the `main` branch to require merge requests
+2. Create a feature branch for your changes: `feature/core`
+3. Add the **core** switch configuration with host IP host entries, and commit the changes to the `feature/core` branch
+4. Create a merge request
+5. Observe the first pipeline (validate + plan)
+6. Approve and merge the request
+7. Observe the second pipeline (validate + plan + deploy + test + notify)
 
-- **Reduced errors**: Changes are reviewed before deployment
-- **Better collaboration**: Multiple engineers work on separate branches
-- **Audit compliance**: Every change is tracked and approved
-- **Faster rollbacks**: Easy to revert problematic changes
-- **Consistent process**: Same workflow for every change, every time
-
-This is why we're including this chapter - to show you the **real-world best practice** for managing network configurations with CI/CD.
-
----
-
-## Understanding Git Branches
-
-### What is a Branch?
-
-A **branch** in Git is like a parallel universe for your code. When you create a branch, you create an independent copy of the codebase where you can make changes without affecting the original (main) version. Think of it like this:
-
-- **Main branch**: The "production" version of your configurations - what's currently deployed on the network
-- **Feature branch**: Your personal workspace where you develop and test changes before proposing them for deployment
-
-**Why use branches?**
-
-| Without Branches | With Branches |
-|-----------------|---------------|
-| Changes go directly to production | Changes are isolated until reviewed |
-| Mistakes immediately affect the network | Mistakes are caught before deployment |
-| No review process | Team members can review and approve |
-| No audit trail of who approved what | Complete history of reviews and approvals |
-| Difficult to collaborate | Multiple engineers can work in parallel |
-
-### The Branch Workflow
-
-In a typical Network-as-Code workflow:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                             BRANCH WORKFLOW                             │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  1. Engineer creates a feature branch from main                         │
-│     main ─────●─────────────────────────────────────────────────────    │
-│               │                                                         │
-│               └──● feature/update-banner                                │
-│                                                                         │
-│  2. Engineer makes changes and commits to feature branch                │
-│     main ─────●─────────────────────────────────────────────────────    │
-│               │                                                         │
-│               └──●──●──● feature/update-banner                          │
-│                     │                                                   │
-│                     └─ Pipeline: validate + plan (no deploy!)           │
-│                                                                         │
-│  3. Engineer creates Merge Request for team review                      │
-│     Team lead reviews the changes and the Terraform plan                │
-│                                                                         │
-│  4. Team lead approves and merges to main                               │
-│     main ─────●───────────────────●─────────────────────────────────    │
-│               │                   │                                     │
-│               └──●──●──●──────────┘                                     │
-│                                   │                                     │
-│                                   └─ Pipeline: deploy + test + notify   │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                             BRANCH WORKFLOW                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   - Engineer creates a feature branch from main (2)                         │
+│     main ─────●─────────────────────────────────────────────────────────    │
+│               │                                                             │
+│               └── feature/core                                              │
+│                                                                             │
+│   - Engineer makes changes and commits to feature branch (3)                │
+│     main ─────●─────────────────────────────────────────────────────────    │
+│               │                                                             │
+│               └──●──●──● feature/core                                       │
+│                                                                             │
+│   - Engineer creates Merge Request for team review (4)                      │
+│     main ─────●─────────────────────────────────────────────────────────    │
+│               │                                                             │
+│               └──●──●──● feature/core                                       │
+│                        │                                                    │
+│                        └─ Pipeline (5): validate + plan (no deploy!)        │
+│                                                                             │
+│   - Team lead reviews the changes and the Terraform plan                    │
+│                                                                             │
+│   - Team lead approves and merges to main (7)                               │
+│     main ─────●───────────────────●─────────────────────────────────────    │
+│               │                   │                                         │
+│               └──●──●──●──────────┘                                         │
+│                                   │                                         │
+│                                   └─ Pipeline (8): deploy + test + notify   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Two Pipelines, Two Purposes
+!!! note "Merge Request (MR) vs. Pull Request (PR)"
+    Different version control platforms use different terminology. In GitLab, the term is **Merge Request (MR)**, while in GitHub, it's called a **Pull Request (PR)**. Both serve the same purpose: to propose changes from one branch to another and facilitate code review.
 
-When using branches with GitLab CI/CD, different pipelines run depending on where changes are committed:
 
-| Pipeline Trigger | Stages Executed | Purpose |
-|-----------------|-----------------|---------|
-| **Merge Request** (feature branch) | validate → plan | Preview changes safely without deploying |
-| **Merge to Main** | validate → plan → deploy → test → notify | Actually deploy changes to the network |
+## Step 1: Protect the Main Branch
 
-This separation ensures that:
+First, we'll set up branch protection of the `main` branch. This means that we can no longer push changes directly to `main`; instead, all changes must go through a merge request (MR) process.
 
-- Engineers can see exactly what will change (Terraform plan) before approval
-- No changes are deployed until explicitly approved and merged
-- The network remains stable while changes are being developed
-
-## Understanding Protected Branches
 
 ### What is a Protected Branch?
 
 A **protected branch** is a branch with restrictions that prevent accidental or unauthorized changes. When you protect the `main` branch:
 
 - **Direct commits are blocked**: No one can push changes directly to main
-- **Force push is prevented**: History cannot be rewritten
-- **Merge requests required**: All changes must go through the review process
+- **Force push is not allowed**: History cannot be rewritten
+- **Merge requests are required**: All changes must go through the review process
 - **Approval required**: Changes need explicit approval before merging
 
-### Why Protect the Main Branch?
 
-In Network-as-Code, the main branch represents what's deployed on your production network. Protecting it ensures:
+### Configure Main Branch Protection
 
-1. **Change Control**: Every change is reviewed before deployment
-2. **Audit Trail**: Complete history of who proposed, reviewed, and approved each change
-3. **Quality Gate**: Pipelines must pass before changes can be merged
-4. **Rollback Capability**: Easy to identify and revert problematic changes
+**Access GitLab**
 
-## Lab Exercise: Complete Branch Workflow
-
-In this exercise, you'll:
-
-1. Protect the main branch to require merge requests
-2. Create a feature branch for your changes
-3. Modify the banner configuration
-4. Create a merge request and observe the first pipeline (validate + plan)
-5. Approve and merge the request
-6. Observe the second pipeline (deploy + test + notify)
-
-Let's begin!
-
-## Step 1: Access GitLab
-
-Open **Chrome** on the Windows 10 VM and navigate to GitLab:
-
-```
-https://198.18.133.101
-```
+Open **Chrome** on the Windows 10 VM and navigate to GitLab: `https://198.18.133.101`
 
 Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 
 Navigate to the **netascode/nac-iosxe-terraform** project.
 
-## Step 2: Protect the Main Branch
 
-First, you'll configure the main branch as protected to require merge requests for all changes.
-
-### Navigate to Branch Protection Settings
+**Open Branch Protection Settings**
 
 1. In your project, click on **Settings** in the left sidebar
 2. Select **Repository**
 3. Scroll down to find the **Protected branches** section
-4. Click **Expand** to see the settings
+4. Expand section to see the settings
 
-<!-- SCREENSHOT PLACEHOLDER: gitlab-settings-repository.png -->
+
+**Protect the Main Branch**
+
+1. In the **Protected branches** section, you should already see `main (default)` listed
+2. Configure the following settings:
+
+| Setting                       | Value        | Explanation                                 |
+|-------------------------------|--------------|---------------------------------------------|
+| **Allowed to merge**          | Maintainers  | Only maintainers can merge approved changes |
+| **Allowed to push and merge** | No one       | Prevents direct commits to main             |
+
+
+<!-- SCREENSHOT PLACEHOLDER: gitlab-protected-branch.png -->
 <figure markdown>
-  ![Repository Settings](./assets/gitlab-project-files.png){ width="100%" }
+  ![Repository Settings](./assets/gitlab-protected-branch.png){ width="100%" }
 </figure>
 
-### Configure Main Branch Protection
+!!! info "Default Branch Protection in GitLab"
+    By default, GitLab protects the `main` branch, but as you already saw, direct pushes are still allowed from maintainers. In this lab, the user `root` is a maintainer, so we need to explicitly block direct pushes to enforce the MR workflow.
 
-1. In the **Protected branches** section, you should see `main` listed (or you may need to add it)
-2. Click on `main` to edit its protection settings
-3. Configure the following settings:
-
-| Setting | Value | Explanation |
-|---------|-------|-------------|
-| **Allowed to merge** | Maintainers | Only maintainers can merge approved changes |
-| **Allowed to push and merge** | No one | Prevents direct commits to main |
-| **Require approval from code owners** | Optional | Can require specific approvers |
-
-4. Click **Protect** or **Save changes**
-
-!!! warning "Important Setting"
-    The key setting is **"Allowed to push and merge: No one"**. This prevents anyone from committing directly to main, forcing all changes to go through merge requests.
 
 ### Verify Branch Protection
 
-After saving, you should see the main branch listed as protected with a shield icon. The settings should show:
+To confirm that the `main` branch is protected:
 
-- Push: **No one** (direct pushes blocked)
-- Merge: **Maintainers** (only after approval)
+1. Open the **Web IDE** from the project page
+2. Add the **core** device configuration: rename `data/config-core.nac.yaml_` to `data/config-core.nac.yaml` (remove the trailing underscore)
+3. Click on the **Source Control** icon in the left sidebar
+4. Enter a commit message: `Add core config`
+5. Attempt to commit the change directly to `main`: click **Commit & Push**
 
-## Step 3: Create a Feature Branch
-
-Now that main is protected, you need to create a feature branch to make changes. You'll do this using the GitLab Web IDE.
-
-### Open the Web IDE
-
-1. From the project page, click the **Edit** dropdown button
-2. Select **Web IDE**
-
-<!-- SCREENSHOT: gitlab-open-webide.png -->
 <figure markdown>
-  ![Open Web IDE](./assets/gitlab-open-webide.png){ width="100%" }
+  ![Verify Commit to Main is Blocked](./assets/gitlab-commit-to-protected-branch.png){ width="100%" }
+
+!!! warning "You can't push to the main branch"
+    You should see an error message indicating that pushing to the protected branch is not allowed. This confirms that the `main` branch is successfully protected.
+
+
+## Step 2: Create a Feature Branch and Commit Changes
+
+In the previous step, the Web IDE already prompted you to create a new branch when you tried to commit to `main`.
+
+1. Press the **Create new branch** button
+2. Enter the branch name: `feature/core`
+3. Press Enter to create the branch
+
+<figure markdown>
+  ![Create Feature Branch](./assets/gitlab-feature-branch.png){ width="100%" }
 </figure>
 
-### Create a New Branch
+!!! success "Branch Created"
+    You have successfully created a new branch named `feature/core`. This branch is now your isolated workspace to make changes without affecting the main production branch.
 
-1. In the Web IDE, look at the bottom-left corner of the screen
-2. You'll see the current branch name (likely `main`)
-3. Click on the branch name to open the branch selector
-4. Click **Create new branch...**
-5. Enter a descriptive branch name: `feature/update-banner`
-6. Press **Enter** to create and switch to the new branch
 
 !!! tip "Branch Naming Conventions"
     Use descriptive branch names that indicate the purpose of the changes:
-    
-    - `feature/add-vlan-100` - Adding a new feature
-    - `fix/acl-typo` - Fixing a bug or error
-    - `update/banner-message` - Updating existing configuration
-    
+
+    | Example Branch Name      | Purpose                        |
+    |-------------------------|---------------------------------|
+    | `feature/add-vlan-100`  | Adding a new feature            |
+    | `fix/acl-typo`          | Fixing a bug or error           |
+    | `update/banner-message` | Updating existing configuration |
+
     This makes it easy to understand what each branch contains without looking at the code.
 
-You should now see `feature/update-banner` displayed in the bottom-left corner, indicating you're working on your new branch.
+You should now see `feature/core` displayed in the bottom-left corner, indicating you're working on your new branch. The commit `Add core config` is already pushed to it.
 
-## Step 4: Modify the Banner Configuration
+You can verify this by looking at the commit history in the GitLab UI:
 
-Now you'll make a change to the banner configuration file.
+1. Go to **Repository** → **Commits** in the left sidebar
+2. Select the `feature/core` branch from the dropdown
+3. You should see your recent commit listed
+4. Switch back to the `main` branch to confirm that the commit is not present there
 
-### Edit the Banner File
 
-1. In the Web IDE file explorer (left panel), navigate to the **data** folder
-2. Find and click on `config-global.nac.yaml` to open it
+## Step 3: Create Merge Request
 
-!!! note "File Extension"
-    If the file has a `.yaml_` extension (with underscore), you'll need to rename it to `.yaml` first. Right-click the file and select **Rename**.
+After committing to your feature branch, you need to create a merge request to propose merging your changes into main. Luckily, the GitLab Web IDE makes this very easy too: after pushing the commit, it shows a prompt to create a merge request.
 
-3. Modify the banner text to indicate this change came through a merge request:
+<figure markdown>
+  ![Create Merge Request Prompt](./assets/gitlab-create-mr-popup.png){ width="100%" }
+</figure>
 
-```yaml title="data/config-global.nac.yaml" hl_lines="10"
----
-iosxe:
-  global:
-    configuration:
-      banner:
-        login: |
-          #####################################
-          #                                   #
-          #   Network-as-Code Lab             #
-          #   Change deployed via MR workflow #
-          #                                   #
-          #####################################
-          Device: ${HOSTNAME}
-      system:
-        hostname: ${HOSTNAME}
-```
+Click the **Create merge request** button to proceed. It will take you to the merge request creation page.
 
-4. The file will show as modified (you'll see a dot or 'M' indicator next to the filename)
+<figure markdown>
+  ![Merge Request Creation Page](./assets/gitlab-create-mr.png){ width="100%" }
+</figure>
 
-## Step 5: Commit to the Feature Branch
+You can leave the default values as they are for now. The source branch should be `feature/core`, and the target branch is `main`.
 
-Now commit your changes to the feature branch.
+Click **Create merge request** at the bottom to finalize.
 
-### Stage and Commit
+??? info "Alternatively, Create Merge Request From the GitLab UI"
+    If you missed the prompt in the Web IDE, you can also create a merge request manually from the GitLab UI:
 
-1. Click on the **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
-2. You'll see `config-global.nac.yaml` listed as a modified file
-3. Enter a descriptive commit message:
+    1. Go to your project in GitLab
+    2. Go to **Code** → **Merge requests** in the left sidebar
+    3. Click **New merge request**
+    4. Select the source branch (`feature/core`) and target branch (`main`)
+    5. Click **Compare branches and continue**
 
-```
-Update banner to indicate MR workflow deployment
+The merge request is now created! You should see the merge request page with details about the changes.
 
-- Modified login banner text
-- Added deployment method indicator
-```
+<figure markdown>
+  ![Mergre Request](./assets/gitlab-mr-pipeline-running.png){ width="100%" }
+</figure>
 
-4. Click **Commit & Push**
 
-!!! info "Commit to Feature Branch"
-    Notice that the commit goes to `feature/update-banner`, NOT to `main`. Because main is protected, you couldn't commit there directly even if you tried!
+## Step 4: Observe the First Pipeline (Validate + Plan)
 
-## Step 6: Create a Merge Request
+When you create the merge request, GitLab automatically triggers the same pipeline that we used in the previous tasks. However, since this time we are in a merge request, the pipeline only runs the **validate** and **plan** stages - it does NOT deploy anything yet.
 
-After committing to your feature branch, you need to create a merge request to propose merging your changes into main.
+**View the Pipeline Details**
 
-### Create the Merge Request
-
-1. After pushing, GitLab may show a notification with a link to create a merge request
-2. Alternatively, go to **Code** → **Merge requests** in the left sidebar
-3. Click **New merge request**
-
-### Configure the Merge Request
-
-1. **Source branch**: Select `feature/update-banner`
-2. **Target branch**: Select `main`
-3. Click **Compare branches and continue**
-
-### Fill in Merge Request Details
-
-On the next screen, provide details about your change:
-
-| Field | Value |
-|-------|-------|
-| **Title** | Update banner to indicate MR workflow |
-| **Description** | This change updates the login banner to show that the configuration was deployed through the merge request workflow. |
-| **Assignee** | Assign to yourself (or leave blank) |
-| **Reviewer** | Assign to yourself for this lab exercise |
-
-4. Click **Create merge request**
-
-## Step 7: Observe the First Pipeline (Validate + Plan)
-
-When you create the merge request, GitLab automatically triggers a pipeline. This is the **preview pipeline** that runs on merge requests.
-
-### View the Pipeline
-
-1. On the merge request page, scroll down to see the **Pipeline** section
+1. On the merge request page, click on the pipeline ID (#157 in the image above)
 2. You'll see a pipeline running or completed
-3. Click on the pipeline ID or status to view details
 
-### What This Pipeline Does
+The pipeline uses the config from your feature branch (`feature/core`) and runs the following stages:
 
-The merge request pipeline runs these stages:
-
-| Stage | Job | Purpose |
-|-------|-----|---------|
-| **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance |
-| **plan** | `terraform plan` | Show what changes will be made to the network |
+| Stage        | Job                             | Purpose                                               |
+|--------------|---------------------------------|-------------------------------------------------------|
+| **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance (See Task 10) |
+| **plan**     | `terraform plan`                | Show what changes will be made to the network         |
 
 !!! warning "No Deploy Stage!"
     Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional - you want to see what will change without actually changing anything yet.
 
-### Review the Terraform Plan
+The **plan** stage also adds the terraform plan output as a comment to the merge request for easy review. Once the pipeline completes, you can expand the **Terraform plan** section in the comment under **Activity**.
 
-1. Click on the **plan** job to see its output
-2. Scroll through the logs to find the Terraform plan output
-3. You'll see exactly what configuration will be added, changed, or removed
+<figure markdown>
+  ![Merge Request Pipline Passed](./assets/gitlab-mr-pipeline-passed.png){ width="100%" }
+</figure>
 
-This is your opportunity to verify that the changes are correct before approving!
 
-**Example plan output:**
+## Step 5: Review and Approve the Merge Request
 
-```
-Terraform will perform the following actions:
-
-  # iosxe_banner.global_banner will be updated in-place
-  ~ resource "iosxe_banner" "global_banner" {
-      ~ login_banner = <<-EOT
-          - Welcome to Network-as-Code Lab
-          + #####################################
-          + #                                   #
-          + #   Network-as-Code Lab             #
-          + #   Change deployed via MR workflow #
-          + #                                   #
-          + #####################################
-        EOT
-    }
-
-Plan: 0 to add, 4 to change, 0 to destroy.
-```
-
-## Step 8: Review and Approve the Merge Request
+This is your opportunity to verify that the changes are correct before approving! In our case, we can see that the IP host entries will be added on the **core** switch.
 
 In a real environment, a team lead or senior engineer would review the merge request. For this lab, you'll approve it yourself.
 
-### Review the Changes
+**Approval Step**
 
-1. On the merge request page, click on the **Changes** tab
-2. Review the file differences (what was changed)
-3. The changes should show the old banner text being replaced with the new text
+In this lab, the approval step is not required to merge. In production environments, you would typically configure the project to require at least one approval from another team member.
 
-### Approve the Merge Request
+!!! tip
+    You can also set up the project to require successful pipeline completion, and potentially perform other checks before allowing the merge.
 
-1. Click on the **Overview** tab
-2. Look for the **Approve** button
-3. Click **Approve** to indicate the changes are acceptable
-
-!!! note "Self-Approval in Lab"
-    In production environments, you typically cannot approve your own merge requests. GitLab can be configured to require approval from someone other than the author. For this lab, self-approval is enabled for simplicity.
-
-### Verify Pipeline Passed
-
-Before merging, ensure the pipeline completed successfully:
-
-- All stages should show green checkmarks
-- No errors in the validate or plan stages
 
 ## Step 9: Merge to Main
 
-Now that the changes are approved and the pipeline passed, you can merge the feature branch into main.
+!!! warning "Verify Pipeline Passed"
+    Before merging, ensure that the pipeline completed successfully, all stages passed, and the plan looks good.
 
-### Perform the Merge
-
-1. On the merge request page, find the **Merge** button
+1. On the merge request page, review the changes and the merge options
 2. You may see options like:
-   - **Merge** - Standard merge
-   - **Merge when pipeline succeeds** - Wait for any running pipeline
+   - **Merge immediately** - Merge right away
+   - **Set to auto-merge** - Merge automatically when all merge checks pass
    - **Delete source branch** - Remove the feature branch after merging
-
-3. Check the **Delete source branch** option (keeps the repository clean)
+   - **Squash commits** - Combine all commits into one before merging
+   - **Edit commit message** - Change the commit message for the merge commit
+3. Leave the **Delete source branch** option checked - to keep the repository clean
 4. Click **Merge**
 
 !!! success "Congratulations!"
     Your changes have been merged into the main branch! This triggers the deployment pipeline.
 
+
 ## Step 10: Observe the Second Pipeline (Deploy + Test + Notify)
 
-Merging to main triggers a new pipeline - this time including the deployment stage.
+Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
 
-### View the Deployment Pipeline
+
+**View the Deployment Pipeline**
 
 1. Go to **Build** → **Pipelines** in the left sidebar
 2. You'll see a new pipeline that was triggered by the merge
 3. Click on it to view the stages
 
-### What This Pipeline Does
+<figure markdown>
+  ![Deployment Pipeline](./assets/gitlab-mr-pipelines.png){ width="100%" }
+</figure>
 
 The main branch pipeline runs ALL stages:
+- **validate**
+- **plan**
+- **deploy**
+- **test**
+- **notify**
 
-| Stage | Job | Purpose |
-|-------|-----|---------|
-| **validate** | `terraform fmt`, `nac-validate` | Verify configuration (again, for safety) |
-| **plan** | `terraform plan` | Generate execution plan |
-| **deploy** | `terraform apply` | **Actually deploy to network devices** |
-| **test** | `nac-test` (if configured) | Verify deployment with Robot Framework |
-| **notify** | Webex notification | Alert team of success/failure |
+After the pipeline completes successfully, you can verify the changes on the network devices.
 
-### Monitor the Deployment
 
-1. Watch each stage progress from pending → running → passed
-2. Click on the **deploy** job to see the Terraform apply output
-3. You should see the configuration being applied to all devices
+## Troubleshooting - Common Issues
 
-**Example deploy output:**
+!!! error "You cannot push to this branch"
+    This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
 
-```
-iosxe_banner.global_banner["core"]: Modifying...
-iosxe_banner.global_banner["border"]: Modifying...
-iosxe_banner.global_banner["access01"]: Modifying...
-iosxe_banner.global_banner["access02"]: Modifying...
+!!! error "Pipeline failures"
+    This can happen for various reasons. Common steps to resolve:
 
-Apply complete! Resources: 0 added, 4 changed, 0 destroyed.
-```
+    1. Check the job logs for specific errors
+    2. Fix the issues in your feature branch
+    3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
 
-## Step 11: Verify the Deployment
+!!! error "Merge conflicts"
+    If there are merge conflicts, GitLab will notify you on the MR page. To resolve:
 
-After the pipeline completes successfully, verify the changes on the network devices.
+    1. Fetch the latest main branch into your feature branch
+    2. Resolve conflicts locally or in the Web IDE
+    3. Commit and push the resolved changes to your feature branch
+    4. The MR will update automatically
 
-### SSH to a Device
+If you need help, feel free to ask your instructor!
 
-Use **Solar-PuTTY** to connect to any of the switches:
 
-1. Open **Solar-PuTTY** from the desktop
-2. Connect to the **core** switch (198.18.130.10)
-
-### Verify the Banner
-
-Run the following command:
-
-```bash
-show running-config | section banner
-```
-
-**Expected output:**
-
-```
-banner login ^C
-#####################################
-#                                   #
-#   Network-as-Code Lab             #
-#   Change deployed via MR workflow #
-#                                   #
-#####################################
-Device: core
-^C
-```
-
-The banner now shows that the change was deployed through the merge request workflow.
-
-## Understanding the Complete Workflow
-
-Let's summarize what happened:
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    COMPLETE MR WORKFLOW SUMMARY                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  1. PROTECT MAIN                                                        │
-│     └─ Prevents direct commits, requires merge requests                 │
-│                                                                         │
-│  2. CREATE FEATURE BRANCH                                               │
-│     └─ Isolated workspace for your changes                              │
-│                                                                         │
-│  3. MAKE CHANGES                                                        │
-│     └─ Edit configuration files safely                                  │
-│                                                                         │
-│  4. COMMIT TO FEATURE BRANCH                                            │
-│     └─ Save changes without affecting production                        │
-│                                                                         │
-│  5. CREATE MERGE REQUEST                                                │
-│     └─ Propose changes for review                                       │
-│     └─ PIPELINE #1: validate + plan (preview only)                      │
-│                                                                         │
-│  6. REVIEW & APPROVE                                                    │
-│     └─ Team reviews Terraform plan                                      │
-│     └─ Approver confirms changes are correct                            │
-│                                                                         │
-│  7. MERGE TO MAIN                                                       │
-│     └─ Changes integrated into production branch                        │
-│     └─ PIPELINE #2: validate + plan + deploy + test + notify            │
-│                                                                         │
-│  8. VERIFY DEPLOYMENT                                                   │
-│     └─ Confirm changes on network devices                               │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-## Real-World Scenarios
-
-This workflow is how organizations manage network changes in production:
-
-| Scenario | How the Workflow Helps |
-|----------|----------------------|
-| **Junior engineer makes a change** | Senior engineer reviews and approves before deployment |
-| **Typo in configuration** | Caught during review before reaching the network |
-| **Accidental deletion** | Protected branch prevents direct deletion of configs |
-| **Audit requirement** | Complete history of who changed what and who approved |
-| **Rollback needed** | Easy to revert a specific merge request |
-| **Multiple engineers working** | Each works on separate branches without conflicts |
-
-## Troubleshooting
-
-### "You cannot push to this branch"
-
-This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
-
-### Pipeline fails on merge request
-
-1. Check the job logs for specific errors
-2. Fix the issues in your feature branch
-3. Commit and push again - the MR pipeline will re-run automatically
-
-### Cannot approve own merge request
-
-GitLab may be configured to require approval from someone else. For this lab, ensure self-approval is enabled in project settings.
-
-### Merge button is disabled
-
-The merge button may be disabled if:
-- Pipeline hasn't passed yet (wait or check for errors)
-- Approval is required but not given
-- There are merge conflicts
+---
 
 ## What You've Accomplished
 
 In this task, you have:
 
 - ✅ Understood why **direct commits to main** (as done in Tasks 13-14) are not a best practice
-- ✅ Learned how **DevOps practices** from software development apply to network operations
-- ✅ Understood the concept of Git **branches** for isolated, safe development
 - ✅ Configured the main branch as **protected** to enforce change control
 - ✅ Created a **feature branch** for your configuration changes
-- ✅ Modified the banner configuration safely in your branch
+- ✅ Modified configuration safely in your branch
 - ✅ Created a **merge request** and observed the preview pipeline (validate + plan)
 - ✅ Experienced the **review and approval** process
-- ✅ Merged changes and observed the deployment pipeline (deploy + test + notify)
-- ✅ Verified the changes on network devices
-- ✅ Understood the **two-pipeline mechanism**: one for review, one for deployment
+- ✅ Merged changes and observed the deployment pipeline (validate + plan + deploy + test + notify)
 - ✅ Learned the complete **end-to-end workflow** used in production environments
 
-You've learned how network engineers apply DevOps best practices to manage network configurations safely. This branch-based workflow with merge requests, reviews, and automated pipelines is how modern organizations manage their network infrastructure!
 
 ---
 

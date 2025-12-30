@@ -42,7 +42,7 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
     touch .schema.yaml
     ```
 
-    Then use **VS Code** to copy-paste the schema content from [Appendix II](Appendix-II.md) into the file. This approach is cleaner and avoids typos:
+    Then use **VS Code** to copy-paste the schema content into the file.
 
     1. Open VS Code and navigate to your `nac-iosxe` folder
     2. Open the `.schema.yaml` file you just created

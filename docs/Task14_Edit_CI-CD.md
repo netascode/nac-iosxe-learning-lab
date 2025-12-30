@@ -192,9 +192,6 @@ You should now see **5 stages** in the pipeline:
 - ✅ Added idempotency verification
 - ✅ Verified the enhanced pipeline runs successfully
 
-## Reference
-
-For the complete `.gitlab-ci.yml` file with all changes, see **Appendix I**.
 
 ---
 
