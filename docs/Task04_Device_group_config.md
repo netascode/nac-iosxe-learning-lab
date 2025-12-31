@@ -1,6 +1,6 @@
 In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example - demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
 
-## Understanding Device Groups
+## Device Groups
 
 Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device.
 
@@ -93,12 +93,12 @@ Let's break down the key elements:
 
 **ACL Entry Details:**
 
-- `sequence 10`**: Permits traffic from the `10.0.0.0/24` network
+- `sequence 10`: Permits traffic from the `10.0.0.0/24` network
     * `action: permit` - Allows matching traffic
     * `prefix: 10.0.0.0` - The network address
     * `prefix_mask: 0.0.0.255` - Wildcard mask (matches `10.0.0.0` through `10.0.0.255`)
 
-- `sequence 20`**: Permits traffic from the `20.0.0.0/24` network
+- `sequence 20`: Permits traffic from the `20.0.0.0/24` network
     * `action: permit` - Allows matching traffic
     * `prefix: 20.0.0.0` - The network address
     * `prefix_mask: 0.0.0.255` - Wildcard mask (matches `20.0.0.0` through `20.0.0.255`)
@@ -113,7 +113,7 @@ When Terraform processes this configuration:
 
 1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
 2. The **ACCESS_SWITCHES** group ACL applies only to **access01** and **access02** switches
-3. If you later add device-specific configuration to the **access01** device, it would override group settings
+3. If you later add device-specific configuration to the **access01** device, it could override group settings (e.g., modifying the ACL or adding extra entries)
 
 This hierarchical approach ensures:
 
@@ -212,7 +212,6 @@ In this task, you have:
 - ✅ Learned about device groups and configuration hierarchy
 - ✅ Created an **ACCESS_SWITCHES** device group with **access01** and **access02** switches
 - ✅ Applied a standard ACL to multiple devices using a single definition
-- ✅ Understood the precedence: Global < Device Group < Device
 - ✅ Verified selective configuration deployment to group members only
 
 ---

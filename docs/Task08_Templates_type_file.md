@@ -2,7 +2,7 @@ In this task, you'll learn how to use **templates of type 'file'** to reference 
 
 For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
-## Understanding 'file' Templates
+## File Templates
 
 File templates reference external `.tftpl` files that use **Terraform templating syntax**. This is ideal for:
 

@@ -1,6 +1,6 @@
 In Task13, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied, similarly to how you ran `nac-test` manually in [Task 11 - Post-checks](Task11_Post-checks.md).
 
-## Understanding the Test Stage
+## Test Stage
 
 Adding automated testing to your CI/CD pipeline ensures that:
 

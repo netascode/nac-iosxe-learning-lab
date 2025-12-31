@@ -1,6 +1,6 @@
 In this task, you'll learn how to use **variables** in your Network-as-Code configurations. Variables allow you to define values once and reference them throughout your configuration files, making your configurations more dynamic, reusable, and easier to maintain.
 
-## Understanding Variables in Network-as-Code
+## Variables in Network-as-Code
 
 Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When Terraform processes your configuration, it substitutes the variable references with their actual values.
 

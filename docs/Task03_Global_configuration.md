@@ -1,6 +1,6 @@
 In this task, you'll learn how to use **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
 
-## Understanding Global Configuration
+## Global Configuration
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. The configuration precedence hierarchy works as follows:
 
@@ -72,7 +72,7 @@ You can refer to this documentation at any time for more details on available co
 
 Now that you've created your configuration files, it's time to deploy them to your network devices using Terraform. Terraform follows a simple three-step workflow that ensures safe and predictable infrastructure changes.
 
-## Understanding the Terraform Workflow
+## Terraform Workflow
 
 Terraform uses a declarative approach where you define the desired state (in your YAML files), and Terraform figures out how to achieve that state. The workflow consists of:
 
@@ -347,7 +347,7 @@ Upon successful config deployment, you should see the following banner message:
     | `terraform validate`             | Check configuration syntax              |
 
 
-## Understanding Terraform State
+## Terraform State
 
 After running `terraform apply`, Terraform creates a `terraform.tfstate` file that tracks:
 

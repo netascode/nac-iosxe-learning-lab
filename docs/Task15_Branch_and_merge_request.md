@@ -126,7 +126,7 @@ In the previous step, the Web IDE already prompted you to create a new branch wh
     | `fix/acl-typo`          | Fixing a bug or error           |
     | `update/banner-message` | Updating existing configuration |
 
-    This makes it easy to understand what each branch contains without looking at the code.
+    This makes it easy to see what each branch contains without looking at the code.
 
 You should now see `feature/core` displayed in the bottom-left corner, indicating you're working on your new branch. The commit `Add core config` is already pushed to it.
 

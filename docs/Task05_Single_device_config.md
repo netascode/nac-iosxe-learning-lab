@@ -1,6 +1,6 @@
 In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that shouldn't be shared with other devices.
 
-## Understanding Device-Specific Configuration
+## Device-Specific Configuration
 
 Device-specific configurations are applied directly to individual devices and take the highest precedence in the Network-as-Code hierarchy. This approach is ideal for:
 
@@ -88,11 +88,11 @@ Let's break down the key elements:
 !!! note
     This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
 
-### Understanding File Organization
+### File Organization
 
 At this point, your `data/` folder contains multiple YAML files, each serving a different purpose:
 
-```
+```hl_lines="8"
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf

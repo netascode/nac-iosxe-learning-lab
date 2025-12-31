@@ -5,7 +5,7 @@ In this task, you'll learn how to automate **post-change validation** using Robo
 !!! warning "Time Check"
     This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 12: Cleanup** followed by **Task 13: Run CI/CD Pipeline**.
 
-## Understanding Post-Change Validation
+## Post-Change Validation
 
 The Network-as-Code framework automates post-change validations using:
 
