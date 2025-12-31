@@ -314,7 +314,7 @@ Upon successful config deployment, you should see the following banner message:
     show run | include banner
     ```
 
-    !!! quote "Expected output (same on all four devices):"
+    !!! quote "Expected output"
         ```hl_lines="2"
         core#show run | include banner
         banner login ^CWelcome to Network-as-Code Lab^C
@@ -330,7 +330,8 @@ Upon successful config deployment, you should see the following banner message:
 - ✅ The banner appears on the **access01** switch (198.18.130.11)
 - ✅ The banner appears on the **access02** switch (198.18.130.12)
 
-**Success!** You've just deployed your first Network-as-Code configuration using Terraform! Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
+!!! Success "You've just deployed your first Network-as-Code configuration using Terraform!"
+    Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
 
 ???+ note "Terraform Command Reference"
     Here's a quick reference of the most common Terraform commands:

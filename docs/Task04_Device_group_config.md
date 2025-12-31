@@ -2,17 +2,12 @@ In this task, you'll learn how to apply configuration to a **group of devices** 
 
 ## Understanding Device Groups
 
-Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device. As described in [IOS XE Device Group documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/device_group/), device groups sit in the middle of the configuration hierarchy:
-
-**Configuration Precedence Hierarchy:**
-
-1. **Device** (highest precedence) - device-specific overrides
-2. **Device Group** (medium precedence) - role or location-specific settings
-3. **Global** (lowest precedence) - organization-wide defaults
+Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device.
 
 Device groups are particularly effective for:
 
 - **Role-based configuration**: Grouping devices by function (access switches, core switches, border switches)
+- **Location-based configuration**: Grouping devices by physical or logical location (data center, branch office)
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
 - **Security policies**: Applying common ACLs or security settings to device subsets
 
@@ -98,15 +93,15 @@ Let's break down the key elements:
 
 **ACL Entry Details:**
 
-- **Sequence 10**: Permits traffic from the `10.0.0.0/24` network
-  - `action: permit` - Allows matching traffic
-  - `prefix: 10.0.0.0` - The network address
-  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches `10.0.0.0` through `10.0.0.255`)
+- `sequence 10`**: Permits traffic from the `10.0.0.0/24` network
+    * `action: permit` - Allows matching traffic
+    * `prefix: 10.0.0.0` - The network address
+    * `prefix_mask: 0.0.0.255` - Wildcard mask (matches `10.0.0.0` through `10.0.0.255`)
 
-- **Sequence 20**: Permits traffic from the `20.0.0.0/24` network
-  - `action: permit` - Allows matching traffic
-  - `prefix: 20.0.0.0` - The network address
-  - `prefix_mask: 0.0.0.255` - Wildcard mask (matches `20.0.0.0` through `20.0.0.255`)
+- `sequence 20`**: Permits traffic from the `20.0.0.0/24` network
+    * `action: permit` - Allows matching traffic
+    * `prefix: 20.0.0.0` - The network address
+    * `prefix_mask: 0.0.0.255` - Wildcard mask (matches `20.0.0.0` through `20.0.0.255`)
 
 !!! info "About Standard ACLs"
     Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
