@@ -33,10 +33,8 @@ This extension provides:
 - **Formatting** - Automatically formats your YAML files
 - **Schema validation** - Can validate against predefined schemas
 
-!!! info "Pre-installed Extension"
-    The Red Hat YAML extension is already installed in your lab environment. You'll see syntax highlighting and error detection automatically as you edit YAML files.
-    For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
-
+!!! info "The YAML extension is already pre-installed in your lab"
+    You'll see syntax highlighting and error detection automatically as you edit YAML files.
 
 !!! warning "File Extension"
     The YAML extension recognizes only files ending with `.nac.yaml` as Network-as-Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
@@ -222,7 +220,7 @@ module "iosxe" {
 
 - **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
 
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML into Terraform provider.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into HCL code needed by the Terraform provider.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
@@ -284,28 +282,17 @@ VS Code has **auto-save** enabled, so your files are automatically saved after a
 
 Congratulations! In this chapter, you have:
 
-- ✅ **Learned about VS Code** - Understood why it's the ideal tool for editing Network-as-Code files
-- ✅ **Understood WSL** - Learned what Windows Subsystem for Linux is and why we use it for Terraform
-- ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory with proper organization
-- ✅ **Organized configuration files** - Created a `data/` folder to separate YAML configs from Terraform files
-- ✅ **Created credentials file** - Set up `.env` with IOS XE device authentication
+- ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory
+- ✅ **Organized configuration files** - Created a `data/` folder to separate NAC YAML config from other files
+- ✅ **Created environment file** - Set up `.env` with IOS XE device authentication
 - ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
 - ✅ **Prepared device inventory** - Created `data/devices.nac.yaml` with network device definitions
 
-## Key Concepts Learned
-
-**File Organization:**
-
-- Configuration files (YAML) in `data/` folder
-- Terraform files (`main.tf`) in project root
-- Credentials (`.env`) in project root
-
 **Tools Introduced:**
 
-- **VS Code** - For editing configuration files
-- **Red Hat YAML Extension** - For YAML syntax validation and linting
+- **VS Code** - For editing configuration files in this lab
+- **VS Code YAML Extension** - For YAML syntax validation and linting
 - **WSL** - For running Linux/Terraform commands
-- **Terraform** - For deploying configurations to devices
 
 In the next task, you'll deploy your first configuration using Terraform to apply a global banner across all your network devices.
 

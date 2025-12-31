@@ -2,9 +2,7 @@ In this task, you'll learn how to use **global configuration** to apply settings
 
 ## Understanding Global Configuration
 
-Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. This provides the foundation layer of your network configuration hierarchy.
-
-As described in the [IOS XE Global Configuration documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/global/), the configuration precedence hierarchy works as follows:
+Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. The configuration precedence hierarchy works as follows:
 
 1. **Device** (highest precedence) - device-specific overrides
 2. **Device Group** (medium precedence) - role or location-specific settings
@@ -60,7 +58,7 @@ The figure below illustrates how to create the `data/config-global.nac.yaml` fil
 
 But how do you know what configuration options are supported, and what the correct YAML structure is?
 
-The data model documentation is published on the [Network as Code website](https://netascode.cisco.com/).
+The data model documentation is published on the [Network as Code website](https://netascode.cisco.com/docs/data_models/).
 Specifically, the banner configuration is described here: [IOS XE Banner Configuration](https://netascode.cisco.com/docs/data_models/iosxe/device/banner/).
 
 <figure markdown>
@@ -104,7 +102,7 @@ tree -a
 
 You should see your project structure:
 
-```
+``` hl_lines="4"
 /home/cisco/nac-iosxe/
 ├── .env
 ├── data/
@@ -115,7 +113,7 @@ You should see your project structure:
 
 ### Step 2: Load Environment Variables from .env File
 
-Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (`IOSXE_USERNAME=nac_admin` and `IOSXE_PASSWORD=cisco`).
+Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (e.g. `IOSXE_USERNAME=nac_admin`).
 
 
 !!! tip "Convert the file to Unix format to avoid encoding issues"
@@ -154,15 +152,16 @@ source .env
 env | grep IOSXE
 ```
 
-You should see both variables displayed:
+You should see the environment variables displayed:
 ```
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
+IOSXE_PROTOCOL=restconf
 cisco@wkst1:~/nac-iosxe$
 ```
 
-These credentials allow Terraform to authenticate with your IOS XE devices.
+These credentials allow Terraform to authenticate with your IOS XE devices using the RESTCONF API.
 
 **Making Environment Variables Persistent:**
 
@@ -172,8 +171,8 @@ To avoid manually exporting variables every time you open WSL, you can add the e
 
 **To make the export permanent, add it to your bashrc**
 
-!!! note
-    This has already been done for you in the lab environment. You don't need to run this command now.
+!!! note "This has already been done for you in the lab"
+    You don't need to run this command now.
 
 ```bash
 echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
@@ -236,6 +235,8 @@ terraform plan
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
+In our case, we will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created - as we configured in `main.tf`.
+
 
 ### Step 5: Apply Configuration to Devices
 
@@ -247,7 +248,10 @@ terraform apply
 
 Terraform will show you the plan again and ask for confirmation:
 
-```
+```hl_lines="8"
+...
+Plan: 6 to add, 0 to change, 0 to destroy.
+
 Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.
@@ -293,9 +297,9 @@ After Terraform completes successfully, verify the banner was applied to **all d
 **Open Solar-PuTTY and connect to each switch:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **border** switch first
+2. Connect to the **core** switch first
 3. Verify that the pre-authentication banner appears upon ssh connection (shown below)
-4. Repeat for **core**, **access01**, and **access02** switches
+4. Repeat for **border** router, then the **access01** and **access02** switches
 
 Upon successful config deployment, you should see the following banner message:
 
@@ -310,13 +314,12 @@ Upon successful config deployment, you should see the following banner message:
     show run | include banner
     ```
 
-    **Expected output (same on all four devices):**
-
-    ```
-    <hostname>#show run | include banner
-    banner login ^CWelcome to Network-as-Code Lab^C
-    <hostname>#
-    ```
+    !!! quote "Expected output (same on all four devices):"
+        ```hl_lines="2"
+        core#show run | include banner
+        banner login ^CWelcome to Network-as-Code Lab^C
+        core#
+        ```
 
     The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your configured text in the output.
 

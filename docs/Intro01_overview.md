@@ -11,17 +11,17 @@ This lab demonstrates how Network-as-Code solves these challenges using:
 - **Declarative configuration** - Define the desired state, not the steps to get there
 - **Terraform** - Industry-standard Infrastructure-as-Code tool
 - **Schema validation** - Ensure configurations are correct before deployment
-- **ROBOT testing** - Verify configurations after deployment
-- **GitLab CI/CD pipelines** - Automate testing, validation, and deployment
+- **Post-deployment testing** - Verify configurations after deployment
+- **GitLab CI/CD pipelines** - Automate validation, deployment, and testing
 
 **What You'll Learn**
 
 By completing this lab, you will gain hands-on experience with:
 
-- Writing desired state network configurations in YAML format for IOS-XE devices
+- Writing desired network state configurations in NAC YAML format for IOS-XE devices
 - Deploying the desired state using the Terraform implementation of NAC
-- Automating the network deployment lifecycle using GitLab CI/CD pipelines
 - Validating and testing configurations
+- Automating the network deployment lifecycle using GitLab CI/CD pipelines
 - Applying best practices for network automation
 
 **About This Guide**

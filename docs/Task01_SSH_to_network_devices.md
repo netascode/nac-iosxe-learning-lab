@@ -31,13 +31,16 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 - **border** - Border switch (198.18.130.20)
 - **core** - Core switch (198.18.130.10)
 
+!!! info "Additional Devices"
+    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
+
 <figure markdown>
   ![CML Topology](./assets/cml-topology.png){ width="70%" }
 </figure>
 
+!!! tip "Lab Topologies Reference"
+    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) for the topology diagrams, device IP addresses and credentials.
 
-!!! info "Additional Devices"
-    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
 
 **To connect to a device:**
 
@@ -122,15 +125,15 @@ end
 write memory
 ```
 
-!!! note
+???+ note "RESTCONF Availability"
     If you are configuring your own devices outside of this lab, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
-    You can verify RESTCONF availability with the following command:
+    You can verify RESTCONF availability with the following command (executed from the machine where you will run Terraform later):
 
     ```bash
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    For example, in the lab, you can check RESTCONF on the access01 device with:
+    For example, in the lab, you can check RESTCONF on the access01 device by opening your WSL Ubuntu terminal and running:
 
     ```bash
     curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u cisco:cisco
