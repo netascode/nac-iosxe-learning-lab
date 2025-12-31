@@ -51,7 +51,7 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 
 **Access GitLab**
 
-1. Open **Chrome** on the Windows 10 VM and navigate to GitLab: https://198.18.133.101
+1. Open **Chrome** on the Windows 10 VM and navigate to GitLab: [https://198.18.133.101](https://198.18.133.101)
 2. Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 3. Navigate to the **netascode/nac-iosxe-terraform** project.
 

@@ -2,7 +2,7 @@ In this task, you'll learn how to use **variables** in your Network-as-Code conf
 
 ## Variables in Network-as-Code
 
-Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When Terraform processes your configuration, it substitutes the variable references with their actual values.
+Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the Network-as-Code module processes your configuration, it substitutes the variable references with their actual values.
 
 **Benefits of using variables:**
 
@@ -68,7 +68,7 @@ The image below illustrates the updated global configuration in VS Code:
 !!! warning "YAML Formatting"
     When pasting multi-line strings in YAML (like this banner), ensure the indentation is correct. The `|` character indicates a multi-line string, and the following lines should be indented properly to be part of that string.
 
-    To learn more about the multi-line string (block scalar) YAML syntax, refer to https://yaml-multiline.info/
+    To learn more about the multi-line string (block scalar) YAML syntax, refer to [yaml-multiline.info](https://yaml-multiline.info/).
 
 ## Step 2: Define Variables at Device Level
 
@@ -164,19 +164,16 @@ Variables can be defined at multiple levels. When the same variable is defined a
 
 This allows you to define default values globally and override them per device or device group when needed.
 
-**Example:**
-
-```yaml
-# Global default
-global:
-  variables:
-    TIMEZONE: UTC
-
-# Device override
-devices:
-  - name: core
+```yaml title="Variable Precedence Example" hl_lines="5 9"
+---
+iosxe:
+  global:
     variables:
-      TIMEZONE: America/New_York  # Overrides global default
+      TIMEZONE: UTC  # Global default
+  devices:
+    - name: example-device
+      variables:
+        TIMEZONE: America/New_York  # Overrides global default
 ```
 
 ## Step 4: Apply Configuration

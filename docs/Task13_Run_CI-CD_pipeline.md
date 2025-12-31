@@ -21,9 +21,7 @@ This ensures every configuration change goes through the same consistent process
 
 Open **Chrome** on the Windows 10 VM and navigate to GitLab:
 
-```
-https://198.18.133.101
-```
+[https://198.18.133.101](https://198.18.133.101)
 
 !!! note "Certificate Warning"
     You may see a security warning because the lab uses a self-signed certificate. Click **Advanced** and then **Proceed to 198.18.133.101** to continue.

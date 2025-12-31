@@ -109,7 +109,7 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
 !!! tip "File Organization"
     This modular approach keeps configurations organized and easy to maintain.
 
-    This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your environment.
+    This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your design.
 
 
 ## Step 2: Apply Device-Specific Configuration
@@ -156,8 +156,11 @@ After successfully running `terraform apply`, verify that the IP host entries we
 3. Run the verification commands below
 
 ???+ info "Verification via host resolution and ping"
-    ```bash
+    ```
     ping vrf Mgmt-vrf ntp-server
+    ```
+
+    ```
     ping vrf Mgmt-vrf syslog-server
     ```
 
@@ -242,6 +245,8 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 | **Device Group** | Subset of devices | Standard ACL | `config-group-access.nac.yaml` |
 | **Device**       | Single device     | IP hosts     | `config-device-core.nac.yaml`  |
 
+In case of conflicting settings, the higher precedence level overrides the lower. For example, you can have a global banner, and configure a different banner for a specific device.
+
 **Visual representation**
 
 <figure markdown>
@@ -254,6 +259,7 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 |---------------------------------------------------------------|-------------------|
 | Organization-wide standards (banners, NTP, logging)           | **Global**        |
 | Role-based settings (ACLs for access layer, routing for core) | **Device Group**  |
+| Location-specific settings (site-specific config, Timezone)   | **Device Group**  |
 | Unique device requirements (management IPs, special features) | **Device**        |
 | Overriding group or global settings for one device            | **Device**        |
 
@@ -261,11 +267,11 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 
 In this task, you have:
 
-- ✅ Learned about device-specific configuration and its place in the hierarchy
-- ✅ Created a dedicated YAML file for core switch configuration
+- ✅ Learned about device-specific configuration
+- ✅ Created a dedicated NAC YAML file for core switch configuration
 - ✅ Configured IP host entries for infrastructure services
 - ✅ Verified selective deployment to a single device only
-- ✅ Understood the complete configuration precedence hierarchy
+- ✅ Understood the configuration precedence hierarchy: Global < Device Group < Device
 
 You've now mastered all three levels of the Network-as-Code configuration hierarchy: Global, Device Group, and Device-specific configurations!
 
