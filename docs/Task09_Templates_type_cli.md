@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The `cli` template type is useful when you need to configure IOS-XE features that aren't yet supported by the NAC data model.
+In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The *cli* template type is useful when you need to configure IOS-XE features that aren't yet supported by the NAC data model.
 
 ## CLI Templates
 
@@ -8,9 +8,9 @@ The CLI template type allows you to include raw IOS-XE CLI commands that are pus
 
 | Type      | Description                       | Use Case                                               |
 |-----------|-----------------------------------|--------------------------------------------------------|
-| **model** | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
-| **file**  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*      |
-| **cli**   | Raw CLI commands                  | IOS-XE features not in NAC data model ← *This task*    |
+| *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
+| *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*      |
+| *cli*   | Raw CLI commands                  | IOS-XE features not in NAC data model ← *This task*    |
 
 
 **When to use 'cli' templates:**
@@ -19,12 +19,11 @@ The CLI template type allows you to include raw IOS-XE CLI commands that are pus
 - **Temporary workarounds**: Quick fixes before proper NAC support is added
 
 !!! warning "Use with Caution"
-    Always prefer `model` and `file`  templates when possible. They provide dependency handling, better validation, consistency, and they are easier to maintain.
+    Always prefer *model* and *file*  templates when possible. They provide dependency handling, better validation, consistency, and they are easier to maintain.
 
 ## Use Case: Custom Alias for the `show logging` Command
 
-In this example, you'll configure a custom alias command `logs` that maps to `show logging`. This is a simple yet practical use case demonstrating how to use `cli` templates to add commands not directly supported by the NAC data model.
-
+In this example, you'll configure a custom alias command `logs` that maps to `show logging`. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the NAC data model.
 ## Step 1: Create the CLI Template
 
 First, create the file using your **WSL Ubuntu terminal**:

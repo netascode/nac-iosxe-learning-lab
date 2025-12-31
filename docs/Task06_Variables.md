@@ -254,7 +254,7 @@ Each device shows its own hostname in the banner - demonstrating that the same t
 
 ## Common Variable Use Cases
 
-Variables are powerful for many scenarios beyond hostnames (device idntity). Here are some common use cases:
+Variables are powerful for many scenarios beyond hostnames (device identity). Here are some common use cases:
 
 | Use Case             | Variable Example               | Benefit                           |
 |----------------------|--------------------------------|-----------------------------------|

@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **templates of type 'model'** to define reusable YAML-based configuration blocks that can be applied to multiple devices. The `model` template type is a powerful Network-as-Code feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
+In this task, you'll learn how to use **templates of type 'model'** to define reusable YAML-based configuration blocks that can be applied to multiple devices. The **model** template type is a powerful Network-as-Code feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
 
 ## Templates
 
@@ -15,11 +15,11 @@ As described in the [IOS XE Template documentation](https://netascode.cisco.com/
 
 | Type    | Description                       | Use Case                                            |
 |---------|-----------------------------------|-----------------------------------------------------|
-| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.)         |
-| `file`  | External `.tftpl` template files  | Large configurations stored separately              |
-| `cli`   | Raw CLI commands                  | IOS XE features not supported in the NAC data model |
+| *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.)         |
+| *file*  | External `.tftpl` template files  | Large configurations stored separately              |
+| *cli*   | Raw CLI commands                  | IOS XE features not supported in the NAC data model |
 
-In this task, you'll use the `model` type to create a VLAN template as a practical example.
+In this task, you'll use the *model* type to create a VLAN template as a practical example.
 
 ## Use Case: Standard VLANs for Access Switches
 

@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **templates of type 'file'** to reference external template files with dynamic content generation. The `file` template type uses Terraform templating syntax (`.tftpl` files) for complex configurations with loops, conditionals, and variable interpolation.
+In this task, you'll learn how to use **templates of type 'file'** to reference external template files with dynamic content generation. The *file* template type uses Terraform templating syntax (`.tftpl` files) for complex configurations with loops, conditionals, and variable interpolation.
 
 For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
@@ -23,9 +23,9 @@ File templates reference external `.tftpl` files that use **Terraform templating
 
 | Type    | Description                       | Use Case                                               |
 |---------|-----------------------------------|--------------------------------------------------------|
-| `model` | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
-| `file`  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
-| `cli`   | Raw CLI commands                  | IOS XE features not in NAC data model ← *Task09*       |
+| *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
+| *file*  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
+| *cli*   | Raw CLI commands                  | IOS XE features not in NAC data model ← *Task09*       |
 
 ## Use Case: BGP Configuration on border Switch
 
