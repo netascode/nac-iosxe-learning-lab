@@ -132,7 +132,7 @@ You should now see `feature/core` displayed in the bottom-left corner, indicatin
 
 You can verify this by looking at the commit history in the GitLab UI:
 
-1. Go to **Repository** → **Commits** in the left sidebar
+1. Go to **Code** → **Commits** in the left sidebar
 2. Select the `feature/core` branch from the dropdown
 3. You should see your recent commit listed
 4. Switch back to the `main` branch to confirm that the commit is not present there
@@ -202,7 +202,7 @@ The **plan** stage also adds the terraform plan output as a comment to the merge
 
 This is your opportunity to verify that the changes are correct before approving! In our case, we can see that the IP host entries will be added on the **core** switch.
 
-In a real environment, a team lead or senior engineer would review the merge request. For this lab, you'll approve it yourself.
+In a real environment, a team lead or senior engineer would review the merge request. For this lab, you'll continue on your own.
 
 **Approval Step**
 
@@ -212,10 +212,10 @@ In this lab, the approval step is not required to merge. In production environme
     You can also set up the project to require successful pipeline completion, and potentially perform other checks before allowing the merge.
 
 
-## Step 9: Merge to Main
+## Step 6: Merge to Main
 
 !!! warning "Verify Pipeline Passed"
-    Before merging, ensure that the pipeline completed successfully, all stages passed, and the plan looks good.
+    Before merging, ensure that the pipeline completed successfully, all stages passed, the config and the plan looks good.
 
 You can now proceed to merge the changes into `main`.
 
@@ -233,7 +233,7 @@ You can now proceed to merge the changes into `main`.
     Your changes have been merged into the main branch! This triggers the deployment pipeline.
 
 
-## Step 10: Observe the Deployment Pipeline
+## Step 7: Observe the Deployment Pipeline
 
 Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
 
@@ -283,6 +283,8 @@ After the pipeline completes successfully, you can verify the changes on the net
     - Connectivity issues to devices
     - Authentication failures
     - Configuration errors
+
+    If you see "Failed to install provider", re-run the job.
 
 ??? failure "Pipeline failures"
     This can happen for various reasons. Common steps to resolve:

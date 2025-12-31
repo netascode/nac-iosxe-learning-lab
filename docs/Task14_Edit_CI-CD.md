@@ -138,13 +138,13 @@ Just as we did in [Task 11 - Post-checks](Task11_Post-checks.md), we will add th
 After making all the changes:
 
 1. Click on **Source Control** icon in the left sidebar (as you did in Task 13)
-2. You'll see the modified `.gitlab-ci.yml` file listed
+2. You'll see the modified files listed: `.gitlab-ci.yml` and `data/config-group-access.nac.yaml`
 3. Enter a commit message: `Add test stage to CI/CD pipeline`
 4. Click **Commit and push to 'main'**
 
-<figure markdown>
+<!-- <figure markdown>
   ![Commit Changes](./assets/gitlab-commit-changes-in-ci-file.png){ width="100%" }
-</figure>
+</figure> -->
 
 ## Step 7: Verify the Pipeline
 

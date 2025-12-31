@@ -225,7 +225,7 @@ The only files that are currently not ignored are:
 !!! note "Variables file"
     If you skipped Task 06, you can ignore the `devices-variables.nac.yaml` file for now.
 
-    If you completed Task 06, you can inspect the file to see how the `HOSTNAME` variables are defined. You'll see that the file contains the same `HOSTNAME` variables you created in Task 06 for each device. The only difference is that this time, all variables are defined in a single file instead of separate files per device.
+    If you completed Task 06, you can inspect the file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
 
 For this task, you'll update the global configuration - similar to what we did in Task 03 and Task 06.
 
@@ -262,9 +262,9 @@ Optionally, you can also change the banner text to something new, if you'd like.
 
 
 <!-- SCREENSHOT: Editing config-global.nac.yaml in Web IDE -->
-<figure markdown>
+<!-- <figure markdown>
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
-</figure>
+</figure> -->
 
 ## Step 4: Commit Change to Trigger Pipeline
 
