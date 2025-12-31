@@ -1,4 +1,4 @@
-You've been creating YAML configuration files and deploying them with Terraform. But how can you ensure your YAML files are correctly structured and contain valid data before deploying them to production devices?
+You've been creating NAC YAML configuration files and deploying them with Terraform. But how can you ensure your YAML files are correctly structured and contain valid data before deploying them to production devices?
 
 Pre-change validation is a critical step in the Network-as-Code workflow. It catches errors early - before they reach your network devices - improving operational reliability and giving you confidence that your configurations are both syntactically and semantically correct.
 
@@ -8,7 +8,7 @@ Schema validation verifies that your YAML configuration files:
 
 - Follow the correct structure (proper indentation, key names, nesting)
 - Contain valid data types (strings, integers, booleans)
-- Use valid values (IP addresses in correct format, enums like 'permit'/'deny')
+- Use valid values (IP addresses in correct format, enums like `permit`/`deny`)
 - Include all required fields
 - Don't include unsupported attributes
 

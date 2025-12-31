@@ -45,8 +45,8 @@ iosxe:
 
 This template:
 
-- **type: cli**: Specifies raw CLI commands
-- **content**: Contains the actual CLI command to create the alias
+- `type: cli`: Specifies raw CLI commands
+- `content`: Contains the actual CLI command to create the alias
 
 ## Step 2: Apply the Template to the global configuration
 

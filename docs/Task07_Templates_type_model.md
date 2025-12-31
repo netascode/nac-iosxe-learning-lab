@@ -4,6 +4,8 @@ In this task, you'll learn how to use **templates of type 'model'** to define re
 
 Templates in Network-as-Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
 
+A template can be referenced at the individual device level, device group level, or even globally.
+
 As described in the [IOS XE Template documentation](https://netascode.cisco.com/docs/data_models/iosxe/device/template/), templates provide:
 
 - **Reusability**: Define configuration once, use it many times
@@ -135,7 +137,7 @@ When Terraform processes your configuration:
 
 At this point, your `data/` folder should contain these files:
 
-```
+```hl_lines="10 12"
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
@@ -213,10 +215,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
         VLAN Name                             Status    Ports
         ---- -------------------------------- --------- -------------------------------
         1    default                          active    Gi1/0/1, Gi1/0/2, Gi1/0/3, Gi1/0/4,
-                                                        Gi1/0/5, Gi1/0/6, Gi1/0/7, Gi1/0/8,
-                                                        Gi1/0/9, Gi1/0/10, Gi1/0/11, Gi1/0/12,
-                                                        Gi1/0/13, Gi1/0/14, Gi1/0/15, Gi1/0/16,
-                                                        Gi1/0/17, Gi1/0/18, Gi1/0/19, Gi1/0/20,
+                                                        ...
                                                         Gi1/0/21, Gi1/0/22, Gi1/0/23, Gi1/0/24
         10   DATA                             active
         20   VOICE                            active
@@ -228,7 +227,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
         access01#
         ```
 
-    You should see all three VLANs (10-DATA, 20-VOICE, 99-MGMT) configured on both devices.
+    You should see all three VLANs (`10-DATA`, `20-VOICE`, `99-MGMT`) configured on both devices.
 
 
 ## Templates vs Other Configuration Methods
@@ -242,18 +241,13 @@ Here's a comparison of when to use templates versus other configuration approach
 | **Device**       | Unique settings for one device                    | Management IP hosts, special features                      |
 | **Template**     | Reusable configurations across selected devices   | Standard VLANs, interface templates                        |
 
-**Key Differences:**
-
-- **Global**: Automatically applies to all devices
-- **Device Group**: Applies to all members of a group
-- **Template**: Only applies to devices that explicitly reference it
 
 Templates give you fine-grained control - you choose exactly which devices get the template configuration by adding the template reference to each device.
 
 
 ## Applying Multiple Templates
 
-One of the most powerful features of templates is the ability to apply **multiple templates** to a device or device group. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
+One of the most powerful features of templates is the ability to apply **multiple templates** to a device. This allows you to build modular, composable configurations where each template handles a specific aspect of the configuration.
 
 For example, access switches might need:
 

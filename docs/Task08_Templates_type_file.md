@@ -253,6 +253,8 @@ show ip route
     border#
     ```
 
+!!! note
+    It may take a minute or two for the BGP session to establish and for the route to appear in the routing table.
 
 ## Challenge (Optional): Add default gateway for host01 and host02
 
@@ -274,7 +276,7 @@ Your task is to add the default gateway ip address configuration to `border` on 
 
     To do that, you need to connect to each host via CML console:
 
-    1. Open CML web interface: https://198.18.130.34/login
+    1. Open CML web interface: [https://198.18.130.34/login](https://198.18.130.34/login)
     2. Login with credentials: `guest` / `CiscoLive`
     3. Click on **NAC IOSXE-AS-CODE Topology**
     4. Right-click on **host01** and select **Console**

@@ -26,12 +26,12 @@ Open **Chrome** on the Windows 10 VM and navigate to GitLab:
 !!! note "Certificate Warning"
     You may see a security warning because the lab uses a self-signed certificate. Click **Advanced** and then **Proceed to 198.18.133.101** to continue.
 
-Log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
+If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 
 <!-- SCREENSHOT: GitLab login page with username/password fields -->
-<figure markdown>
+<!-- <figure markdown>
   ![GitLab Login](./assets/gitlab-login.png){ width="100%" }
-</figure>
+</figure> -->
 
 ## Step 2: Navigate to the NAC-IOSXE Project
 
@@ -128,7 +128,7 @@ success:
 ```
 
 !!! info "Abbreviated View"
-    The YAML above shows the key structure of `.gitlab-ci.yml`. The actual file (~140 lines) includes additional configuration for variables, artifacts, caching, and branch rules. You can view the complete file in the GitLab repository.
+    The YAML above shows the key structure of `.gitlab-ci.yml`. The actual file (~150 lines) includes additional configuration for variables, artifacts, caching, and branch rules. You can view the complete file in the GitLab repository.
 
 **Key concepts:**
 
@@ -142,7 +142,9 @@ success:
 - **failure/success** - Send Webex notifications based on pipeline outcome
 
 !!! note "Webex Notifications"
-    The **notify** job typically use a Python script to send messages to a Webex room. In this lab, this functionality is intentionally omitted, the notify stage is only included as a placeholder for demonstration purposes. If you're interested in implementing notifications, reach out to your instructors for guidance.
+    The **notify** job typically use a Python script to send messages to a Webex room. In this lab, this functionality is intentionally omitted, the notify stage is only included as a placeholder for demonstration purposes.
+
+    If you're interested in implementing notifications, reach out to your instructors for guidance.
 
 
 ## View Existing Pipelines
@@ -216,6 +218,7 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
 
 The only files that are currently not ignored are:
+
 - `devices.nac.yaml` - Device inventory file (Same as in Task 02)
 - `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
 

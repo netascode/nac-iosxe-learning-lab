@@ -35,11 +35,15 @@ When prompted, type `yes` to confirm. Terraform will:
 - Remove all configurations it previously applied (banners, ACLs, VLANs, etc.)
 - Update the state file to reflect the clean state
 
-!!! warning "Wait for Completion"
-    The destroy process may take a few minutes. Wait until you see "Destroy complete!" before proceeding.
+!!! note "The destroy process may take a few minutes"
+    Wait until you see "Destroy complete!" before proceeding.
 
+!!! warning "Terraform destroy Warning"
+    The `terraform destroy` command removes all configurations that were applied by Terraform. Use it with caution! In a production environment, do not run this command unless you intend to completely remove the deployed infrastructure.
 
-## Step 2: Verify Devices are Clean (Optional)
+    If you made any manual changes directly on the devices outside of Terraform, those changes will remain.
+
+## Step 2: Verify that the NAC Configurations are Removed (Optional)
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 1, double-click on the **core** switch to connect.
 
@@ -50,7 +54,7 @@ show running-config
 ```
 
 !!! note "Default Hostnames"
-    You should see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, we'll re-apply configurations in the next tasks.
+    If you completed [Task 06 - Variables](Task06_Variables.md), you will see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, we'll re-apply hostnames in the next task.
 
 
 ## Step 3: Delete the Local Project Folder (Optional)
@@ -100,7 +104,7 @@ In the next task, you'll work with **GitLab** to:
 - Make changes through the GitLab Web IDE
 - Let the pipeline automatically validate, plan, and deploy configurations
 
-This transition from manual Terraform commands to automated CI/CD pipelines represents the real-world Network-as-Code workflow used in production environments.
+While manual Terraform commands are useful for learning and small-scale changes, in production environments you will typically use automated CI/CD pipelines to implement the Network-as-Code workflow.
 
 ---
 
