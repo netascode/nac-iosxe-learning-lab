@@ -209,7 +209,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
     ```
 
     ???+ quote "Expected output on both switches"
-        ``` hl_lines="11-13"
+        ``` hl_lines="8-10"
         access01#show vlan brief
 
         VLAN Name                             Status    Ports
