@@ -213,7 +213,7 @@ After Terraform completes successfully, verify the configuration was applied cor
 4. Repeat for other switches (**border**, **access01**, **access02**) to see their specific hostnames
 
 <figure markdown>
-  ![Solar-PuTTY Core Banner](./assets/solarputty-ssh-core-variables.png){ width="80%" }
+  ![Solar-PuTTY Core Banner](./assets/solarputty-ssh-core-variables.png){ width="90%" }
 </figure>
 
 ??? info "Alternative Verification Commands"

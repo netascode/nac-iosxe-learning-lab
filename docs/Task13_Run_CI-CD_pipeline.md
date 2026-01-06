@@ -329,7 +329,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 3. Check the banner and hostname
 
 <figure markdown>
-  ![New Banner](./assets/solarputty-gitlab-banner.png){ width="80%" }
+  ![New Banner](./assets/solarputty-gitlab-banner.png){ width="90%" }
 </figure>
 
 

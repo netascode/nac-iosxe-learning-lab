@@ -168,7 +168,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 
     ???+ quote "Expected output"
         <figure markdown>
-          ![Show Access List](./assets/sh-access-list.png){ width="80%" }
+          ![Show Access List](./assets/sh-access-list.png){ width="90%" }
         </figure>
 
     This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
