@@ -17,7 +17,7 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 3. You'll see the Solar-PuTTY interface with a list of devices
 
 <figure markdown>
-  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="90%" }
+  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="100%" }
 </figure>
 
 ## Connect to the lab devices
@@ -48,7 +48,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="90%" }
+  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="100%" }
 </figure>
 
 ## Verify Device Information
