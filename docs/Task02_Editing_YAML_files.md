@@ -93,7 +93,7 @@ pwd
 You should now see `/home/cisco/nac-iosxe` displayed.
 
 <figure markdown>
-  ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="100%" }
+  ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="80%" }
 </figure>
 
 ## Create project structure
