@@ -142,7 +142,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
 - No changes are proposed for **border**, **access01**, or **access02**
 
 <figure markdown>
-  ![Terraform Apply core](./assets/terraform-apply-core.png){ width="100%" }
+  ![Terraform Apply core](./assets/terraform-apply-core.png){ width="80%" }
 </figure>
 
 ## Step 3: Verify Device-Specific Configuration

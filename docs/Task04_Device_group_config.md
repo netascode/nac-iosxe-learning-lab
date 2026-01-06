@@ -25,7 +25,7 @@ touch ~/nac-iosxe/data/config-group-access.nac.yaml
 
 The file will appear in VS Code's Explorer panel. Click on `config-group-access.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **access01** and **access02** switches:
 
-```text
+```yaml title="config-group-access.nac.yaml"
 ---
 iosxe:
   device_groups:
@@ -146,7 +146,7 @@ terraform apply
 When prompted, type `yes` to confirm the deployment. Terraform will create the standard ACL on all devices in the **ACCESS_SWITCHES** group (**access01** and **access02**).
 
 <figure markdown>
-  ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="100%" }
+  ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="80%" }
 </figure>
 
 ## Step 3: Verify Device Group Configuration
@@ -168,7 +168,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 
     ???+ quote "Expected output"
         <figure markdown>
-          ![Show Access List](./assets/sh-access-list.png){ width="100%" }
+          ![Show Access List](./assets/sh-access-list.png){ width="80%" }
         </figure>
 
     This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.

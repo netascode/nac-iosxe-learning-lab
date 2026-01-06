@@ -187,7 +187,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the t
     After running `terraform apply`, open the `model.yaml` file in VS Code to see how templates are rendered and merged with device configurations into a single data model. This is the same file used by Robot Framework for post-change validation in Task11.
 
 <figure markdown>
-  ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="100%" }
+  ![Terraform Apply Templates](./assets/terraform-apply-templates.png){ width="80%" }
 </figure>
 
 ## Verify Template Configuration

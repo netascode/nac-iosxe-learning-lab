@@ -17,7 +17,7 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 3. You'll see the Solar-PuTTY interface with a list of devices
 
 <figure markdown>
-  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="60%" }
+  ![Solar-PuTTY Interface](./assets/solarputty.png){ width="80%" }
 </figure>
 
 ## Connect to the lab devices
@@ -35,7 +35,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
     The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
 
 <figure markdown>
-  ![CML Topology](./assets/cml-topology.png){ width="70%" }
+  ![CML Topology](./assets/cml-topology.png){ width="60%" }
 </figure>
 
 !!! tip "Lab Topologies Reference"
@@ -48,7 +48,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
-  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="100%" }
+  ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="80%" }
 </figure>
 
 ## Verify Device Information

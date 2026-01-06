@@ -199,7 +199,7 @@ terraform init
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Init](./assets/terraform-init.png){ width="100%" }
+  ![Terraform Init](./assets/terraform-init.png){ width="80%" }
 </figure>
 
 
@@ -230,7 +230,7 @@ terraform plan
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Plan](./assets/terraform-plan.png){ width="100%" }
+  ![Terraform Plan](./assets/terraform-plan.png){ width="80%" }
 </figure>
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
@@ -271,7 +271,7 @@ Type `yes` and press Enter to proceed.
 **Expected output:**
 
 <figure markdown>
-  ![Terraform Apply](./assets/terraform-apply.png){ width="100%" }
+  ![Terraform Apply](./assets/terraform-apply.png){ width="80%" }
 </figure>
 
 !!! tip "Automate Approval"
@@ -304,7 +304,7 @@ After Terraform completes successfully, verify the banner was applied to **all d
 Upon successful config deployment, you should see the following banner message:
 
 <figure markdown>
-  ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="100%" }
+  ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="80%" }
 </figure>
 
 ???+ tip "Banner Verification via show run"
@@ -356,7 +356,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 - Device connection details
 
 <figure markdown>
-  ![Terraform State Files](./assets/terraform-state-files.png){ width="50%" }
+  ![Terraform State Files](./assets/terraform-state-files.png){ width="30%" }
 </figure>
 
 !!! warning "Important"

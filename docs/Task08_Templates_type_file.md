@@ -268,7 +268,7 @@ Host devices (`host01` and `host02`) need a default gateway to reach external ne
 Your task is to add the default gateway ip address configuration to `border` on its interface GigabitEthernet3, so that it can route traffic from these hosts to the "internet" via the **isp** connection.
 
 <figure markdown>
-  ![Lab Topology](./assets/cml-topology.png){ width="70%" }
+  ![Lab Topology](./assets/cml-topology.png){ width="60%" }
 </figure>
 
 !!! info "Verification"

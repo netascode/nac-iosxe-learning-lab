@@ -53,7 +53,7 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 Open Windows Subsystem for Linux (WSL) terminal by searching "Ubuntu" in the Windows search:
 
 <figure markdown>
-  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="70%" }
+  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="50%" }
 </figure>
 
 When you open WSL, you'll automatically start in your home directory (`/home/cisco` or `~/`).
@@ -67,7 +67,7 @@ pwd
 You should see `/home/cisco` displayed.
 
 <figure markdown>
-  ![PWD command](./assets/pwd.png){ width="100%" }
+  ![PWD command](./assets/pwd.png){ width="80%" }
 </figure>
 
 **Create the project directory:**
@@ -137,7 +137,7 @@ This YAML file will contain your network device inventory - the list of devices 
 You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
 
 <figure markdown>
-  ![WSL Create Files](./assets/wsl-create-files.png){ width="100%" }
+  ![WSL Create Files](./assets/wsl-create-files.png){ width="80%" }
 </figure>
 
 ## Verify Your Project Structure
