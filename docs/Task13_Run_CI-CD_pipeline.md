@@ -23,10 +23,15 @@ Open **Chrome** on the Windows 10 VM and navigate to GitLab:
 
 [https://198.18.133.101](https://198.18.133.101)
 
-!!! note "Certificate Warning"
+!!! warning "Certificate Warning"
     You may see a security warning because the lab uses a self-signed certificate. Click **Advanced** and then **Proceed to 198.18.133.101** to continue.
 
 If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
+
+!!! note "You can use any browser, from the VM or your host machine"
+    Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Task 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
+
+    The screenshots in Task 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux.
 
 <!-- SCREENSHOT: GitLab login page with username/password fields -->
 <!-- <figure markdown>

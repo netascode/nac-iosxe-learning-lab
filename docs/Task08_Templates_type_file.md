@@ -288,7 +288,7 @@ Your task is to add the default gateway ip address configuration to `border` on 
 With what we've covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
 
 ??? tip "Solution"
-    Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces:` section:
+    Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces: ethernets`:
 
 
     ```yaml title="data/config-device-border.nac.yaml" hl_lines="27-33"
