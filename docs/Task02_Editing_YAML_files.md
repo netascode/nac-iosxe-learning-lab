@@ -50,10 +50,10 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 
 ## Open WSL Terminal (Ubuntu)
 
-Open Windows Subsystem for Linux (WSL) terminal by searching "Ubuntu" in the Windows search:
+Open Windows Subsystem for Linux (WSL) terminal. You can use the desktop shortcut, the icon on the taskbar, or on the Start menu.
 
 <figure markdown>
-  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="60%" }
+  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="80%" }
 </figure>
 
 When you open WSL, you'll automatically start in your home directory (`/home/cisco` or `~/`).

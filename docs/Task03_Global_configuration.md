@@ -304,7 +304,7 @@ After Terraform completes successfully, verify the banner was applied to **all d
 Upon successful config deployment, you should see the following banner message:
 
 <figure markdown>
-  ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="100%" }
+  ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="95%" }
 </figure>
 
 ???+ tip "Banner Verification via show run"
@@ -356,7 +356,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 - Device connection details
 
 <figure markdown>
-  ![Terraform State Files](./assets/terraform-state-files.png){ width="80%" }
+  ![Terraform State Files](./assets/terraform-state-files.png){ width="90%" }
 </figure>
 
 !!! warning "Important"
