@@ -227,10 +227,10 @@ The only files that are currently not ignored are:
 - `devices.nac.yaml` - Device inventory file (Same as in Task 02)
 - `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
 
-!!! note "Variables file"
-    If you skipped Task 06, you can ignore the `devices-variables.nac.yaml` file for now.
+    !!! note "Variables file"
+        If you skipped Task 06, you can ignore the `devices-variables.nac.yaml` file for now.
 
-    If you completed Task 06, you can inspect the file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
+        If you completed Task 06, you can inspect the file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
 
 For this task, you'll update the global configuration - similar to what we did in Task 03 and Task 06.
 
