@@ -1,30 +1,30 @@
-We are mindful that this lab will be consumed by people with different levels of experience. Maybe you have never used VS Code and don't know what GitLab is. Maybe you are an advanced user of GitLab and use CI/CD pipelines every day.
+We are mindful that this lab will be taken by people with different levels of experience. Maybe you have never used VS Code and don't know what Git is. Maybe you are an advanced user of GitLab and use CI/CD pipelines every day.
 
-The guide is segmented into **recommended tasks**, suitable for all users, and **optional tasks** intended for advanced users. The recommended tasks include detailed step-by-step guidance, while the optional ones aren't that prescriptive. 
+The guide is segmented into **recommended tasks**, suitable for all users, and **optional tasks** intended for advanced users. The recommended tasks include step-by-step guidance and detailed explanations, while the optional ones aren't that prescriptive.
 
 **Fundamentals:**
 
-- Task01: SSH to network devices in the lab
-- Task02: Edit intent configuration YAML files with VS Code
+- [Task 01](Task01_SSH_to_network_devices.md): SSH to network devices in the lab
+- [Task 02](Task02_Editing_YAML_files.md): Edit intent configuration YAML files with VS Code
 
 **Deploy configuration to devices with Terraform manually:**
 
-- Task03 : Global configuration
-- Task04 : Group of devices configuration
-- Task05 : Single device configuration
-- Task06 (optional) : Templates type 'model'
-- Task07 (optional) : Templates type 'file'
-- Task08 (optional) : Templates type 'cli'
+- [Task 03](Task03_Global_configuration.md): Global configuration
+- [Task 04](Task04_Device_group_config.md): Device group configuration
+- [Task 05](Task05_Single_device_config.md): Single device configuration
+- [Task 06](Task06_Variables.md) (optional): Variables
+- [Task 07](Task07_Templates_type_model.md) (optional): Templates type 'model'
+- [Task 08](Task08_Templates_type_file.md) (optional): Templates type 'file'
+- [Task 09](Task09_Templates_type_cli.md) (optional): Templates type 'cli'
 
 **Pre-checks and Post-checks manually:**
 
-- Task09 : Pre-checks with schema validation
-- Task10 (optional) : Post-checks with ROBOT testing
+- [Task 10](Task10_Schema_validation.md): Pre-checks with schema validation
+- [Task 11](Task11_Post-checks.md) (optional): Post-checks with nac-test
 
 **CI/CD Pipelines:**
 
-- Task11 : Cleanup the lab (destroy Terraform state and local files)
-- Task12 : Run a CI/CD pipeline (nac-validate, Terraform plan, Terraform apply) in main branch
-- Task13 (optional) : Modify CI/CD pipeline to add Robot testing
-- Task14 (optional) : Create a Git branch, make a change, create a merge request, approval and merge to main
-
+- [Task 12](Task12_Cleanup.md): Cleanup the lab (Terraform destroy)
+- [Task 13](Task13_Run_CI-CD_pipeline.md): Run a CI/CD pipeline (nac-validate, terraform plan, terraform apply)
+- [Task 14](Task14_Edit_CI-CD.md) (optional): Modify CI/CD pipeline to add tests
+- [Task 15](Task15_Branch_and_merge_request.md) (optional): Merge Request workflow (Create branch, make a change, create a MR and merge to main)

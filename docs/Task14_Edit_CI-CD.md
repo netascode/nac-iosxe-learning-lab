@@ -1,6 +1,6 @@
-In Task11, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied.
+In Task13, you ran a CI/CD pipeline with validation, planning, and deployment stages. In this task, you'll enhance the pipeline by adding a **test stage** that automatically validates your deployments after they're applied, similarly to how you ran `nac-test` manually in [Task 11 - Post-checks](Task11_Post-checks.md).
 
-## Understanding the Test Stage
+## Test Stage
 
 Adding automated testing to your CI/CD pipeline ensures that:
 
@@ -16,7 +16,7 @@ You'll add two test jobs:
 ## Step 1: Open the Web IDE
 
 !!! tip "Already Open?"
-    You probably still have the Web IDE open in another Google Chrome tab from Task 12. If so, simply switch to that tab and skip to the next step.
+    You probably still have the Web IDE open in another Google Chrome tab from Task 13. If so, simply switch to that tab and skip to the next step.
 
 If you need to reopen it, navigate to the **netascode/nac-iosxe-terraform** project in GitLab:
 
@@ -25,7 +25,6 @@ If you need to reopen it, navigate to the **netascode/nac-iosxe-terraform** proj
 
 Once the Web IDE opens, click on `.gitlab-ci.yml` in the file explorer to open it for editing.
 
-<!-- SCREENSHOT: GitLab Web IDE -->
 <figure markdown>
   ![Open Web IDE](./assets/gitlab-open-webide-pipeline-view.png){ width="100%" }
 </figure>
@@ -45,9 +44,9 @@ stages:
   - notify
 ```
 
-**Change it to:**
+**Add `test` so it looks like this:**
 
-```yaml
+```yaml hl_lines="5"
 stages:
   - validate
   - plan
@@ -118,26 +117,36 @@ test-idempotency:
 - **resource_group: iosxe**: Prevents concurrent access to devices
 - If this job passes, it confirms your deployment is idempotent
 
-<!-- SCREENSHOT: Web IDE with test stage added -->
 <figure markdown>
   ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
 </figure>
 
-## Step 5: Commit Your Changes
+!!! info
+    You can refer to [Appendix I](Appendix-I.md) for the complete `.gitlab-ci.yml` file with all changes included.
+
+
+## Step 5: Add ACL Configuration
+
+Just as we did in [Task 11 - Post-checks](Task11_Post-checks.md), we will add the ACL configuration to test the pipeline.
+
+1. In the Web IDE file explorer, navigate to `data/` and rename `config-group-access.nac.yaml_` to `config-group-access.nac.yaml` (remove the trailing underscore).
+2. You may review the ACL configuration by opening the file - it defines the standard ACL named `AccessLayerACL` that we configured in [Task 4 - Device group configuration](Task04_Device_group_config.md).
+
+
+## Step 6: Commit Your Changes
 
 After making all the changes:
 
-1. Click on **Source Control** icon in the left sidebar (as you did in Task 12)
-2. You'll see the modified `.gitlab-ci.yml` file listed
+1. Click on **Source Control** icon in the left sidebar (as you did in Task 13)
+2. You'll see the modified files listed: `.gitlab-ci.yml` and `data/config-group-access.nac.yaml`
 3. Enter a commit message: `Add test stage to CI/CD pipeline`
 4. Click **Commit and push to 'main'**
 
-<!-- SCREENSHOT: GitLab Web IDE commit dialog -->
-<figure markdown>
+<!-- <figure markdown>
   ![Commit Changes](./assets/gitlab-commit-changes-in-ci-file.png){ width="100%" }
-</figure>
+</figure> -->
 
-## Step 6: Verify the Pipeline
+## Step 7: Verify the Pipeline
 
 After committing, a new pipeline will automatically start. Navigate to **Build** → **Pipelines** and click on the pipeline showing **running** status to watch its progress.
 
@@ -149,31 +158,32 @@ You should now see **5 stages** in the pipeline:
 4. **test** - Integration and idempotency tests
 5. **notify** - Success/failure notifications
 
-<!-- SCREENSHOT: Pipeline with 5 stages including test -->
 <figure markdown>
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }
 </figure>
 
-## Step 7: Review Test Results
+## Step 8: Review Test Results
 
-After the pipeline completes, click on the `test-integration` job to view the test results.
+- After the pipeline completes, click on the `test-integration` job to view the test results.
+- Review the logs to see the output of `nac-test`. You should see that all tests have passed successfully: `2 tests, 2 passed, 0 failed, 0 skipped.`
 
-GitLab displays test results in a user-friendly format:
-
-<!-- SCREENSHOT: Test results in GitLab -->
 <figure markdown>
-  ![Test Results](./assets/gitlab-test-results.png){ width="100%" }
+  ![Test Results](./assets/gitlab-test-job-output.png){ width="100%" }
 </figure>
 
-You can also download the HTML test report from the job artifacts.
+- Click on **Test Summary** on the right sidebar. This is where GitLab displays the test results from the JUnit report.
 
-## Summary of Changes
+<figure markdown>
+  ![Test Summary](./assets/gitlab-test-summary.png){ width="100%" }
+</figure>
 
-Here's a complete summary of what you added to `.gitlab-ci.yml`:
+- Go back to the job page and find the **Job artifacts** section on the right sidebar. Click on **Download** to download the test report and log HTML files.
+- Open and inspect the `report.html` and `log.html` files in your web browser. The report will show the same tests as in [Task 11 - Post-checks](Task11_Post-checks.md), confirming the configurations were applied correctly.
 
-- **Add `test` stage** in the `stages:` section - New stage between deploy and notify
-- **Add `test-integration` job** after `deploy:` - Runs nac-test for configuration validation
-- **Add `test-idempotency` job** after `test-integration:` - Verifies no configuration drift
+<figure markdown>
+  ![Test Summary](./assets/gitlab-test-log.png){ width="100%" }
+</figure>
+
 
 ## What You've Accomplished
 
@@ -182,6 +192,12 @@ Here's a complete summary of what you added to `.gitlab-ci.yml`:
 - ✅ Added idempotency verification
 - ✅ Verified the enhanced pipeline runs successfully
 
-## Reference
 
-For the complete `.gitlab-ci.yml` file with all changes, see **Appendix I**.
+---
+
+**Next Steps:**
+
+You can explore the **optional** merge request workflow or proceed to the **conclusion**:
+
+- **Optional:** [Task15 - Branch and Merge Request](Task15_Branch_and_merge_request.md) - Learn change approval workflows with branches and merge requests
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned

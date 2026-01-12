@@ -2,7 +2,7 @@
 
 Copy this single schema block for reference. It includes only the features used in this lab:
 
-```yaml
+```yaml title="schema.yaml"
 ---
 iosxe: include('iosxe', required=False)
 ---
@@ -19,7 +19,7 @@ global:
   configuration: include('device_configuration', required=False)
   templates: list(str(), required=False)
 
-# Device definitions (Task03, Task05, Task07)
+# Device definitions (Task03, Task05, Task06, Task08)
 devices:
   name: str()
   host: str(required=False)
@@ -34,7 +34,7 @@ device_groups:
   configuration: include('device_configuration', required=False)
   templates: list(str(), required=False)
 
-# Template definitions (Task06, Task07, Task08)
+# Template definitions (Task07, Task08, Task09)
 iosxe_templates:
   name: str()
   type: enum('model', 'file', 'cli')
@@ -49,6 +49,7 @@ device_configuration:
   system: include('system', required=False)
   vlan: include('vlan', required=False)
   routing: include('routing', required=False)
+  interfaces: include('interfaces', required=False)
 
 # Banner (Task03)
 banner:
@@ -72,15 +73,17 @@ access_lists_standard_entries:
   any: bool(required=False)
   host: ip(required=False)
 
-# System - IP Hosts (Task05)
+# System - IP Hosts (Task05), Hostname (Task06)
 system:
+  hostname: regex('^[^\s]*$', required=False)
   ip_hosts: list(include('system_ip_hosts'), required=False)
 
 system_ip_hosts:
   name: str()
   ips: list(ip())
+  vrf: str(required=False)
 
-# VLAN (Task06)
+# VLAN (Task07)
 vlan:
   vlans: list(include('vlan_vlans'), required=False)
 
@@ -88,7 +91,7 @@ vlan_vlans:
   id: int(min=1, max=4094)
   name: str(required=False)
 
-# Routing - BGP (Task07)
+# Routing - BGP (Task08)
 routing:
   bgp: include('routing_bgp', required=False)
 
@@ -102,4 +105,19 @@ bgp_neighbors:
   ip: ip()
   remote_as: any(int(), str())
   description: str(required=False)
+
+# Ethernet Interfaces (Task08)
+interfaces:
+  ethernets: list(include('ethernets'), required=False)
+
+ethernets:
+  type: any(enum('GigabitEthernet', 'FastEthernet', 'Ethernet', 'Port-channel', 'FiveGigabitEthernet', 'TenGigabitEthernet', 'TwentyFiveGigE', 'FortyGigabitEthernet', 'HundredGigE', 'TwoHundredGigE', 'FourHundredGigE'), regex("^.*[\$\%]\{.*$"))
+  id: str()
+  description: str(required=False)
+  shutdown: any(bool(), regex("^.*[\$\%]\{.*$"), required=False)
+  ipv4: include('interface_ipv4', required=False)
+
+interface_ipv4:
+  address: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
+  address_mask: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
 ```

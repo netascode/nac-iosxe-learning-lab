@@ -1,0 +1,28 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="_R6YyKJgnIQp5tQY3Bnt">
+    <mxGraphModel dx="786" dy="1214" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-1" value="&lt;div style=&quot;line-height: 18px; white-space: pre;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;&quot;&gt;GLOBAL CONFIGURATION&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;&quot;&gt;(applies to ALL devices)  &lt;/span&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;arcSize=7;strokeColor=#4D4D4D;fontColor=#666666;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="200" y="310" width="300" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-2" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;DEVICE GROUP: ACCESS_SWITCHES&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;(applies to access01, access02)&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontColor=#666666;strokeColor=#4D4D4D;arcSize=13;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="210" y="370" width="280" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-3" value="&lt;div&gt;&lt;b&gt;access01&lt;/b&gt;&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;- Banner&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- ACL&amp;nbsp; &amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingTop=0;spacing=6;fontColor=#666666;strokeColor=#4D4D4D;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="240" y="430" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-4" value="&lt;div&gt;&lt;b&gt;access02&lt;/b&gt;&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;- Banner&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- ACL&amp;nbsp; &amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingTop=0;spacing=6;fontColor=#666666;strokeColor=#4D4D4D;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-5" value="&lt;div&gt;&lt;b&gt;core&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;- Banner&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- IP hosts&amp;nbsp; &amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingTop=0;spacing=6;fontColor=#666666;strokeColor=#4D4D4D;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="240" y="545" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="aG3DWNWIyqkO0MkA3-SH-6" value="&lt;div&gt;&lt;b&gt;border&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;- Banner&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingTop=0;spacing=6;fontColor=#666666;strokeColor=#4D4D4D;fontFamily=CiscoSansTT;" vertex="1" parent="1">
+          <mxGeometry x="360" y="545" width="100" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

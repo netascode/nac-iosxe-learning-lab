@@ -22,6 +22,10 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 
 Since Network-as-Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
 
+<figure markdown>
+  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
+</figure>
+
 This extension provides:
 
 - **Real-time syntax validation** - Highlights errors as you type
@@ -29,10 +33,11 @@ This extension provides:
 - **Formatting** - Automatically formats your YAML files
 - **Schema validation** - Can validate against predefined schemas
 
-!!! info "Pre-installed Extension"
-    The Red Hat YAML extension is already installed in your lab environment. You'll see syntax highlighting and error detection automatically as you edit YAML files. For more details on YAML linting in Network-as-Code, see the [NetAsCode documentation](https://netascode.cisco.com/docs/guides/vxlan/nd/learning_lab/understanding-nac/#pre-change-validation-yaml-linting).
+!!! info "The YAML extension is already pre-installed in your lab"
+    You'll see syntax highlighting and error detection automatically as you edit YAML files.
 
-For this lab, VS Code is pre-installed on your Windows workstation and ready to use. You'll use it to view, edit, and create YAML configuration files that define your network infrastructure.
+!!! warning "File Extension"
+    The YAML extension recognizes only files ending with `.nac.yaml` as Network-as-Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
 
 
 ## Create Project Directory in WSL
@@ -45,10 +50,10 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 
 ## Open WSL Terminal (Ubuntu)
 
-Open Windows Subsystem for Linux (WSL) terminal by searching "Ubuntu" in the Windows search:
+Open Windows Subsystem for Linux (WSL) terminal. You can use the desktop shortcut, the icon on the taskbar, or on the Start menu.
 
 <figure markdown>
-  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="70%" }
+  ![Open WSL Ubuntu](./assets/open-wsl.png){ width="80%" }
 </figure>
 
 When you open WSL, you'll automatically start in your home directory (`/home/cisco` or `~/`).
@@ -62,7 +67,7 @@ pwd
 You should see `/home/cisco` displayed.
 
 <figure markdown>
-  ![PWD command](./assets/pwd.png){ width="100%" }
+  ![PWD command](./assets/pwd.png){ width="80%" }
 </figure>
 
 **Create the project directory:**
@@ -88,7 +93,7 @@ pwd
 You should now see `/home/cisco/nac-iosxe` displayed.
 
 <figure markdown>
-  ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="100%" }
+  ![Create nac-iosxe directory](./assets/create-nac-iosxe.png){ width="80%" }
 </figure>
 
 ## Create project structure
@@ -132,7 +137,7 @@ This YAML file will contain your network device inventory - the list of devices 
 You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
 
 <figure markdown>
-  ![WSL Create Files](./assets/wsl-create-files.png){ width="100%" }
+  ![WSL Create Files](./assets/wsl-create-files.png){ width="80%" }
 </figure>
 
 ## Verify Your Project Structure
@@ -164,6 +169,11 @@ To begin working with your project in a development-friendly environment, open y
   ![WSL Open Project Folder](./assets/wsl-open-project-folder.png){ width="100%" }
 </figure>
 
+!!! note
+    When you open VS Code, it automatically connects to WSL.
+    Notice the `WSL: Ubuntu-22.04` indicator in the bottom-left corner of VS Code. This confirms that VS Code is connected to your WSL Ubuntu environment, allowing you to edit files directly in WSL.
+    This is achieved using the **WSL** VS Code extension, which is pre-installed in your lab environment.
+
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
 <figure markdown>
@@ -174,23 +184,27 @@ VS Code will now open with your project folder, and you'll see the file explorer
 
 Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
-```bash
-IOSXE_USERNAME=nac_admin
-IOSXE_PASSWORD=cisco
+```bash title=".env"
+export IOSXE_USERNAME=nac_admin
+export IOSXE_PASSWORD=cisco
+export IOSXE_PROTOCOL=restconf
 ```
 
-The figure below illustrates how to edit the `.env` file using Visual Studio Code. 
+The figure below illustrates how to edit the `.env` file using Visual Studio Code.
 
 <figure markdown>
   ![alt text](./assets/vscode-env-file.png){ width="100%" }
 </figure>
+
+!!! note "Protocol Selection"
+    In this lab, we are using **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly. The default protocol in the latest relese of the ciscodevnet/iosxe Terraform provider is now NETCONF.
 
 
 ## Edit Terraform main.tf file
 
 Next, edit a Terraform `main.tf` file with the following content. This file serves as the entry point for the Terraform configuration and defines the necessary resources and modules to interact with the IOS XE device:
 
-```text
+```text title="main.tf"
 module "iosxe" {
   source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
   yaml_directories = ["data/"]
@@ -206,7 +220,7 @@ module "iosxe" {
 
 - **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
 
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML into Terraform provider.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into HCL code needed by the Terraform provider.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
@@ -224,7 +238,8 @@ The figure below illustrates how to create the `main.tf` file using Visual Studi
 
 Now edit the `data/devices.nac.yaml` file to define your network device inventory. This file contains the list of devices that the NAC module will manage, along with their management IP addresses:
 
-```yaml
+```yaml title="data/devices.nac.yaml"
+---
 iosxe:
   devices:
     - name: core
@@ -242,6 +257,7 @@ iosxe:
 
 **Understanding the configuration:**
 
+- **`---`** - YAML document start marker
 - **`iosxe:`** - Root key indicating IOS XE specific configuration
 - **`devices:`** - List of devices to be managed
 - **`name:`** - Unique identifier for each device (used to reference the device in other configuration files)
@@ -266,28 +282,17 @@ VS Code has **auto-save** enabled, so your files are automatically saved after a
 
 Congratulations! In this chapter, you have:
 
-- ✅ **Learned about VS Code** - Understood why it's the ideal tool for editing Network-as-Code files
-- ✅ **Understood WSL** - Learned what Windows Subsystem for Linux is and why we use it for Terraform
-- ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory with proper organization
-- ✅ **Organized configuration files** - Created a `data/` folder to separate YAML configs from Terraform files
-- ✅ **Created credentials file** - Set up `.env` with IOS XE device authentication
+- ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory
+- ✅ **Organized configuration files** - Created a `data/` folder to separate NAC YAML config from other files
+- ✅ **Created environment file** - Set up `.env` with IOS XE device authentication
 - ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
 - ✅ **Prepared device inventory** - Created `data/devices.nac.yaml` with network device definitions
 
-## Key Concepts Learned
-
-**File Organization:**
-
-- Configuration files (YAML) in `data/` folder
-- Terraform files (`main.tf`) in project root
-- Credentials (`.env`) in project root
-
 **Tools Introduced:**
 
-- **VS Code** - For editing configuration files
-- **Red Hat YAML Extension** - For YAML syntax validation and linting
+- **VS Code** - For editing configuration files in this lab
+- **VS Code YAML Extension** - For YAML syntax validation and linting
 - **WSL** - For running Linux/Terraform commands
-- **Terraform** - For deploying configurations to devices
 
 In the next task, you'll deploy your first configuration using Terraform to apply a global banner across all your network devices.
 
