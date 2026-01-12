@@ -8,11 +8,11 @@ Before diving into Network-as-Code automation, it's important to establish basel
 
 ## Open Solar-PuTTY
 
-Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for managing multiple device connections. The application is pre-installed in the lab Windows 10 VM and ready to use.
+Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for managing multiple device connections. The application is pre-installed in the lab Win10 VM and ready to use.
 
 **To launch Solar-PuTTY:**
 
-1. Look for the **Solar-PuTTY** icon on your lab's Windows 10 VM
+1. Look for the **Solar-PuTTY** icon on your lab's Win10 VM
 2. Double-click to open the application
 3. You'll see the Solar-PuTTY interface with a list of devices
 
