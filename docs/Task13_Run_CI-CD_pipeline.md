@@ -2,8 +2,12 @@
     Complete [Task12 - Cleanup](./Task12_Cleanup.md) before starting this task to ensure a clean environment. You need to run `terraform destroy` to remove previous configurations from the lab devices.
 
 
+!!! note "Why Cleanup is Important"
+    You never want to have the same resources (i.e. network device configurations) present in multiple Terraform states at the same time. If you have two different Terraform environments managing the same network device, with different configurations, every time you run `terraform apply` from either environment, it will try to overwrite the changes made by the other environment, leading unpredictable results, conflicts and potential failures.
+
+
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
-While this works for learning and testing, production environments require automation. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
+While this works for learning and testing, production environments require the Terraform workflow to be automated using CI/CD pipelines and DevOps practices. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
 ## CI/CD for Network-as-Code
 
@@ -168,6 +172,8 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
   ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
 </figure>
 
+Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the` main.tf `file.
+
 
 ## State File Management
 
@@ -220,7 +226,9 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored by Network-as-Code.
 
-To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
+To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). Right-click on the file in the file explorer and select **Rename**.
+
+When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
 
 The only files that are currently not ignored are:
 
@@ -261,7 +269,7 @@ iosxe:
 
 ```
 !!! note
-    The banner text is modified to indicate that we're using GitLab CI/CD for deployment.
+    Note that we modified the banner text compared to what we used before, indicating that now we're using GitLab CI/CD.
 
 Optionally, you can also change the banner text to something new, if you'd like.
 
@@ -277,13 +285,13 @@ Optionally, you can also change the banner text to something new, if you'd like.
   ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
 </figure>
 
-1. Click on **Source Control** icon in the left sidebar (or press `Ctrl+Shift+G`)
+1. Click on **Source Control** icon in the left sidebar
 2. You'll see your modified file listed
 3. Enter a commit message: `Add global config for banner and hostname`
 4. Click **Commit and push to 'main'**
+5. If prompted with “You're committing your changes to the default branch. Do you want to continue?”. Select **Continue**.
 
 <!-- SCREENSHOT: Commit dialog in Web IDE -->
-
 <figure markdown>
   ![Commit Message](./assets/gitlab-webide-commit-message.png){ width="100%" }
 </figure>

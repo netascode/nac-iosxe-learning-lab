@@ -24,7 +24,7 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
     For example: `ssh cisco@198.18.130.10`
 
 !!! warning "Host Device Connectivity"
-    The host devices (**host01** and **host02**) are not reachable from your lab Windows 10 VM or Ubuntu VM. They are only reachable from CML - see below.
+    The host devices (**host01** and **host02**) are not reachable from your lab Win10 VM or Ubuntu VM. They are only reachable from CML - see below.
 
 ---
 
