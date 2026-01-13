@@ -117,11 +117,7 @@ Before running Terraform, you need to load the credentials from your `.env` file
 
 
 !!! tip "Convert the file to Unix format to avoid encoding issues"
-    You might encounter a situation where you have edited the `.env` file on Windows, causing it to have Windows-style line endings (CRLF). Run the following command in your **WSL Ubuntu terminal** to convert the `.env` file to Unix format:
-
-    ```bash
-    dos2unix .env
-    ```
+    You might encounter a situation where you have edited the `.env` file on Windows, causing it to have Windows-style line endings (CRLF). Run the following command in your **WSL Ubuntu terminal** to convert the `.env` file to Unix format: `dos2unix .env`
 
 To load these variables and make them available to Terraform, use this simple command:
 
@@ -129,7 +125,7 @@ To load these variables and make them available to Terraform, use this simple co
 source .env
 ```
 
-??? note "Using source vs. export"
+<!-- ??? note "Using source vs. export"
     The `source` command reads and executes the contents of the `.env` file.
     As we included `export` in each line of the `.env` file, using `source` is sufficient to load and export the variables.
 
@@ -143,7 +139,7 @@ source .env
 
       1. `cat .env` - Reads the contents of the `.env` file
       2. `xargs` - Converts the file contents into command-line arguments
-      3. `export` - Exports all the variables, making them available to processes like Terraform
+      3. `export` - Exports all the variables, making them available to processes like Terraform -->
 
 
 **Verify the variables are loaded:**
@@ -170,9 +166,6 @@ Environment variables exported in your current shell session are not persistent 
 To avoid manually exporting variables every time you open WSL, you can add the export command to your `~/.bashrc` file. This file runs automatically whenever you start a new bash session, so your environment variables will be loaded automatically.
 
 **To make the export permanent, add it to your bashrc**
-
-!!! note "This has already been done for you in the lab"
-    You don't need to run this command now.
 
 ```bash
 echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
@@ -360,21 +353,22 @@ Upon successful config deployment, you should see the following banner message:
   ![Pre-authentication Banner](./assets/solarputty-banner.png){ width="95%" }
 </figure>
 
-???+ tip "Banner Verification via show run"
-    Additionally, you can also verify the banner configuration by examining the running configuration. Once connected to each switch, run the following command:
 
-    ```bash
-    show run | include banner
-    ```
+Additionally, you can also verify the banner configuration by examining the running configuration. Once connected to each switch, run the following command:
 
-    !!! quote "Expected output"
-        ```hl_lines="2"
-        core#show run | include banner
-        banner login ^CWelcome to Network-as-Code Lab^C
-        core#
-        ```
+```bash
+show run | include banner
+```
 
-    The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your configured text in the output.
+**Expected output**
+
+```hl_lines="2"
+core#show run | include banner
+banner login ^CWelcome to Network-as-Code Lab^C
+core#
+```
+
+The `^C` characters represent control characters used by IOS XE to delimit the banner text. The important part is that you see your configured text in the output.
 
 **What you should observe:**
 

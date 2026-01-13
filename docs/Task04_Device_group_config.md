@@ -65,7 +65,10 @@ Let's break down the key elements:
 - **`devices:`** - Lists member devices (`access01`, `access02`)
 - **`configuration:`** - Contains settings applied to all group members
 
-??? tip "Adding Devices to Groups"
+??? tip "Alternative: You could also define group membership from devices"
+
+    Try this at home!
+
     You can also add a device to a device group from under the device configuration section by specifying the `device_groups` attribute. This is useful when you want to assign a device to multiple groups or prefer defining group membership alongside device-specific settings.
 
     ```yaml
@@ -112,7 +115,7 @@ Let's break down the key elements:
 When Terraform processes this configuration:
 
 1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
-2. The **ACCESS_SWITCHES** group ACL applies only to **access01** and **access02** switches
+2. The **ACCESS_SWITCHES** group's configuration applies only to **access01** and **access02** switches
 3. If you later add device-specific configuration to the **access01** device, it could override group settings (e.g., modifying the ACL or adding extra entries)
 
 This hierarchical approach ensures:
@@ -134,10 +137,14 @@ cd ~/nac-iosxe
 !!! note "terraform init not required"
     You do not need to run `terraform init` again, as the project has already been initialized in a previous task.
 
-!!! note "terraform plan can be skipped"
-    You can skip `terraform plan` if you want to go straight to applying the configuration.
 
-    However, it's good practice to run `terraform plan` first to preview the changes that will be made.
+It is good practice to run `terraform plan` first to preview the changes that will be made. You could also skip this step as the plan is automatically generated during `terraform apply`.
+
+```bash
+terraform plan
+```
+
+Now, run the following command to apply the configuration:
 
 ```bash
 terraform apply
@@ -160,20 +167,21 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 3. Check if the ACL is present using the command below
 4. Disconnect and repeat for the **access02** switch
 
-???+ info "Validation via `show access-lists`"
-    Use the following command on both **access01** and **access02** switches to verify the ACL:
-    ```bash
-    show access-lists | section AccessLayerACL
-    ```
+Use the following command on both **access01** and **access02** switches to verify the ACL:
+```bash
+show access-lists | section AccessLayerACL
+```
 
-    ???+ quote "Expected output"
-        <figure markdown>
-          ![Show Access List](./assets/sh-access-list.png){ width="95%" }
-        </figure>
+**Expected output**
 
-    This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
+<figure markdown>
+  ![Show Access List](./assets/sh-access-list.png){ width="95%" }
+</figure>
 
-??? info "Validation via `show run`"
+
+This confirms the standard ACL was successfully deployed to both **access01** and **access02** switches with both network permit entries.
+
+<!-- ??? info "Validation via `show run`"
     Alternatively, you can verify the ACL configuration by checking the running configuration:
 
     ```bash
@@ -187,7 +195,7 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
         10 permit 10.0.0.0 0.0.0.255
         20 permit 20.0.0.0 0.0.0.255
         access01#
-        ```
+        ``` -->
 
 !!! note "Key observation"
     The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.

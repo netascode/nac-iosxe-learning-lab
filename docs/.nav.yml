@@ -21,7 +21,7 @@ nav:
       - "[08] Templates 'file' (optional)": Task08_Templates_type_file.md
       - "[09] Templates 'cli' (optional)": Task09_Templates_type_cli.md
       - "[11] Post-checks (optional)": Task11_Post-checks.md
-  - Lab - Optional CI-CD:
+  - Lab - Optional CICD:
       - "[14] Edit CI-CD (optional)": Task14_Edit_CI-CD.md
       - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
   - Topologies: Intro05_topologies.md

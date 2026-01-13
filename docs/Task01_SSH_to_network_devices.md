@@ -35,7 +35,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 - **core** - Core switch (198.18.130.10)
 
 !!! info "Additional Devices"
-    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab.
+    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab. The figure below describes the switches, routers and hosts and the connections to each other. The NTP and SYSLOG servers (omitted from the diagram) are reachable via the management interface of each lab device.
 
 <figure markdown>
   ![CML Topology](./assets/cml-topology.png){ width="60%" }
