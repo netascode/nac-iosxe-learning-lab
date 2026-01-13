@@ -176,6 +176,9 @@ iosxe:
         TIMEZONE: America/New_York  # Overrides global default
 ```
 
+!!! info "The above YAML snippet is an example"
+    You do not need to add this in your lab.
+
 ## Step 4: Apply Configuration
 
 Open your WSL Ubuntu terminal and navigate to your project directory:
@@ -197,8 +200,8 @@ terraform apply
 ```
 When prompted, type `yes` to confirm the deployment.
 
-!!! tip "View the Merged Model"
-    After running `terraform apply`, open the `model.yaml` file in VS Code to see how variables are resolved. You'll see each device with its variable values substituted into the configuration.
+!!! tip "You can review the model.yaml file"
+    After running `terraform apply`, you can also open the `model.yaml` file in VS Code to see how variables are resolved. You can see each device with its variable values substituted into the configuration.
 
 
 ## Step 5: Verify Variable Substitution
@@ -268,7 +271,7 @@ Variables are powerful for many scenarios beyond hostnames (device identity). He
 
 Environment variables can also be used in NAC configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
 
-```yaml title="Environment Variable Example"
+```yaml title="Environment Variable Example" hl_lines="6"
 ---
 iosxe:
   devices:

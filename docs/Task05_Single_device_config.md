@@ -1,4 +1,4 @@
-In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that shouldn't be shared with other devices.
+In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that are specific to a given device.
 
 ## Device-Specific Configuration
 
@@ -6,7 +6,7 @@ Device-specific configurations are applied directly to individual devices and ta
 
 - **Unique device settings**: Configuration that only applies to one device (e.g., management IP hosts, device-specific routing)
 - **Override scenarios**: When a device needs different settings than its group or global defaults
-- **Special-purpose devices**: Core switches, management servers, or devices with unique roles
+- **Special-purpose devices**: Management switches or devices with unique roles
 
 **Configuration Precedence Hierarchy (reminder):**
 
