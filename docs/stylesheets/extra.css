@@ -28,3 +28,8 @@
     max-height: 500px; 
     overflow-y: auto;
 }
+
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: .7rem;
+}
