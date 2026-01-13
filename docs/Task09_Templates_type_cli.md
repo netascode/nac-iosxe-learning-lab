@@ -105,26 +105,25 @@ When prompted, type `yes` to confirm the deployment.
 
 Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` switch) and verify that the alias command was successfully added.
 
-!!! info "Verfify alias command"
-    After connecting to the device, run the following command to check if the alias was created:
 
-    ```
-    show alias
-    ```
+After connecting to the device, run the following command to check if the alias was created:
 
-    ???+ quote "Expected output"
-        ```
-        core#show alias
-        Exec mode aliases:
-          h                     help
-          lo                    logout
-          ...
-          logs                  show logging
+```
+show alias
+```
 
-        core#
-        ```
+``` title="Expected Output"
+core#show alias
+Exec mode aliases:
+  h                     help
+  lo                    logout
+  ...
+  logs                  show logging
 
-    You can also test the alias by running `logs` from exec mode.
+core#
+```
+
+You can also test the alias by running `logs` from exec mode.
 
 
 ## Template Type Summary

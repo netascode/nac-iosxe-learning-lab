@@ -216,7 +216,7 @@ After Terraform completes successfully, verify the configuration was applied cor
   ![Solar-PuTTY Core Banner](./assets/solarputty-ssh-core-variables.png){ width="95%" }
 </figure>
 
-??? info "Alternative Verification Commands"
+<!-- ??? info "Alternative Verification Commands"
     You can use the following commands to verify the hostname and banner on each device:
 
     ???+ quote "Verify Hostname via `show run`"
@@ -247,7 +247,7 @@ After Terraform completes successfully, verify the configuration was applied cor
             Device: access01
 
             access01#
-            ```
+            ``` -->
 
 Each device shows its own hostname in the banner - demonstrating that the same template produced device-specific results.
 

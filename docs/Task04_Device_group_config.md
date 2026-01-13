@@ -172,7 +172,7 @@ Use the following command on both **access01** and **access02** switches to veri
 show access-lists | section AccessLayerACL
 ```
 
-**Expected output**
+**put**
 
 <figure markdown>
   ![Show Access List](./assets/sh-access-list.png){ width="95%" }
@@ -188,7 +188,7 @@ This confirms the standard ACL was successfully deployed to both **access01** an
     show run | section AccessLayerACL
     ```
 
-    ???+ quote "Expected output"
+    ???+ quote "put"
         ```
         access01#show run | section AccessLayerACL
         ip access-list standard AccessLayerACL

@@ -195,9 +195,8 @@ Understanding the command:
 - **`"https://198.18.130.11/restconf/"`** - The RESTCONF URL on the **access01** device
 - **`-u $IOSXE_USERNAME:$IOSXE_PASSWORD`** - Authentication using the environment variables loaded in the previous step
 
-**Expected output:**
 
-```text title="RESTCONF Verification" hl_lines="2"
+```text title="Expected Output" hl_lines="2"
 cisco@wkst1:~$ curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
 HTTP/1.1 200 OK
 Server: openresty
@@ -360,9 +359,7 @@ Additionally, you can also verify the banner configuration by examining the runn
 show run | include banner
 ```
 
-**Expected output**
-
-```hl_lines="2"
+```title="Expected Output" hl_lines="2"
 core#show run | include banner
 banner login ^CWelcome to Network-as-Code Lab^C
 core#

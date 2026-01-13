@@ -198,17 +198,16 @@ Use **Solar-PuTTY** to connect to the **border** switch (`198.18.130.20`) and ve
 show ip bgp summary
 ```
 
-!!! quote "Expected output"
-    ```
-    border#show ip bgp summary
-    BGP router identifier 198.18.130.20, local AS number 65000
-    ...
+``` title="Expected Output"
+border#show ip bgp summary
+BGP router identifier 198.18.130.20, local AS number 65000
+...
 
-    Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-    198.18.100.1    4        65001      23      23        2    0    0 00:16:54        1
-    198.18.100.5    4        65002       0       0        1    0    0 never    Idle
-    border#
-    ```
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+198.18.100.1    4        65001      23      23        2    0    0 00:16:54        1
+198.18.100.5    4        65002       0       0        1    0    0 never    Idle
+border#
+```
 
 **Understanding the output**
 
@@ -233,25 +232,24 @@ You can verify the received route with:
 show ip route
 ```
 
-???+ quote "Expected output"
-    ``` hl_lines="19"
-    border#show ip route
-    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
-    ...
+``` title="Expected Output" hl_lines="19"
+border#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+...
 
-    Gateway of last resort is 198.18.128.1 to network 0.0.0.0
+Gateway of last resort is 198.18.128.1 to network 0.0.0.0
 
-    S*    0.0.0.0/0 [1/0] via 198.18.128.1
-          8.0.0.0/24 is subnetted, 1 subnets
-    B        8.8.8.0 [20/0] via 198.18.100.1, 00:20:04
-          198.18.100.0/24 is variably subnetted, 2 subnets, 2 masks
-    C        198.18.100.0/30 is directly connected, GigabitEthernet1
-    L        198.18.100.2/32 is directly connected, GigabitEthernet1
-    C     198.18.128.0/20 is directly connected, GigabitEthernet2
-          198.18.130.0/32 is subnetted, 1 subnets
-    L        198.18.130.20 is directly connected, GigabitEthernet2
-    border#
-    ```
+S*    0.0.0.0/0 [1/0] via 198.18.128.1
+      8.0.0.0/24 is subnetted, 1 subnets
+B        8.8.8.0 [20/0] via 198.18.100.1, 00:20:04
+      198.18.100.0/24 is variably subnetted, 2 subnets, 2 masks
+C        198.18.100.0/30 is directly connected, GigabitEthernet1
+L        198.18.100.2/32 is directly connected, GigabitEthernet1
+C     198.18.128.0/20 is directly connected, GigabitEthernet2
+      198.18.130.0/32 is subnetted, 1 subnets
+L        198.18.130.20 is directly connected, GigabitEthernet2
+border#
+```
 
 !!! note
     It may take a minute or two for the BGP session to establish and for the route to appear in the routing table.

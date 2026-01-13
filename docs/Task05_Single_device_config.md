@@ -82,7 +82,7 @@ Let's break down the key elements:
 
 - **`name: ntp-server`** - The hostname to create
 - **`ips:`** - List of IP addresses associated with the hostname
-- **`198.18.128.1`** - The IP address that resolves when using the hostname
+- **`198.18.129.11`** - The IP address of the NTP server that resolves when using the hostname
 - **`vrf: Mgmt-vrf`** - Specifies the VRF context for the IP host entry
 
 !!! note
@@ -116,19 +116,19 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
 
 Open your WSL Ubuntu terminal and run the following steps:
 
-**Step 1:** Navigate to your project directory:
+Navigate to your project directory:
 
 ```bash
 cd ~/nac-iosxe
 ```
 
-**Step 2:** Optionally, preview the changes Terraform will make:
+Optionally, preview the changes Terraform will make:
 
 ```bash
 terraform plan
 ```
 
-**Step 3:** Apply the configuration:
+Apply the configuration:
 
 ```bash
 terraform apply
@@ -155,54 +155,55 @@ After successfully running `terraform apply`, verify that the IP host entries we
 2. Connect to the **core** switch (`198.18.130.10`)
 3. Run the verification commands below
 
-???+ info "Verification via host resolution and ping"
-    ```
-    ping vrf Mgmt-vrf ntp-server
-    ```
+**Verification via host resolution and ping:**
 
-    ```
-    ping vrf Mgmt-vrf syslog-server
-    ```
+```
+ping vrf Mgmt-vrf ntp-server
+```
 
-    ???+ quote "Expected output"
-        ```
-        core#ping vrf Mgmt-vrf ntp-server
-        Type escape sequence to abort.
-        Sending 5, 100-byte ICMP Echos to 198.18.129.11, timeout is 2 seconds:
-        !!!!!
-        Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
-        core#ping vrf Mgmt-vrf syslog-server
-        Type escape sequence to abort.
-        Sending 5, 100-byte ICMP Echos to 198.18.129.12, timeout is 2 seconds:
-        !!!!!
-        Success rate is 100 percent (5/5), round-trip min/avg/max = 1/201/1002 ms
-        core#
-        ```
+```
+ping vrf Mgmt-vrf syslog-server
+```
 
 
-??? info "Verification via `show hosts`"
-    ```bash
-    show hosts vrf Mgmt-vrf
-    ```
-
-    ???+ quote "Expected output"
-        ```
-        core#show hosts vrf Mgmt-vrf
-        Name lookup VRF: Mgmt-vrf
-        Default domain is not set
-        Name servers are 255.255.255.255
-        NAME  TTL  CLASS   TYPE      DATA/ADDRESS
-        -----------------------------------------
-        11.129.18.198.in-addr.arpa     10      IN      PTR     ntp-server
-        12.129.18.198.in-addr.arpa     10      IN      PTR     syslog-server
-        ntp-server     10      IN      A       198.18.129.11
-        syslog-server  10      IN      A       198.18.129.12
-
-        core#
-        ```
+``` title="Expected Output"
+core#ping vrf Mgmt-vrf ntp-server
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 198.18.129.11, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+core#ping vrf Mgmt-vrf syslog-server
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 198.18.129.12, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/201/1002 ms
+core#
+```
 
 
-??? info "Verification via `show run | include ip host`"
+**Verification via `show hosts`**
+
+```
+show hosts vrf Mgmt-vrf
+```
+
+``` title="Expected Output"
+core#show hosts vrf Mgmt-vrf
+Name lookup VRF: Mgmt-vrf
+Default domain is not set
+Name servers are 255.255.255.255
+NAME  TTL  CLASS   TYPE      DATA/ADDRESS
+-----------------------------------------
+11.129.18.198.in-addr.arpa     10      IN      PTR     ntp-server
+12.129.18.198.in-addr.arpa     10      IN      PTR     syslog-server
+ntp-server     10      IN      A       198.18.129.11
+syslog-server  10      IN      A       198.18.129.12
+
+core#
+```
+
+
+<!-- ??? info "Verification via `show run | include ip host`"
     ```bash
     show run | include ip host
     ```
@@ -213,7 +214,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
         ip host vrf Mgmt-vrf ntp-server 198.18.129.11
         ip host vrf Mgmt-vrf syslog-server 198.18.129.12
         core#
-        ```
+        ``` -->
 
 You should see both IP host entries configured on the **core** switch.
 

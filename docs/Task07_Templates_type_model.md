@@ -201,33 +201,31 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 3. Run the verification command below
 4. Disconnect and repeat for **access02** switch (`198.18.130.12`)
 
-!!! info "Validation via `show vlan brief`"
-    Use the following command on both **access01** and **access02** switches to verify the VLANs:
+Use the following command on both **access01** and **access02** switches to verify the VLANs:
 
-    ```
-    show vlan brief
-    ```
+```
+show vlan brief
+```
 
-    ???+ quote "Expected output on both switches"
-        ``` hl_lines="8-10"
-        access01#show vlan brief
+``` title="Expected output on both switches" hl_lines="8-10"
+access01#show vlan brief
 
-        VLAN Name                             Status    Ports
-        ---- -------------------------------- --------- -------------------------------
-        1    default                          active    Gi1/0/1, Gi1/0/2, Gi1/0/3, Gi1/0/4,
-                                                        ...
-                                                        Gi1/0/21, Gi1/0/22, Gi1/0/23, Gi1/0/24
-        10   DATA                             active
-        20   VOICE                            active
-        99   MGMT                             active
-        1002 fddi-default                     act/unsup
-        1003 token-ring-default               act/unsup
-        1004 fddinet-default                  act/unsup
-        1005 trnet-default                    act/unsup
-        access01#
-        ```
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi1/0/1, Gi1/0/2, Gi1/0/3, Gi1/0/4,
+                                                ...
+                                                Gi1/0/21, Gi1/0/22, Gi1/0/23, Gi1/0/24
+10   DATA                             active
+20   VOICE                            active
+99   MGMT                             active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+access01#
+```
 
-    You should see all three VLANs (`10-DATA`, `20-VOICE`, `99-MGMT`) configured on both devices.
+You should see all three VLANs (`10-DATA`, `20-VOICE`, `99-MGMT`) configured on both devices.
 
 
 ## Templates vs Other Configuration Methods
