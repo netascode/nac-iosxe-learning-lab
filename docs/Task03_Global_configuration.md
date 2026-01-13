@@ -181,7 +181,60 @@ echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
 
 
-### Step 3: Initialize Terraform
+### Step 3: Verify RESTCONF
+
+Before proceeding with Terraform, it's a good idea to verify that the RESTCONF API is accessible on the IOS XE devices. For more details on RESTCONF, refer to [Task 01 - SSH to Network Devices](Task01_SSH_to_network_devices.md).
+
+You can use the `curl` command to test connectivity to one of your IOS XE devices.
+
+For example, you can check RESTCONF on the **access01** device (`198.18.130.11`) by running the following command in your WSL Ubuntu terminal:
+
+```bash
+curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
+```
+
+Understanding the command:
+
+- **`curl`** - Command-line tool for transferring data with URLs
+- **`-i`** - Include HTTP response headers in the output
+- **`-k`** - Allow insecure server connections when using SSL (ignore certificate warnings in the lab)
+- **`-X "GET"`** - Specify the HTTP method (GET request)
+- **`"https://198.18.130.11/restconf/"`** - The RESTCONF URL on the **access01** device
+- **`-u $IOSXE_USERNAME:$IOSXE_PASSWORD`** - Authentication using the environment variables loaded in the previous step
+
+**Expected output:**
+
+```text title="RESTCONF Verification" hl_lines="2"
+cisco@wkst1:~$ curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
+HTTP/1.1 200 OK
+Server: openresty
+Date: Tue, 13 Jan 2026 09:30:06 GMT
+Content-Type: application/yang-data+xml
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: private, no-cache, must-revalidate, proxy-revalidate
+Pragma: no-cache
+Content-Security-Policy: default-src 'self'; block-all-mixed-content; base-uri 'self'; frame-ancestors 'none';
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+<restconf xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf">
+  <data/>
+  <operations/>
+  <yang-library-version>2019-01-04</yang-library-version>
+</restconf>
+cisco@wkst1:~$
+```
+
+If you see an `HTTP/1.1 200 OK` response, it means the RESTCONF API is accessible and your credentials are correct. You are now ready to proceed with Terraform!
+
+
+### Step 4: Initialize Terraform
 
 Initialize your Terraform project to download the required Network-as-Code module:
 
@@ -212,7 +265,7 @@ terraform init
     If you want to download the latest version of the modules, you can use `terraform init -upgrade` instead.
 
 
-### Step 4: Preview Changes with Terraform Plan
+### Step 5: Preview Changes with Terraform Plan
 
 Before making any changes, preview what Terraform will do:
 
@@ -238,7 +291,7 @@ terraform plan
 In our case, we will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created - as we configured in `main.tf`.
 
 
-### Step 5: Apply Configuration to Devices
+### Step 6: Apply Configuration to Devices
 
 If the plan looks good, apply the configuration:
 
@@ -290,7 +343,7 @@ Type `yes` and press Enter to proceed.
     However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
 
 
-### Step 6: Verify the Global Configuration
+### Step 7: Verify the Global Configuration
 
 After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four switches automatically.
 

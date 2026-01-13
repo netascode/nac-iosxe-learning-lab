@@ -1,10 +1,13 @@
-Before diving into Network-as-Code automation, it's important to establish baseline connectivity to your IOS XE devices and understand their current state. In this task, you'll use Solar-PuTTY to connect to the switches and verify their configuration.
+Before diving into Network-as-Code automation, it's important to establish baseline connectivity to your IOS XE devices and understand their current state. In this task, you'll use Solar-PuTTY to connect to the lab devices and verify their configuration.
 
 ## What You'll Learn
 
 - How to connect to IOS XE devices using Solar-PuTTY
 - How to verify device information with basic show commands
 - What minimal configuration is required for Network-as-Code/RESTCONF automation
+
+!!! note "RESTCONF and NETCONF"
+    IOSXE-as-Code can use either RESTCONF or NETCONF protocols to communicate with network devices. This version of the lab guide focuses on using RESTCONF. Further details are provided later in this chapter.
 
 ## Open Solar-PuTTY
 
@@ -39,7 +42,7 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 </figure>
 
 !!! tip "Lab Topologies Reference"
-    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) for the topology diagrams, device IP addresses and credentials.
+    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) (see the top navigation bar of this page) for the topology diagrams, device IP addresses and credentials.”
 
 
 **To connect to a device:**
@@ -133,11 +136,8 @@ write memory
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    For example, in the lab, you can check RESTCONF on the access01 device by opening your WSL Ubuntu terminal and running:
+    We will use this command later in the lab ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu.
 
-    ```bash
-    curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u cisco:cisco
-    ```
 
 ## What to observe across all devices
 

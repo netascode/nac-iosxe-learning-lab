@@ -197,7 +197,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 </figure>
 
 !!! note "Protocol Selection"
-    In this lab, we are using **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly. The default protocol in the latest relese of the ciscodevnet/iosxe Terraform provider is now NETCONF.
+    In this lab, we are using **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly.
 
 
 ## Edit Terraform main.tf file

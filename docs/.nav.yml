@@ -1,10 +1,11 @@
 nav:
   - Home: index.md
-  - Lab - Recommended Tasks:
+  - Intro:
       - "Learning Objectives": Intro01_overview.md
       - "Accessible to All Learners": Intro02_all_learners.md
       - "Disclaimer": Intro03_disclaimer.md
       - "Getting Started": Intro04_getting_started.md
+  - Lab - Recommended:
       - "[01] SSH to devices": Task01_SSH_to_network_devices.md
       - "[02] Editing YAML": Task02_Editing_YAML_files.md
       - "[03] Global configuration": Task03_Global_configuration.md
@@ -14,13 +15,13 @@ nav:
       - "[12] Cleanup": Task12_Cleanup.md
       - "[13] Run CI-CD pipeline": Task13_Run_CI-CD_pipeline.md
       - "Conclusion": Workend01_conclusion.md
-  - Lab - Optional Tasks - Manual Part:
+  - Lab - Optional:
       - "[06] Variables (optional)": Task06_Variables.md
       - "[07] Templates 'model' (optional)": Task07_Templates_type_model.md
       - "[08] Templates 'file' (optional)": Task08_Templates_type_file.md
       - "[09] Templates 'cli' (optional)": Task09_Templates_type_cli.md
       - "[11] Post-checks (optional)": Task11_Post-checks.md
-  - Lab - Optional Tasks - CI-CD Part:
+  - Lab - Optional CI-CD:
       - "[14] Edit CI-CD (optional)": Task14_Edit_CI-CD.md
       - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
   - Topologies: Intro05_topologies.md
