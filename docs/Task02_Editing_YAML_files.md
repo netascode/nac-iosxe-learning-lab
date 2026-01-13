@@ -76,6 +76,9 @@ You should see `/home/cisco` displayed.
 mkdir nac-iosxe
 ```
 
+!!! tip "Copy and Paste"
+    You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into the WSL terminal using **right-click**.
+
 This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code project files.
 
 **Navigate into the new directory:**
@@ -160,7 +163,7 @@ To begin working with your project in a development-friendly environment, open y
 
 **To open the folder in VS Code:**
 
-1. Double-click the **VS Code** icon on the Windows desktop
+1. Double-click the **Visual Studio Code Code** icon on the Windows desktop
 2. Click **File** → **Open Folder**
 3. In the address bar, type or paste: `/home/cisco/nac-iosxe`
 4. Click **OK**
