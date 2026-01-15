@@ -209,7 +209,7 @@ Next, edit a Terraform `main.tf` file with the following content. This file serv
 
 ```text title="main.tf"
 module "iosxe" {
-  source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
+  source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"
   yaml_directories = ["data/"]
   write_model_file = "model.yaml"
   write_default_values_file = "defaults.yaml"
@@ -225,6 +225,8 @@ module "iosxe" {
 
 - **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into HCL code needed by the Terraform provider.
 
+- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular commit hash to ensure we are using a specific version of the module. This guarantees consistency in our deployments, as the module code won't change unexpectedly. In this lab, we pinned this commit on **January 15, 2026** to ensure stability.
+
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
 - **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration.
@@ -233,6 +235,7 @@ module "iosxe" {
 
 The figure below illustrates how to create the `main.tf` file using Visual Studio Code.
 
+<!-- TODO: Update image with tagged to specific commit -->
 <figure markdown>
   ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>

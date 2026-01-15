@@ -32,15 +32,16 @@ Open **Chrome** on the Windows 10 VM and navigate to GitLab:
 
 If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 
+<!-- SCREENSHOT: GitLab login page with username/password fields -->
+<figure markdown>
+  ![GitLab Login](./assets/gitlab-login.png){ width="50%" }
+</figure>
+
 !!! note "You can use any browser, from the VM or your host machine"
     Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Task 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
 
     The screenshots in Task 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux.
 
-<!-- SCREENSHOT: GitLab login page with username/password fields -->
-<!-- <figure markdown>
-  ![GitLab Login](./assets/gitlab-login.png){ width="100%" }
-</figure> -->
 
 ## Step 2: Navigate to the NAC-IOSXE Project
 
@@ -172,10 +173,11 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
   ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
 </figure>
 
-Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the` main.tf `file.
 
 
 ## State File Management
+
+Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the` main.tf `file.
 
 The pipeline uses GitLab's http backend to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
 This is configured in the `main.tf` file with the following backend block:
