@@ -15,11 +15,11 @@ As described in the [IOS XE Template documentation](https://netascode.cisco.com/
 
 **Template Types:**
 
-| Type    | Description                       | Use Case                                            |
-|---------|-----------------------------------|-----------------------------------------------------|
-| *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.)         |
-| *file*  | External `.tftpl` template files  | Large configurations stored separately              |
-| *cli*   | Raw CLI commands                  | IOS XE features not supported in the NAC data model |
+| Type    | Description                       | Use Case                                                        |
+|---------|-----------------------------------|-----------------------------------------------------------------|
+| *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *This chapter*    |
+| *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*               |
+| *cli*   | Raw CLI commands                  | IOS XE features not supported in the NAC data model ← *Task09*  |
 
 In this task, you'll use the *model* type to create a VLAN template as a practical example.
 
@@ -84,7 +84,7 @@ Let's break down the key elements:
 
 ## Apply Template to Access Switches
 
-Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section:
+Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section, at the end of the YAML configuration file:
 
 ```yaml title="data/config-group-access.nac.yaml" hl_lines="21 22"
 ---
@@ -117,16 +117,16 @@ iosxe:
     - **`templates:`** - New section to apply templates to all switches in the `ACCESS_SWITCHES` device group
     - **`access_switch_vlans`**: Reference to the VLAN template defined in `template-vlan.nac.yaml`
 
-The template reference is added alongside the existing ACL configuration, so both the access list and VLANs will be deployed to **access01** and **access02**.
+The template reference is added alongside the existing `AccessLayerACL` configuration. After running `terraform apply`, both the ACL and VLAN configuration will be present on **access01** and **access02**.
 
 ## How Templates Work
 
-When Terraform processes your configuration:
+When Network-as-Code processes your configuration:
 
-1. **Template Resolution**: Terraform reads `template-vlan.nac.yaml` and loads the `access_switch_vlans` template
-2. **Device Group Processing**: Terraform finds the `ACCESS_SWITCHES` group and its associated template
-3. **Configuration Merge**: For **access01** and **access02** (members of the group), the template's configuration is merged with their settings
-4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
+1. **Template Resolution**: NAC reads the `template-vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
+3. **Device Group Processing**: NAC reads `config-group-access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
+4. **Configuration Merge**: For **access01** and **access02** (members of the `ACCESS_SWITCHES` group), the template's configuration is merged with their settings
+5. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
 <figure markdown>
   ![Template Processing Flow](./assets/templates.png){ width="50%" }

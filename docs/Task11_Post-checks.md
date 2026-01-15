@@ -1,3 +1,6 @@
+!!! warning "Task Prerequisite"
+    Before starting this task, ensure you have completed [Task 10: Schema Validation](Task10_Schema_Validation.md). The `.schema.yaml` file created in that task is required for the `nac-test` tool to function correctly.
+
 After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? What about config that's not in the running configuration, such as the VLAN database? Manual verification doesn't scale.
 
 In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
