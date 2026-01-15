@@ -78,7 +78,7 @@ plan:
   stage: plan
   resource_group: iosxe
   script:
-    - terraform init -input=false
+    - terraform init -upgrade -input=false
     - terraform plan -out=plan.tfplan -input=false
     - terraform show -no-color plan.tfplan > plan.txt
     - terraform show -json plan.tfplan | jq > plan.json

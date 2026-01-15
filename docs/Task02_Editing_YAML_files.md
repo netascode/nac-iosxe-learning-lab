@@ -225,7 +225,7 @@ module "iosxe" {
 
 - **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into HCL code needed by the Terraform provider.
 
-- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular commit hash to ensure we are using a specific version of the module. This guarantees consistency in our deployments, as the module code won't change unexpectedly. In this lab, we pinned this commit on **January 15, 2026** to ensure stability.
+- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular commit hash to ensure we are using a specific version of the module, to ensure that you use the same version that we used during lab development. We pinned this commit on **January 15, 2026**.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 

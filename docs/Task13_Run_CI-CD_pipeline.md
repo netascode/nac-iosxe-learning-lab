@@ -111,7 +111,7 @@ validate:
 plan:
   stage: plan
   script:
-    - terraform init -input=false
+    - terraform init -upgrade -input=false
     - terraform plan -out=plan.tfplan -input=false
     - terraform show -no-color plan.tfplan > plan.txt
     # ... additional plan output processing ...
