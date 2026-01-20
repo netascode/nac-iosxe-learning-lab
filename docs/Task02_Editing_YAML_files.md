@@ -135,7 +135,7 @@ Create the `devices.nac.yaml` file inside the data folder for device inventory:
 touch data/devices.nac.yaml
 ```
 
-This YAML file will contain your network device inventory - the list of devices that NAC will manage.
+This YAML file will contain your network device inventory, the list of devices that NAC will manage.
 
 You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
 

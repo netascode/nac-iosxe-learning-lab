@@ -254,6 +254,8 @@ border#
 !!! note
     It may take a minute or two for the BGP session to establish and for the route to appear in the routing table.
 
+<!-- Challenge removed from the lab flow
+
 ## Challenge (Optional): Add default gateway for host01 and host02
 
 Host devices (`host01` and `host02`) need a default gateway to reach external networks. They are already pre-configured with static IPs and a default gateway:
@@ -324,6 +326,7 @@ With what we've covered so far, you should be able to figure this out on your ow
                     address: 192.168.100.1
                     address_mask: 255.255.255.0
     ```
+-->
 
 
 ## What You've Accomplished

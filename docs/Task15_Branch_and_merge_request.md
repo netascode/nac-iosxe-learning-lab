@@ -116,8 +116,10 @@ In the previous step, the Web IDE already prompted you to create a new branch wh
 !!! success "Branch Created"
     You have successfully created a new branch named `feature/core`. This branch is now your isolated workspace to make changes without affecting the main production branch.
 
+    You can also see `feature/core` displayed in the bottom-left corner, indicating you're working on your new branch. The commit `Add core config` is already pushed to it.
 
-!!! tip "Branch Naming Conventions"
+
+??? tip "Branch Naming Conventions"
     Use descriptive branch names that indicate the purpose of the changes:
 
     | Example Branch Name      | Purpose                        |
@@ -127,15 +129,6 @@ In the previous step, the Web IDE already prompted you to create a new branch wh
     | `update/banner-message` | Updating existing configuration |
 
     This makes it easy to see what each branch contains without looking at the code.
-
-You should now see `feature/core` displayed in the bottom-left corner, indicating you're working on your new branch. The commit `Add core config` is already pushed to it.
-
-You can verify this by looking at the commit history in the GitLab UI:
-
-1. Go to **Code** → **Commits** in the left sidebar
-2. Select the `feature/core` branch from the dropdown
-3. You should see your recent commit listed
-4. Switch back to the `main` branch to confirm that the commit is not present there
 
 
 ## Step 3: Create Merge Request
@@ -219,6 +212,8 @@ In this lab, the approval step is not required to merge. In production environme
 
 You can now proceed to merge the changes into `main`.
 
+<!-- TODO: UPDATE OPTIONS (ACCORDING TO SCREENSHOT) -->
+
 1. On the merge request page, review the changes and the merge options
 2. You may see options like:
     - **Merge immediately** - Merge right away
@@ -228,6 +223,8 @@ You can now proceed to merge the changes into `main`.
     - **Edit commit message** - Change the commit message for the merge commit
 3. Leave the **Delete source branch** option checked - to keep the repository clean
 4. Click **Merge**
+
+<!-- TODO: ADD SCREENSHOT -->
 
 !!! success "Congratulations!"
     Your changes have been merged into the main branch! This triggers the deployment pipeline.

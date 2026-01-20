@@ -14,6 +14,10 @@ This lab demonstrates how Network-as-Code solves these challenges using:
 - **Post-deployment testing** - Verify configurations after deployment
 - **GitLab CI/CD pipelines** - Automate validation, deployment, and testing
 
+!!! note "Network-as-Code"
+    Throughout this document, the terms Network-as-Code IOSXE, NAC IOSXE, and IOSXE-as-Code are used interchangeably and refer to the same automation solution.
+
+
 **What You'll Learn**
 
 By completing this lab, you will gain hands-on experience with:
