@@ -1,4 +1,4 @@
-In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example - demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
+In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example, demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
 
 ## Device Groups
 
@@ -9,11 +9,14 @@ Device groups are particularly effective for:
 - **Role-based configuration**: Grouping devices by function (access switches, core switches, border switches)
 - **Location-based configuration**: Grouping devices by physical or logical location (data center, branch office)
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
-- **Security policies**: Applying common ACLs or security settings to device subsets
+- **Security policies**: Applying common ACLs or security settings to device groups
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) - a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) – a typical requirement for access layer devices controlling traffic from known networks.
+
+!!! note "Scalability"
+    Using device groups may appear unnecessary for just two access switches – in this example. Now, consider a large network with more than 1,000 access switches. Utilizing device groups helps keeping the configuration organized and scalable.
 
 ## Step 1: Create the Device Group Configuration File
 
@@ -115,15 +118,14 @@ Let's break down the key elements:
 When Terraform processes this configuration:
 
 1. The **global banner** applies to all devices (**border**, **core**, **access01**, **access02**)
-2. The **ACCESS_SWITCHES** group's configuration applies only to **access01** and **access02** switches
-3. If you later add device-specific configuration to the **access01** device, it could override group settings (e.g., modifying the ACL or adding extra entries)
+2. The **ACCESS_SWITCHES** group's configuration (in our case the ACL **AccessLayerACL**) applies only to **access01** and **access02** switches
+3. If you later add device-specific configuration to the **access01** device, it could override global or group settings (e.g., changing the banner)
 
 This hierarchical approach ensures:
 
 - No configuration duplication (ACL defined once, applied to multiple devices)
 - Easy maintenance (update ACL in one place, changes apply to all group members)
 - Scalability (add more switches by just adding them to the group's device list)
-- Flexibility (individual devices can still override group settings if needed)
 
 
 ## Step 2: Apply Access-list Configuration
@@ -165,14 +167,12 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to the **access01** switch
 3. Check if the ACL is present using the command below
-4. Disconnect and repeat for the **access02** switch
+4. Repeat for the **access02** switch
 
 Use the following command on both **access01** and **access02** switches to verify the ACL:
 ```bash
 show access-lists | section AccessLayerACL
 ```
-
-**put**
 
 <figure markdown>
   ![Show Access List](./assets/sh-access-list.png){ width="95%" }
@@ -198,7 +198,7 @@ This confirms the standard ACL was successfully deployed to both **access01** an
         ``` -->
 
 !!! note "Key observation"
-    The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL - demonstrating the selective deployment capability of device groups.
+    The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL, demonstrating the selective deployment capability of device groups.
 
 
 ## Generated Model File

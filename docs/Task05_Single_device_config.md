@@ -35,7 +35,7 @@ touch ~/nac-iosxe/data/config-device-access02.nac.yaml
 ```
 
 !!! tip "Placeholder Files"
-    Creating placeholder files for all devices establishes a consistent naming pattern. Even if a device doesn't have specific configuration yet, the file is ready when you need it. Empty files are ignored by the NAC module.
+    Creating placeholder files for all devices establishes a consistent naming pattern. Even if a device doesn't have specific configuration yet, the file is ready when you need it. Empty files are ignored by NAC.
 
 Now open `data/config-device-core.nac.yaml` in VS Code and add the following content. Notice how the configuration references the device by name:
 
@@ -80,9 +80,9 @@ Let's break down the key elements:
 
 **IP Host Entry Details:**
 
-- **`name: ntp-server`** - The hostname to create
+- **`name: ntp-server`** / **`syslog-server`** - The hostnames to create
 - **`ips:`** - List of IP addresses associated with the hostname
-- **`198.18.129.11`** - The IP address of the NTP server that resolves when using the hostname
+- **`198.18.129.11`** / **`198.18.129.12`** - The IP addresses of the NTP and Syslog servers that resolve when using the hostnames
 - **`vrf: Mgmt-vrf`** - Specifies the VRF context for the IP host entry
 
 !!! note
@@ -152,7 +152,7 @@ After successfully running `terraform apply`, verify that the IP host entries we
 **Verify on core Switch (should have the configuration)**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **core** switch (`198.18.130.10`)
+2. Connect to the **core** switch
 3. Run the verification commands below
 
 **Verification via host resolution and ping:**
@@ -221,7 +221,7 @@ You should see both IP host entries configured on the **core** switch.
 
 **Verify on Other Devices (should NOT have the configuration)**
 
-Connect to the **border** switch (`198.18.130.20`) and run the same command:
+Connect to the **border** switch and run the same command:
 
 ```bash
 show run | include ip host
@@ -233,7 +233,7 @@ The command should return no output, confirming that the IP host entries were NO
 
 
 !!! note "Key observation"
-    The IP host configuration only appears on the core device because it was defined in the device-specific section. This demonstrates how device-level configuration takes precedence and remains isolated to the targeted device.
+    The IP host configuration only appears on the **core** device because it was defined under the device-specific configuration section.
 
 
 ## Configuration Hierarchy Comparison
@@ -276,10 +276,4 @@ You've now mastered all three levels of the Network-as-Code configuration hierar
 
 ---
 
-**Next Steps:**
-
-You can either explore **optional** tasks or continue with the **recommended** path:
-
-- **Optional:** [Task06 - Variables](Task06_Variables.md) - Learn how to use variables for dynamic configurations
-- **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip optional tasks and continue with pre-change validation
-
+**Next:** [Task06 - Variables](Task06_Variables.md)

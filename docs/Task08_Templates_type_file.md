@@ -86,7 +86,7 @@ This template uses:
 - **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`** - Access neighbor variables for attributes
 
 !!! note "Template Location"
-    The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though we don't include the `tftpl/` folder in our modul configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
+    The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though we don't include the `tftpl/` folder in our module configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
 
 
 ## Step 2: Create the Template Definition File
@@ -155,9 +155,10 @@ iosxe:
 
 - **`BGP_AS_NUMBER: 65000`**: **border** switch AS number
 - **`BGP_NEIGHBORS`**: List of ISP neighbors:
-  - **isp** (65001): Active production peer
-  - **isp-x** (65002): Placeholder for future network migration
+    - **isp** (65001): Active production peer
+    - **isp-x** (65002): Placeholder for future network migration
 - **`IP`, `REMOTE_AS`, `DESCRIPTION`**: Attributes used in the template for each neighbor
+
 
 !!! note "Device-Level Templates"
     Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task07).
@@ -192,7 +193,7 @@ When prompted, type `yes` to confirm the deployment.
 
 ## Step 5: Verify BGP Configuration
 
-Use **Solar-PuTTY** to connect to the **border** switch (`198.18.130.20`) and verify the BGP configuration:
+Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
 
 ```
 show ip bgp summary

@@ -2,7 +2,7 @@ nav:
   - Home: index.md
   - Intro:
       - "Learning Objectives": Intro01_overview.md
-      - "Accessible to All Learners": Intro02_all_learners.md
+      - "Lab Content": Intro02_all_learners.md
       - "Disclaimer": Intro03_disclaimer.md
       - "Getting Started": Intro04_getting_started.md
   - Lab - Recommended:
@@ -11,17 +11,18 @@ nav:
       - "[03] Global configuration": Task03_Global_configuration.md
       - "[04] Device group config": Task04_Device_group_config.md
       - "[05] Single device config": Task05_Single_device_config.md
+      - "[06] Variables": Task06_Variables.md
       - "[10] Schema validation": Task10_Schema_validation.md
       - "[12] Cleanup": Task12_Cleanup.md
       - "[13] Run CI-CD pipeline": Task13_Run_CI-CD_pipeline.md
       - "Conclusion": Workend01_conclusion.md
-  - Lab - Optional:
-      - "[06] Variables (optional)": Task06_Variables.md
+  - Optional A (Templates):
       - "[07] Templates 'model' (optional)": Task07_Templates_type_model.md
       - "[08] Templates 'file' (optional)": Task08_Templates_type_file.md
       - "[09] Templates 'cli' (optional)": Task09_Templates_type_cli.md
+  - Optional B (Post-checks):
       - "[11] Post-checks (optional)": Task11_Post-checks.md
-  - Lab - Optional CICD:
+  - Optional C (CI/CD):
       - "[14] Edit CI-CD (optional)": Task14_Edit_CI-CD.md
       - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
   - Topologies: Intro05_topologies.md

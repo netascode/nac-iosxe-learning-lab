@@ -2,7 +2,7 @@ In this task, you'll learn how to use **templates of type 'cli'** to inject raw 
 
 ## CLI Templates
 
-The CLI template type allows you to include raw IOS-XE CLI commands that are pushed directly to devices. This can be used as a workaround for features not yet supported by the NAC data model, as it accepts any valid CLI command.
+The CLI template type allows you to include raw IOS-XE CLI commands that are pushed directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOSXE data model, as it accepts any valid CLI command.
 
 **Template Types (reminder):**
 
@@ -112,7 +112,7 @@ After connecting to the device, run the following command to check if the alias 
 show alias
 ```
 
-``` title="Expected Output"
+``` title="Expected Output" hl_lines="6"
 core#show alias
 Exec mode aliases:
   h                     help
@@ -124,18 +124,6 @@ core#
 ```
 
 You can also test the alias by running `logs` from exec mode.
-
-
-## Template Type Summary
-
-You've now learned all three template types:
-
-| Task       | Template Type | Example Use Case                     |
-|------------|---------------|--------------------------------------|
-| **Task07** | `model`       | VLAN configuration in YAML format    |
-| **Task08** | `file`        | BGP configuration from external file |
-| **Task09** | `cli`         | Alias configuration as raw CLI       |
-
 
 ## When to Use Each Template Type
 

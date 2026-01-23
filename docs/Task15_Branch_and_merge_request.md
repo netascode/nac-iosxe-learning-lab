@@ -10,7 +10,7 @@ In Network-as-Code the `main` represents the live production network configurati
 In real-world scenarios, many engineers collaborate on the same codebase. To ensure stability, reliability, and accountability, changes must go through a structured review process before being applied to production.
 
 !!! note "Best Practice"
-    Committing directly to the main branch - as we did in earlier tasks - is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
+    Committing directly to the main branch (as we did in earlier tasks) is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
 
 ## Lab Exercise: Complete Branch and Merge Request Workflow
@@ -167,7 +167,7 @@ The merge request is now created! You should see the merge request page with det
 
 ## Step 4: Observe the First Pipeline (Validate + Plan)
 
-When you create the merge request, GitLab automatically triggers the same pipeline that we used in the previous tasks. However, since this time we are in a merge request, the pipeline only runs the **validate** and **plan** stages - it does NOT deploy anything yet.
+When you create the merge request, GitLab automatically triggers the same pipeline that we used in the previous tasks. However, since this time we are in a merge request, the pipeline only runs the **validate** and **plan** stages – it does NOT deploy anything yet.
 
 **View the Pipeline Details**
 
@@ -182,7 +182,7 @@ The pipeline uses the config from your feature branch (`feature/core`) and runs 
 | **plan**     | `terraform plan`                | Show what changes will be made to the network         |
 
 !!! note "No Deploy Stage!"
-    Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional - you want to see what will change without actually changing anything yet.
+    Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional – you want to see what will change without actually changing anything yet.
 
 The **plan** stage also adds the terraform plan output as a comment to the merge request for easy review. Once the pipeline completes, you can expand the **Terraform plan** section in the comment under **Activity**.
 
@@ -232,7 +232,7 @@ You can now proceed to merge the changes into `main`.
 
 ## Step 7: Observe the Deployment Pipeline
 
-Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
+Merging to main triggers a new pipeline – this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
 
 
 **View the Deployment Pipeline**
@@ -256,7 +256,7 @@ The main branch pipeline runs ALL stages:
 After the pipeline completes successfully, you can verify the changes on the network devices.
 
 
-## Troubleshooting - Common Issues
+## Troubleshooting – Common Issues
 
 ??? failure "You cannot push to this branch"
     This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
@@ -288,7 +288,7 @@ After the pipeline completes successfully, you can verify the changes on the net
 
     1. Check the job logs for specific errors
     2. Fix the issues in your feature branch
-    3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
+    3. Commit and push again to your feature branch – the MR pipeline will re-run automatically
 
 If you need help, feel free to ask your instructors!
 

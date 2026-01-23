@@ -1,5 +1,11 @@
 Before moving to CI/CD automation, you need to clean up the manual work you've done so far. This ensures a fresh starting point for the GitLab-based workflow.
 
+
+!!! warning "Important Note"
+    Once you run the cleanup, you will no longer be able to complete the optional [Task 7-9 (Templates)](Task07_Templates_type_model.md), or [Task 11 (Post-check Tests)](Task11_Post-checks.md). The cleanup removes all previous configuration from your devices to prepare for the CI/CD tasks.
+
+    Please take a moment and check your remaining time to decide whether to proceed to the CI/CD section or spend more time on the optional tasks.
+
 ## Why Clean Up?
 
 In the previous tasks, you:

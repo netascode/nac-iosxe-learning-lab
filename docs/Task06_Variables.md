@@ -11,9 +11,11 @@ Variables in NAC work similarly to variables in programming languages. You defin
 - **Reusability**: Same configuration template can be used with different variable values
 - **Device-specific customization**: Each device can have its own variable values while sharing configuration structure
 
-## Use Case: Dynamic Hostname in Banner and System Config
+## Use Case: Dynamic Hostname in Banner and System Hostname Config
 
-In this example, you'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll:
+In this example, you'll touch two different pieces of configuration on each device: the hostname and the login banner.
+
+You'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll:
 
 1. Define the banner template once in the **global** configuration with a variable placeholder, called `HOSTNAME`
 2. Define the system hostname once in the **global** configuration using the same variable
@@ -47,12 +49,16 @@ iosxe:
         hostname: ${HOSTNAME}
 ```
 
-**Key elements explained:**
+**Key elements of the Banner config:**
 
 - **`banner: login:`** - The login banner text shown when users connect
 - **`|`** - YAML multi-line string indicator (preserves line breaks and formatting)
 - **`${HOSTNAME}`** - Variable reference that will be replaced with the actual hostname
+
+**Key elements of the System Hostname config:**
+
 - **`system: hostname:`** - Sets the device hostname using the same variable
+- **`${HOSTNAME}`** - Variable reference that will be replaced with the actual hostname
 
 !!! note "Variable Syntax"
     Variables use the `${VARIABLE_NAME}` syntax. The variable name is case-sensitive, so `${HOSTNAME}` and `${hostname}` are different variables.
@@ -164,20 +170,22 @@ Variables can be defined at multiple levels. When the same variable is defined a
 
 This allows you to define default values globally and override them per device or device group when needed.
 
-```yaml title="Variable Precedence Example" hl_lines="5 9"
----
-iosxe:
-  global:
-    variables:
-      TIMEZONE: UTC  # Global default
-  devices:
-    - name: example-device
-      variables:
-        TIMEZONE: America/New_York  # Overrides global default
-```
 
-!!! info "The above YAML snippet is an example"
-    You do not need to add this in your lab.
+!!! info "Variable Precedence Example"
+    The config below is only an example, you do not need to add this in your lab.
+
+    ```yaml hl_lines="5 9"
+    ---
+    iosxe:
+      global:
+        variables:
+          TIMEZONE: UTC  # Global default
+      devices:
+        - name: example-device
+          variables:
+            TIMEZONE: America/New_York  # Overrides global default
+    ```
+
 
 ## Step 4: Apply Configuration
 
@@ -200,8 +208,6 @@ terraform apply
 ```
 When prompted, type `yes` to confirm the deployment.
 
-!!! tip "You can review the model.yaml file"
-    After running `terraform apply`, you can also open the `model.yaml` file in VS Code to see how variables are resolved. You can see each device with its variable values substituted into the configuration.
 
 
 ## Step 5: Verify Variable Substitution
@@ -211,7 +217,7 @@ After Terraform completes successfully, verify the configuration was applied cor
 **Use Solar-PuTTY to connect and verify:**
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **core** switch (`198.18.130.10`)
+2. Connect to the **core** switch
 3. Verify the updated hostname and banner
 4. Repeat for other switches (**border**, **access01**, **access02**) to see their specific hostnames
 
@@ -252,8 +258,13 @@ After Terraform completes successfully, verify the configuration was applied cor
             access01#
             ``` -->
 
-Each device shows its own hostname in the banner - demonstrating that the same template produced device-specific results.
+Each device shows its own hostname in the banner, demonstrating that the same template produced device-specific results.
 
+!!! tip "You can review the model.yaml file"
+    After running `terraform apply`, you can also open the `model.yaml` file in VS Code to see how variables are resolved. You can see each device with its variable values substituted into the configuration.
+
+
+<!-- TODO: Add model file screenshot (task 6) -->
 
 ## Common Variable Use Cases
 
@@ -271,17 +282,22 @@ Variables are powerful for many scenarios beyond hostnames (device identity). He
 
 Environment variables can also be used in NAC configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
 
-```yaml title="Environment Variable Example" hl_lines="6"
----
-iosxe:
-  devices:
-    - name: example-device
-      system:
-        enable_secret: !env ENABLE_SECRET
-        enable_secret_type: "0"
-```
 
-In this example, the `ENABLE_SECRET` environment variable is referenced and used for the device's enable secret.
+!!! info "Environment Variable Example"
+    The config below is only an example, you do not need to add this in your lab.
+
+    ```yaml title="" hl_lines="6"
+    ---
+    iosxe:
+      devices:
+        - name: example-device
+          system:
+            enable_secret: !env ENABLE_SECRET
+            enable_secret_type: "0"
+    ```
+
+In the example above, the `ENABLE_SECRET` environment variable is referenced and used for the device's enable secret.
+
 
 !!! tip "Security Best Practice"
     Using environment variables is good practice for sensitive information like passwords.

@@ -15,14 +15,14 @@ The Network-as-Code framework's `nac-test` tool automates post-change validation
 - **Robot Framework** - An open-source automation framework for testing. It's keyword-driven, making test cases easy to write and understand.
 - **Pabot** - A parallel executor for Robot Framework that speeds up test execution by running tests simultaneously across multiple processes.
 
-The key insight is that **tests are rendered from your intent configuration YAML files**. This means you don't write tests manually - they're automatically generated based on what you intended to configure.
+The key insight is that **tests are rendered from your intent configuration YAML files**. This means you don't write tests manually – they're automatically generated based on what you intended to configure.
 
 ## Use Case: Validating Access-List Configuration
 
 In Task04, you deployed an access-list to the access01 and access02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
 
 !!! note "Lab Scope vs Production"
-    In production environments, Robot Framework tests validate the **full configuration** - including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.
+    In production environments, Robot Framework tests validate the **full configuration** – including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.
 
 Here's the intent configuration you deployed (`data/config-group-access.nac.yaml`):
 
@@ -290,7 +290,7 @@ Now that you understand the process, try expanding your tests:
 1. Update `data/config-group-access.nac.yaml` with additional access-list entries
 2. Run `terraform apply` to deploy the changes (this also regenerates `model.yaml`)
 3. Run `nac-test` again
-4. Check the updated `access_lists.robot` file - it will include tests for your new entries
+4. Check the updated `access_lists.robot` file – it will include tests for your new entries
 
 ## What You've Accomplished
 

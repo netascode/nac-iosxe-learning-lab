@@ -31,3 +31,7 @@ By completing this lab, you will gain hands-on experience with:
 **About This Guide**
 
 Created by Asier Arlegui and Balu Novak-Bohak. Claude 4.5 Opus was used to assist the authors.
+
+---
+
+**Next:** [Lab Content](Intro02_all_learners.md)

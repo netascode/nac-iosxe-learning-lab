@@ -11,7 +11,7 @@ theme:
     - navigation.indexes
     - navigation.instant
     - navigation.top
-    - navigation.footer
+    # - navigation.footer  # Removed so that we only use custom links at the end of each page
     - search.suggest
     - content.code.copy
     - toc.integrate

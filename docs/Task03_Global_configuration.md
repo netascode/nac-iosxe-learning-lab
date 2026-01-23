@@ -1,4 +1,4 @@
-In this task, you'll learn how to use **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
+In this task, you'll learn how to use IOSXE-as-Code **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
 
 ## Global Configuration
 
@@ -18,7 +18,7 @@ First, create the global configuration file using your **WSL Ubuntu terminal**:
 touch ~/nac-iosxe/data/config-global.nac.yaml
 ```
 
-!!! tip "Create File with VS Code"
+!!! tip "Alternative: File creation with VS Code"
     You can also create the file using VS Code by clicking on the `data/` folder in the Explorer sidebar, then on the *new file* icon next to the `NAC-IOSXE` folder name,
     or by **right-clicking** the `data/` folder and selecting **New File**.
 
@@ -58,14 +58,14 @@ The figure below illustrates how to create the `data/config-global.nac.yaml` fil
 
 But how do you know what configuration options are supported, and what the correct YAML structure is?
 
-The data model documentation is published on the [Network as Code website](https://netascode.cisco.com/docs/data_models/).
+The data model documentation is published on the [Network-as-Code website](https://netascode.cisco.com/docs/data_models/).
 Specifically, the banner configuration is described here: [IOS XE Banner Configuration](https://netascode.cisco.com/docs/data_models/iosxe/device/banner/).
 
 <figure markdown>
   ![NAC IOS XE Banner Documentation](./assets/netascode-documentation.png){ width="100%" }
 </figure>
 
-You can refer to this documentation at any time for more details on available configuration options, data types, examples and guides.
+You can refer to this documentation at any time for more details on available configuration options, data types and guides. The curated configuration examples provide excellent references to help you create your own configurations.
 
 
 ## Applying Configuration with Terraform CLI
@@ -161,7 +161,7 @@ These credentials allow Terraform to authenticate with your IOS XE devices using
 
 **Making Environment Variables Persistent:**
 
-Environment variables exported in your current shell session are not persistent - they disappear when you close the terminal. If you exit WSL and later open a new session, you must export them again.
+Environment variables exported in your current shell session are not persistent – they disappear when you close the terminal. If you exit WSL and later open a new session, you must export them again.
 
 To avoid manually exporting variables every time you open WSL, you can add the export command to your `~/.bashrc` file. This file runs automatically whenever you start a new bash session, so your environment variables will be loaded automatically.
 
@@ -259,7 +259,7 @@ terraform init
 
 ### Step 5: Preview Changes with Terraform Plan
 
-Before making any changes, preview what Terraform will do:
+Before applying any changes to the lab devices, preview what Terraform will do:
 
 ```bash
 terraform plan
@@ -280,7 +280,7 @@ terraform plan
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
-In our case, we will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created - as we configured in `main.tf`.
+In our case, we will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created – as we configured in `main.tf`.
 
 
 ### Step 6: Apply Configuration to Devices
@@ -309,7 +309,7 @@ Type `yes` and press Enter to proceed.
 **What happens during apply:**
 
 - Terraform connects to each device via HTTPS
-- Uses the Network as Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and sends it via RESTCONF
+- Uses the Network-as-Code modules and Terraform IOS-XE provider to translate your YAML configuration into YANG data and sends it via RESTCONF
 - Applies the commands to the devices
 - Tracks the applied state in `terraform.tfstate` file
 
@@ -375,7 +375,7 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 - ✅ The banner appears on the **access02** switch (198.18.130.12)
 
 !!! Success "You've just deployed your first Network-as-Code configuration using Terraform!"
-    Notice how you defined the banner once in the global section, and it was automatically applied to all four devices - this is the power of Network-as-Code!
+    Notice how you defined the banner once in the global section, and it was automatically applied to all four devices. This is the power of Network-as-Code!
 
 ???+ note "Terraform Command Reference"
     Here's a quick reference of the most common Terraform commands:

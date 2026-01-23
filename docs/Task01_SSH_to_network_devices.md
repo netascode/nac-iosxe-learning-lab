@@ -42,12 +42,11 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 </figure>
 
 !!! tip "Lab Topologies Reference"
-    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) (see the top navigation bar of this page) for the topology diagrams, device IP addresses and credentials.”
-
+    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) (see the top navigation bar of this page) for the topology diagrams, device IP addresses and credentials.
 
 **To connect to a device:**
 
-1. In Solar-PuTTY, **double-click** on the device in the list
+1. In Solar-PuTTY, **double-click** on a device (e.g. the **core** device)
 2. You'll be automatically logged in with the pre-configured credentials
 
 <figure markdown>
@@ -83,7 +82,9 @@ show run
 ```
 
 !!! info
-    The lab device configurations are almost empty - this is intentional! The switches have minimal configurations, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the devices.
+    The lab device configurations are almost empty – this is intentional! The switches have minimal configurations, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the devices.
+
+Once you have verified the `show version` and `show run` outputs on the **core** device, you can also do the same on the **access01**, **access02** switches and the **border** router.
 
 ## Configuration Required for Terraform Access
 
@@ -111,11 +112,11 @@ restconf
     With the Network-as-Code framework, this user needs to be configured on all devices that Terraform will manage.
 
 !!! info "RESTCONF and NETCONF"
-    This version of the lab guide focuses on using RESTCONF for device configuration only. Very recently, NETCONF support has also been added to the ciscodevnet/iosxe Terraform provider as the default protocol. Future versions of this lab may include NETCONF examples as well. Currently the lab devices are not configured to support NETCONF. For more information, refer to the provider documentation [here](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3).
+    This version of the lab guide focuses on using RESTCONF for device configuration only. Very recently, NETCONF support has also been added to the ciscodevnet/iosxe Terraform provider as the default protocol. Future versions of this lab may include NETCONF examples as well. Currently the lab devices are not configured to support NETCONF. For more information, refer to the IOSXE Terraform provider documentation [here](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3).
 
 ## Enabling RESTCONF Manually
 !!! tip
-    You don't need to do this now - it's already configured on all lab devices.
+    You don't need to do this now – it's already configured on all lab devices.
 
 If you needed to manually enable RESTCONF on a new device, you would use these commands:
 
@@ -129,14 +130,14 @@ write memory
 ```
 
 ???+ note "RESTCONF Availability"
-    If you are configuring your own devices outside of this lab, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
-    You can verify RESTCONF availability with the following command (executed from the machine where you will run Terraform later):
+    If you choose to try IOSXE-as-Code after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
+    You can verify RESTCONF availability with the following command from a client machine:
 
     ```bash
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    We will use this command later in the lab ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu.
+    We will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
 
 
 ## What to observe across all devices

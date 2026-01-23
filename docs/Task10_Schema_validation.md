@@ -1,6 +1,6 @@
 You've been creating NAC YAML configuration files and deploying them with Terraform. But how can you ensure your YAML files are correctly structured and contain valid data before deploying them to production devices?
 
-Pre-change validation is a critical step in the Network-as-Code workflow. It catches errors early - before they reach your network devices - improving operational reliability and giving you confidence that your configurations are both syntactically and semantically correct.
+Pre-change validation is a critical step in the Network-as-Code workflow. It catches errors early (before they reach your network devices), improving operational reliability and giving you confidence that your configurations are both syntactically and semantically correct.
 
 ## What is Schema Validation?
 
@@ -12,21 +12,23 @@ Schema validation verifies that your YAML configuration files:
 - Include all required fields
 - Don't include unsupported attributes
 
-This is similar to how a compiler checks code before running it - catching errors at "build time" rather than "run time".
+This is similar to how a compiler checks code before running it, catching errors at "build time" rather than "run time".
 
 
 ## The nac-validate Tool
 
-The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation. The tool can also perform semantic validation based on custom rules, but for this lab, we'll focus on the schema-based syntactic validation.
+The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation.
+
+The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). However, for this lab, we'll focus only on the schema-based syntactic validation.
 
 
 ## The Schema File
 
-The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings.
+The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
 
 **Create the schema file in your project:**
 
-You can copy the schema file from your WSL Ubuntu home directory for convenience.
+Copy the `~/schema/.schema.yaml` schema file to your `~/nac-iosxe/` working directory using the command below in the WSL terminal:
 
 ```bash
 cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
@@ -39,7 +41,7 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
 
     ```bash
     cd ~/nac-iosxe
-    touch .schema.yaml
+    touch ~/nac-iosxe/.schema.yaml
     ```
 
     Then use **VS Code** to copy-paste the schema content into the file.
@@ -113,7 +115,7 @@ nac-validate -s .schema.yaml data/
 
 ## Successful Validation
 
-Run the validation in your **WSL Ubuntu terminal**. If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
+Run the validation in your **WSL Ubuntu terminal**. If your YAML files are correct, the command will return without any output – you'll just get your prompt back:
 
 ```
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
@@ -219,7 +221,7 @@ If everything is correct, you'll get your prompt back with no output. If there a
 By validating before running Terraform, you catch configuration errors immediately without attempting to connect to devices. This saves time and prevents partial deployments of invalid configurations.
 
 !!! tip "CI/CD Integration"
-    In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment—without manual intervention.
+    In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment – without manual intervention.
 
 
 ## Extensibility - Semantic Validation
@@ -251,7 +253,7 @@ You now have a safety check in place to catch configuration errors before they r
 
 **Next Steps:**
 
-You can explore the **optional** Robot Framework task or continue with the **recommended** cleanup:
+You can explore the **optional** post-checks task or continue with the **recommended** cleanup:
 
 - **Optional:** [Task11 - Post-checks](Task11_Post-checks.md) - Learn how to automate post-change validation
 - **Recommended:** [Task12 - Cleanup](Task12_Cleanup.md) - Skip Robot Framework and proceed to cleanup before CI/CD

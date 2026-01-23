@@ -8,23 +8,23 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 
 **Core Skills**
 
-- **YAML Configuration** - Wrote declarative network configurations in human-readable YAML format
+- **YAML Configuration** - Wrote declarative network configuration in human-readable YAML format
 - **Terraform Workflows** - Used `terraform init`, `plan`, `apply`, and `destroy` to manage network infrastructure
 - **Configuration Hierarchy** - Applied settings at global, device group, and device levels
 - **Schema Validation** - Validated configurations before deployment using `nac-validate`
 - **CI/CD Automation** - Ran automated pipelines in GitLab to validate, plan, and deploy changes
 
-**Configuration Types Deployed**
+**Configuration Types Used**
 
 - **Global Configuration** - Login banners applied to all devices
 - **Device Group Configuration** - ACLs applied to specific device roles
 - **Single Device Configuration** - Host entries for individual devices
+- **Variables** - Used variables for reusable and dynamic configuration
 
 **Optional Skills (if completed)**
 
-- Variables for dynamic configurations
 - Template types: model, file, and CLI
-- Robot Framework post-change validation
+- Post-change validation with `nac-test`
 - Working with CI/CD pipelines
 - GitLab merge request workflows
 
@@ -41,7 +41,7 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 **Resources**
 
 - [NetAsCode Documentation](https://netascode.cisco.com)
-- [Network-as-Code for IOS XE](https://github.com/netascode/terraform-iosxe-nac-iosxe) - Try this at home with the official Terraform module!
+- [Network-as-Code for IOSXE](https://github.com/netascode/terraform-iosxe-nac-iosxe) - Try this at home! The Terraform modules are publicly available.
 
 ## Thank You!
 

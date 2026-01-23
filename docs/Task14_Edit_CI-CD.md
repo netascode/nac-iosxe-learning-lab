@@ -92,7 +92,7 @@ test-integration:
 
 ## Step 4: Add the Test-Idempotency Job
 
-Add another test job that verifies idempotency - running Terraform again should show no changes if the deployment was successful.
+Add another test job that verifies idempotency – running Terraform again should show no changes if the deployment was successful.
 
 **Add this job after `test-integration:`:**
 
@@ -130,7 +130,7 @@ test-idempotency:
 Just as we did in [Task 11 - Post-checks](Task11_Post-checks.md), we will add the ACL configuration to test the pipeline.
 
 1. In the Web IDE file explorer, navigate to `data/` and rename `config-group-access.nac.yaml_` to `config-group-access.nac.yaml` (remove the trailing underscore).
-2. You may review the ACL configuration by opening the file - it defines the standard ACL named `AccessLayerACL` that we configured in [Task 4 - Device group configuration](Task04_Device_group_config.md).
+2. You may review the ACL configuration by opening the file – it defines the standard ACL named `AccessLayerACL` that we configured in [Task 4 - Device group configuration](Task04_Device_group_config.md).
 
 
 ## Step 6: Commit Your Changes

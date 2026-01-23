@@ -58,7 +58,7 @@ The project page shows your repository files, including:
 - `tests/` folder with your ROBOT tests
 - `main.tf` - Terraform configuration
 - `.gitlab-ci.yml` - Pipeline definition file
-- `.schema.yaml` - The Network as Code for IOS XE schema
+- `.schema.yaml` - The Network-as-Code for IOS-XE schema
 
 
 <figure markdown>
@@ -144,7 +144,7 @@ success:
 
 - **image** - Uses a pre-built Docker container with Terraform, nac-validate, and other tools
 - **stages** - Define the order of execution (validate → plan → deploy → notify)
-- **variables** - Pipeline variables for credentials (IOS XE, GitLab) - entered at runtime
+- **variables** - Pipeline variables for credentials (IOS XE, GitLab), entered at runtime
 - **cache** - Preserves Terraform modules and state between pipeline runs
 - **validate** - Runs `terraform fmt` check and `nac-validate` schema validation
 - **plan** - Creates the Terraform execution plan and generates reports
@@ -202,7 +202,7 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 
 The best way to see the CI/CD pipeline in action is to make a configuration change.
 You'll add the global configuration (from [Task 03 - Global configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
-To edit the configuration files, we'll use GitLab's built-in **Web IDE** - an editor similar to VS Code that runs directly in your browser.
+To edit the configuration files, we'll use GitLab's built-in **Web IDE** – an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
 
@@ -238,11 +238,9 @@ The only files that are currently not ignored are:
 - `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
 
     !!! note "Variables file"
-        If you skipped Task 06, you can ignore the `devices-variables.nac.yaml` file for now.
+        You can inspect the `devices-variables.nac.yaml` file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
 
-        If you completed Task 06, you can inspect the file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
-
-For this task, you'll update the global configuration - similar to what we did in Task 03 and Task 06.
+For this task, you'll update the global configuration (similar to what we did in Task 03 and Task 06).
 
 
 ### Add Global Configuration
@@ -340,7 +338,7 @@ When all stages complete successfully, the pipeline shows a green **passed** sta
 You can verify the configuration was applied to the devices using **Solar-PuTTY**:
 
 1. Open **Solar-PuTTY** from your desktop
-2. Connect to one of the devices (e.g., `core` switch)
+2. Connect to one of the devices (e.g., **core** switch)
 3. Check the banner and hostname
 
 <figure markdown>

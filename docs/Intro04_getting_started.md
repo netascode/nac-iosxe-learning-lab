@@ -8,7 +8,7 @@ Below is the dCloud lab topology diagram:
 
 This lab consists of:
 
-- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs - network simulation platform)
+- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs – network simulation platform)
 - **GitLab** as Git repository and to run CI/CD pipelines, running in an Ubuntu VM
 - Win10 VM with:
     - **VS Code** for editing Infrastructure as Code YAML files
@@ -20,3 +20,7 @@ This lab consists of:
     We recommend reading this lab guide directly from the **Win10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.
 
     Once you RDP into the Windows 10 VM, open **Google Chrome**. The lab guide is set as the start page, and it is also bookmarked for easy access later.
+
+---
+
+**Next:** [Task 1 - SSH to Devices](Task01_SSH_to_network_devices.md)

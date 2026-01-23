@@ -1,4 +1,4 @@
-In this chapter, you will learn how to use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
+In this chapter, you will learn how to use VS Code to edit Network-as-Code (NAC) IOS XE intent configuration YAML files.
 
 ## What is VS Code?
 
@@ -70,7 +70,7 @@ You should see `/home/cisco` displayed.
   ![PWD command](./assets/pwd.png){ width="80%" }
 </figure>
 
-**Create the project directory:**
+**Create the NAC IOSXE project directory:**
 
 ```bash
 mkdir nac-iosxe
@@ -79,7 +79,7 @@ mkdir nac-iosxe
 !!! tip "Copy and Paste"
     You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into the WSL terminal using **right-click**.
 
-This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code project files.
+This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code IOSXE project files.
 
 **Navigate into the new directory:**
 
@@ -101,7 +101,7 @@ You should now see `/home/cisco/nac-iosxe` displayed.
 
 ## Create project structure
 
-Now you'll create a folder structure and placeholder files for your Network-as-Code project.
+Now you'll create a folder structure and placeholder files for your Network-as-Code IOSXE project.
 
 **Create a data directory for YAML configuration files:**
 
@@ -129,13 +129,13 @@ Create the `main.tf` file for Terraform configuration. Terraform uses this file 
 touch main.tf
 ```
 
-Create the `devices.nac.yaml` file inside the data folder for device inventory:
+Create the `devices.nac.yaml` file inside the data folder for lab device inventory:
 
 ```bash
 touch data/devices.nac.yaml
 ```
 
-This YAML file will contain your network device inventory, the list of devices that NAC will manage.
+This YAML file will contain your network device inventory, the list of devices that Network-as-Code will manage.
 
 You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
 
@@ -223,26 +223,26 @@ module "iosxe" {
 
 - **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
 
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into HCL code needed by the Terraform provider.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into Terraform HashiCorp Configuration Language (HCL) code needed by the IOS-XE Terraform provider.
 
-- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular commit hash to ensure we are using a specific version of the module, to ensure that you use the same version that we used during lab development. We pinned this commit on **January 15, 2026**.
+- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular Git commit hash to ensure we are using a specific version of the module, to ensure that you use the same version that we used during lab development. We pinned this commit on **January 15, 2026**.
 
-- **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files - you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
+- **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files; you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
-- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration.
+- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. We will examine this file generated later in the lab.
 
 - **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
 
-The figure below illustrates how to create the `main.tf` file using Visual Studio Code.
+The figure below illustrates the `main.tf` file in Visual Studio Code
 
 <!-- TODO: Update image with tagged to specific commit -->
 <figure markdown>
   ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
-## Edit devices.nac.yaml - Device Inventory
+## Edit Lab Device Inventory
 
-Now edit the `data/devices.nac.yaml` file to define your network device inventory. This file contains the list of devices that the NAC module will manage, along with their management IP addresses:
+Now edit the `data/devices.nac.yaml` file to define your lab network device inventory. This file contains the list of devices that Network-as-Code will manage, along with their management IP addresses:
 
 ```yaml title="data/devices.nac.yaml"
 ---
@@ -270,7 +270,7 @@ iosxe:
 - **`host:`** - Management IP address for device connectivity
 
 !!! note "Device Inventory vs Configuration"
-    This file contains only the device **inventory** - the list of devices and their connection details. Actual device **configurations** (banners, ACLs, VLANs, etc.) will be defined in separate files in subsequent tasks. This separation keeps your configurations modular and easy to manage.
+    This file contains only the device **inventory** – the list of devices and their connection details. Actual device **configurations** (banners, ACLs, VLANs, etc.) will be defined in separate files in subsequent tasks. This separation keeps your configurations modular and easy to manage.
 
 <figure markdown>
   ![VS Code Devices File](./assets/vscode-devices-list.png){ width="100%" }
@@ -289,7 +289,7 @@ VS Code has **auto-save** enabled, so your files are automatically saved after a
 Congratulations! In this chapter, you have:
 
 - ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory
-- ✅ **Organized configuration files** - Created a `data/` folder to separate NAC YAML config from other files
+- ✅ **Organized configuration files** - Created a `data/` folder to separate Network-as-Code YAML config from other files
 - ✅ **Created environment file** - Set up `.env` with IOS XE device authentication
 - ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
 - ✅ **Prepared device inventory** - Created `data/devices.nac.yaml` with network device definitions
