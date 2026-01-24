@@ -52,9 +52,9 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
     4. Paste it into the file and save
 
 Your project structure should now include:
-``` hl_lines="17"
+```text { hl_lines="17" .no-copy }
 /home/cisco/nac-iosxe/
-
+│
 ├── data/
 │   ├── config-device-access01.nac.yaml # Task05: access01 device config
 │   ├── config-device-access02.nac.yaml # Task05: access02 device config
@@ -115,9 +115,9 @@ nac-validate -s .schema.yaml data/
 
 ## Successful Validation
 
-Run the validation in your **WSL Ubuntu terminal**. If your YAML files are correct, the command will return without any output – you'll just get your prompt back:
+If your YAML files are correct, the command will return without any output – you'll just get your prompt back:
 
-```
+```text { .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
 cisco@wkst1:~/nac-iosxe$
 ```
@@ -137,42 +137,49 @@ Let's intentionally introduce errors to see how validation catches them.
 
 If you accidentally typed an invalid IP like `198.18.129.1111` in your `data/config-device-core.nac.yaml` (from Task05):
 
-```yaml title="data/config-device-core.nac.yaml" hl_lines="5"
+```yaml { title="data/config-device-core.nac.yaml" hl_lines="6" .no-copy }
+...
 system:
   ip_hosts:
     - name: ntp-server
       ips:
         - 198.18.129.1111  # Invalid - octet > 255
+      ...
 ```
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```
-ERROR - Syntax error 'data/config-device-core.nac.yaml': iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.128.999' is not a ip.
+```text { .no-copy }
+ERROR - Syntax error 'data/config-device-core.nac.yaml':
+iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.129.1111' is not a ip.
 ```
 
 ### Example 2: Wrong attribute name
 
 If you misspelled an attribute like `banner` as `banners` in `data/config-global.nac.yaml`:
 
-```yaml title="data/config-global.nac.yaml" hl_lines="3"
+```yaml { title="data/config-global.nac.yaml" hl_lines="4" .no-copy }
+...
 global:
   configuration:
     banners:  # Should be "banner" (singular)
-      login: "Welcome to Network-as-Code Lab"
+      login: |
+        ...
 ```
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```
-ERROR - Syntax error 'data/config-global.nac.yaml': iosxe.global.configuration.banners: Unexpected element
+```text { .no-copy }
+ERROR - Syntax error 'data/config-global.nac.yaml':
+iosxe.global.configuration.banners: Unexpected element
 ```
 
 ### Example 3: Invalid enum value
 
 If you used an invalid action in an ACL in `data/config-group-access.nac.yaml`:
 
-```yaml title="data/config-group-access.nac.yaml" hl_lines="6"
+```yaml { title="data/config-group-access.nac.yaml" hl_lines="7" .no-copy }
+...
 access_lists:
   standard:
     - name: AccessLayerACL
@@ -181,12 +188,14 @@ access_lists:
           action: allow  # Should be "permit" or "deny"
           prefix: 10.0.0.0
           prefix_mask: 0.0.0.255
+        ...
 ```
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```
-ERROR - Syntax error 'data/config-group-access.nac.yaml': iosxe.device_groups.[name=ACCESS_SWITCHES].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
+```text { .no-copy }
+ERROR - Syntax error 'data/config-group-access.nac.yaml':
+iosxe.device_groups.[name=ACCESS_SWITCHES].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
 ```
 
 
@@ -226,7 +235,7 @@ By validating before running Terraform, you catch configuration errors immediate
 
 ## Extensibility - Semantic Validation
 
-The `nac-validate` tool is extensible. It doesn't only allow for syntax validation, but also semantic checks based custom rules. Cisco CX has developed additional validation rules that check for best practices and common mistakes.
+The `nac-validate` tool is extensible. It doesn't only allow for syntax validation, but also semantic checks based custom rules. Cisco CX has developed additional validation rules that check for best practices and common mistakes. For example, rules can verify that: key attributes are unique (no duplicate device names), or that IP routing is enabled when routing protocols (BGP, OSPF, EIGRP, ISIS) are configured.
 
 Customers can also create their own validation rules to enforce specific requirements, such as naming conventions, security policies, or organizational configuration standards.
 

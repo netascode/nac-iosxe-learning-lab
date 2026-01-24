@@ -90,7 +90,7 @@ Once you have verified the `show version` and `show run` outputs on the **core**
 
 Look for these specific configuration lines in the `show run` output:
 
-```
+```text { .no-copy }
 username nac_admin privilege 15 secret cisco
 ...
 ip http secure-server

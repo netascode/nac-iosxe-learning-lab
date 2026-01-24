@@ -1,8 +1,8 @@
-# Appendix II: Schema Reference (Lab Features Only)
+## Schema Reference (Lab Features Only)
 
 Copy this single schema block for reference. It includes only the features used in this lab:
 
-```yaml title="schema.yaml"
+```yaml title="schema.yaml" linenums="1"
 ---
 iosxe: include('iosxe', required=False)
 ---

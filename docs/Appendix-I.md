@@ -1,7 +1,8 @@
+## GitLab CI-CD Pipeline Definition File
 
-Below the gitlab-ci.yml including the test stage:
+Here you can find the final `gitlab-ci.yml` file including the test stage from [Task 14 - Edit CI-CD](Task14_Edit_CI-CD.md):
 
-```
+``` yaml title=".gitlab-ci.yml" linenums="1"
 ---
 image: danischm/nac:0.1.6
 stages:

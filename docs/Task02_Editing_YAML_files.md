@@ -147,12 +147,16 @@ You can verify the files and directories you created by running `ls -la` in the 
 
 Verify your project structure by running `tree -a` in the terminal. The output should look like this:
 
-```
-/home/cisco/nac-iosxe/
+```bash { .no-copy }
+cisco@wkst1:~/nac-iosxe$ tree -a
+.
 ├── .env
 ├── data/
 │   └── devices.nac.yaml
 └── main.tf
+
+1 directory, 3 files
+cisco@wkst1:~/nac-iosxe$
 ```
 
 You are now ready to start populating your configuration files. All subsequent steps in this guide will assume you are working within the `/home/cisco/nac-iosxe` directory.

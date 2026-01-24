@@ -23,7 +23,7 @@ This ensures every configuration change goes through the same consistent process
 
 ## Step 1: Access GitLab
 
-Open **Chrome** on the Windows 10 VM and navigate to GitLab:
+In **Chrome**, navigate to GitLab – open the following link in a new tab:
 
 [https://198.18.133.101](https://198.18.133.101)
 
@@ -54,11 +54,11 @@ After logging in, you'll see the GitLab dashboard. Click on the **netascode/nac-
 
 The project page shows your repository files, including:
 
-- `data/` folder with your YAML configurations
-- `tests/` folder with your ROBOT tests
-- `main.tf` - Terraform configuration
-- `.gitlab-ci.yml` - Pipeline definition file
-- `.schema.yaml` - The Network-as-Code for IOS-XE schema
+- `data/` folder with your YAML configurations – Same as you created in Task 02
+- `tests/` folder with your ROBOT tests – Same as the ACL tests from optional Task 11
+- `main.tf` - Terraform configuration – Same as you created in Task 02
+- `.schema.yaml` - The Network-as-Code for IOS-XE schema – Same as you used in Task 10
+- `.gitlab-ci.yml` - CI/CD pipeline definition file – This is new!
 
 
 <figure markdown>
@@ -73,9 +73,9 @@ Before running the pipeline, let's understand how it's configured. Click on `.gi
   ![Pipeline YAML](./assets/gitlab-ci-yml.png){ width="100%" }
 </figure>
 
-The pipeline includes these stages:
+A CI/CD pipeline is an automated workflow of tasks that enables changes to be deployed in a consistent and repeatable manner. In this lab, we are leveraging pipelines to automate the tasks you previously performed manually. This pipeline example includes the following stages: `validate`, `plan`, `deploy`, and `notify`.
 
-```yaml
+```yaml { title=".gitlab-ci.yml Snippets" .no-copy }
 image: danischm/nac:0.1.6
 stages:
   - validate
@@ -142,7 +142,7 @@ success:
 
 **Key concepts:**
 
-- **image** - Uses a pre-built Docker container with Terraform, nac-validate, and other tools
+- **image** - Uses a pre-built Docker container with Terraform, `nac-validate`, and other tools
 - **stages** - Define the order of execution (validate → plan → deploy → notify)
 - **variables** - Pipeline variables for credentials (IOS XE, GitLab), entered at runtime
 - **cache** - Preserves Terraform modules and state between pipeline runs
@@ -179,14 +179,13 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
 
 Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the` main.tf `file.
 
-The pipeline uses GitLab's http backend to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
-This is configured in the `main.tf` file with the following backend block:
+The pipeline uses GitLab's **http backend** to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
+
+It is configured in the `main.tf` file with the following `backend` block under the `terraform` section:
 
 ```text
-terraform {
-  backend "http" {
-    skip_cert_verification = true
-  }
+backend "http" {
+  skip_cert_verification = true
 }
 ```
 
@@ -226,18 +225,14 @@ The Web IDE opens with a familiar VS Code-like interface:
 Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files that we've used before in this lab in Task 2-6. However, we replaced some of the file extensions from `.yaml` to `.yaml_` (with an underscore at the end). We did this intentionally to ignore these files for now.
 
 !!! note "`.yaml_` vs. `.yaml` files"
-    The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored by Network-as-Code.
-
-To apply a configuration, you need to **rename the file extension from `.yaml_` to `.yaml`** (remove the underscore). Right-click on the file in the file explorer and select **Rename**.
-
-When you commit this change, the CI/CD pipeline will automatically run and deploy the configuration to the devices.
+    The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
 The only files that are currently not ignored are:
 
 - `devices.nac.yaml` - Device inventory file (Same as in Task 02)
 - `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
 
-    !!! note "Variables file"
+    !!! info "Variables file"
         You can inspect the `devices-variables.nac.yaml` file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
 
 For this task, you'll update the global configuration (similar to what we did in Task 03 and Task 06).
@@ -247,8 +242,9 @@ For this task, you'll update the global configuration (similar to what we did in
 
 1. In the file explorer (left panel), navigate to the **data** folder
 2. Find the file `config-global.nac.yaml_` (note the underscore at the end)
-3. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
-4. Click on the file to open it and inspect the banner content:
+3. Right-click on the file and select **Rename**
+4. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
+5. Click on the file to open it and inspect the banner content:
 
 ```yaml title="config-global.nac.yaml" hl_lines="10"
 ---
@@ -339,7 +335,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to one of the devices (e.g., **core** switch)
-3. Check the banner and hostname
+3. Check the banner and hostname – The banner will now include `GitLab – CI/CD`
 
 <figure markdown>
   ![New Banner](./assets/solarputty-gitlab-banner.png){ width="95%" }
@@ -348,7 +344,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 ## Validation Test (Optional)
 
-You may test the validation stage by introducing an error in the configuration, just like we did in [Task 10 - Schema validation](Task10_Schema_validation.md).
+Additionally, you may also test the validation stage by introducing an error in the configuration, just like we did in [Task 10 - Schema validation](Task10_Schema_validation.md).
 
 If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
 

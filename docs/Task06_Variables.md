@@ -174,7 +174,7 @@ This allows you to define default values globally and override them per device o
 !!! info "Variable Precedence Example"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml hl_lines="5 9"
+    ```yaml { hl_lines="5 9" .no-copy }
     ---
     iosxe:
       global:
@@ -286,7 +286,7 @@ Environment variables can also be used in NAC configurations. They are defined o
 !!! info "Environment Variable Example"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml title="" hl_lines="6"
+    ```yaml {title="" hl_lines="6" .no-copy }
     ---
     iosxe:
       devices:

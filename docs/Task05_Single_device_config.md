@@ -92,7 +92,7 @@ Let's break down the key elements:
 
 At this point, your `data/` folder contains multiple YAML files, each serving a different purpose:
 
-```hl_lines="8"
+```text { .no-copy hl_lines="8" }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
@@ -166,7 +166,7 @@ ping vrf Mgmt-vrf syslog-server
 ```
 
 
-``` title="Expected Output"
+```text { title="Expected Output" .no-copy }
 core#ping vrf Mgmt-vrf ntp-server
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 198.18.129.11, timeout is 2 seconds:
@@ -187,7 +187,7 @@ core#
 show hosts vrf Mgmt-vrf
 ```
 
-``` title="Expected Output"
+```text { title="Expected Output" .no-copy }
 core#show hosts vrf Mgmt-vrf
 Name lookup VRF: Mgmt-vrf
 Default domain is not set

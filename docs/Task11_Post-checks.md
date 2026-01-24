@@ -1,12 +1,12 @@
 !!! warning "Task Prerequisite"
-    Before starting this task, ensure you have completed [Task 10: Schema Validation](Task10_Schema_Validation.md). The `.schema.yaml` file created in that task is required for the `nac-test` tool to function correctly.
+    Before starting this task, ensure you have completed [Task 10: Schema Validation](Task10_Schema_validation.md). The `.schema.yaml` file created in that task is required for the `nac-test` tool to function correctly.
 
 After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? What about config that's not in the running configuration, such as the VLAN database? Manual verification doesn't scale.
 
 In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
 
 !!! warning "Time Check"
-    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to **Task 12: Cleanup** followed by **Task 13: Run CI/CD Pipeline**.
+    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to [Task 12: Cleanup](Task12_Cleanup.md) followed by [Task 13: Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md).
 
 ## Post-Change Validation
 
@@ -19,7 +19,7 @@ The key insight is that **tests are rendered from your intent configuration YAML
 
 ## Use Case: Validating Access-List Configuration
 
-In Task04, you deployed an access-list to the access01 and access02 switches using device groups. You'll now validate that configuration was applied correctly using Robot Framework.
+In [Task 4](Task04_Device_group_config.md), you deployed an access-list to the access01 and access02 switches using device groups. You'll now validate that configuration was applied correctly using the `nac-test` tool.
 
 !!! note "Lab Scope vs Production"
     In production environments, Robot Framework tests validate the **full configuration** – including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.
@@ -51,27 +51,29 @@ iosxe:
 
 ## Step 1: Prepare the File Structure
 
-To run `nac-test` in the lab, you need the following file structure:
+To run `nac-test`, checking the deployment of access-lists in the lab, you will need the following file structure:
 
-```text
+```text { .no-copy }
 nac-iosxe/
 │
 ├── data/
 │   └── config-group-access.nac.yaml
 │
-└── tests/
-    ├── filters/
-    │   └── url_encode.py
-    │
-    └── templates/
-        ├── iosxe_common.resource
-        ├── lib/
-        │   └── UtilsLib.py
-        └── config/
-            └── access_lists.robot
+├── tests/
+│   ├── filters/
+│   │   └── url_encode.py
+│   │
+│   └── templates/
+│       ├── iosxe_common.resource
+│       ├── lib/
+│       │   └── UtilsLib.py
+│       └── config/
+│           └── access_lists.robot
+│
+└── model.yaml
 ```
 
-You can copy all files in the `tests/` directory from the WSL Ubuntu home directory:
+You can copy all required test files from the `~/tests/` directory in WSL Ubuntu:
 
 ```bash
 cp -r ~/tests ~/nac-iosxe/
@@ -125,27 +127,32 @@ cp -r ~/tests ~/nac-iosxe/
 - **`tests/templates/iosxe_common.resource`** - Robot Framework resource file with reusable keywords for IOSXE testing
 - **`tests/filters/url_encode.py`, `tests/templates/lib/UtilsLib.py`** - Utility files for the `nac-test` tool
 
-## Step 2: Generate the Model File
+## Step 2: Have the Model File Ready
 
-Before running `nac-test`, you need to run Terraform to generate the merged model file (`model.yaml`) that `nac-test` uses for rendering tests. If you haven't run the terraform commands below yet, do so now in your **WSL Ubuntu terminal**:
+We will use the `model.yaml` file generated in the previous tasks as input to `nac-test`.
 
-```bash
-cd ~/nac-iosxe
-```
+??? note "If the `model.yaml` file is missing"
 
-```bash
-terraform plan
-```
+    Before running `nac-test`, you need to run Terraform to generate the merged model file (`model.yaml`) that `nac-test` uses for rendering tests. If you haven't run the terraform commands below yet, do so now in your **WSL Ubuntu terminal**:
 
-```bash
-terraform apply
-```
-When prompted, type `yes` to confirm the deployment.
+    ```bash
+    cd ~/nac-iosxe
+    ```
 
-This generates two files in your project directory:
+    ```bash
+    terraform plan
+    ```
 
-- **`model.yaml`** - The merged YAML data model (all your configuration files combined)
-- **`defaults.yaml`** - The default values used by the module
+    ```bash
+    terraform apply
+    ```
+    When prompted, type `yes` to confirm the deployment.
+
+    This generates two files in your project directory:
+
+    - **`model.yaml`** - The merged YAML data model (all your configuration files combined)
+    - **`defaults.yaml`** - The default values used by the module
+
 
 ## Step 3: Install nac-test
 
@@ -180,14 +187,11 @@ nac-test \
 !!! info "Output Location"
     The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
 
-!!! tip
-    You can press `Win + D` to quickly minimize all windows and view your desktop on Windows.
-
 ## Step 5: Review the Generated Robot Test
 
 After running `nac-test`, check the generated test file:
 
-```text
+```text { .no-copy }
 C:\Users\admin\Desktop\TestResults\
 └── config/
     └── access_lists.robot
@@ -201,7 +205,7 @@ cat /mnt/c/Users/admin/Desktop/TestResults/config/access_lists.robot
 
 The `access_lists.robot` file contains tests automatically generated from your intent configuration:
 
-```text
+```text { .no-copy }
 *** Settings ***
 Documentation   Verify Access Lists Configuration
 Suite Setup     Login IOSXE
@@ -235,9 +239,9 @@ Verify Standard Access List AccessLayerACL Device access02
 
 ## Step 6: Review the Test Results
 
-The terminal output from `nac-test` shows the test execution:
+The terminal output from `nac-test`, that you ran earlier in Step 4, shows the test execution:
 
-```text hl_lines="12"
+```text { hl_lines="12" .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-test \
   --data ./model.yaml \
   --data ./defaults.yaml \

@@ -199,7 +199,7 @@ Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP confi
 show ip bgp summary
 ```
 
-``` title="Expected Output"
+```text { title="Expected Output" hl_lines="6-7" .no-copy }
 border#show ip bgp summary
 BGP router identifier 198.18.130.20, local AS number 65000
 ...
@@ -233,7 +233,7 @@ You can verify the received route with:
 show ip route
 ```
 
-``` title="Expected Output" hl_lines="19"
+```text { title="Expected Output" hl_lines="9" .no-copy }
 border#show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 ...

@@ -1,9 +1,9 @@
-**nac-test Files**
+## Test Files for Post-Change Validation
 
 This appendix contains the `nac-test` files required for post-change validation in [Task 11 - Post-checks](Task11_Post-checks.md).
 
 
-## 'tests/filters/url_encode.py'
+### `tests/filters/url_encode.py`
 
 ```python
 # Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
@@ -32,7 +32,7 @@ class Filter:
 ```
 
 
-## 'tests/templates/lib/UtilsLib.py'
+### `tests/templates/lib/UtilsLib.py`
 
 
 ```python
@@ -74,7 +74,8 @@ class UtilsLib(object):
 
 
 
-## 'tests/templates/configs/access_lists.robot'
+### `tests/templates/configs/access_lists.robot`
+
 
 {% raw %}
 
@@ -359,7 +360,7 @@ Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
 ```
 
 
-## 'tests/templates/iosxe_common'
+### `tests/templates/iosxe_common`
 
 ```
 *** Settings ***

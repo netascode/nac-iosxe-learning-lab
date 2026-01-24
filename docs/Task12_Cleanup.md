@@ -96,6 +96,11 @@ If you wish, you may also remove the manually created project folder, `nac-iosxe
     You should no longer see the `nac-iosxe` folder listed.
 
 
+## Step 4: Close VS Code and WSL Terminal
+
+In the next tasks, we will no longer use VS Code and the WSL Ubuntu terminal. You can close both applications now.
+
+
 ## What You've Accomplished
 
 - ✅ Removed all Terraform-deployed configurations from IOS-XE devices

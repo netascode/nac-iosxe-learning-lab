@@ -112,7 +112,7 @@ After connecting to the device, run the following command to check if the alias 
 show alias
 ```
 
-``` title="Expected Output" hl_lines="6"
+```text { title="Expected Output" hl_lines="6" .no-copy }
 core#show alias
 Exec mode aliases:
   h                     help

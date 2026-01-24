@@ -123,7 +123,7 @@ The template reference is added alongside the existing `AccessLayerACL` configur
 
 At this point, your `data/` folder should contain these files:
 
-```hl_lines="10 12"
+```text { hl_lines="10 12" .no-copy }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
@@ -207,7 +207,7 @@ Use the following command on both **access01** and **access02** switches to veri
 show vlan brief
 ```
 
-``` title="Expected output on both switches" hl_lines="8-10"
+```text { title="Expected output on both switches" hl_lines="8-10" .no-copy }
 access01#show vlan brief
 
 VLAN Name                             Status    Ports
@@ -258,7 +258,7 @@ Using device groups (as we did in this task), you can apply multiple templates t
 !!! info "Example: Working with Multiple Templates"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml
+    ```yaml { .no-copy hl_lines="9-12" }
     ---
     iosxe:
       device_groups:

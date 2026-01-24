@@ -102,7 +102,7 @@ tree -a
 
 You should see your project structure:
 
-``` hl_lines="4"
+```text  { .no-copy hl_lines="4" }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── data/
@@ -149,7 +149,7 @@ env | grep IOSXE
 ```
 
 You should see the environment variables displayed:
-```
+```text  { .no-copy hl_lines="2-4" }
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
@@ -196,7 +196,7 @@ Understanding the command:
 - **`-u $IOSXE_USERNAME:$IOSXE_PASSWORD`** - Authentication using the environment variables loaded in the previous step
 
 
-```text title="Expected Output" hl_lines="2"
+```text { title="Expected Output" hl_lines="2" .no-copy }
 cisco@wkst1:~$ curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
 HTTP/1.1 200 OK
 Server: openresty
@@ -293,7 +293,7 @@ terraform apply
 
 Terraform will show you the plan again and ask for confirmation:
 
-```hl_lines="8"
+```text { .no-copy hl_lines="8" }
 ...
 Plan: 6 to add, 0 to change, 0 to destroy.
 
@@ -359,7 +359,7 @@ Additionally, you can also verify the banner configuration by examining the runn
 show run | include banner
 ```
 
-```title="Expected Output" hl_lines="2"
+```text { title="Expected Output" hl_lines="2" .no-copy }
 core#show run | include banner
 banner login ^CWelcome to Network-as-Code Lab^C
 core#

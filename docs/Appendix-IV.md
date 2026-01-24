@@ -1,4 +1,6 @@
-**Configuration on isp router**
+## ISP Router Configuration
+
+Here you can find the BGP and interface configuration applied to the **isp** router, used in [Task 08](Task08_Templates_type_file.md).
 
 ```
 isp#show run | sec bgp
