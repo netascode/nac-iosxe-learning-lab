@@ -102,13 +102,17 @@ tree -a
 
 You should see your project structure:
 
-```text  { .no-copy hl_lines="4" }
-/home/cisco/nac-iosxe/
+```text  { .no-copy hl_lines="5" }
+cisco@wkst1:~/nac-iosxe$ tree -a
+.
 ├── .env
-├── data/
-│   ├── config-global.nac.yaml    # ← File with banner configuration
-│   └── devices.nac.yaml
+├── data
+│   ├── config-global.nac.yaml    # ← File with banner configuration
+│   └── devices.nac.yaml
 └── main.tf
+
+1 directory, 4 files
+cisco@wkst1:~/nac-iosxe$
 ```
 
 ### Step 2: Load Environment Variables from .env File

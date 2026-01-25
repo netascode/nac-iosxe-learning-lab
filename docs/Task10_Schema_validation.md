@@ -76,7 +76,7 @@ Your project structure should now include:
 ```
 
 !!! note "Generated Files"
-    The `model.yaml` and `defaults.yaml` files are automatically generated when you run `terraform plan` and `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
+    As we've seen before, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
 
 ## Install the nac-validate Tool
