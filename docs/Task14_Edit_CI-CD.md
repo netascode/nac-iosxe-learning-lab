@@ -141,16 +141,20 @@ After making all the changes:
 
 1. In your Web IDE, click on **Source Control** icon in the left sidebar (as you did in Task 13)
 2. You'll see the modified files listed: `.gitlab-ci.yml` and `data/config-group-access.nac.yaml`
-3. Enter a commit message: `Add test stage to CI/CD pipeline`
+3. Enter a commit message:
+   ```
+   Add test stage to CI/CD pipeline
+   ```
 4. Click **Commit and push to 'main'**
 
-<!-- <figure markdown>
-  ![Commit Changes](./assets/gitlab-commit-changes-in-ci-file.png){ width="100%" }
-</figure> -->
 
 ## Step 7: Verify the Pipeline
 
 After committing, a new pipeline will automatically start. Navigate to **Build** → **Pipelines** and click on the pipeline showing **running** status to watch its progress.
+
+<figure markdown>
+  ![Pipeline Stages](./assets/gitlab-pipeline-list-test-running.png){ width="100%" }
+</figure>
 
 You should now see **5 stages** in the pipeline:
 
@@ -173,13 +177,24 @@ You should now see **5 stages** in the pipeline:
   ![Test Results](./assets/gitlab-test-job-output.png){ width="100%" }
 </figure>
 
-- Click on **Test Summary** on the right sidebar. This is where GitLab displays the test results from the JUnit report.
+- Click on **Test Summary** on the right sidebar.
+
+<figure markdown>
+  ![Test Summary Link](./assets/gitlab-pipeline-test-summary.png){ width="100%" }
+</figure>
+
+This is where GitLab displays the test results from the JUnit report. You should see a summary indicating all tests passed.
 
 <figure markdown>
   ![Test Summary](./assets/gitlab-test-summary.png){ width="100%" }
 </figure>
 
 - Go back to the job page and find the **Job artifacts** section on the right sidebar. Click on **Download** to download the test report and log HTML files.
+
+<figure markdown>
+  ![Test Results Download Link](./assets/gitlab-pipeline-test-download.png){ width="100%" }
+</figure>
+
 - Open and inspect the `report.html` and `log.html` files in your web browser. The report will show the same tests as in [Task 11 - Post-checks](Task11_Post-checks.md), confirming the configurations were applied correctly.
 
 <figure markdown>

@@ -37,10 +37,10 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
   ![GitLab Login](./assets/gitlab-login.png){ width="50%" }
 </figure>
 
-!!! note "You can use any browser, from the VM or your host machine"
+<!-- !!! note "You can use any browser, from the VM or your host machine"
     Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Task 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
 
-    The screenshots in Task 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux.
+    The screenshots in Task 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
 
 
 ## Step 2: Navigate to the NAC-IOSXE Project
@@ -283,7 +283,10 @@ Optionally, you can also change the banner text to something new, if you'd like.
 
 1. Click on **Source Control** icon in the left sidebar
 2. You'll see your modified file listed
-3. Enter a commit message: `Add global config for banner and hostname`
+3. Enter a commit message:
+    ```
+    Add global config for banner and hostname
+    ```
 4. Click **Commit and push to 'main'**
 5. If prompted with “You're committing your changes to the default branch. Do you want to continue?”. Select **Continue**.
 
@@ -299,6 +302,10 @@ Optionally, you can also change the banner text to something new, if you'd like.
 ## Step 5: Monitor Pipeline Execution
 
 To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the top pipeline showing **running** status.
+
+<figure markdown>
+  ![Pipeline Running](./assets/gitlab-pipeline-list-running.png){ width="100%" }
+</figure>
 
 !!! tip
     You need to click on the pipeline status icon or the pipeline ID.

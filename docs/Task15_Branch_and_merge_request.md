@@ -90,8 +90,11 @@ To confirm that the `main` branch is protected:
 1. Open the **Web IDE** from the project page
 2. Add the **core** device configuration: rename `data/config-core.nac.yaml_` to `data/config-core.nac.yaml` (remove the trailing underscore)
 3. Click on the **Source Control** icon in the left sidebar
-4. Enter a commit message: `Add core config`
-5. Attempt to commit the change directly to `main`: click **Commit & Push**
+4. Enter a commit message:
+    ```
+    Add core config
+    ```
+5. Attempt to commit the change directly to `main`: click **Commit and push to 'main'**
 
 <figure markdown>
   ![Verify Commit to Main is Blocked](./assets/gitlab-commit-to-protected-branch.png){ width="100%" }
@@ -106,7 +109,10 @@ To confirm that the `main` branch is protected:
 In the previous step, the Web IDE already prompted you to create a new branch when you tried to commit to `main`.
 
 1. Press the **Create new branch** button
-2. Enter the branch name: `feature/core`
+2. Enter the branch name:
+    ```
+    feature/core
+    ```
 3. Press Enter to create the branch
 
 <figure markdown>
@@ -215,12 +221,10 @@ You can now proceed to merge the changes into `main`.
 <!-- TODO: UPDATE OPTIONS (ACCORDING TO SCREENSHOT) -->
 
 1. On the merge request page, review the changes and the merge options
-2. You may see options like:
-    - **Merge immediately** - Merge right away
-    - **Set to auto-merge** - Merge automatically when all merge checks pass
-    - **Delete source branch** - Remove the feature branch after merging
-    - **Squash commits** - Combine all commits into one before merging
-    - **Edit commit message** - Change the commit message for the merge commit
+2. You will see the following options:
+    - **Delete source branch** - Removes the feature branch after merging
+    - **Squash commits** - Combines all commits from the feature branch into one before merging to main
+    - **Edit commit message** - You could also change the commit message for the merge commit here
 3. Leave the **Delete source branch** option checked - to keep the repository clean
 4. Click **Merge**
 
