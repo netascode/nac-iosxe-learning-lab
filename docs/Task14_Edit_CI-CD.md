@@ -113,15 +113,18 @@ test-idempotency:
     - main
 ```
 
-**What this job does:**
+In the end, your test stage section should look like this:
+
+<figure markdown>
+  ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
+</figure>
+
+**What the `test-idempotency` job does:**
 
 - `terraform plan -detailed-exitcode`: Returns exit code 2 if there are changes, failing the job
 - `resource_group: iosxe`: Prevents concurrent access to devices
 - If this job passes, it confirms your deployment is idempotent
 
-<figure markdown>
-  ![Insert Test Stage](./assets/gitlab-insert-test-stage.png){ width="100%" }
-</figure>
 
 !!! info
     You can refer to [Appendix I](Appendix-I.md) for the complete `.gitlab-ci.yml` file with all changes included.

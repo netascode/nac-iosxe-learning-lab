@@ -33,6 +33,12 @@ Access switches typically share the same VLAN configuration – they need identi
 - VLAN 20: `VOICE` - VoIP traffic
 - VLAN 99: `MGMT` - Management traffic
 
+!!! note "Why use Templates here?"
+    Using a template for VLANs ensures that both access switches have identical VLAN configurations. If you need to add or modify VLANs in the future, you can do so in one place (the template) rather than updating each device's configuration individually.
+
+    You may wonder what's the difference between using a **template** versus a **device group**. The key distinction is that templates focus on **what configuration** to apply (the VLANs), while device groups focus on **which devices** receive that configuration (the access switches). In most cases, you can combine both approaches.
+
+
 ## Step 1: Create the Template File
 
 First, create the file using your **WSL Ubuntu terminal**:

@@ -15,12 +15,13 @@ Variables in NAC work similarly to variables in programming languages. You defin
 
 In this example, you'll touch two different pieces of configuration on each device: the hostname and the login banner.
 
-You'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll:
+ - You'll define the `HOSTNAME` variable **per device**.
 
-1. Define the banner template once in the **global** configuration with a variable placeholder, called `HOSTNAME`
-2. Define the system hostname once in the **global** configuration using the same variable
-3. Set the `HOSTNAME` variable value per **device**
-4. Let NAC substitute the variable automatically in both the banner and system hostname configuration
+ - You'll use that variable to set the **system hostname** in the **global configuration**.
+
+ - You'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll use the same **global banner configuration** with the `HOSTNAME` variable.
+
+ - Let NAC substitute the variable automatically in both the system hostname and banner configuration
 
 !!! tip "The power of variables"
     One banner template, multiple device-specific outputs!
