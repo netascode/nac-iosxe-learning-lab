@@ -2,6 +2,8 @@
 
 Here you can find the BGP and interface configuration applied to the **isp** router, used in [Task 08](Task08_Templates_type_file.md).
 
+{% raw %}
+
 ```
 isp#show run | sec bgp
 router bgp 65001
@@ -32,5 +34,4 @@ end
 isp#
 ```
 
-
-
+{% endraw %}

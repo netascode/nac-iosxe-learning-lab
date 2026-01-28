@@ -2,7 +2,7 @@
 
 Copy this single schema block for reference. It includes only the features used in this lab:
 
-```yaml title="schema.yaml" linenums="1"
+```yaml title="schema.yaml"
 ---
 iosxe: include('iosxe', required=False)
 ---
@@ -121,3 +121,4 @@ interface_ipv4:
   address: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
   address_mask: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
 ```
+

@@ -2,6 +2,7 @@
 
 This appendix contains the `nac-test` files required for post-change validation in [Task 11 - Post-checks](Task11_Post-checks.md).
 
+{% raw %}
 
 ### `tests/filters/url_encode.py`
 
@@ -76,8 +77,6 @@ class UtilsLib(object):
 
 ### `tests/templates/configs/access_lists.robot`
 
-
-{% raw %}
 
 ```
 *** Settings ***
