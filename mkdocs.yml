@@ -47,7 +47,7 @@ plugins:
       ordered_chapter_level: 1
       copyright: Copyright &copy; Cisco
       # enabled: !ENV [ENABLE_PDF_EXPORT, false]  # Set to true or comment this line with # to enable lab guide export to PDF file
-      enabled: false
+      enabled: true
   - glightbox:
       touchNavigation: true
       loop: false
