@@ -19,12 +19,12 @@ This is similar to how a compiler checks code before running it, catching errors
 
 The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation.
 
-The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). However, for this lab, we'll focus only on the schema-based syntactic validation.
+The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). However, this lab focuses only on the schema-based syntactic validation.
 
 
 ## The Schema File
 
-The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations we have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
+The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations deployed in this lab, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
 
 **Create the schema file in your project:**
 
@@ -76,7 +76,7 @@ Your project structure should now include:
 ```
 
 !!! note "Generated Files"
-    As we've seen before, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
+    As shown in previous tasks, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
 
 ## Install the nac-validate Tool

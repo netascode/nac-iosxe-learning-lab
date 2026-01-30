@@ -10,7 +10,7 @@ In Network-as-Code the `main` represents the live production network configurati
 In real-world scenarios, many engineers collaborate on the same codebase. To ensure stability, reliability, and accountability, changes must go through a structured review process before being applied to production.
 
 !!! note "Best Practice"
-    Committing directly to the main branch (as we did in earlier tasks) is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
+    Committing directly to the main branch (as done in earlier tasks) is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
 
 ## Lab Exercise: Complete Branch and Merge Request Workflow
@@ -35,7 +35,7 @@ In this exercise, you will:
 
 ## Step 1: Protect the Main Branch
 
-First, we'll set up branch protection of the `main` branch. This means that we can no longer push changes directly to `main`; instead, all changes must go through a merge request (MR) process.
+First, you'll set up branch protection of the `main` branch. This means that you can no longer push changes directly to `main`; instead, all changes must go through a merge request (MR) process.
 
 
 ### What is a Protected Branch?
@@ -80,7 +80,7 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 </figure>
 
 !!! info "Default Branch Protection in GitLab"
-    By default, GitLab protects the `main` branch, but as you already saw, direct pushes are still allowed from maintainers. In this lab, the user `root` is a maintainer, so we need to explicitly block direct pushes to enforce the MR workflow.
+    By default, GitLab protects the `main` branch, but as you already saw, direct pushes are still allowed from maintainers. In this lab, the user `root` is a maintainer, so you need to explicitly block direct pushes to enforce the MR workflow.
 
 
 ### Verify Branch Protection
@@ -173,7 +173,7 @@ The merge request is now created! You should see the merge request page with det
 
 ## Step 4: Observe the First Pipeline (Validate + Plan)
 
-When you create the merge request, GitLab automatically triggers the same pipeline that we used in the previous tasks. However, since this time we are in a merge request, the pipeline only runs the **validate** and **plan** stages – it does NOT deploy anything yet.
+When you create the merge request, GitLab automatically triggers the same pipeline used in the previous tasks. However, since this is a merge request, the pipeline only runs the **validate** and **plan** stages – it does NOT deploy anything yet.
 
 **View the Pipeline Details**
 
@@ -199,7 +199,7 @@ The **plan** stage also adds the terraform plan output as a comment to the merge
 
 ## Step 5: Review and Approve the Merge Request
 
-This is your opportunity to verify that the changes are correct before approving! In our case, we can see that the IP host entries will be added on the **core** switch.
+This is your opportunity to verify that the changes are correct before approving! In this case, you can see that the IP host entries will be added on the **core** switch.
 
 In a real environment, a team lead or senior engineer would review the merge request. For this lab, you'll continue on your own.
 
@@ -236,7 +236,7 @@ You can now proceed to merge the changes into `main`.
 
 ## Step 7: Observe the Deployment Pipeline
 
-Merging to main triggers a new pipeline – this time including the deployment and test stages. This pipeline is identical to what we ran in Tasks 13 and 14.
+Merging to main triggers a new pipeline – this time including the deployment and test stages. This pipeline is identical to the one run in Tasks 13 and 14.
 
 
 **View the Deployment Pipeline**

@@ -7,7 +7,7 @@ Before diving into Network-as-Code automation, it's important to establish basel
 - What minimal configuration is required for Network-as-Code/RESTCONF automation
 
 !!! note "RESTCONF and NETCONF"
-    IOSXE-as-Code can use either RESTCONF or NETCONF protocols to communicate with network devices. This version of the lab guide focuses on using RESTCONF. Further details are provided later in this chapter.
+    NAC can use either RESTCONF or NETCONF protocols to communicate with network devices. This version of the lab guide focuses on using RESTCONF. Further details are provided later in this chapter.
 
 ## Open Solar-PuTTY
 
@@ -130,14 +130,14 @@ write memory
 ```
 
 ???+ note "RESTCONF Availability"
-    If you choose to try IOSXE-as-Code after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
+    If you choose to try NAC after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
     You can verify RESTCONF availability with the following command from a client machine:
 
     ```bash
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    We will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
+    You will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
 
 
 ## What to observe across all devices

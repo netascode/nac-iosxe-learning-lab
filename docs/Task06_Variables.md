@@ -64,7 +64,7 @@ iosxe:
 !!! note "Variable Syntax"
     Variables use the `${VARIABLE_NAME}` syntax. The variable name is case-sensitive, so `${HOSTNAME}` and `${hostname}` are different variables.
 
-    In this lab, we're using uppercase variable names by convention, to improve readability and distinguish them from other text. You can choose any naming convention that works for you.
+    This lab uses uppercase variable names by convention, to improve readability and distinguish them from other text. You can choose any naming convention that works for you.
 
 The image below illustrates the updated global configuration in VS Code:
 

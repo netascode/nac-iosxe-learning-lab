@@ -1,6 +1,6 @@
 In this task, you'll learn how to use **templates of type 'file'** to reference external template files with dynamic content generation. The *file* template type uses Terraform templating syntax (`.tftpl` files) for complex configurations with loops, conditionals, and variable interpolation.
 
-For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
+For detailed documentation, see: [NAC Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
 ## File Templates
 
@@ -86,7 +86,7 @@ This template uses:
 - **`${NEIGHBOR.IP}`, `${NEIGHBOR.REMOTE_AS}`, `${NEIGHBOR.DESCRIPTION}`** - Access neighbor variables for attributes
 
 !!! note "Template Location"
-    The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though we don't include the `tftpl/` folder in our module configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
+    The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though the `tftpl/` folder is not included in the module configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
 
 
 ## Step 2: Create the Template Definition File
@@ -149,7 +149,7 @@ iosxe:
 - **`name: border`** - The **border** switch where BGP will be configured
 - **`variables:`** - Variables that will be substituted into the template
 - **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
-- **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the IOSXE-as-Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
+- **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the NAC [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
 
 **Variable Breakdown:**
 
@@ -161,7 +161,7 @@ iosxe:
 
 
 !!! note "Device-Level Templates"
-    Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as we did with VLANs in Task07).
+    Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as shown with VLANs in Task07).
 
 ## Step 4: Deploy the Configuration
 
@@ -286,7 +286,7 @@ Your task is to add the default gateway ip address configuration to `border` on 
     7. Run the ping command: `ping 8.8.8.8`
     8. Repeat steps 4-7 for **host02**
 
-With what we've covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
+With what has been covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
 
 ??? tip "Solution"
     Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces: ethernets`:

@@ -109,7 +109,7 @@ At this point, your `data/` folder contains multiple YAML files, each serving a 
 !!! tip "File Organization"
     This modular approach keeps configurations organized and easy to maintain.
 
-    This is how we've organized the files for this lab guide, but you can organize your own projects in whatever way makes sense for your design.
+    This is how the files are organized for this lab guide, but you can organize your own projects in whatever way makes sense for your design.
 
 
 ## Step 2: Apply Device-Specific Configuration

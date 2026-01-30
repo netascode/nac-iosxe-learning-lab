@@ -22,7 +22,7 @@ The key insight is that **tests are rendered from your intent configuration YAML
 In [Task 4](Task04_Device_group_config.md), you deployed an access-list to the access01 and access02 switches using device groups. You'll now validate that configuration was applied correctly using the `nac-test` tool.
 
 !!! note "Lab Scope vs Production"
-    In production environments, Robot Framework tests validate the **full configuration** – including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, we're only validating the ACL configuration to demonstrate the concept and workflow.
+    In production environments, Robot Framework tests validate the **full configuration** – including VLANs, routing, interfaces, and all other deployed settings; you'll typically work with 100+ Robot test files covering all configuration aspects. For this lab, only the ACL configuration is validated to demonstrate the concept and workflow.
 
 Here's the intent configuration you deployed (`data/config-group-access.nac.yaml`):
 
@@ -129,7 +129,7 @@ cp -r ~/tests ~/nac-iosxe/
 
 ## Step 2: Have the Model File Ready
 
-We will use the `model.yaml` file generated in the previous tasks as input to `nac-test`.
+You will use the `model.yaml` file generated in the previous tasks as input to `nac-test`.
 
 ??? note "If the `model.yaml` file is missing"
 

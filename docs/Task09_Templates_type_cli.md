@@ -1,8 +1,8 @@
-In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The *cli* template type is useful when you need to configure IOS-XE features that aren't yet supported by the NAC data model.
+In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The *cli* template type is useful when you need to configure IOS XE features that aren't yet supported by the NAC data model.
 
 ## CLI Templates
 
-The CLI template type allows you to include raw IOS-XE CLI commands that are pushed directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOSXE data model, as it accepts any valid CLI command.
+The CLI template type allows you to include raw IOS XE CLI commands that are pushed directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOSXE data model, as it accepts any valid CLI command.
 
 **Template Types (reminder):**
 
@@ -10,7 +10,7 @@ The CLI template type allows you to include raw IOS-XE CLI commands that are pus
 |-----------|-----------------------------------|--------------------------------------------------------|
 | *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
 | *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*      |
-| *cli*   | Raw CLI commands                  | IOS-XE features not in NAC data model ← *This task*    |
+| *cli*   | Raw CLI commands                  | IOS XE features not in NAC data model ← *This task*    |
 
 
 **When to use 'cli' templates:**
