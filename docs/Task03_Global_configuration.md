@@ -1,4 +1,4 @@
-In this task, you'll learn how to use NAC **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
+In this task, you'll learn how to use IOSXE-as-Code **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
 
 ## Global Configuration
 
@@ -22,7 +22,7 @@ touch ~/nac-iosxe/data/config-global.nac.yaml
     You can also create the file using VS Code by clicking on the `data/` folder in the Explorer sidebar, then on the *new file* icon next to the `NAC-IOSXE` folder name,
     or by **right-clicking** the `data/` folder and selecting **New File**.
 
-    Throughout this lab guide, you will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
+    Throughout this lab guide we will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
 
 Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices defined in `devices.nac.yaml`:
 
@@ -91,7 +91,7 @@ cd ~/nac-iosxe
 !!! tip "Integrated Terminal in VS Code"
     You can also open the WSL terminal directly in VS Code by going to the menu and selecting **Terminal > New Terminal**. This opens a terminal at the root of your project, making it easy to run Terraform commands without switching windows.
 
-    Whenever this guide mentions running commands in WSL, you can use either the standalone WSL terminal or the integrated terminal in VS Code.
+    Whenever we mention running commands in WSL, you can use either the standalone WSL terminal or the integrated terminal in VS Code.
 
 
 List the files in your directory:
@@ -131,7 +131,7 @@ source .env
 
 <!-- ??? note "Using source vs. export"
     The `source` command reads and executes the contents of the `.env` file.
-    Since `export` is included in each line of the `.env` file, using `source` is sufficient to load and export the variables.
+    As we included `export` in each line of the `.env` file, using `source` is sufficient to load and export the variables.
 
     Alternatively, you can ommit the `export` keywords in the `.env` file and run the following command to export all variables at once:
 
@@ -284,7 +284,7 @@ terraform plan
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
-In this case, you will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created – as configured in `main.tf`.
+In our case, we will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created – as we configured in `main.tf`.
 
 
 ### Step 6: Apply Configuration to Devices
@@ -313,7 +313,7 @@ Type `yes` and press Enter to proceed.
 **What happens during apply:**
 
 - Terraform connects to each device via HTTPS
-- Uses the NAC modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and sends it via RESTCONF
+- Uses the Network-as-Code modules and Terraform IOS-XE provider to translate your YAML configuration into YANG data and sends it via RESTCONF
 - Applies the commands to the devices
 - Tracks the applied state in `terraform.tfstate` file
 
@@ -333,7 +333,7 @@ Type `yes` and press Enter to proceed.
     This is useful for automation scenarios, such as CI/CD pipelines, where manual intervention is not feasible.
 
 !!! note "Skipping the Plan Step"
-    As shown above, `terraform apply` first generates and displays the plan before asking for confirmation to proceed with the changes.
+    As we've seen, `terraform apply` first generates and displays the plan before asking for confirmation to proceed with the changes.
     This makes it possible to skip the previous redundant `terraform plan` step when performing `terraform apply` manually.
 
     However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
@@ -411,7 +411,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
     The state file is sensitive and critical for Terraform to manage your infrastructure. Don't manually edit or delete it!
 
 ???+ note "State File Location"
-    This lab uses the default local state file (`terraform.tfstate`) stored in your project directory.
+    In this lab, we are using the default local state file (`terraform.tfstate`) stored in your project directory.
 
     While this is easy to use for learning and small projects, it's not suitable for production environments.
     In real-world scenarios, consider using remote state backends like **Terraform Cloud**, **AWS S3**, **Azure Blob Storage**, **HTTP backends**, **Postgres databases**, etc. to securely store and share state files.

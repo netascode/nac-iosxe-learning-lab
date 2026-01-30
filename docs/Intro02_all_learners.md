@@ -1,6 +1,6 @@
 ## Accessible to All Learners
 
-This lab is designed for people with different levels of experience. Maybe you have never used VS Code and don't know what Git is. Maybe you are an advanced user of GitLab and use CI/CD pipelines every day.
+We are mindful that this lab will be taken by people with different levels of experience. Maybe you have never used VS Code and don't know what Git is. Maybe you are an advanced user of GitLab and use CI/CD pipelines every day.
 
 The guide is segmented into **recommended tasks**, suitable for all users, and *optional tasks* intended for advanced users. The recommended tasks include step-by-step guidance and detailed explanations, while the optional ones aren't that prescriptive.
 

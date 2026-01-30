@@ -119,7 +119,7 @@ iosxe:
 
 ![VS Code with template configuration](assets/vscode-adding-template-vlans.png){width=100%}
 
-!!! note "What was added"
+!!! note "What we added"
     - **`templates:`** - New section to apply templates to all switches in the `ACCESS_SWITCHES` device group
     - **`access_switch_vlans`**: Reference to the VLAN template defined in `template-vlan.nac.yaml`
 
@@ -259,7 +259,7 @@ For example, access switches might need:
 - **QoS policies** (from `example_template_qos`)
 - **Security settings** (from `example_template_security`)
 
-Using device groups (as shown in this task), you can apply multiple templates to all group members:
+Using device groups (as we did in this task), you can apply multiple templates to all group members:
 
 !!! info "Example: Working with Multiple Templates"
     The config below is only an example, you do not need to add this in your lab.

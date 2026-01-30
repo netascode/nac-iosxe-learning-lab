@@ -12,7 +12,7 @@ In the previous tasks, you:
 
 - Created configuration files manually in VS Code
 - Ran Terraform commands directly from WSL Ubuntu
-- Deployed configurations to the IOS XE devices
+- Deployed configurations to the IOS-XE devices
 
 Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate all of this. The GitLab repository already contains a complete project setup, so you need to:
 
@@ -21,7 +21,7 @@ Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate a
 
 ## Step 1: Destroy Terraform Resources
 
-First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal.
+First, remove all configurations that Terraform deployed to the IOS-XE devices. Open your WSL Ubuntu terminal.
 
 Navigate to the project folder:
 
@@ -37,7 +37,7 @@ terraform destroy
 
 When prompted, type `yes` to confirm. Terraform will:
 
-- Connect to each IOS XE device
+- Connect to each IOS-XE device
 - Remove all configurations it previously applied (banners, ACLs, VLANs, etc.)
 - Update the state file to reflect the clean state
 
@@ -60,7 +60,7 @@ show running-config
 ```
 
 !!! note "Default Hostnames"
-    If you completed [Task 06 - Variables](Task06_Variables.md), you will see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, the hostnames will be re-applied in the next task.
+    If you completed [Task 06 - Variables](Task06_Variables.md), you will see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, we'll re-apply hostnames in the next task.
 
 
 ## Step 3: Delete the Local Project Folder (Optional)
@@ -98,12 +98,12 @@ If you wish, you may also remove the manually created project folder, `nac-iosxe
 
 ## Step 4: Close VS Code and WSL Terminal
 
-In the next tasks, you will no longer need VS Code and the WSL Ubuntu terminal. You can close both applications now.
+In the next tasks, we will no longer use VS Code and the WSL Ubuntu terminal. You can close both applications now.
 
 
 ## What You've Accomplished
 
-- ✅ Removed all Terraform-deployed configurations from IOS XE devices
+- ✅ Removed all Terraform-deployed configurations from IOS-XE devices
 - ✅ (Optionally) deleted the manually created project folder
 - ✅ Prepared a clean environment for CI/CD automation
 
