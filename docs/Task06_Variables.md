@@ -2,7 +2,7 @@ In this task, you'll learn how to use **variables** in your Network-as-Code conf
 
 ## Variables in Network-as-Code
 
-Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the Network-as-Code module processes your configuration, it substitutes the variable references with their actual values.
+Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the NAC module processes your configuration, it substitutes the variable references with their actual values.
 
 **Benefits of using variables:**
 

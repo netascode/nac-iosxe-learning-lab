@@ -9,7 +9,7 @@
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
 While this works for learning and testing, production environments require the Terraform workflow to be automated using CI/CD pipelines and DevOps practices. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
-## CI/CD for Network-as-Code
+## CI/CD for Network-as-Code (NAC)
 
 CI/CD (Continuous Integration / Continuous Deployment) automates the process of validating and deploying your network configurations.
 In this lab, there is a pre-configured GitLab repository with a CI/CD pipeline already set up for you.
