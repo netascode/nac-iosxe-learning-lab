@@ -45,7 +45,7 @@ Throughout this lab, you've gained hands-on experience with modern network autom
 
 ## Thank You!
 
-Thank you for participating in this lab. We hope you've gained valuable skills that you can apply to automate your own network infrastructure.
+Thank you for participating in this lab. Hopefully, you've gained valuable skills that you can apply to automate your own network infrastructure.
 
 **Questions or feedback?**
 

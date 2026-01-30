@@ -204,7 +204,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 </figure>
 
 !!! note "Protocol Selection"
-    In this lab, we are using **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly.
+    This lab uses **RESTCONF** as the management protocol for connecting to IOS XE devices. The `IOSXE_PROTOCOL` variable is set to `restconf` accordingly.
 
 
 ## Edit Terraform main.tf file
@@ -229,11 +229,11 @@ module "iosxe" {
 
 - **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into Terraform HashiCorp Configuration Language (HCL) code needed by the IOS-XE Terraform provider.
 
-- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular Git commit hash to ensure we are using a specific version of the module, to ensure that you use the same version that we used during lab development. We pinned this commit on **January 15, 2026**.
+- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular Git commit hash to ensure you use a specific, tested version of the module. This commit was pinned on **January 15, 2026**.
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files; you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
-- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. We will examine this file generated later in the lab.
+- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. You will examine this file later in the lab.
 
 - **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
 

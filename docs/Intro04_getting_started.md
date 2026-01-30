@@ -17,7 +17,7 @@ This lab consists of:
     - **Google Chrome** Web Browser to read this lab guide and access GitLab
 
 !!! tip "Recommendation: Use the Lab Guide from within the VM"
-    We recommend reading this lab guide directly from the **Win10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.
+    It is recommended to read this lab guide directly from the **Win10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.
 
     Once you RDP into the Windows 10 VM, open **Google Chrome**. The lab guide is set as the start page, and it is also bookmarked for easy access later.
 

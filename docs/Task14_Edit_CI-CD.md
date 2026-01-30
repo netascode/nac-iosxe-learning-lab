@@ -132,10 +132,10 @@ In the end, your test stage section should look like this:
 
 ## Step 5: Add ACL Configuration
 
-Just as we did in [Task 11 - Post-checks](Task11_Post-checks.md), we will add the ACL configuration to test the pipeline.
+Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL configuration to test the pipeline.
 
 1. In the Web IDE file explorer, navigate to `data/` and rename `config-group-access.nac.yaml_` to `config-group-access.nac.yaml` (remove the trailing underscore).
-2. You may review the ACL configuration by opening the file – it defines the standard ACL named `AccessLayerACL` that we configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that we have added additional entries to the Access List.
+2. You may review the ACL configuration by opening the file – it defines the standard ACL named `AccessLayerACL` that you configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that additional entries have been added to the Access List.
 
 
 ## Step 6: Commit Your Changes

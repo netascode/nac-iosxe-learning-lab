@@ -137,7 +137,7 @@ write memory
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    We will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
+    You will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
 
 
 ## What to observe across all devices

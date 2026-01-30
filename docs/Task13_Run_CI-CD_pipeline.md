@@ -73,7 +73,7 @@ Before running the pipeline, let's understand how it's configured. Click on `.gi
   ![Pipeline YAML](./assets/gitlab-ci-yml.png){ width="100%" }
 </figure>
 
-A CI/CD pipeline is an automated workflow of tasks that enables changes to be deployed in a consistent and repeatable manner. In this lab, we are leveraging pipelines to automate the tasks you previously performed manually. This pipeline example includes the following stages: `validate`, `plan`, `deploy`, and `notify`.
+A CI/CD pipeline is an automated workflow of tasks that enables changes to be deployed in a consistent and repeatable manner. This lab leverages pipelines to automate the tasks you previously performed manually. This pipeline example includes the following stages: `validate`, `plan`, `deploy`, and `notify`.
 
 ```yaml { title=".gitlab-ci.yml Snippets" .no-copy }
 image: danischm/nac:0.1.6
@@ -201,7 +201,7 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 
 The best way to see the CI/CD pipeline in action is to make a configuration change.
 You'll add the global configuration (from [Task 03 - Global configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
-To edit the configuration files, we'll use GitLab's built-in **Web IDE** – an editor similar to VS Code that runs directly in your browser.
+To edit the configuration files, you'll use GitLab's built-in **Web IDE** – an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
 
@@ -222,7 +222,7 @@ The Web IDE opens with a familiar VS Code-like interface:
 
 ### Lab configuration files
 
-Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files that we've used before in this lab in Task 2-6. However, we replaced some of the file extensions from `.yaml` to `.yaml_` (with an underscore at the end). We did this intentionally to ignore these files for now.
+Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files used in Tasks 2-6. However, some file extensions have been changed from `.yaml` to `.yaml_` (with an underscore at the end). This was done intentionally to ignore these files for now.
 
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
@@ -233,9 +233,9 @@ The only files that are currently not ignored are:
 - `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
 
     !!! info "Variables file"
-        You can inspect the `devices-variables.nac.yaml` file to see that now we have all `HOSTNAME` variables defined in this single file (instead of per-device files as before).
+        You can inspect the `devices-variables.nac.yaml` file to see that all `HOSTNAME` variables are now defined in this single file (instead of per-device files as before).
 
-For this task, you'll update the global configuration (similar to what we did in Task 03 and Task 06).
+For this task, you'll update the global configuration (similar to Task 03 and Task 06).
 
 
 ### Add Global Configuration
@@ -265,7 +265,7 @@ iosxe:
 
 ```
 !!! note
-    Note that we modified the banner text compared to what we used before, indicating that now we're using GitLab CI/CD.
+    Note that the banner text has been modified to indicate that GitLab CI/CD is now being used.
 
 Optionally, you can also change the banner text to something new, if you'd like.
 
@@ -351,7 +351,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 ## Validation Test (Optional)
 
-Additionally, you may also test the validation stage by introducing an error in the configuration, just like we did in [Task 10 - Schema validation](Task10_Schema_validation.md).
+Additionally, you may also test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema validation](Task10_Schema_validation.md).
 
 If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
 
