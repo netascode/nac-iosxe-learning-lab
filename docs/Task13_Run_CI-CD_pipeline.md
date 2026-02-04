@@ -38,9 +38,9 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
 </figure>
 
 <!-- !!! note "You can use any browser, from the VM or your host machine"
-    Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Task 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
+    Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Tasks 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
 
-    The screenshots in Task 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
+    The screenshots in Tasks 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
 
 
 ## Step 2: Navigate to the NAC-IOSXE Project
@@ -342,7 +342,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to one of the devices (e.g., **core** switch)
-3. Check the banner and hostname – The banner will now include `GitLab – CI/CD`
+3. Check the banner and hostname – The banner will now include `GitLab - CI/CD`
 
 <figure markdown>
   ![New Banner](./assets/solarputty-gitlab-banner.png){ width="95%" }

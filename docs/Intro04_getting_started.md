@@ -23,4 +23,4 @@ This lab consists of:
 
 ---
 
-**Next:** [Task 1 - SSH to Devices](Task01_SSH_to_network_devices.md)
+**Next:** [Task 01 - SSH to Devices](Task01_SSH_to_network_devices.md)

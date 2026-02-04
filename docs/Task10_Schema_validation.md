@@ -61,7 +61,7 @@ Your project structure should now include:
 │   ├── config-device-border.nac.yaml   # Task05 + Task08: Border device + BGP templates
 │   ├── config-device-core.nac.yaml     # Task05: IP hosts for core
 │   ├── config-global.nac.yaml          # Task03: Global banner
-│   ├── config-group-access.nac.yaml    # Task04: ACCESS_SWITCHES group ACL + templates
+│   ├── config-group-access.nac.yaml    # Task04 + Task07: ACCESS_SWITCHES group ACL + templates
 │   ├── devices.nac.yaml                # Task02: Device inventory
 │   ├── template-bgp.nac.yaml           # Task08: BGP file template definition (optional)
 │   ├── template-logging.nac.yaml       # Task09: Logging alias cli template (optional)

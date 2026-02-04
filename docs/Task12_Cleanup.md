@@ -2,7 +2,7 @@ Before moving to CI/CD automation, you need to clean up the manual work you've d
 
 
 !!! warning "Important Note"
-    Once you run the cleanup, you will no longer be able to complete the optional [Task 7-9 (Templates)](Task07_Templates_type_model.md), or [Task 11 (Post-check Tests)](Task11_Post-checks.md). The cleanup removes all previous configuration from your devices to prepare for the CI/CD tasks.
+    Once you run the cleanup, you will no longer be able to complete the optional [Tasks 07-09 (Templates)](Task07_Templates_type_model.md), or [Task 11 (Post-check Tests)](Task11_Post-checks.md). The cleanup removes all previous configuration from your devices to prepare for the CI/CD tasks.
 
     Please take a moment and check your remaining time to decide whether to proceed to the CI/CD section or spend more time on the optional tasks.
 
@@ -51,7 +51,7 @@ When prompted, type `yes` to confirm. Terraform will:
 
 ## Step 2: Verify that the NAC Configurations are Removed (Optional)
 
-You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 1, double-click on the **core** switch to connect.
+You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 01, double-click on the **core** switch to connect.
 
 Once connected, check that the banner, hostname and other configurations you applied are no longer present. You can also check the running configuration.
 
