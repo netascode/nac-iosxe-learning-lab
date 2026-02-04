@@ -49,7 +49,7 @@ When prompted, type `yes` to confirm. Terraform will:
 
     If you made any manual changes directly on the devices outside of Terraform, those changes will remain.
 
-## Step 2: Verify that the NAC Configurations are Removed (Optional)
+## Step 2: Verify NAC Configurations Are Removed (Optional)
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 01, double-click on the **core** switch to connect.
 
@@ -60,7 +60,7 @@ show running-config
 ```
 
 !!! note "Default Hostnames"
-    If you completed [Task 06 - Variables](Task06_Variables.md), you will see that the hostnames are reverted to default (e.g., `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to default, even if they were pre-configured manually before Terraform. Don't worry, the hostnames will be re-applied in the next task.
+    If you completed [Task 06 - Variables](Task06_Variables.md), the hostnames revert to default (for example, `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to defaults even if they were pre-configured manually before Terraform. Don't worry, the hostnames will be re-applied in the next task.
 
 
 ## Step 3: Delete the Local Project Folder (Optional)

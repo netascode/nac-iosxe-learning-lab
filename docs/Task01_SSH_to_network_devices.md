@@ -102,7 +102,7 @@ restconf
 
 - **`ip http secure-server`** - Enables HTTPS server on the switch, required for RESTCONF API access
 - **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication. In the `show run` output, you will see the password is encrypted for security.
+- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication. In the `show run` output, the password is displayed as encrypted for security.
 
 **Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
 

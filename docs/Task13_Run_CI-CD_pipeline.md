@@ -7,7 +7,7 @@
 
 
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
-While this works for learning and testing, production environments require the Terraform workflow to be automated using CI/CD pipelines and DevOps practices. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
+While this works for learning and testing, production environments require automating the Terraform workflow using CI/CD pipelines and DevOps practices. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
 
 ## CI/CD for Network-as-Code (NAC)
 
@@ -200,7 +200,7 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 ## Step 3: Make a Change
 
 The best way to see the CI/CD pipeline in action is to make a configuration change.
-You'll add the global configuration (from [Task 03 - Global configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
+You'll add the global configuration (from [Task 03 - Global Configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
 To edit the configuration files, you'll use GitLab's built-in **Web IDE** – an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
@@ -264,7 +264,7 @@ iosxe:
         hostname: ${HOSTNAME}
 
 ```
-!!! note
+!!! note "Banner Modification"
     Note that the banner text has been modified to indicate that GitLab CI/CD is now being used.
 
 Optionally, you can also change the banner text to something new, if you'd like.
@@ -351,7 +351,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 ## Validation Test (Optional)
 
-Additionally, you may also test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema validation](Task10_Schema_validation.md).
+Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema Validation](Task10_Schema_validation.md).
 
 If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
 

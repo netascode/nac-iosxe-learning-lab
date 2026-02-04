@@ -2,7 +2,7 @@ In this task, you'll learn how to use **templates of type 'cli'** to inject raw 
 
 ## CLI Templates
 
-The CLI template type allows you to include raw IOS-XE CLI commands that are pushed directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOSXE data model, as it accepts any valid CLI command.
+The CLI template type allows you to include raw IOS-XE CLI commands that are applied directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOSXE data model, as it accepts any valid CLI command.
 
 **Template Types (reminder):**
 
@@ -15,7 +15,7 @@ The CLI template type allows you to include raw IOS-XE CLI commands that are pus
 
 **When to use 'cli' templates:**
 
-- **Unsupported features**: Configuration not yet in the [NAC data model](https://netascode.cisco.com/docs/data_models/iosxe/overview/)
+- **Unsupported features**: Configurations not yet in the [NAC data model](https://netascode.cisco.com/docs/data_models/iosxe/overview/)
 - **Temporary workarounds**: Quick fixes before proper NAC support is added
 
 !!! warning "Use with Caution"
@@ -23,7 +23,8 @@ The CLI template type allows you to include raw IOS-XE CLI commands that are pus
 
 ## Use Case: Custom Alias for the `show logging` Command
 
-In this example, you'll configure a custom alias command `logs` that maps to `show logging`. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the NAC data model.
+In this example, you'll configure a custom alias command `logs` that maps to the `show logging` command. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the NAC data model.
+
 ## Step 1: Create the CLI Template
 
 First, create the file using your **WSL Ubuntu terminal**:
@@ -50,7 +51,7 @@ This template:
 
 ## Step 2: Apply the Template to the global configuration
 
-Now you can add the alias template to your existing global configuration so that it applies to all devices.
+Now add the alias template to your existing global configuration so that it applies to all devices.
 
 **Update `data/config-global.nac.yaml`** to include the alias template:
 

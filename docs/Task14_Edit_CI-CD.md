@@ -59,7 +59,7 @@ stages:
 
 ## Step 3: Add the Test-Integration Job
 
-After the `deploy` job section (around line 115 in the file), add the `test-integration` job. This job runs `nac-test` to verify your configurations.
+After the `deploy` job section (around line 115), add the `test-integration` job. This job runs `nac-test` to verify your configurations.
 
 **Add this new job after the `deploy:` section:**
 
@@ -126,7 +126,7 @@ In the end, your test stage section should look like this:
 - If this job passes, it confirms your deployment is idempotent
 
 
-!!! info
+!!! info "Complete Pipeline Reference"
     You can refer to [Appendix I](Appendix-I.md) for the complete `.gitlab-ci.yml` file with all changes included.
 
 

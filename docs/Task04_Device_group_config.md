@@ -16,7 +16,7 @@ Device groups are particularly effective for:
 In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) – a typical requirement for access layer devices controlling traffic from known networks.
 
 !!! note "The power of Device Groups: Scalability"
-    Using device groups may appear unnecessary for just two access switches – in this example. Now, consider a large network with more than 1,000 access switches. Utilizing device groups helps keeping the configuration organized and scalable.
+    Using device groups may appear unnecessary for just two access switches – in this example. However, consider a large network with more than 1,000 access switches. Utilizing device groups helps keep the configuration organized and scalable.
 
 ## Step 1: Create the Device Group Configuration File
 
@@ -210,7 +210,7 @@ As configured in `main.tf`, Terraform generates a merged model file (`model.yaml
 </figure>
 
 !!! tip "Review model.yaml"
-    Reviewing the `model.yaml` file helps you understand how configurations are structured, and it is very useful for troubleshooting too.
+    Reviewing the `model.yaml` file helps you understand how configurations are structured and is very useful for troubleshooting.
 
 
 ## What You've Accomplished

@@ -4,7 +4,7 @@ This step-by-step guide walks you through the **Network-as-Code for IOS-XE** lab
 
 **Why This Lab Matters**
 
-Traditional network management relies on manual CLI commands, scripts and templates, which can lead to configuration drift, human errors, lack of change tracking, and difficulty testing changes before deployment.
+Traditional network management relies on manual CLI commands, scripts, and templates, which can lead to configuration drift, human errors, lack of change tracking, and difficulty testing changes before deployment.
 
 This lab demonstrates how Network-as-Code solves these challenges using:
 
