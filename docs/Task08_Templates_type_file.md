@@ -225,7 +225,7 @@ The **isp** neighbor shows as **Established** with 1 prefix received, while **is
 
 ### Advertised Network
 
-The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a looback address configured on the **isp** device.
+The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a loopback address configured on the **isp** device.
 
 You can verify the received route with:
 

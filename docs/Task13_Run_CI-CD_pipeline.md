@@ -3,7 +3,7 @@
 
 
 !!! note "Why Cleanup is Important"
-    You never want to have the same resources (i.e. network device configurations) present in multiple Terraform states at the same time. If you have two different Terraform environments managing the same network device, with different configurations, every time you run `terraform apply` from either environment, it will try to overwrite the changes made by the other environment, leading unpredictable results, conflicts and potential failures.
+    You never want to have the same resources (i.e. network device configurations) present in multiple Terraform states at the same time. If you have two different Terraform environments managing the same network device, with different configurations, every time you run `terraform apply` from either environment, it will try to overwrite the changes made by the other environment, leading to unpredictable results, conflicts and potential failures.
 
 
 In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
@@ -177,7 +177,7 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
 
 ## State File Management
 
-Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the` main.tf `file.
+Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the `main.tf` file.
 
 The pipeline uses GitLab's **http backend** to store the Terraform state file on the GitLab server. This allows multiple pipeline runs to share the same state, ensuring consistency across deployments.
 

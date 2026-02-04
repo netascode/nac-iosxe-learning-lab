@@ -149,9 +149,9 @@ At this point, your `data/` folder should contain these files:
 When Network-as-Code processes your configuration:
 
 1. **Template Resolution**: NAC reads the `template-vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
-3. **Device Group Processing**: NAC reads `config-group-access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
-4. **Configuration Merge**: For **access01** and **access02** (members of the `ACCESS_SWITCHES` group), the template's configuration is merged with their settings
-5. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
+2. **Device Group Processing**: NAC reads `config-group-access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
+3. **Configuration Merge**: For **access01** and **access02** (members of the `ACCESS_SWITCHES` group), the template's configuration is merged with their settings
+4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
 <figure markdown>
   ![Template Processing Flow](./assets/templates.png){ width="60%" }
@@ -286,7 +286,7 @@ Using device groups (as shown in this task), you can apply multiple templates to
 2. **Easy Updates**: Need to add `VLAN 30`? Update the template once, all devices get it
 3. **Selective Application**: Not all devices need the same VLANs – only reference the template where needed
 4. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
-5. **Separation of concerns**: Whith multiple templates, each can handle one configuration domain
+5. **Separation of concerns**: With multiple templates, each can handle one configuration domain
 
 
 ## What You've Accomplished

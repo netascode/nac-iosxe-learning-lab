@@ -30,12 +30,12 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
 
 ## Lab VMs
 
-| Device            | IP Address     | Username | Password  | Interface                     |
-|-------------------|----------------|----------|-----------|-------------------------------|
-| **Windows 10 VM** | 198.18.133.20  | admin    | cisco     | [rdp](rdp://198.18.133.20)    |
-| **CML**           | 198.18.130.34  | guest    | CiscoLive | [web](https://198.18.130.34)  |
-| **Ubuntu VM**     | 198.18.133.101 | guest    | CiscoLive | [ssh](ssh://198.18.133.101)   |
-| **GitLab**        | 198.18.133.101 | root     | cisco     | [web](https://198.18.133.101) |
+| Device            | IP Address     | Username | Password   | Interface                     |
+|-------------------|----------------|----------|------------|-------------------------------|
+| **Windows 10 VM** | 198.18.133.20  | admin    | cisco      | [rdp](rdp://198.18.133.20)    |
+| **CML**           | 198.18.130.34  | guest    | CiscoLive  | [web](https://198.18.130.34)  |
+| **Ubuntu VM**     | 198.18.133.101 | guest    | CiscoLive  | [ssh](ssh://198.18.133.101)   |
+| **GitLab**        | 198.18.133.101 | root     | C1sco12345 | [web](https://198.18.133.101) |
 
 !!! note "Self-signed Certificates"
     The CML and GitLab web interfaces use self-signed SSL certificates. Your browser may show a warning when accessing these sites. You can safely ignore the warning and proceed to the site.

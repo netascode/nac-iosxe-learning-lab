@@ -75,7 +75,7 @@ class UtilsLib(object):
 
 
 
-### `tests/templates/configs/access_lists.robot`
+### `tests/templates/config/access_lists.robot`
 
 
 ```
@@ -359,7 +359,7 @@ Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
 ```
 
 
-### `tests/templates/iosxe_common`
+### `tests/templates/iosxe_common.resource`
 
 ```
 *** Settings ***

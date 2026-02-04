@@ -133,7 +133,7 @@ source .env
     The `source` command reads and executes the contents of the `.env` file.
     Since `export` is included in each line of the `.env` file, using `source` is sufficient to load and export the variables.
 
-    Alternatively, you can ommit the `export` keywords in the `.env` file and run the following command to export all variables at once:
+    Alternatively, you can omit the `export` keywords in the `.env` file and run the following command to export all variables at once:
 
     ```bash
     export $(cat .env | xargs)
@@ -241,7 +241,7 @@ terraform init
 **What happens during initialization:**
 
 - Terraform reads your `main.tf` file
-- Downloads the `netascode/nac-iosxe` modules from the Terraform Registry
+- Downloads the `netascode/nac-iosxe` module from GitHub (as defined in `main.tf`)
 - Creates a `.terraform` directory with downloaded modules
 - Creates a `.terraform.lock.hcl` file to lock module versions
 
@@ -253,7 +253,7 @@ terraform init
 
 
 !!! warning "Internet Connection Required"
-    As shown in this lab, the `terraform init` step requires an active internet connection to download the necessary modules from the Terraform Registry. In production environments, you may want to set up a private module registry or use a local mirror to avoid dependency on external connectivity.
+    As shown in this lab, the `terraform init` step requires an active internet connection to download the necessary modules from GitHub. In production environments, you may want to set up a private module registry or use a local mirror to avoid dependency on external connectivity.
 
 
 !!! note "Initialization Only Once"

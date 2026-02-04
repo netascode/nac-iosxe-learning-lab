@@ -88,7 +88,7 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 To confirm that the `main` branch is protected:
 
 1. Open the **Web IDE** from the project page
-2. Add the **core** device configuration: rename `data/config-core.nac.yaml_` to `data/config-core.nac.yaml` (remove the trailing underscore)
+2. Add the **core** device configuration: rename `data/config-device-core.nac.yaml_` to `data/config-device-core.nac.yaml` (remove the trailing underscore)
 3. Click on the **Source Control** icon in the left sidebar
 4. Enter a commit message:
     ```
