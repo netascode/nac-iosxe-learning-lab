@@ -233,7 +233,7 @@ module "iosxe" {
 
 - **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files; you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
 
-- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. You will examine this file later in the lab.
+- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. You will generate and examine this file later in the lab.
 
 - **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
 
