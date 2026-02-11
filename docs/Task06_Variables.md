@@ -158,7 +158,8 @@ iosxe:
 When Terraform processes your configuration, it performs variable substitution at each level, for each device.
 
 <figure markdown>
-  ![Variable Substitution](./assets/variable-substitution.png){ width="70%" }
+  ![Variable Substitution](./assets/variable-substitution-light.png#only-light){ width="70%" }
+  ![Variable Substitution](./assets/variable-substitution-dark.png#only-dark){ width="70%" }
 </figure>
 
 ## Variable Precedence

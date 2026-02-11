@@ -154,7 +154,8 @@ When Network-as-Code processes your configuration:
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
 <figure markdown>
-  ![Template Processing Flow](./assets/templates.png){ width="60%" }
+  ![Template Processing Flow](./assets/templates-light.png#only-light){ width="60%" }
+  ![Template Processing Flow](./assets/templates-dark.png#only-dark){ width="60%" }
 </figure>
 
 

@@ -513,3 +513,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+__pycache__/
