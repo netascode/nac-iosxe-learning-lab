@@ -273,6 +273,8 @@ terraform plan
 
 - Reads your `data/*.yaml` configuration files
 - Connects to your IOS XE devices (using credentials from environment variables)
+    - Checks the current state of all previously applied resources
+    - This is skipped on the first run since no resources have been created yet
 - Compares desired state (YAML) vs. current state (device configuration)
 - Shows you what will be added, changed, or deleted
 

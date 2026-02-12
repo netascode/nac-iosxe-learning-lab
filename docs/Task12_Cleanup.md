@@ -67,7 +67,7 @@ show running-config
 
 If you wish, you may also remove the manually created project folder, `nac-iosxe`, as it's no longer needed.
 
-??? info "Remove Project Folder"
+??? info "Remove Project Folder (Optional)"
     To delete the project folder, run the following commands in your WSL Ubuntu terminal:
 
     ```bash

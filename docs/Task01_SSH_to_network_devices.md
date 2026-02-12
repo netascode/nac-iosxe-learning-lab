@@ -115,29 +115,31 @@ restconf
     This version of the lab guide focuses on using RESTCONF for device configuration only. Very recently, NETCONF support has also been added to the ciscodevnet/iosxe Terraform provider as the default protocol. Future versions of this lab may include NETCONF examples as well. Currently the lab devices are not configured to support NETCONF. For more information, refer to the IOSXE Terraform provider documentation [here](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3).
 
 ## Enabling RESTCONF Manually
-!!! tip
-    You don't need to do this now – it's already configured on all lab devices.
 
 If you needed to manually enable RESTCONF on a new device, you would use these commands:
 
-```
-config t
-ip http secure-server
-restconf
-username nac_admin privilege 15 secret cisco
-end
-write memory
-```
+!!! info "CLI Commands to Enable RESTCONF"
+    You don't need to do this now – it's already configured on all lab devices.
+
+    ```
+    config t
+    ip http secure-server
+    restconf
+    username nac_admin privilege 15 secret cisco
+    end
+    write memory
+    ```
+
+If you choose to try IOSXE-as-Code after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
 
 ???+ note "RESTCONF Availability"
-    If you choose to try IOSXE-as-Code after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
     You can verify RESTCONF availability with the following command from a client machine:
 
     ```bash
     curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
     ```
 
-    You will use this command later in ([Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
+You will use this command later (in [Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
 
 
 ## What to observe across all devices
