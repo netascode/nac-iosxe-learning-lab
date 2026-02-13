@@ -178,7 +178,7 @@ When you create the merge request, GitLab automatically triggers the same pipeli
 
 **View the Pipeline Details**
 
-1. On the merge request page, click on the pipeline ID (#157 in the image above)
+1. On the merge request page, click on the pipeline ID (#144 in the image above)
 2. You'll see a pipeline running or completed
 
 The pipeline uses the config from your feature branch (`feature/core`) and runs the following stages:
