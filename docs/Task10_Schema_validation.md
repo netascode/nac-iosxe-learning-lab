@@ -148,23 +148,24 @@ Let's intentionally introduce errors to see how validation catches them.
 
 ### Example 1: Invalid IP address
 
-If you accidentally typed an invalid IP like `198.18.129.1111` in your `data/config-device-core.nac.yaml` (from Task05):
+If you accidentally typed an invalid IP like `198.51.100.1010` in `data/config-device-core.nac.yaml` (the Loopback0 address from Task 05):
 
-```yaml { title="data/config-device-core.nac.yaml" hl_lines="6" .no-copy }
+```yaml { title="data/config-device-core.nac.yaml" hl_lines="7" .no-copy }
 ...
-system:
-  ip_hosts:
-    - name: ntp-server
-      ips:
-        - 198.18.129.1111  # Invalid - octet > 255
-      ...
+configuration:
+  interfaces:
+    loopbacks:
+      - id: 0
+        ipv4:
+          address: 198.51.100.1010  # Invalid - octet > 255
+          address_mask: 255.255.255.255
 ```
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```text { .no-copy }
 ERROR - Syntax error 'data/config-device-core.nac.yaml':
-iosxe.devices.[name=core].configuration.system.ip_hosts.[name=ntp-server].ips: '198.18.129.1111' is not a ip.
+iosxe.devices.[name=core].configuration.interfaces.loopbacks.[id=0].ipv4.address: '198.51.100.1010' is not a ip.
 ```
 
 ### Example 2: Wrong attribute name
