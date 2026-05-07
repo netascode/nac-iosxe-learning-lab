@@ -4,6 +4,14 @@
 
 In this task you'll use **templates of type `model`** to define reusable YAML-based configuration blocks that can be applied to multiple devices. Templates promote reuse, reduce duplication, and keep configuration consistent across the network.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Written a reusable `model`-type template (`access_switch_vlans`) that defines three VLANs
+- Referenced the template from the `ACCESS_SWITCHES` device group
+- Verified the VLANs expanded onto both `access01` and `access02` with `show vlan brief`
+
 ## Templates
 
 Templates in Network as Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
