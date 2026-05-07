@@ -4,6 +4,14 @@
 
 In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Written a **global** NAC configuration file that applies to every registered device
+- Run the full Terraform workflow end-to-end: `init` → `plan` → `apply`
+- Verified the deployed banner by SSH-ing to each device
+
 ## Global Configuration
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. The configuration precedence hierarchy works as follows:
