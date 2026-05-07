@@ -78,15 +78,15 @@ Your project structure should now include:
 /home/cisco/nac-iosxe/
 │
 ├── data/
-│   ├── config-device-access01.nac.yaml # Task02: access01 registration
-│   ├── config-device-access02.nac.yaml # Task02: access02 registration
-│   ├── config-device-border.nac.yaml   # Task02 + Task08 (optional): border + BGP
-│   ├── config-device-core.nac.yaml     # Task02 + Task05: core + Loopback0
-│   ├── config-global.nac.yaml          # Task03 + Task06: banner + hostname
-│   ├── config-group-access.nac.yaml    # Task04 + Task07 (optional): ACL + VLAN template
-│   ├── template-bgp.nac.yaml           # Task08: BGP file template definition (optional)
-│   ├── template-logging.nac.yaml       # Task09: Logging alias CLI template (optional)
-│   └── template-vlan.nac.yaml          # Task07: VLAN model template (optional)
+│   ├── devices/access01.nac.yaml # Task02: access01 registration
+│   ├── devices/access02.nac.yaml # Task02: access02 registration
+│   ├── devices/border.nac.yaml   # Task02 + Task08 (optional): border + BGP
+│   ├── devices/core.nac.yaml     # Task02 + Task05: core + Loopback0
+│   ├── global.nac.yaml          # Task03 + Task06: banner + hostname
+│   ├── groups/access.nac.yaml    # Task04 + Task07 (optional): ACL + VLAN template
+│   ├── templates/bgp.nac.yaml           # Task08: BGP file template definition (optional)
+│   ├── templates/logging.nac.yaml       # Task09: Logging alias CLI template (optional)
+│   └── templates/vlan.nac.yaml          # Task07: VLAN model template (optional)
 ├── tftpl/
 │   └── bgp.yaml.tftpl                  # Task08: BGP template file (optional)
 ├── .env
@@ -165,9 +165,9 @@ Let's intentionally introduce errors to see how validation catches them.
 
 ### Example 1: Invalid IP address
 
-If you accidentally typed an invalid IP like `198.51.100.1010` in `data/config-device-core.nac.yaml` (the Loopback0 address from Task 05):
+If you accidentally typed an invalid IP like `198.51.100.1010` in `data/devices/core.nac.yaml` (the Loopback0 address from Task 05):
 
-```yaml { title="data/config-device-core.nac.yaml" hl_lines="7" .no-copy }
+```yaml { title="data/devices/core.nac.yaml" hl_lines="7" .no-copy }
 ...
 configuration:
   interfaces:
@@ -181,15 +181,15 @@ configuration:
 Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```text { .no-copy }
-ERROR - Syntax error 'data/config-device-core.nac.yaml':
+ERROR - Syntax error 'data/devices/core.nac.yaml':
 iosxe.devices.[name=core].configuration.interfaces.loopbacks.[id=0].ipv4.address: '198.51.100.1010' is not a ip.
 ```
 
 ### Example 2: Wrong attribute name
 
-If you misspelled an attribute like `banner` as `banners` in `data/config-global.nac.yaml`:
+If you misspelled an attribute like `banner` as `banners` in `data/global.nac.yaml`:
 
-```yaml { title="data/config-global.nac.yaml" hl_lines="4" .no-copy }
+```yaml { title="data/global.nac.yaml" hl_lines="4" .no-copy }
 ...
 global:
   configuration:
@@ -201,15 +201,15 @@ global:
 Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```text { .no-copy }
-ERROR - Syntax error 'data/config-global.nac.yaml':
+ERROR - Syntax error 'data/global.nac.yaml':
 iosxe.global.configuration.banners: Unexpected element
 ```
 
 ### Example 3: Invalid enum value
 
-If you used an invalid action in an ACL in `data/config-group-access.nac.yaml`:
+If you used an invalid action in an ACL in `data/groups/access.nac.yaml`:
 
-```yaml { title="data/config-group-access.nac.yaml" hl_lines="7" .no-copy }
+```yaml { title="data/groups/access.nac.yaml" hl_lines="7" .no-copy }
 ...
 access_lists:
   standard:
@@ -225,7 +225,7 @@ access_lists:
 Running `nac-validate -s .schema.yaml data/` would produce:
 
 ```text { .no-copy }
-ERROR - Syntax error 'data/config-group-access.nac.yaml':
+ERROR - Syntax error 'data/groups/access.nac.yaml':
 iosxe.device_groups.[name=ACCESS_SWITCHES].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
 ```
 

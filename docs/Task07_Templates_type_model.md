@@ -56,12 +56,12 @@ Access switches typically share the same VLAN configuration – they need identi
 First, create the file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/template-vlan.nac.yaml
+touch ~/nac-iosxe/data/templates/vlan.nac.yaml
 ```
 
-Then open `data/template-vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
+Then open `data/templates/vlan.nac.yaml` in VS Code and add the following content. This file defines a reusable VLAN template:
 
-```yaml title="data/template-vlan.nac.yaml"
+```yaml title="data/templates/vlan.nac.yaml"
 ---
 iosxe:
   templates:
@@ -102,9 +102,9 @@ Let's break down the key elements:
 
 ## Step 2: Apply Template to Access Switches
 
-Now you need to apply the template to the access switches. Open the existing `data/config-group-access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section, at the end of the YAML configuration file:
+Now you need to apply the template to the access switches. Open the existing `data/groups/access.nac.yaml` file in VS Code (this file was created in Task04) and add the `templates:` section, at the end of the YAML configuration file:
 
-```yaml title="data/config-group-access.nac.yaml" hl_lines="21 22"
+```yaml title="data/groups/access.nac.yaml" hl_lines="21 22"
 ---
 iosxe:
   device_groups:
@@ -133,7 +133,7 @@ iosxe:
 
 !!! note "What was added"
     - **`templates:`** - New section to apply templates to all switches in the `ACCESS_SWITCHES` device group
-    - **`access_switch_vlans`**: Reference to the VLAN template defined in `template-vlan.nac.yaml`
+    - **`access_switch_vlans`**: Reference to the VLAN template defined in `templates/vlan.nac.yaml`
 
 The template reference is added alongside the existing `AccessLayerACL` configuration. After running `terraform apply`, both the ACL and VLAN configuration will be present on **access01** and **access02**.
 
@@ -146,21 +146,21 @@ At this point, your `data/` folder should contain these files:
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-device-access01.nac.yaml  # Task02: access01 registration
-    ├── config-device-access02.nac.yaml  # Task02: access02 registration
-    ├── config-device-border.nac.yaml    # Task02: border registration
-    ├── config-device-core.nac.yaml      # Task02 + Task05: core + Loopback0
-    ├── config-global.nac.yaml           # Task03: Global banner + hostname
-    ├── config-group-access.nac.yaml     # Task04 + Task07: ACL + VLAN template
-    └── template-vlan.nac.yaml           # Task07: VLAN template (type: model)
+    ├── devices/access01.nac.yaml  # Task02: access01 registration
+    ├── devices/access02.nac.yaml  # Task02: access02 registration
+    ├── devices/border.nac.yaml    # Task02: border registration
+    ├── devices/core.nac.yaml      # Task02 + Task05: core + Loopback0
+    ├── global.nac.yaml           # Task03: Global banner + hostname
+    ├── groups/access.nac.yaml     # Task04 + Task07: ACL + VLAN template
+    └── templates/vlan.nac.yaml           # Task07: VLAN template (type: model)
 ```
 
 ## How Templates Work
 
 When Network as Code processes your configuration:
 
-1. **Template Resolution**: NAC reads the `template-vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
-2. **Device Group Processing**: NAC reads `config-group-access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
+1. **Template Resolution**: NAC reads the `templates/vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
+2. **Device Group Processing**: NAC reads `groups/access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
 3. **Configuration Merge**: For **access01** and **access02** (members of the `ACCESS_SWITCHES` group), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 

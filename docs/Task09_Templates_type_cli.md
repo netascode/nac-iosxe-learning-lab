@@ -9,7 +9,7 @@ In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI com
 By the end of this task you will have:
 
 - Created a `cli`-type template containing a raw IOS XE command (`alias exec logs show logging`)
-- Applied the template globally via `config-global.nac.yaml`
+- Applied the template globally via `global.nac.yaml`
 - Verified the alias appears on every device using `show alias`
 - Understood **when** to reach for `cli` templates vs `model` / `file` (rarely — only for features outside the data model)
 
@@ -43,12 +43,12 @@ In this example, you'll configure a custom alias command `logs` that maps to the
 First, create the file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/template-logging.nac.yaml
+touch ~/nac-iosxe/data/templates/logging.nac.yaml
 ```
 
-Then open `data/template-logging.nac.yaml` in VS Code and add the following content:
+Then open `data/templates/logging.nac.yaml` in VS Code and add the following content:
 
-```yaml title="data/template-logging.nac.yaml"
+```yaml title="data/templates/logging.nac.yaml"
 ---
 iosxe:
   templates:
@@ -66,9 +66,9 @@ This template:
 
 Now add the alias template to your existing global configuration so that it applies to all devices.
 
-**Update `data/config-global.nac.yaml`** to include the alias template:
+**Update `data/global.nac.yaml`** to include the alias template:
 
-```yaml title="data/config-global.nac.yaml" hl_lines="15-16"
+```yaml title="data/global.nac.yaml" hl_lines="15-16"
 ---
 iosxe:
   global:

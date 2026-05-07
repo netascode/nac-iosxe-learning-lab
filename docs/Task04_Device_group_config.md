@@ -35,12 +35,12 @@ In this example, you'll create a device group called **ACCESS_SWITCHES** that in
 First, create the file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/config-group-access.nac.yaml
+touch ~/nac-iosxe/data/groups/access.nac.yaml
 ```
 
-The file will appear in VS Code's Explorer panel. Click on `config-group-access.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **access01** and **access02** switches:
+The file will appear in VS Code's Explorer panel. Click on `groups/access.nac.yaml` to open it and add the following content. Notice how the ACL is defined once in the device group and automatically applies to both **access01** and **access02** switches:
 
-```yaml title="config-group-access.nac.yaml"
+```yaml title="groups/access.nac.yaml"
 ---
 iosxe:
   device_groups:

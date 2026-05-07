@@ -8,7 +8,7 @@ In this task, you'll apply configuration to a **single specific device** rather 
 
 By the end of this task you will have:
 
-- Extended `config-device-core.nac.yaml` with device-specific configuration (a `Loopback0` interface)
+- Extended `devices/core.nac.yaml` with device-specific configuration (a `Loopback0` interface)
 - Internalized the NAC precedence hierarchy: **Global < Device Group < Device**
 - Verified selective deployment — loopback exists on `core`, absent from `border`/`access01`/`access02`
 
@@ -40,9 +40,9 @@ Only `core` will receive this. The other three devices (`border`, `access01`, `a
 
 You already created a per-device file for `core` in [Task 02](Task02_Editing_YAML_files.md) — you'll extend it now by adding a `configuration:` block. The file currently registers `core` with NAC; adding `configuration:` tells NAC what to actually push to that specific device.
 
-Open `data/config-device-core.nac.yaml` in VS Code and replace its contents with:
+Open `data/devices/core.nac.yaml` in VS Code and replace its contents with:
 
-```yaml title="data/config-device-core.nac.yaml" hl_lines="5-13"
+```yaml title="data/devices/core.nac.yaml" hl_lines="5-13"
 ---
 iosxe:
   devices:
@@ -93,12 +93,12 @@ Your `data/` folder now contains one file per configuration concern:
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-device-core.nac.yaml      # Device: core  (registration + Loopback0)  ← this task
-    ├── config-device-border.nac.yaml    # Device: border (registration only, for now)
-    ├── config-device-access01.nac.yaml  # Device: access01 (registration only)
-    ├── config-device-access02.nac.yaml  # Device: access02 (registration only)
-    ├── config-global.nac.yaml           # Global  — login banner                    ← Task 03
-    └── config-group-access.nac.yaml     # Group   — ACL for access switches        ← Task 04
+    ├── devices/core.nac.yaml      # Device: core  (registration + Loopback0)  ← this task
+    ├── devices/border.nac.yaml    # Device: border (registration only, for now)
+    ├── devices/access01.nac.yaml  # Device: access01 (registration only)
+    ├── devices/access02.nac.yaml  # Device: access02 (registration only)
+    ├── global.nac.yaml           # Global  — login banner                    ← Task 03
+    └── groups/access.nac.yaml     # Group   — ACL for access switches        ← Task 04
 ```
 
 !!! tip "One concern per file"
@@ -197,9 +197,9 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 
 | Level            | Scope             | Example        | File                           |
 |------------------|-------------------|----------------|--------------------------------|
-| **Global**       | All devices       | Login banner   | `config-global.nac.yaml`       |
-| **Device Group** | Subset of devices | Standard ACL   | `config-group-access.nac.yaml` |
-| **Device**       | Single device     | `Loopback0`    | `config-device-core.nac.yaml`  |
+| **Global**       | All devices       | Login banner   | `global.nac.yaml`       |
+| **Device Group** | Subset of devices | Standard ACL   | `groups/access.nac.yaml` |
+| **Device**       | Single device     | `Loopback0`    | `devices/core.nac.yaml`  |
 
 In case of conflicting settings, the higher precedence level overrides the lower. For example, you can have a global banner, and configure a different banner for a specific device.
 
@@ -220,7 +220,7 @@ In case of conflicting settings, the higher precedence level overrides the lower
 
 ## What you've accomplished
 
-- ✅ Extended `config-device-core.nac.yaml` with device-specific configuration (`Loopback0`)
+- ✅ Extended `devices/core.nac.yaml` with device-specific configuration (`Loopback0`)
 - ✅ Deployed a configuration that applies to exactly one device
 - ✅ Verified the deployment is selective: loopback exists on `core`, absent from `border`/`access01`/`access02`
 - ✅ Internalized the configuration precedence hierarchy: **Global < Device Group < Device**

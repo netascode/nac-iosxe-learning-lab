@@ -43,9 +43,9 @@ In this example, you'll touch two different pieces of configuration on each devi
 
 ## Step 1: Update the Global Configuration File
 
-First, let's update the global configuration to use a variable in the banner. Open `data/config-global.nac.yaml` in VS Code and update it with the following content:
+First, let's update the global configuration to use a variable in the banner. Open `data/global.nac.yaml` in VS Code and update it with the following content:
 
-```yaml title="data/config-global.nac.yaml" hl_lines="4 5 14 15 17"
+```yaml title="data/global.nac.yaml" hl_lines="4 5 14 15 17"
 ---
 iosxe:
   global:
@@ -95,9 +95,9 @@ The image below illustrates the updated global configuration in VS Code:
 
 ## Step 2: Define Variables at Device Level
 
-Now you need to define the `HOSTNAME` variable for each device. Open `data/config-device-core.nac.yaml` in VS Code and update it with the following content:
+Now you need to define the `HOSTNAME` variable for each device. Open `data/devices/core.nac.yaml` in VS Code and update it with the following content:
 
-```yaml title="data/config-device-core.nac.yaml" hl_lines="6 7"
+```yaml title="data/devices/core.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
@@ -118,7 +118,7 @@ iosxe:
 **What's new:**
 
 - **`variables:`** — section where you define device-specific variables.
-- **`HOSTNAME: core`** — sets `${HOSTNAME}` to `core` for this device only. The `system.hostname` and `banner.login` in `config-global.nac.yaml` will resolve to this value when the merged model is rendered for `core`.
+- **`HOSTNAME: core`** — sets `${HOSTNAME}` to `core` for this device only. The `system.hostname` and `banner.login` in `global.nac.yaml` will resolve to this value when the merged model is rendered for `core`.
 
 The image below illustrates the device configuration with variables in VS Code:
 
@@ -130,9 +130,9 @@ The image below illustrates the device configuration with variables in VS Code:
 
 Now add the `HOSTNAME` variable to the other device configuration files.
 
-**Update `data/config-device-border.nac.yaml`:**
+**Update `data/devices/border.nac.yaml`:**
 
-```yaml title="data/config-device-border.nac.yaml" hl_lines="6 7"
+```yaml title="data/devices/border.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
@@ -142,9 +142,9 @@ iosxe:
         HOSTNAME: border
 ```
 
-**Update `data/config-device-access01.nac.yaml`:**
+**Update `data/devices/access01.nac.yaml`:**
 
-```yaml title="data/config-device-access01.nac.yaml" hl_lines="6 7"
+```yaml title="data/devices/access01.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
@@ -154,9 +154,9 @@ iosxe:
         HOSTNAME: access01
 ```
 
-**Update `data/config-device-access02.nac.yaml`:**
+**Update `data/devices/access02.nac.yaml`:**
 
-```yaml title="data/config-device-access02.nac.yaml" hl_lines="6 7"
+```yaml title="data/devices/access02.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:

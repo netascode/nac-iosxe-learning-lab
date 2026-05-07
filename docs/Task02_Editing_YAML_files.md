@@ -75,13 +75,13 @@ You should now see `/home/cisco/nac-iosxe` displayed.
 
 Now you'll create a folder structure and placeholder files for your Network as Code IOS XE project.
 
-**Create a data directory for YAML configuration files:**
+**Create the data directory structure:**
 
 ```bash
-mkdir data
+mkdir -p data/devices data/groups data/templates
 ```
 
-This creates a dedicated folder to organize your device configuration files, keeping them separate from Terraform files.
+This creates a `data/` folder with subdirectories to organize your configuration by scope: `devices/` for per-device files, `groups/` for device-group files, and `templates/` for reusable template definitions.
 
 ## Create placeholder files
 
@@ -90,10 +90,10 @@ Create the skeleton files you'll fill in below.
 ```bash
 touch .env                                        # credentials for the IOS XE devices
 touch main.tf                                     # Terraform entry point
-touch data/config-device-core.nac.yaml            # per-device configuration files
-touch data/config-device-border.nac.yaml
-touch data/config-device-access01.nac.yaml
-touch data/config-device-access02.nac.yaml
+touch data/devices/core.nac.yaml                  # per-device configuration files
+touch data/devices/border.nac.yaml
+touch data/devices/access01.nac.yaml
+touch data/devices/access02.nac.yaml
 ```
 
 One file per device is the pattern we'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
@@ -128,13 +128,16 @@ cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
 ├── data
-│   ├── config-device-access01.nac.yaml
-│   ├── config-device-access02.nac.yaml
-│   ├── config-device-border.nac.yaml
-│   └── config-device-core.nac.yaml
+│   ├── devices
+│   │   ├── access01.nac.yaml
+│   │   ├── access02.nac.yaml
+│   │   ├── border.nac.yaml
+│   │   └── core.nac.yaml
+│   ├── groups
+│   └── templates
 └── main.tf
 
-1 directory, 6 files
+4 directories, 6 files
 ```
 
 You're now ready to populate the files. Every subsequent step in this guide assumes your current working directory is `/home/cisco/nac-iosxe`.
@@ -265,9 +268,9 @@ The figure below illustrates the `main.tf` file in Visual Studio Code:
 
 Each per-device file registers one device with NAC — it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
 
-Open `data/config-device-core.nac.yaml` in VS Code and paste:
+Open `data/devices/core.nac.yaml` in VS Code and paste:
 
-```yaml title="data/config-device-core.nac.yaml"
+```yaml title="data/devices/core.nac.yaml"
 ---
 iosxe:
   devices:
@@ -275,9 +278,9 @@ iosxe:
       host: 198.18.130.10
 ```
 
-Open `data/config-device-border.nac.yaml` and paste:
+Open `data/devices/border.nac.yaml` and paste:
 
-```yaml title="data/config-device-border.nac.yaml"
+```yaml title="data/devices/border.nac.yaml"
 ---
 iosxe:
   devices:
@@ -285,9 +288,9 @@ iosxe:
       host: 198.18.130.20
 ```
 
-Open `data/config-device-access01.nac.yaml` and paste:
+Open `data/devices/access01.nac.yaml` and paste:
 
-```yaml title="data/config-device-access01.nac.yaml"
+```yaml title="data/devices/access01.nac.yaml"
 ---
 iosxe:
   devices:
@@ -295,9 +298,9 @@ iosxe:
       host: 198.18.130.11
 ```
 
-Open `data/config-device-access02.nac.yaml` and paste:
+Open `data/devices/access02.nac.yaml` and paste:
 
-```yaml title="data/config-device-access02.nac.yaml"
+```yaml title="data/devices/access02.nac.yaml"
 ---
 iosxe:
   devices:
@@ -329,7 +332,7 @@ VS Code has auto-save enabled, so your files are saved a few seconds after you s
 
 - `.env` — device credentials and protocol
 - `main.tf` — Terraform module configuration
-- `data/config-device-*.nac.yaml` — four per-device skeleton files
+- `data/devices/*.nac.yaml` — four per-device skeleton files
 
 ## How the project will grow
 

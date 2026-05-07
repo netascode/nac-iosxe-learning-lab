@@ -147,7 +147,7 @@ In the end, your test stage section should look like this:
 
 Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL configuration to test the pipeline.
 
-1. In the Web IDE file explorer, navigate to `data/` and rename `config-group-access.nac.yaml_` to `config-group-access.nac.yaml` (remove the trailing underscore).
+1. In the Web IDE file explorer, navigate to `data/` and rename `groups/access.nac.yaml_` to `groups/access.nac.yaml` (remove the trailing underscore).
 2. You may review the ACL configuration by opening the file – it defines the standard ACL named `AccessLayerACL` that you configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that additional entries have been added to the Access List.
 
 
@@ -156,7 +156,7 @@ Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL 
 After making all the changes:
 
 1. In your Web IDE, click on **Source Control** icon in the left sidebar (as you did in Task 13)
-2. You'll see the modified files listed: `.gitlab-ci.yml` and `data/config-group-access.nac.yaml`
+2. You'll see the modified files listed: `.gitlab-ci.yml` and `data/groups/access.nac.yaml`
 3. Enter a commit message:
    ```
    Add test stage to CI/CD pipeline

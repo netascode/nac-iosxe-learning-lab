@@ -63,12 +63,12 @@ Expect an XML `<hello>` with a capability list. **Ctrl+C** to exit.
 ├── .schema.yaml                           # NAC schema (for nac-validate)
 ├── main.tf                                # Terraform module configuration
 ├── data/                                  # your YAML intent
-│   ├── config-device-core.nac.yaml        # one file per device
-│   ├── config-device-border.nac.yaml
-│   ├── config-device-access01.nac.yaml
-│   ├── config-device-access02.nac.yaml
-│   ├── config-global.nac.yaml             # applies to all devices
-│   ├── config-group-access.nac.yaml       # applies to ACCESS_SWITCHES group
+│   ├── devices/core.nac.yaml        # one file per device
+│   ├── devices/border.nac.yaml
+│   ├── devices/access01.nac.yaml
+│   ├── devices/access02.nac.yaml
+│   ├── global.nac.yaml             # applies to all devices
+│   ├── groups/access.nac.yaml       # applies to ACCESS_SWITCHES group
 │   └── template-*.nac.yaml                # optional reusable templates
 ├── tftpl/                                 # optional .tftpl template files
 ├── tests/                                 # optional nac-test suite
