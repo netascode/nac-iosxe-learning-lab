@@ -14,11 +14,14 @@ This lab shows how Network-as-Code addresses each of them using:
 - **Post-deployment testing** — verify what was deployed actually matches what you asked for
 - **GitLab CI/CD pipelines** — automate validation, deployment, and testing end-to-end
 
-!!! note "Network-as-Code"
-    Throughout this document, the terms Network-as-Code IOSXE, NAC IOSXE, and IOSXE-as-Code are used interchangeably and refer to the same automation solution.
+!!! note "Terminology"
+    *Network-as-Code IOS XE*, *NAC IOS XE*, and *IOS XE-as-Code* are used interchangeably in this guide — all refer to the same automation solution.
 
+## Lab scope
 
-**What You'll Learn**
+This lab uses virtualized IOS XE devices in Cisco Modeling Labs (CML) and a GitLab instance running in the lab environment. It is designed for learning; the configurations shown are **not intended for production use as-is**. Production deployments require additional considerations around state storage, secret management, access control, and approval workflows — most of which we note in context but do not implement here.
+
+## What you'll learn
 
 By completing this lab, you will gain hands-on experience with:
 
