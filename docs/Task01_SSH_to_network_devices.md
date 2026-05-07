@@ -64,36 +64,30 @@ The lab environment includes multiple IOS XE switches. All device credentials ar
 
 ## Verify Device Information
 
-Once connected to the switch, run the following command to verify the device information:
+Once you're on the device, run:
 
 ```bash
 show version
 ```
 
-!!! tip "Copy from the lab guide"
-    You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into Solar-PuTTY using **right-click**.
+!!! tip "Copy/paste from this guide"
+    Every fenced command block has a copy icon in its top-right corner. Click it, then right-click inside Solar-PuTTY to paste.
 
-This displays:
+You should see output confirming:
 
-- IOS XE software version
-- Device model
-- Uptime and system information
-- Hardware details
+- **IOS XE version** (e.g., 17.x)
+- **Platform** — `Cisco IOS XE Software, Version 17.x` with `Catalyst 9000` or `C8000V` hardware line
+- **Uptime** and system details
 
-Take a moment to review the output. You'll see this is a virtual Catalyst 9000 switch running IOS XE.
+This is a virtual Catalyst 9000 switch running IOS XE in CML.
 
-## Review Current Configuration
-
-Now let's check the running configuration to see what's currently configured on the device:
+## Review the current configuration
 
 ```bash
 show run
 ```
 
-!!! info
-    The lab device configurations are almost empty – this is intentional! The switches have minimal configurations, which provides a clean slate for you to deploy Network-as-Code configurations via Terraform. However, you will see a few essential lines that enable Terraform to access the devices.
-
-Once you have verified the `show version` and `show run` outputs on the **core** device, you can also do the same on the **access01**, **access02** switches and the **border** router.
+The running configuration is intentionally minimal. The devices are a clean slate for you to configure via Terraform — but you'll see a few essential lines that make that automation possible.
 
 ## Configuration Required for Terraform Access
 
@@ -120,32 +114,26 @@ restconf
 
 Repeat `show version` and `show run` on **access01**, **access02**, and **border**. All four devices should look the same: minimal config plus the seed automation plumbing above.
 
-## Enabling RESTCONF Manually
+## Enabling NETCONF + RESTCONF manually (reference only)
 
-If you needed to manually enable RESTCONF on a new device, you would use these commands:
+!!! info "You don't need to run these — the lab devices are already configured."
+    If you want to try NAC IOS XE on your own devices after Cisco Live, these are the minimum commands to enable both protocols:
 
-!!! info "CLI Commands to Enable RESTCONF"
-    You don't need to do this now – it's already configured on all lab devices.
-
-    ```
-    config t
-    ip http secure-server
-    restconf
-    username nac_admin privilege 15 secret cisco
+    ```text
+    configure terminal
+     username nac_admin privilege 15 secret cisco
+     ip http secure-server
+     netconf-yang
+     restconf
     end
     write memory
     ```
 
-If you choose to try IOSXE-as-Code after Cisco Live using your own devices, note that after enabling RESTCONF, it takes a few minutes for the RESTCONF API to become available.
+    After enabling `netconf-yang`, give the subsystem ~60 seconds to initialize before pointing Terraform at the device.
 
-???+ note "RESTCONF Availability"
-    You can verify RESTCONF availability with the following command from a client machine:
+    For a pure NETCONF setup, you can omit `ip http secure-server` and `restconf` — but you'll then need to configure `nac-test` to use NETCONF as well. See the [`terraform-provider-iosxe` documentation](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3) for the full protocol selection matrix.
 
-    ```bash
-    curl -i -k -X "GET" "https://<IP_ADDRESS>/restconf/" -u <USERNAME>:<PASSWORD>
-    ```
-
-You will use this command later (in [Task 03](Task03_Global_configuration.md)) to verify RESTCONF access from WSL Ubuntu to the devices in this lab.
+You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830.
 
 
 ## What to observe across all devices
@@ -154,18 +142,16 @@ You will use this command later (in [Task 03](Task03_Global_configuration.md)) t
 - Every device has the `nac_admin` user provisioned, **NETCONF** enabled for config push, and **RESTCONF** enabled for verification.
 - No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
-## What You've Accomplished
+## What you've accomplished
 
-At this point, you have:
-
-- ✅ Connected to IOS XE devices using Solar-PuTTY
+- ✅ Connected to all four IOS XE devices via Solar-PuTTY
 - ✅ Verified device information with `show version`
 - ✅ Reviewed the minimal running configuration
-- ✅ Identified the RESTCONF configuration that enables Terraform automation
+- ✅ Identified the configuration lines that enable NAC automation (`username nac_admin …`, `netconf-yang`, and `restconf`)
 - ✅ Confirmed all devices are ready for Network-as-Code deployment
 
-In the next task, you'll start creating YAML configuration files that define your desired network state, which Terraform will then deploy to these devices.
+In the next task, you'll start creating the YAML configuration files that describe your desired network state.
 
 ---
 
-**Next:** [Task02 - Editing YAML Files](Task02_Editing_YAML_files.md)
+**Next:** [Task 02 — Editing YAML Files](Task02_Editing_YAML_files.md)
