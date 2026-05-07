@@ -31,6 +31,9 @@ DIAGRAMS = [
     ("lab-topology", "lab-topology.png"),
     ("cml-topology", "cml-topology.png"),
     ("file-layout", "file-layout.png"),
+    ("terraform-workflow", "terraform-workflow.png"),
+    ("netconf-datastores", "netconf-datastores.png"),
+    ("config-merge", "config-merge.png"),
 ]
 
 SCALE = 2
