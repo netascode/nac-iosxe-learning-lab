@@ -76,28 +76,25 @@ iosxe:
 !!! note "What about NTP, syslog, DNS entries?"
     The lab also has `ntp-server` (`198.18.129.11`) and `syslog-server` (`198.18.129.12`) reachable from every device. Things like those — an `ntp server` pointer, a `logging host` — should typically be **global** (every device needs to know about them), not device-specific. That's a good exercise to try at home.
 
-### File Organization
+### File organization
 
-At this point, your `data/` folder contains multiple YAML files, each serving a different purpose:
+Your `data/` folder now contains one file per configuration concern:
 
-```text { .no-copy hl_lines="8" }
+```text { .no-copy hl_lines="5" }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-device-access01.nac.yaml  # Device-specific (placeholder)
-    ├── config-device-access02.nac.yaml  # Device-specific (placeholder)
-    ├── config-device-border.nac.yaml    # Device-specific (placeholder)
-    ├── config-device-core.nac.yaml      # Device-specific (IP hosts) ← This task
-    ├── config-global.nac.yaml           # Global configuration (banner) ← Task03
-    ├── config-group-access.nac.yaml     # Device Group configuration (ACL) ← Task04
-    └── devices.nac.yaml                 # Device inventory (name + host) ← Task02
+    ├── config-device-core.nac.yaml      # Device: core  (registration + Loopback0)  ← this task
+    ├── config-device-border.nac.yaml    # Device: border (registration only, for now)
+    ├── config-device-access01.nac.yaml  # Device: access01 (registration only)
+    ├── config-device-access02.nac.yaml  # Device: access02 (registration only)
+    ├── config-global.nac.yaml           # Global  — login banner                    ← Task 03
+    └── config-group-access.nac.yaml     # Group   — ACL for access switches        ← Task 04
 ```
 
-!!! tip "File Organization"
-    This modular approach keeps configurations organized and easy to maintain.
-
-    This is how the files are organized for this lab guide, but you can organize your own projects in whatever way makes sense for your design.
+!!! tip "One concern per file"
+    This is how the lab guide organizes things. In your own projects, organize however makes sense for your team — `nac-validate` and the NAC module don't care about file boundaries, only about the merged data model.
 
 
 ## Step 2: Apply Device-Specific Configuration
