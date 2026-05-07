@@ -1,55 +1,69 @@
 # Conclusion
 
-Congratulations on completing the **Network-as-Code for IOS XE** lab!
+You've reached the end of the **Network-as-Code for IOS XE** lab — well done.
 
-## What You've Accomplished
+## What you've accomplished
 
-Throughout this lab, you've gained hands-on experience with modern network automation practices:
+**Core skills**
 
-**Core Skills**
+- **YAML configuration** — wrote declarative network configurations in human-readable YAML
+- **Terraform workflow** — used `terraform init`, `plan`, `apply`, and `destroy` end-to-end
+- **Configuration hierarchy** — applied settings at global, device-group, and device levels with proper precedence
+- **Schema validation** — caught errors pre-deployment with `nac-validate`
+- **CI/CD automation** — ran GitLab pipelines to validate, plan, and deploy changes
 
-- **YAML Configuration** - Wrote declarative network configuration in human-readable YAML format
-- **Terraform Workflows** - Used `terraform init`, `plan`, `apply`, and `destroy` to manage network infrastructure
-- **Configuration Hierarchy** - Applied settings at global, device group, and device levels
-- **Schema Validation** - Validated configurations before deployment using `nac-validate`
-- **CI/CD Automation** - Ran automated pipelines in GitLab to validate, plan, and deploy changes
+**Configuration patterns practiced**
 
-**Configuration Types Used**
+- **Global** — login banners, system hostnames applied everywhere
+- **Device group** — ACLs applied to access switches only
+- **Device-specific** — per-device settings (loopbacks, BGP, host-specific ACLs)
+- **Variables** — reusable values across the hierarchy
 
-- **Global Configuration** - Login banners applied to all devices
-- **Device Group Configuration** - ACLs applied to specific device roles
-- **Single Device Configuration** - Host entries for individual devices
-- **Variables** - Used variables for reusable and dynamic configuration
+**Optional skills (if you reached them)**
 
-**Optional Skills (if completed)**
+- Template types: `model`, `file`, and `cli`
+- Post-change validation with `nac-test` and Robot Framework
+- Pipeline extensions: integration tests + idempotency checks
+- GitOps guardrails: branch protection and merge-request workflows
 
-- Template types: model, file, and CLI
-- Post-change validation with `nac-test`
-- Working with CI/CD pipelines
-- GitLab merge request workflows
+## Key takeaways
 
-## Key Takeaways
+1. **Declarative over imperative** — define *what* you want; let the module figure out *how*.
+2. **Version-control everything** — every change has an author, a reviewer, and a rollback path.
+3. **Automate the workflow** — pipelines enforce consistency and make failure visible.
+4. **Validate before deploy** — `nac-validate` catches syntax and schema errors before they reach a device.
+5. **Test after deploy** — `nac-test` confirms intent actually landed on the wire.
 
-1. **Declarative over Imperative** - Define *what* you want, not *how* to get there
-2. **Version Control Everything** - Track all changes with Git for audit trails and rollbacks
-3. **Automate the Workflow** - CI/CD pipelines ensure consistency and reduce human error
-4. **Validate Before Deploy** - Catch errors early with `nac-validate` schema validation
-5. **Test After Deploy** - `nac-test` validates that configurations were applied correctly
+## Try at home
 
-## Continue Your Journey
+A few small extensions make great follow-ups once you're back at your own environment:
+
+- **Default gateway for host networks** — extend `config-device-border.nac.yaml` to add a `GigabitEthernet3` interface with IP `192.168.100.1/24` so the host networks can route to the ISP. Validate by pinging `8.8.8.8` from `host01`/`host02` via the CML console. (This is also the "Advanced Challenge" in Task 08 if you finished early during the session.)
+- **More variables, more precedence** — introduce a `${SITE_ID}` or `${MGMT_VLAN}` variable at the global level and override it on one device to see precedence in action.
+- **Your own validation rules** — `nac-validate` is extensible. Write a rule that enforces a naming convention or flags a forbidden configuration (for example, any ACL entry with `action: permit` on `any`).
+
+## Continue your journey
 
 **Resources**
 
-- [NetAsCode Documentation](https://netascode.cisco.com)
-- [Network-as-Code for IOSXE](https://github.com/netascode/terraform-iosxe-nac-iosxe) - Try this at home! The Terraform modules are publicly available.
+- [Network-as-Code documentation](https://netascode.cisco.com)
+- [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0, publicly available)
+- [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the provider underneath
+- [NetAsCode on GitHub](https://github.com/netascode) — all the modules, tools, and data models
 
-## Thank You!
+**Related Cisco Live sessions**
 
-Thank you for participating in this lab. Hopefully, you've gained valuable skills that you can apply to automate your own network infrastructure.
+- **BRKXAR-2032** — NetDevOps testing fundamentals with Generative AI
+- **LTRDCN-3439** — Nexus Dashboard VXLAN as Code
+- **LTRATO-2223** — FastForward SD-WAN deployment with SDWAN as Code
+- **LTRENS-3751** — SD-Access as Code with Catalyst Center and ISE
+- **BRKENT-2115** — Automate Catalyst SD-WAN with Network as Code
 
-**Questions or feedback?**
+## Thank you
 
-Reach out to the lab authors:
+Thanks for spending four hours with us. If you have questions or feedback after the session, please reach out:
 
-- Andrea Testino (atestini@cisco.com)
-- Christopher Hart (chart2@cisco.com)
+- **Andrea Testino** — atestini@cisco.com — [LinkedIn](https://www.linkedin.com/in/aitestino/)
+- **Christopher Hart** — chart2@cisco.com — [LinkedIn](https://www.linkedin.com/in/christopherjhart95/)
+
+Original lab design by Asier Arlegui and Balu Novak-Bohak — thank you for laying the foundation.
