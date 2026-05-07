@@ -6,7 +6,7 @@ In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI com
 
 ## CLI Templates
 
-The CLI template type allows you to include raw IOS XE CLI commands that are applied directly to devices. This can be used as a workaround for features not yet supported by the Network-as-Code IOS XE data model, as it accepts any valid CLI command.
+The CLI template type allows you to include raw IOS XE CLI commands that are applied directly to devices. This can be used as a workaround for features not yet supported by the Network as Code IOS XE data model, as it accepts any valid CLI command.
 
 **Template Types (reminder):**
 
@@ -68,7 +68,7 @@ iosxe:
         login: |
           ######################################
           #                                    #
-          #   Welcome to Network-as-Code Lab!  #
+          #   Welcome to Network as Code Lab!  #
           #                                    #
           ######################################
           Device: ${HOSTNAME}

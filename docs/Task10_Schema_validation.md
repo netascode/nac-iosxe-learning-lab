@@ -38,7 +38,7 @@ The tool can also perform semantic validation based on custom rules. These rules
 
 ## The Schema File
 
-The complete schema for IOS XE Network-as-Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations you have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
+The complete schema for IOS XE Network as Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations you have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
 
 **Create the schema file in your project:**
 
@@ -306,7 +306,7 @@ In this task, you have:
 - ✅ Installed and used the nac-validate tool
 - ✅ Validated your YAML configuration files
 - ✅ Understood common validation errors and how to fix them
-- ✅ Integrated validation into your Network-as-Code workflow
+- ✅ Integrated validation into your Network as Code workflow
 
 You now have a safety check in place to catch configuration errors before they reach your network devices. This is a critical DevOps practice that prevents misconfigurations and improves reliability.
 

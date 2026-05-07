@@ -119,7 +119,7 @@ In the next task, you'll work with **GitLab** to:
 - Make changes through the GitLab Web IDE
 - Let the pipeline automatically validate, plan, and deploy configurations
 
-While manual Terraform commands are useful for learning and small-scale changes, in production environments you will typically use automated CI/CD pipelines to implement the Network-as-Code workflow.
+While manual Terraform commands are useful for learning and small-scale changes, in production environments you will typically use automated CI/CD pipelines to implement the Network as Code workflow.
 
 ---
 

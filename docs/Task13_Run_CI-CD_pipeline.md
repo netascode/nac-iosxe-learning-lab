@@ -7,7 +7,7 @@
 
 Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way — without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
 
-## CI/CD for Network-as-Code
+## CI/CD for Network as Code
 
 The lab ships with a pre-configured GitLab repository containing your NAC project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
 
@@ -56,7 +56,7 @@ The project page shows your repository files, including:
 - `data/` folder with your YAML configurations – Same as you created in Task 02
 - `tests/` folder with your ROBOT tests – Same as the ACL tests from optional Task 11
 - `main.tf` - Terraform configuration – Same as you created in Task 02
-- `.schema.yaml` - The Network-as-Code for IOS XE schema – Same as you used in Task 10
+- `.schema.yaml` - The Network as Code for IOS XE schema – Same as you used in Task 10
 - `.gitlab-ci.yml` - CI/CD pipeline definition file – This is new!
 
 
@@ -223,7 +223,7 @@ The Web IDE opens with a familiar VS Code-like interface:
 Take a look at the `data/` folder in the file explorer (left panel). This folder contains the same configuration files used in Tasks 2-6. However, some file extensions have been changed from `.yaml` to `.yaml_` (with an underscore at the end). This was done intentionally to ignore these files for now.
 
 !!! note "`.yaml_` vs. `.yaml` files"
-    The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
+    The Network as Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
 The only files that are currently **not** ignored are the four per-device registration files — `config-device-core.nac.yaml`, `config-device-border.nac.yaml`, `config-device-access01.nac.yaml`, `config-device-access02.nac.yaml` — each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
 
@@ -247,7 +247,7 @@ iosxe:
         login: |
           ######################################
           #                                    #
-          #   Welcome to Network-as-Code Lab!  #
+          #   Welcome to Network as Code Lab!  #
           #           GitLab - CI/CD           #
           #                                    #
           ######################################

@@ -2,7 +2,7 @@
 
 **⏱ ~15 minutes**
 
-In this task you'll set up the project directory and use VS Code to edit Network-as-Code (NAC) IOS XE intent configuration YAML files.
+In this task you'll set up the project directory and use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
 
 ## What is VS Code?
 
@@ -12,7 +12,7 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
   ![VS Code Interface](./assets/vscode-00.png){ width="100%" }
 </figure>
 
-**Key features that make VS Code ideal for Network-as-Code:**
+**Key features that make VS Code ideal for Network as Code:**
 
 - **Syntax highlighting** - Colors and formats YAML files for easy readability
 - **IntelliSense** - Provides intelligent code completion and suggestions
@@ -24,7 +24,7 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 
 ### YAML Linting with RedHat Extension
 
-Since Network-as-Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
+Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
 
 <figure markdown>
   ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
@@ -41,12 +41,12 @@ This extension provides:
     You'll see syntax highlighting and error detection automatically as you edit YAML files.
 
 !!! warning "File Extension"
-    The YAML extension recognizes only files ending with `.nac.yaml` as Network-as-Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
+    The YAML extension recognizes only files ending with `.nac.yaml` as Network as Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
 
 
 ## Create Project Directory in WSL
 
-For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network-as-Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
+For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network as Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
 
 ## What is WSL?
 
@@ -83,7 +83,7 @@ mkdir nac-iosxe
 !!! tip "Copy and Paste"
     You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into the WSL terminal using **right-click**.
 
-This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code IOS XE project files.
+This creates a dedicated folder named `nac-iosxe` for all your Network as Code IOS XE project files.
 
 **Navigate into the new directory:**
 
@@ -105,7 +105,7 @@ You should now see `/home/cisco/nac-iosxe` displayed.
 
 ## Create project structure
 
-Now you'll create a folder structure and placeholder files for your Network-as-Code IOS XE project.
+Now you'll create a folder structure and placeholder files for your Network as Code IOS XE project.
 
 **Create a data directory for YAML configuration files:**
 
@@ -189,7 +189,7 @@ VS Code will now open with your project folder, and you'll see the file explorer
 
 ## Edit .env file
 
-Edit `.env` file containing the environment variables required by the Network-as-Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
+Edit `.env` file containing the environment variables required by the Network as Code Terraform modules to connect to the Cisco IOS XE devices. This file stores your IOS XE credentials and connection details in a secure and reusable format:
 
 ```bash title=".env"
 export IOSXE_USERNAME=nac_admin
@@ -232,7 +232,7 @@ module "iosxe" {
 **Understanding the configuration:**
 
 - **`module "iosxe"`** — declares a Terraform module named `iosxe`. Modules package reusable Terraform logic; you invoke them with `module.iosxe`.
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** — tells Terraform where to fetch the module. This is the Cisco-maintained Network-as-Code module that translates your YAML into the low-level resource calls the `terraform-provider-iosxe` understands.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** — tells Terraform where to fetch the module. This is the Cisco-maintained Network as Code module that translates your YAML into the low-level resource calls the `terraform-provider-iosxe` understands.
 - **`yaml_directories = ["data/"]`** — tells the module which directories to scan for YAML. Every `*.nac.yaml` file inside `data/` is auto-discovered and merged. This is why you can split configurations across many files without wiring them up individually.
 - **`write_model_file = "model.yaml"`** — after merging, the module writes the final merged data model to `model.yaml`. You'll use this file to debug variable substitution and as input to `nac-test` for post-deployment validation.
 - **`write_default_values_file = "defaults.yaml"`** — similar, but for the default values the module applies when your YAML omits a field. Useful for understanding "where did this setting come from?"
@@ -328,7 +328,7 @@ Every subsequent task in this lab will either extend the per-device files or int
 
 - ✅ Set up the project directory `/home/cisco/nac-iosxe` with a `data/` subfolder
 - ✅ Created `.env` with your IOS XE credentials and the NETCONF protocol setting
-- ✅ Created `main.tf` pointing to the Network-as-Code module
+- ✅ Created `main.tf` pointing to the Network as Code module
 - ✅ Registered all four lab devices in their own per-device YAML files
 
 **Tools introduced:**

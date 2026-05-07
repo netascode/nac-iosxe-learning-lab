@@ -217,7 +217,7 @@ In case of conflicting settings, the higher precedence level overrides the lower
 - ✅ Verified the deployment is selective: loopback exists on `core`, absent from `border`/`access01`/`access02`
 - ✅ Internalized the configuration precedence hierarchy: **Global < Device Group < Device**
 
-You've now worked with all three levels of the Network-as-Code hierarchy.
+You've now worked with all three levels of the Network as Code hierarchy.
 
 ---
 

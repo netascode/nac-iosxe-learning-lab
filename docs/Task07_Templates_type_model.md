@@ -6,7 +6,7 @@ In this task you'll use **templates of type `model`** to define reusable YAML-ba
 
 ## Templates
 
-Templates in Network-as-Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
+Templates in Network as Code allow you to define configuration once and apply it to multiple devices by reference. Instead of repeating the same configuration in each device's YAML file, you define a template and simply reference it where needed. This works for any type of configuration - VLANs, interfaces, security policies, QoS settings, and more.
 
 A template can be referenced at the individual device level, device group level, or even globally.
 
@@ -149,7 +149,7 @@ At this point, your `data/` folder should contain these files:
 
 ## How Templates Work
 
-When Network-as-Code processes your configuration:
+When Network as Code processes your configuration:
 
 1. **Template Resolution**: NAC reads the `template-vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
 2. **Device Group Processing**: NAC reads `config-group-access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
@@ -297,7 +297,7 @@ Using device groups (as shown in this task), you can apply multiple templates to
 
 In this task, you have:
 
-- ✅ Learned about templates and their benefits for Network-as-Code
+- ✅ Learned about templates and their benefits for Network as Code
 - ✅ Created a reusable VLAN template (`access_switch_vlans`)
 - ✅ Applied the template to multiple access switches
 - ✅ Verified consistent VLAN deployment across devices

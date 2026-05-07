@@ -1,6 +1,6 @@
 # Conclusion
 
-You've reached the end of the **Network-as-Code for IOS XE** lab — well done.
+You've reached the end of the **Network as Code for IOS XE** lab — well done.
 
 ## What you've accomplished
 
@@ -46,7 +46,7 @@ A few small extensions make great follow-ups once you're back at your own enviro
 
 **Resources**
 
-- [Network-as-Code documentation](https://netascode.cisco.com)
+- [Network as Code documentation](https://netascode.cisco.com)
 - [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0, publicly available)
 - [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the provider underneath
 - [NetAsCode on GitHub](https://github.com/netascode) — all the modules, tools, and data models
