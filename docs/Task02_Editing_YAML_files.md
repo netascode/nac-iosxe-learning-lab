@@ -206,6 +206,12 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 !!! note "Protocol selection"
     This lab uses **NETCONF** as the management protocol. If you want to use RESTCONF instead (for example, on your own devices at home), set `IOSXE_PROTOCOL=restconf` — see the "Alternative: RESTCONF" note at the bottom of [Task 01](Task01_SSH_to_network_devices.md) for the device-side CLI.
 
+!!! warning "Never commit `.env` to a real repository"
+    The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them — deleting the file from history isn't enough.
+
+!!! tip "If `source .env` fails with a weird error, check line endings"
+    VS Code on Windows sometimes saves files with Windows-style (`CRLF`) line endings. WSL's Bash chokes on those in a sourced file. If `source .env` errors, run `dos2unix .env` in the WSL terminal and try again. You can also configure VS Code to always use LF — see the status-bar indicator at the bottom-right of the editor window.
+
 
 ## Edit Terraform main.tf file
 
