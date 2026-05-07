@@ -445,6 +445,50 @@
 
 
 /* ============================================================================
+   Screenshots & figures — every raw <img> in the article (GitLab,
+   Solar-PuTTY, VS Code, CML, etc.) gets the same treatment so the content
+   area reads as a curated set of visuals rather than dropped-in captures.
+   Soft shadow for depth, thin cyan border so they belong to the CLUS
+   visual language, rounded corners, and a gentle hover lift (they're
+   already clickable via glightbox — the lift makes that affordance
+   explicit).
+   Scoped to article content only; logo, nav icons, and chip swatches are
+   excluded by selector specificity.
+   ========================================================================= */
+
+.md-typeset figure img,
+.md-typeset > p > img,
+.md-typeset > p > a > img {
+    border-radius: 8px;
+    border: 1px solid rgba(2, 200, 255, 0.35);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18),
+                0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    background: var(--md-default-bg-color);
+}
+
+.md-typeset figure img:hover,
+.md-typeset > p > img:hover,
+.md-typeset > p > a > img:hover {
+    transform: translateY(-2px);
+    border-color: var(--clus-cyan);
+    box-shadow: 0 10px 28px rgba(2, 200, 255, 0.18),
+                0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: zoom-in;
+}
+
+/* Figures already have caption styling from the glightbox plugin; tighten
+   their top margin so the image + caption read as one unit. */
+.md-typeset figure { margin: 1.4rem 0 1.6rem; }
+.md-typeset figcaption {
+    font-size: 0.72rem;
+    color: var(--md-default-fg-color--light);
+    margin-top: 0.35rem;
+    font-style: italic;
+}
+
+
+/* ============================================================================
    Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
    section is instantly visible (Material default is a muted indigo).
    ========================================================================= */
