@@ -60,7 +60,7 @@ Expect an XML `<hello>` with a capability list. **Ctrl+C** to exit.
 ```text
 ~/nac-iosxe/
 ├── .env                                   # credentials
-├── .schema.yaml                           # NAC schema (for nac-validate)
+├── .schema.yaml                           # NaC schema (for nac-validate)
 ├── main.tf                                # Terraform module configuration
 ├── data/                                  # your YAML intent
 │   ├── devices/core.nac.yaml        # one file per device

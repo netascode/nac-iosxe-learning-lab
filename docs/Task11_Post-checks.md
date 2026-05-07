@@ -12,7 +12,7 @@ After Terraform applies a change, how do you confirm the configuration actually 
 - **Robot Framework** — a keyword-driven test framework; test cases are readable and easy to extend.
 - **Pabot** — a parallel executor for Robot that runs suites simultaneously. Fast enough to run against many devices during a CI pipeline.
 
-**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces — so the tests always match the intent.
+**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NaC already produces — so the tests always match the intent.
 
 ## What you'll learn
 

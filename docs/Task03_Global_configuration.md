@@ -31,7 +31,7 @@ touch ~/nac-iosxe/data/global.nac.yaml
 ```
 
 !!! tip "Alternative: File creation with VS Code"
-    You can also create the file using VS Code by clicking on the `data/` folder in the Explorer sidebar, then on the *new file* icon next to the `NAC-IOSXE` folder name,
+    You can also create the file using VS Code by clicking on the `data/` folder in the Explorer sidebar, then on the *new file* icon next to the `NaC-IOSXE` folder name,
     or by **right-clicking** the `data/` folder and selecting **New File**.
 
     Throughout this lab guide, you will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
@@ -57,7 +57,7 @@ iosxe:
 - **`login:`** - The login banner text displayed to users before they log in to the device
 
 !!! note "Separation of concerns"
-    The global configuration lives in its own file (`global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NAC merges them all automatically when it reads the `data/` directory.
+    The global configuration lives in its own file (`global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NaC merges them all automatically when it reads the `data/` directory.
 
 The figure below illustrates how to create the `data/global.nac.yaml` file with Visual Studio Code:
 
@@ -352,7 +352,7 @@ terraform plan
 In this case, you will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output.
 
 !!! info "What are the `local_sensitive_file` resources in the plan?"
-    You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations — they're local files the NAC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
+    You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations — they're local files the NaC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
 
 
 ### Step 6: Apply Configuration to Devices

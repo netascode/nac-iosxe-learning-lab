@@ -51,7 +51,7 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
     The screenshots in Tasks 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
 
 
-## Step 2: Navigate to the NAC-IOSXE Project
+## Step 2: Navigate to the NaC-IOSXE Project
 
 After logging in, you'll see the GitLab dashboard. Click on the **netascode/nac-iosxe-terraform** project to open it.
 
@@ -403,7 +403,7 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 ## What You've Accomplished
 
-- ✅ Accessed GitLab and navigated to the NAC-IOSXE project
+- ✅ Accessed GitLab and navigated to the NaC-IOSXE project
 - ✅ Understood the CI/CD pipeline configuration
 - ✅ Triggered a pipeline by committing a change
 - ✅ Monitored pipeline execution through all stages
