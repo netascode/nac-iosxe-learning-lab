@@ -1,25 +1,26 @@
-!!! warning "Prerequisite"
-    Complete [Task12 - Cleanup](./Task12_Cleanup.md) before starting this task to ensure a clean environment. You need to run `terraform destroy` to remove previous configurations from the lab devices.
+# Task 13 — Run a CI/CD pipeline
 
+**⏱ ~20 minutes**
 
-!!! note "Why Cleanup is Important"
-    You never want to have the same resources (i.e. network device configurations) present in multiple Terraform states at the same time. If you have two different Terraform environments managing the same network device, with different configurations, every time you run `terraform apply` from either environment, it will try to overwrite the changes made by the other environment, leading to unpredictable results, conflicts and potential failures.
+!!! info "Before you start"
+    Finish [Task 12 — Cleanup](./Task12_Cleanup.md) first. The GitLab pipeline you're about to trigger manages the same lab devices Terraform has been managing locally — if both environments hold state for those devices at the same time, every pipeline run fights your local `terraform apply` (and vice versa), producing unpredictable results. `terraform destroy` in Task 12 removes the local state so GitLab becomes the single source of truth from here on.
 
+Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way — without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
 
-In previous tasks, you manually ran Terraform commands (`terraform init`, `terraform plan`, `terraform apply`) from the command line.
-While this works for learning and testing, production environments require automating the Terraform workflow using CI/CD pipelines and DevOps practices. In this task, you'll learn how to run the same workflow automatically using **GitLab CI/CD pipelines**.
+## CI/CD for Network-as-Code
 
-## CI/CD for Network-as-Code (NAC)
+The lab ships with a pre-configured GitLab repository containing your NAC project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
 
-CI/CD (Continuous Integration / Continuous Deployment) automates the process of validating and deploying your network configurations.
-In this lab, there is a pre-configured GitLab repository with a CI/CD pipeline already set up for you.
-When you push changes to GitLab, a pipeline automatically:
+<figure markdown>
+  ![CI/CD pipeline anatomy](./assets/pipeline-anatomy.png){ width="100%" }
+</figure>
 
-1. **Validates** your YAML configurations with `nac-validate`
-2. **Plans** the changes with `terraform plan`
-3. **Applies** the changes with `terraform apply`
+Two important behaviors to notice before we run one:
 
-This ensures every configuration change goes through the same consistent process, reducing human error and providing an audit trail of all changes.
+- **Merge-request pipelines only preview** — they run `validate` + `plan` and post the plan diff as an MR comment. They never touch the devices. This is the guardrail that makes code review meaningful.
+- **Main-branch pipelines actually deploy** — they run all five stages (`validate` → `plan` → `deploy` → `test` → `notify`). Merging to `main` is the act that commits a change to the real network.
+
+Same pipeline definition, different behavior per branch — a simple pattern that gives you a preview environment for free.
 
 ## Step 1: Access GitLab
 
@@ -221,15 +222,9 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network-as-Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
-The only files that are currently not ignored are:
+The only files that are currently **not** ignored are the four per-device registration files — `config-device-core.nac.yaml`, `config-device-border.nac.yaml`, `config-device-access01.nac.yaml`, `config-device-access02.nac.yaml` — each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
 
-- `devices.nac.yaml` - Device inventory file (Same as in Task 02)
-- `devices-variables.nac.yaml` - Device variables file (Same content as in Task 06)
-
-    !!! info "Variables file"
-        You can inspect the `devices-variables.nac.yaml` file to see that all `HOSTNAME` variables are now defined in this single file (instead of per-device files as before).
-
-For this task, you'll update the global configuration (similar to Task 03 and Task 06).
+For this task, you'll rename one more file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
 
 
 ### Add Global Configuration
