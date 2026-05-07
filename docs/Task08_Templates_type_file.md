@@ -359,6 +359,6 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:
 
-- **Optional:** [Task09 - Templates Type CLI](Task09_Templates_type_cli.md) - Learn how to use raw CLI commands for unsupported features
-- **Recommended:** [Task10 - Schema Validation](Task10_Schema_validation.md) - Skip remaining templates and continue with pre-change validation
+- **Optional:** [Task 09 — Templates type `cli`](Task09_Templates_type_cli.md) — raw CLI commands for unsupported features
+- **Recommended:** [Task 10 — Schema validation](Task10_Schema_validation.md) — skip remaining templates and continue with pre-change validation
 

@@ -223,5 +223,5 @@ This is where GitLab displays the test results from the JUnit report. You should
 
 You can explore the **optional** merge request workflow or proceed to the **conclusion**:
 
-- **Optional:** [Task15 - Branch and Merge Request](Task15_Branch_and_merge_request.md) - Learn change approval workflows with branches and merge requests
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned
+- **Optional:** [Task 15 — Branch and merge-request workflow](Task15_Branch_and_merge_request.md) — change-approval workflows with protected branches and MRs
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) — wrap up and review what you've learned

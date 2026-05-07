@@ -392,6 +392,6 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:
 
-- **Optional:** [Task14 - Edit CI/CD](Task14_Edit_CI-CD.md) - Enhance your pipeline with automated testing
-- **Optional:** [Task15 - Branch and Merge Request](Task15_Branch_and_merge_request.md) - Learn change approval workflows
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned
+- **Optional:** [Task 14 — Extend the pipeline with automated tests](Task14_Edit_CI-CD.md) — add integration + idempotency tests to the pipeline
+- **Optional:** [Task 15 — Branch and merge-request workflow](Task15_Branch_and_merge_request.md) — change-approval workflows with protected branches and MRs
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) — wrap up and review what you've learned
