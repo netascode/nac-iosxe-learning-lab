@@ -388,6 +388,18 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
     **Fix:** The target branch is protected (see Task 15). Create a feature branch instead, push to it, open a merge request. This is expected behavior once protected-branch rules are in place — it's the system telling you to use the MR workflow.
 
+!!! tip "Need more signal? Turn on Terraform's debug log"
+    When a pipeline job logs a generic "apply failed" without naming the offender, re-run the job with Terraform's debug output. Add two env vars to the pipeline run (**Run pipeline** → custom variables):
+
+    ```
+    TF_LOG=DEBUG
+    TF_LOG_PATH=terraform-debug.log
+    ```
+
+    `TF_LOG=DEBUG` prints every RPC the provider makes, including the NETCONF XML payloads. `TF_LOG_PATH` writes the same output to a file you can attach as a CI job artifact — much more usable than scrolling through the job log. Other levels: `TRACE` (noisier), `INFO`, `WARN`, `ERROR`.
+
+    Locally, the same env vars work in your shell: `TF_LOG=DEBUG terraform plan`. Turn it off (`unset TF_LOG`) once you've found the problem — debug output is verbose.
+
 
 ## What You've Accomplished
 
