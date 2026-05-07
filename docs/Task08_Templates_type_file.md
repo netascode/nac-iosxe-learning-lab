@@ -6,6 +6,14 @@ In this task you'll use **templates of type `file`** to reference external templ
 
 For detailed documentation, see: [IOS XE as Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Authored a `.tftpl` template file using Terraform templating syntax — loops (`%{ for }`), variable interpolation (`${ }`), whitespace stripping
+- Referenced the file template from a device-level configuration on `border`
+- Deployed an eBGP session to the pre-configured `isp` peer (AS 65001) and seen the route to `8.8.8.0/24` appear
+
 ## File Templates
 
 File templates reference external `.tftpl` files that use **Terraform templating syntax**. This is ideal for:
