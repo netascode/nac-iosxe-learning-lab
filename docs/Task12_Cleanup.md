@@ -61,7 +61,7 @@ When prompted, type `yes` to confirm. Terraform will:
     If you made any manual changes directly on the devices outside of Terraform, those changes will remain.
 
 !!! tip "Need to clean up just *one* device? Use `managed_devices`"
-    `terraform destroy` unconfigures every device the module manages. If you only want to touch a subset, the NAC module exposes a filter variable — `managed_devices` — that restricts Terraform's scope to a specific list of device names. Every other registered device is left alone.
+    `terraform destroy` unconfigures every device the module manages. If you only want to touch a subset, the Network as Code module exposes a filter variable — `managed_devices` — that restricts Terraform's scope to a specific list of device names. Every other registered device is left alone.
 
     <figure markdown>
       ![Selective deployment with managed_devices](./assets/selective-deployment.png){ width="100%" }
@@ -81,7 +81,7 @@ When prompted, type `yes` to confirm. Terraform will:
 
     `managed_devices = []` (the default, or omitting the variable) means "all registered devices" — which is the behavior you're using in this lab.
 
-## Step 2: Verify NAC Configurations Are Removed (Optional)
+## Step 2: Verify Network as Code Configurations Are Removed (Optional)
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 01, double-click on the **core** switch to connect.
 

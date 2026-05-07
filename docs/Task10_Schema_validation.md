@@ -2,7 +2,7 @@
 
 **⏱ ~15 minutes**
 
-You've been creating NAC YAML files and deploying them with Terraform. How do you ensure your YAML is correctly structured and contains valid data **before** hitting a device?
+You've been creating Network as Code YAML files and deploying them with Terraform. How do you ensure your YAML is correctly structured and contains valid data **before** hitting a device?
 
 Pre-change validation catches errors at the YAML layer — before `terraform plan` ever opens a connection to a switch. It's the same principle as compiling code before running it: fail fast, fail cheap, fail with a clear error message.
 
@@ -14,12 +14,12 @@ By the end of this task you will have:
 - Read a schema-validation error message and mapped it back to the offending YAML key
 - Understood the difference between **syntactic** validation (what `nac-validate` does by default) and **semantic** validation (custom rules)
 
-## First, what is NAC actually validating?
+## First, what is Network as Code actually validating?
 
-Before `nac-validate` runs, it's useful to see what it's validating *against*. NAC doesn't look at your individual YAML files in isolation — it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
+Before `nac-validate` runs, it's useful to see what it's validating *against*. Network as Code doesn't look at your individual YAML files in isolation — it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
 
 <figure markdown>
-  ![How NAC merges your YAML](./assets/config-merge.png){ width="100%" }
+  ![How Network as Code merges your YAML](./assets/config-merge.png){ width="100%" }
 </figure>
 
 That merged model is what Terraform ultimately sends to each device (you've seen it written to `model.yaml` after each `terraform apply`). Schema validation checks the merged result — so an error might come from a bad key in a global file that only affects one group's rendered output. `nac-validate` tells you exactly which file and which path in the merged model caused the problem.
@@ -97,12 +97,12 @@ Your project structure should now include:
 ```
 
 !!! note "Generated Files"
-    As shown earlier, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
+    As shown earlier, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the Network as Code module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
 ??? abstract "How defaults get applied — precedence order"
     `defaults.yaml` shows the *effective* defaults at merge time. Those values come from three possible sources, merged in this precedence order (later wins):
 
-    1. **Module built-in defaults** — shipped inside the NAC module itself. You don't see or edit them.
+    1. **Module built-in defaults** — shipped inside the Network as Code module itself. You don't see or edit them.
     2. **Your own defaults file** — optional YAML you place in `data/` matching the `defaults:` schema root. Overrides module built-ins.
     3. **Per-device / per-group / global values in your intent YAML** — explicit values in `config-*.nac.yaml` files. Override both default tiers.
 

@@ -15,7 +15,7 @@ One-page cheat sheet covering everything you need to rerun the lab — at home, 
 | ntp-server   | NTP service (Ubuntu VM) | `198.18.129.11` | — | — |
 | syslog-server | Syslog service (Ubuntu VM) | `198.18.129.12` | — | — |
 
-NAC manages the top four. The rest are pre-configured and used for verification only.
+Network as Code manages the top four. The rest are pre-configured and used for verification only.
 
 ## Lab VMs
 
@@ -28,7 +28,7 @@ NAC manages the top four. The rest are pre-configured and used for verification 
 
 GitLab and Ubuntu share the host (same `198.18.133.101`), different services.
 
-## Automation seed config (on each NAC-managed device)
+## Automation seed config (on each Network as Code-managed device)
 
 ```text
 username nac_admin privilege 15 secret cisco
@@ -92,10 +92,10 @@ In production, pin to a specific tag: `?ref=v0.12.3`.
 
 ## Module inputs reference
 
-The NAC IOS XE module accepts nine input variables. The lab uses three. Here are all nine, grouped by what they control:
+The IOS XE as Code module accepts nine input variables. The lab uses three. Here are all nine, grouped by what they control:
 
 <figure markdown>
-  ![All NAC IOS XE module inputs](./assets/module-inputs.png){ width="100%" }
+  ![All IOS XE as Code module inputs](./assets/module-inputs.png){ width="100%" }
 </figure>
 
 Quick decision table:
@@ -187,7 +187,7 @@ MR pipelines are preview-only. `main` pipelines deploy.
 
 ## Further reading
 
-- [netascode.cisco.com](https://netascode.cisco.com) — NAC data models + tool docs for IOS XE, SD-WAN, ACI, Catalyst Center, Nexus Dashboard
+- [netascode.cisco.com](https://netascode.cisco.com) — Network as Code data models + tool docs for IOS XE, SD-WAN, ACI, Catalyst Center, Nexus Dashboard
 - [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0)
 - [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the IOS XE Terraform provider underneath
 - [netascode on GitHub](https://github.com/netascode) — all the modules, tools, and data models

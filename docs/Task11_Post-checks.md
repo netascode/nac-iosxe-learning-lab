@@ -27,7 +27,7 @@ By the end of this task you will have:
 In [Task 4](Task04_Device_group_config.md) you deployed `AccessLayerACL` to `access01` and `access02` via a device group. You'll validate that it landed correctly.
 
 !!! note "Lab scope vs production"
-    Production NAC deployments ship 100+ Robot test templates covering every configuration type. This task demonstrates the workflow with one (`access_lists.robot`) — once you see the pattern, the rest is more of the same.
+    Production Network as Code deployments ship 100+ Robot test templates covering every configuration type. This task demonstrates the workflow with one (`access_lists.robot`) — once you see the pattern, the rest is more of the same.
 
 The deployed intent (from `data/groups/access.nac.yaml`):
 

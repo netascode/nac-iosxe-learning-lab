@@ -9,7 +9,7 @@ In this task, you'll apply configuration to a **single specific device** rather 
 By the end of this task you will have:
 
 - Extended `devices/core.nac.yaml` with device-specific configuration (a `Loopback0` interface)
-- Internalized the NAC precedence hierarchy: **Global < Device Group < Device**
+- Internalized the Network as Code precedence hierarchy: **Global < Device Group < Device**
 - Verified selective deployment — loopback exists on `core`, absent from `border`/`access01`/`access02`
 
 ## Device-specific configuration
@@ -38,7 +38,7 @@ Only `core` will receive this. The other three devices (`border`, `access01`, `a
 
 ## Step 1: Add device-specific configuration
 
-You already created a per-device file for `core` in [Task 02](Task02_Editing_YAML_files.md) — you'll extend it now by adding a `configuration:` block. The file currently registers `core` with NAC; adding `configuration:` tells NAC what to actually push to that specific device.
+You already created a per-device file for `core` in [Task 02](Task02_Editing_YAML_files.md) — you'll extend it now by adding a `configuration:` block. The file currently registers `core` with Network as Code; adding `configuration:` tells Network as Code what to actually push to that specific device.
 
 Open `data/devices/core.nac.yaml` in VS Code and replace its contents with:
 
@@ -67,13 +67,13 @@ iosxe:
 **Device section:**
 
 - `devices:` — the top-level device list. Every per-device file contributes exactly one entry here.
-- `name: core` — unique device identifier. NAC matches this against the same `name` in other files (global, group, etc.) when it decides what to apply to which device.
+- `name: core` — unique device identifier. Network as Code matches this against the same `name` in other files (global, group, etc.) when it decides what to apply to which device.
 - `host: 198.18.130.10` — carries over from Task 02. Same device, same IP, now with configuration attached.
 - `configuration:` — everything under this key applies **only to `core`**, no other device.
 
 **Loopback configuration:**
 
-- `interfaces.loopbacks` — the NAC data-model path for virtual loopback interfaces.
+- `interfaces.loopbacks` — the IOS XE as Code data model path for virtual loopback interfaces.
 - `id: 0` — creates `Loopback0`.
 - `description` — free-form description, visible in `show interfaces`.
 - `ipv4.address` / `ipv4.address_mask` — IP (RFC 5737 documentation range) and mask. `/32` is conventional for loopbacks used as router IDs.

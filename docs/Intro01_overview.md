@@ -2,11 +2,11 @@ This step-by-step guide walks you through the **Network as Code for IOS XE** lab
 
 ## What is Network as Code?
 
-**Network as Code (NAC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The NAC toolchain — built on Terraform — handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
+**Network as Code (NAC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The Network as Code toolchain — built on Terraform — handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
 
-NAC is an umbrella that spans multiple Cisco platforms and architectures. Each platform has its own Terraform module and provider, but they all share the same methodology: YAML intent files → Terraform module → platform provider → device. The [supported platforms](https://netascode.cisco.com/resources/supported_products) include ACI, Catalyst SD-WAN, Meraki, Catalyst Center, ISE, NX-OS, IOS XR, and — the focus of this lab — **IOS XE**.
+Network as Code is an umbrella that spans multiple Cisco platforms and architectures. Each platform has its own Terraform module and provider, but they all share the same methodology: YAML intent files → Terraform module → platform provider → device. The [supported platforms](https://netascode.cisco.com/resources/supported_products) include ACI, Catalyst SD-WAN, Meraki, Catalyst Center, ISE, NX-OS, IOS XR, and — the focus of this lab — **IOS XE**.
 
-**IOS XE as Code** is the NAC implementation for Cisco IOS XE devices (Catalyst 9000, C8000V, ISR, ASR, etc.). It uses the [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) module and the [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) provider to push YANG-modelled configuration over NETCONF. If you learn the workflow here, you can apply the same patterns to any other NAC-supported platform — the data model schemas differ (after all, these are very different products!), but the overall approach of driving intended configuration through declarative YAML and Terraform is intentionally consistent across the family.
+**IOS XE as Code** is the Network as Code implementation for Cisco IOS XE devices (Catalyst 9000, C8000V, ISR, ASR, etc.). It uses the [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) module and the [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) provider to push YANG-modelled configuration over NETCONF. If you learn the workflow here, you can apply the same patterns to any other Network as Code-supported platform — the data model schemas differ (after all, these are very different products!), but the overall approach of driving intended configuration through declarative YAML and Terraform is intentionally consistent across the family.
 
 ## Why this lab matters
 
@@ -21,14 +21,14 @@ This lab shows how Network as Code addresses each of them using:
 - **GitLab CI/CD pipelines** — automate validation, deployment, and testing end-to-end
 
 !!! note "Terminology"
-    *IOS XE as Code*, *Network as Code for IOS XE*, and *NAC IOS XE* are used interchangeably in this guide — all refer to the same automation solution.
+    *IOS XE as Code* and *Network as Code for IOS XE* are used interchangeably in this guide — both refer to the same automation solution.
 
 ## What the stack looks like
 
-NAC isn't a single tool — it's a layered stack. You write intent in YAML; the stack turns that into actual configuration on the device:
+Network as Code isn't a single tool — it's a layered stack. You write intent in YAML; the stack turns that into actual configuration on the device:
 
 <figure markdown>
-  ![NAC stack overview](./assets/nac-stack.png){ width="100%" }
+  ![Network as Code stack overview](./assets/nac-stack.png){ width="100%" }
 </figure>
 
 You'll spend all your time in **layer 1** (the YAML). The rest of the stack — the Terraform module, the IOS XE provider, the NETCONF transport — is maintained by Cisco and the Network as Code open-source community.
@@ -41,9 +41,9 @@ This lab uses virtualized IOS XE devices in Cisco Modeling Labs (CML) and a GitL
 
 By completing this lab, you will gain hands-on experience with:
 
-- Writing declarative IOS XE configurations in NAC YAML format
-- Deploying configurations using the NAC Terraform module
-- Understanding the NAC configuration hierarchy: **global → group → device**
+- Writing declarative IOS XE configurations in Network as Code YAML format
+- Deploying configurations using the Network as Code Terraform module
+- Understanding the Network as Code configuration hierarchy: **global → group → device**
 - Using variables and templates for reusable, scalable configurations
 - Pre-deployment validation with `nac-validate` (schema and semantic checks)
 - Post-deployment validation with `nac-test` (automated Robot Framework tests)
@@ -62,13 +62,13 @@ The guide uses a handful of acronyms that may be new depending on your backgroun
     | Term | What it means |
     |------|---------------|
     | **NAC** | Network as Code — Cisco's Terraform-based declarative automation framework. This lab is one flavor of it (IOS XE); sibling labs cover SD-WAN, ACI, Catalyst Center, Nexus Dashboard, etc. |
-    | **IaC** | Infrastructure as Code — the broader category of "manage infrastructure by editing files, not clicking buttons". NAC is IaC for networking. |
-    | **YAML** | A human-readable data format (indentation-based). All your NAC "intent" files are YAML. |
-    | **YANG** | A standardized modelling language for network device configuration and state. IOS XE's configuration surface is described in YANG modules; NAC ultimately produces YANG data to push to devices. |
+    | **IaC** | Infrastructure as Code — the broader category of "manage infrastructure by editing files, not clicking buttons". Network as Code is IaC for networking. |
+    | **YAML** | A human-readable data format (indentation-based). All your Network as Code "intent" files are YAML. |
+    | **YANG** | A standardized modelling language for network device configuration and state. IOS XE's configuration surface is described in YANG modules; Network as Code ultimately produces YANG data to push to devices. |
     | **NETCONF** | A standards-based network management protocol (RFC 6241). Runs over SSH on TCP/830. Uses YANG models and a candidate/running datastore pair — this lab uses it for all configuration push. |
-    | **RESTCONF** | REST-style alternative to NETCONF (HTTPS-based). Not used in this lab but supported by the same NAC module and IOS XE provider. |
-    | **Terraform** | HashiCorp's declarative infrastructure engine. Reads `.tf` files + state, produces a plan, applies it. This lab uses Terraform as the orchestrator under NAC. |
-    | **HCL** | HashiCorp Configuration Language — the syntax `.tf` files are written in (braces, key = value). You'll write very little of this directly; the NAC module abstracts it. |
+    | **RESTCONF** | REST-style alternative to NETCONF (HTTPS-based). Not used in this lab but supported by the same Network as Code module and IOS XE provider. |
+    | **Terraform** | HashiCorp's declarative infrastructure engine. Reads `.tf` files + state, produces a plan, applies it. This lab uses Terraform as the orchestrator under Network as Code. |
+    | **HCL** | HashiCorp Configuration Language — the syntax `.tf` files are written in (braces, key = value). You'll write very little of this directly; the Network as Code module abstracts it. |
     | **CML** | Cisco Modeling Labs — the virtualized network simulation platform that hosts the lab's IOS XE devices. |
     | **BGP** | Border Gateway Protocol — used in Task 08's optional BGP-over-ISP example. |
     | **ACL** | Access Control List — used in Task 04's device-group example. |
@@ -76,7 +76,7 @@ The guide uses a handful of acronyms that may be new depending on your backgroun
     | **GitOps** | The practice of using Git as the source of truth for infrastructure state, with CI/CD as the delivery mechanism. Tasks 13–15 demonstrate it. |
     | **MR / PR** | Merge Request (GitLab) / Pull Request (GitHub) — the code-review workflow for proposing a change to a branch. Task 15 uses MRs. |
     | **WSL** | Windows Subsystem for Linux — the Linux environment running inside the lab's Win10 VM, where you'll run Terraform. |
-    | **Declarative vs imperative** | Declarative: describe *what* you want (e.g. "VLAN 10 exists with name DATA"). Imperative: describe *the steps* (`vlan 10`, `name DATA`). NAC is declarative — you describe state, the module figures out the steps. |
+    | **Declarative vs imperative** | Declarative: describe *what* you want (e.g. "VLAN 10 exists with name DATA"). Imperative: describe *the steps* (`vlan 10`, `name DATA`). Network as Code is declarative — you describe state, the module figures out the steps. |
     | **`candidate` / `running`** | NETCONF's two main datastores. You write to `candidate` (scratch), issue `<commit>` to atomically swap it into `running` (live config). See Task 01's NETCONF diagram. |
     | **dCloud** | Cisco's demo / lab cloud environment — where this lab is hosted during Cisco Live. |
 

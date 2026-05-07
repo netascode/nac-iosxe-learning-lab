@@ -11,7 +11,7 @@ Before we deploy any Network as Code configuration, let's confirm baseline conne
 - What minimal configuration is required to enable NETCONF automation
 
 !!! info "This lab uses NETCONF"
-    NAC IOS XE uses **NETCONF** for both configuration and verification in this lab:
+    IOS XE as Code uses **NETCONF** for both configuration and verification in this lab:
 
     - **Terraform pushes configuration over NETCONF** — it's transactional (all-or-nothing), uses a candidate datastore, and produces rich error reporting.
     - **`nac-test` (Optional Task 11) queries the device over NETCONF** — the generated Robot tests read operational state for post-deployment verification.
@@ -113,7 +113,7 @@ Repeat `show version` and `show run` on **access01**, **access02**, and **border
 
 ## What to observe across all devices
 
-- Every device has a near-empty running configuration — ready for NAC to take over.
+- Every device has a near-empty running configuration — ready for Network as Code to take over.
 - Every device has the `nac_admin` user provisioned and **NETCONF** enabled for configuration and verification.
 - No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
@@ -143,7 +143,7 @@ You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_co
 - ✅ Connected to all four IOS XE devices via Solar-PuTTY
 - ✅ Verified device information with `show version`
 - ✅ Reviewed the minimal running configuration
-- ✅ Identified the configuration lines that enable NAC automation (`username nac_admin …` and `netconf-yang`)
+- ✅ Identified the configuration lines that enable Network as Code automation (`username nac_admin …` and `netconf-yang`)
 - ✅ Confirmed all devices are ready for Network as Code deployment
 
 In the next task, you'll start creating the YAML configuration files that describe your desired network state.
