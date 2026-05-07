@@ -4,6 +4,15 @@
 
 In Task 13 you ran a CI/CD pipeline with validate, plan, and deploy stages. In this task you'll extend it with a **test stage** that automatically validates deployments after they're applied — the same thing you ran manually in [Task 11](Task11_Post-checks.md), now on every merge.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Edited `.gitlab-ci.yml` to add a new **`test`** stage between `deploy` and `notify`
+- Added a `test-integration` job that runs `nac-test` against the live devices
+- Added a `test-idempotency` job that runs `terraform plan -detailed-exitcode` to catch configuration drift
+- Read the test results as JUnit reports attached to the pipeline
+
 ## Test Stage
 
 Adding automated testing to your CI/CD pipeline ensures that:
