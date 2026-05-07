@@ -145,16 +145,18 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 
 ### YAML Linting with RedHat Extension (pre-installed)
 
-The **YAML extension by Red Hat** is already installed in your lab's VS Code — you don't need to install anything. It activates automatically when you open YAML files and provides:
+Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files. This extension is already installed in your lab's VS Code — no action required.
+
+<figure markdown>
+  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
+</figure>
+
+This extension provides:
 
 - **Real-time syntax validation** - Highlights errors as you type
 - **Auto-completion** - Suggests valid YAML structures
 - **Formatting** - Automatically formats your YAML files
 - **Schema validation** - Can validate against predefined schemas
-
-<figure markdown>
-  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
-</figure>
 
 !!! warning "File Extension"
     The YAML extension recognizes only files ending with `.nac.yaml` as Network as Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
