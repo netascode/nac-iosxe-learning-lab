@@ -99,6 +99,15 @@ Your project structure should now include:
 !!! note "Generated Files"
     As shown earlier, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the NAC module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
+??? abstract "How defaults get applied — precedence order"
+    `defaults.yaml` shows the *effective* defaults at merge time. Those values come from three possible sources, merged in this precedence order (later wins):
+
+    1. **Module built-in defaults** — shipped inside the NAC module itself. You don't see or edit them.
+    2. **Your own defaults file** — optional YAML you place in `data/` matching the `defaults:` schema root. Overrides module built-ins.
+    3. **Per-device / per-group / global values in your intent YAML** — explicit values in `config-*.nac.yaml` files. Override both default tiers.
+
+    The formal rule is documented at [netascode.cisco.com/docs/guides/concepts/default_values/](https://netascode.cisco.com/docs/guides/concepts/default_values/). Practical implication: if something in `model.yaml` isn't what you expected, `defaults.yaml` is the first place to look — a module built-in may be setting the value you thought was empty.
+
 
 ## Install the nac-validate Tool
 
