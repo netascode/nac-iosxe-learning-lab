@@ -1,6 +1,12 @@
 This step-by-step guide walks you through the **Network as Code for IOS XE** lab. By the end, you will know how to deploy and manage IOS XE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
-**Network as Code (NAC)** is an approach to network automation that treats network infrastructure configuration as code. Similar to how developers manage software application code, NAC allows network engineers to define network configurations in human-readable YAML files, version control all changes using Git, and automate deployment with Terraform.
+## What is Network as Code?
+
+**Network as Code (NAC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The NAC toolchain — built on Terraform — handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
+
+NAC is an umbrella that spans multiple Cisco platforms and architectures. Each platform has its own Terraform module and provider, but they all share the same methodology: YAML intent files → Terraform module → platform provider → device. The [supported platforms](https://netascode.cisco.com/resources/supported_products) include ACI, Catalyst SD-WAN, Meraki, Catalyst Center, ISE, NX-OS, IOS XR, and — the focus of this lab — **IOS XE**.
+
+**IOS XE as Code** is the NAC implementation for Cisco IOS XE devices (Catalyst 9000, C8000V, ISR, ASR, etc.). It uses the [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) module and the [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) provider to push YANG-modelled configuration over NETCONF. If you learn the workflow here, you can apply the same patterns to any other NAC-supported platform — the YAML structure and Terraform workflow are intentionally consistent across the family.
 
 ## Why this lab matters
 
