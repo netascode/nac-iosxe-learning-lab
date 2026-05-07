@@ -69,7 +69,7 @@
 }
 
 .md-typeset h3 {
-    color: var(--clus-pink);
+    color: var(--clus-blue);
     font-weight: 700;
     margin-top: 1.8rem;
     position: relative;
@@ -80,7 +80,7 @@
     display: inline-block;
     width: 8px;
     height: 8px;
-    background: var(--clus-pink);
+    background: var(--clus-blue);
     border-radius: 2px;
     margin-right: 0.55rem;
     transform: translateY(-2px);
@@ -96,7 +96,7 @@
 }
 
 /* Dark-mode slate pulls the foreground to white; keep the accents the same. */
-[data-md-color-scheme="slate"] .md-typeset h3 { color: var(--clus-pink); }
+[data-md-color-scheme="slate"] .md-typeset h3 { color: var(--clus-blue); }
 [data-md-color-scheme="slate"] .md-typeset h4 { color: var(--clus-orange); }
 
 
