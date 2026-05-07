@@ -262,13 +262,10 @@ After Terraform completes successfully, verify the configuration was applied cor
 
 Each device shows its own hostname in the banner, demonstrating that the same template produced device-specific results.
 
-!!! tip "You can review the model.yaml file"
-    After running `terraform apply`, you can also open the `model.yaml` file in VS Code to see how variables are resolved. You can see each device with its variable values substituted into the configuration.
+!!! tip "Review the `model.yaml` file"
+    After running `terraform apply`, open `model.yaml` in VS Code to see how variables are resolved. Each device appears with its variable values already substituted into the rendered configuration — this is the final form Terraform sends to the devices.
 
-
-<!-- TODO: Add model file screenshot (task 6) -->
-
-## Common Variable Use Cases
+## Common variable use cases
 
 Variables are powerful for many scenarios beyond hostnames (device identity). Here are some common use cases:
 
