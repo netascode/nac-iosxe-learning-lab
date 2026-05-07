@@ -58,7 +58,7 @@ This lab consists of:
 
 The topology below shows the IOS XE devices running in **Cisco Modeling Labs (CML)**. CML is a network simulation platform that allows you to create virtual network environments using real Cisco operating systems like IOS XE. In this lab, CML hosts three Catalyst 9000v virtual switches (**access01**, **access02**, and **core**) and a Catalyst 8000v virtual router (**border**) that you'll configure using Network-as-Code:
 <figure markdown>
-  ![CML Topology](./assets/cml-topology.png){ width="60%" }
+  ![CML Topology](./assets/cml-topology.png){ width="100%" }
 </figure>
 
 The **isp** device simulates an external Internet Service Provider connection for BGP routing. It has a loopback interface configured with IP address `8.8.8.8`.
