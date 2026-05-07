@@ -28,7 +28,7 @@ touch ~/nac-iosxe/data/config-global.nac.yaml
 
     Throughout this lab guide, you will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
 
-Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to all devices defined in `devices.nac.yaml`:
+Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to every device registered in the per-device files you created in Task 02:
 
 ```yaml title="data/config-global.nac.yaml"
 ---
@@ -48,8 +48,8 @@ iosxe:
 - **`banner:`** - Specifies banner configurations (note: singular, not "banners")
 - **`login:`** - The login banner text displayed to users before they log in to the device
 
-!!! note "Separation of Concerns"
-    Notice how the global configuration is in a separate file (`config-global.nac.yaml`) from the device inventory (`devices.nac.yaml`). This modular approach keeps your configurations organized and maintainable. The NAC module automatically merges all YAML files in the `data/` directory.
+!!! note "Separation of concerns"
+    The global configuration lives in its own file (`config-global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NAC merges them all automatically when it reads the `data/` directory.
 
 The figure below illustrates how to create the `data/config-global.nac.yaml` file with Visual Studio Code:
 
@@ -106,16 +106,19 @@ tree -a
 
 You should see your project structure:
 
-```text  { .no-copy hl_lines="5" }
+```text  { .no-copy hl_lines="9" }
 cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
 ├── data
-│   ├── config-global.nac.yaml    # ← File with banner configuration
-│   └── devices.nac.yaml
+│   ├── config-device-access01.nac.yaml
+│   ├── config-device-access02.nac.yaml
+│   ├── config-device-border.nac.yaml
+│   ├── config-device-core.nac.yaml
+│   └── config-global.nac.yaml    # ← File with banner configuration
 └── main.tf
 
-1 directory, 4 files
+1 directory, 7 files
 cisco@wkst1:~/nac-iosxe$
 ```
 
