@@ -87,8 +87,8 @@ variables:
   IOSXE_PASSWORD:
     description: "Cisco IOS-XE Password"
   IOSXE_PROTOCOL:
-    description: "Cisco IOS-XE Connection Protocol (restconf or netconf)"
-    value: "restconf"
+    description: "Cisco IOS XE connection protocol (netconf or restconf)"
+    value: "netconf"
   # ... additional variables for GitLab tokens, Terraform state, Webex notifications ...
 
 cache:
