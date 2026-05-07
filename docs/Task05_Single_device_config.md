@@ -4,6 +4,14 @@
 
 In this task, you'll apply configuration to a **single specific device** rather than globally or to a group. This is the top of the precedence hierarchy — device-specific settings override anything a device might have inherited from its group or from the global defaults.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Extended `config-device-core.nac.yaml` with device-specific configuration (a `Loopback0` interface)
+- Internalized the NAC precedence hierarchy: **Global < Device Group < Device**
+- Verified selective deployment — loopback exists on `core`, absent from `border`/`access01`/`access02`
+
 ## Device-specific configuration
 
 Device-specific config is the right tool when a setting is meaningful only for one device. Typical use cases:
