@@ -4,6 +4,14 @@
 
 In this task you'll apply configuration to a **group of devices** at once using device groups. An Access Control List (ACL) is the example — device groups let you apply the same configuration to every device that shares a role or location, without duplicating the YAML.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Defined an `ACCESS_SWITCHES` device group and its two member devices
+- Applied a standard ACL to the group via a single YAML file
+- Confirmed the ACL landed on `access01` + `access02` only (not `core` or `border`)
+
 ## Device Groups
 
 Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device.
