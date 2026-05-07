@@ -117,10 +117,11 @@ Repeat `show version` and `show run` on **access01**, **access02**, and **border
 - Every device has the `nac_admin` user provisioned and **NETCONF** enabled for configuration and verification.
 - No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
-## Enabling NETCONF manually (reference only)
+## Enabling NETCONF manually (already done — reference only)
 
-!!! info "You don't need to run these — the lab devices are already configured."
-    If you want to try NAC IOS XE on your own devices after Cisco Live, these are the minimum commands to enable NETCONF:
+The lab devices are already configured with NETCONF enabled. **You do not need to run anything in this section** — it's here so you know what to do on your own devices after Cisco Live.
+
+??? note "Commands to enable NETCONF on your own devices"
 
     ```text
     configure terminal

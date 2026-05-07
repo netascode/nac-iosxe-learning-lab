@@ -314,7 +314,7 @@ terraform init
 
 !!! note "Initialization Only Once"
     You only need to run `terraform init` once per project. To add or update modules later, you can run it again to download any additional dependencies.
-    If you want to download the latest version of the modules, you can use `terraform init -upgrade` instead.
+    To upgrade to a newer version of a module or provider in a production environment, you would update the version reference in your `main.tf` (e.g. change `?ref=v0.12.3` to `?ref=v0.13.0`), then run `terraform init -upgrade` to pull the new version. However, in this lab environment, there is no need to change version references or run `terraform init -upgrade`.
 
 
 ### Step 5: Preview Changes with Terraform Plan
@@ -342,7 +342,10 @@ terraform plan
 
 **Review the plan carefully** to ensure Terraform will make the changes you expect. This is your safety check!
 
-In this case, you will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output. The plan also shows that a `defaults` file and a `model` file will be also created – as configured in `main.tf`.
+In this case, you will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output.
+
+!!! info "What are the `local_sensitive_file` resources in the plan?"
+    You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations — they're local files the NAC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
 
 
 ### Step 6: Apply Configuration to Devices
