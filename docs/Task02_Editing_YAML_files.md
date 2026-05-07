@@ -143,23 +143,18 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 - **Multi-file editing** - Work with multiple configuration files simultaneously
 - **File explorer** - Easy navigation through project folders and files
 
-### YAML Linting with RedHat Extension
+### YAML Linting with RedHat Extension (pre-installed)
 
-Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
-
-<figure markdown>
-  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
-</figure>
-
-This extension provides:
+The **YAML extension by Red Hat** is already installed in your lab's VS Code — you don't need to install anything. It activates automatically when you open YAML files and provides:
 
 - **Real-time syntax validation** - Highlights errors as you type
 - **Auto-completion** - Suggests valid YAML structures
 - **Formatting** - Automatically formats your YAML files
 - **Schema validation** - Can validate against predefined schemas
 
-!!! info "The YAML extension is already pre-installed in your lab"
-    You'll see syntax highlighting and error detection automatically as you edit YAML files.
+<figure markdown>
+  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
+</figure>
 
 !!! warning "File Extension"
     The YAML extension recognizes only files ending with `.nac.yaml` as Network as Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
@@ -177,10 +172,9 @@ This extension provides:
   ![WSL Open Project Folder](./assets/wsl-open-project-folder.png){ width="100%" }
 </figure>
 
-!!! note
-    When you open VS Code, it automatically connects to WSL.
-    Notice the `WSL: Ubuntu-22.04` indicator in the bottom-left corner of VS Code. This confirms that VS Code is connected to your WSL Ubuntu environment, allowing you to edit files directly in WSL.
-    This is achieved using the **WSL** VS Code extension, which is pre-installed in your lab environment.
+!!! note "VS Code automatically connects to WSL (pre-configured)"
+    The **WSL** VS Code extension is pre-installed, so VS Code connects to your Ubuntu environment automatically.
+    You'll see a `WSL: Ubuntu-22.04` indicator in the bottom-left corner confirming the connection — files you edit in VS Code are saved directly to the WSL filesystem.
 
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
