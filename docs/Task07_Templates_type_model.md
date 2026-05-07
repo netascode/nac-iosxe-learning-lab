@@ -138,13 +138,12 @@ At this point, your `data/` folder should contain these files:
 ├── .env
 ├── main.tf
 └── data/
-    ├── config-device-access01.nac.yaml  # Task05: access01 device config
-    ├── config-device-access02.nac.yaml  # Task05: access02 device config
-    ├── config-device-border.nac.yaml    # Task05: border device config
-    ├── config-device-core.nac.yaml      # Task05: IP hosts for core
-    ├── config-global.nac.yaml           # Task03: Global banner
-    ├── config-group-access.nac.yaml     # Task04 + Task07: ACL + templates
-    ├── devices.nac.yaml                 # Task02: Device inventory
+    ├── config-device-access01.nac.yaml  # Task02: access01 registration
+    ├── config-device-access02.nac.yaml  # Task02: access02 registration
+    ├── config-device-border.nac.yaml    # Task02: border registration
+    ├── config-device-core.nac.yaml      # Task02 + Task05: core + Loopback0
+    ├── config-global.nac.yaml           # Task03: Global banner + hostname
+    ├── config-group-access.nac.yaml     # Task04 + Task07: ACL + VLAN template
     └── template-vlan.nac.yaml           # Task07: VLAN template (type: model)
 ```
 
