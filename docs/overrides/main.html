@@ -1,7 +1,34 @@
 {% extends "base.html" %}
 
 {# Footer override: build-date stamp (opt-in via extra.footer_revision_datetime). #}
-{# Header override: inject a reading-progress bar that fills as the learner scrolls. #}
+{# Header override: inject a session-code chip + a reading-progress bar that fills as you scroll. #}
+
+{% block header %}
+  {{ super() }}
+  <script>
+    // Inject the session-code chip into the header option area (right side, next to PDF+toggle).
+    // Done here rather than in a Jinja block so it survives instant-navigation reloads.
+    (function () {
+      function addChip() {
+        if (document.querySelector(".clus-session-chip")) return;
+        var options = document.querySelector(".md-header__option");
+        if (!options) return;
+        var chip = document.createElement("a");
+        chip.className = "clus-session-chip";
+        chip.href = "https://www.ciscolive.com/global/learn/sessions/session-catalog.html#/session/";
+        chip.target = "_blank";
+        chip.rel = "noopener";
+        chip.title = "Session catalog on ciscolive.com";
+        chip.textContent = "LTRXAR-2008";
+        options.parentNode.insertBefore(chip, options);
+      }
+      document.addEventListener("DOMContentLoaded", addChip);
+      // Material's instant-navigation swaps the DOM without a full reload — re-inject.
+      if (typeof document$ !== "undefined" && document$.subscribe) document$.subscribe(addChip);
+      addChip();
+    })();
+  </script>
+{% endblock %}
 
 {% block announce %}
   {{ super() }}

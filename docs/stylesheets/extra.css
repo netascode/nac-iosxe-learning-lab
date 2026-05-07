@@ -361,6 +361,90 @@
 
 
 /* ============================================================================
+   Header — gradient background (navy → slightly lifted blue) with a 2px
+   cyan→pink glow line underneath. The diagonal gradient gives the bar
+   depth without fighting the content for attention; the glow line ties
+   the whole page to the CLUS palette signature (cyan/pink accents
+   repeated from H1/H3 styles) and visually anchors the tab band above
+   the content area.
+   Also contains the small session-code chip injected by main.html.
+   ========================================================================= */
+
+.md-header {
+    background: linear-gradient(135deg, #07182D 0%, #0a2340 60%, #112a58 100%) !important;
+    box-shadow: 0 2px 0 0 transparent;  /* shadow replaced by ::after glow line */
+    position: relative;
+}
+
+.md-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        rgba(2, 200, 255, 0.1) 0%,
+        var(--clus-cyan) 18%,
+        var(--clus-pink) 82%,
+        rgba(255, 0, 127, 0.1) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Session-code chip — rendered by main.html's header injection. Styled as
+   a cyan-outlined pill so it reads as metadata/branding, not a button.
+   On narrow viewports (< 960px) it's hidden so the header stays clean. */
+.clus-session-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0.6rem;
+    padding: 0.22rem 0.75rem;
+    border: 1px solid rgba(2, 200, 255, 0.55);
+    border-radius: 999px;
+    color: var(--clus-cyan);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(2, 200, 255, 0.08);
+    text-decoration: none;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.clus-session-chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--clus-cyan);
+    box-shadow: 0 0 6px var(--clus-cyan);
+    animation: clus-pulse 2.4s ease-in-out infinite;
+}
+
+.clus-session-chip:hover {
+    background: rgba(255, 0, 127, 0.12);
+    border-color: var(--clus-pink);
+    color: var(--clus-pink);
+}
+.clus-session-chip:hover::before {
+    background: var(--clus-pink);
+    box-shadow: 0 0 6px var(--clus-pink);
+}
+
+@keyframes clus-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+}
+
+@media screen and (max-width: 960px) {
+    .clus-session-chip { display: none; }
+}
+
+
+/* ============================================================================
    Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
    section is instantly visible (Material default is a muted indigo).
    ========================================================================= */
