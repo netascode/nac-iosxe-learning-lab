@@ -1,5 +1,12 @@
-# Lab Guide for Cisco Live Amsterdam 2026: LTROPS-2323
+# LTRXAR-2008 — Cisco Live 2026
 
-Web guide link: https://cl-ltr.ciscolabs.com/9458db180f/
+**Accelerate Your Network Operations: A 4-Hour IOS XE Automation Workshop**
 
-PDF guide link: https://cl-ltr.ciscolabs.com/9458db180f/pdf/document.pdf
+Presented by:
+
+- Andrea Testino (atestini@cisco.com) — Principal Software Engineer, CCIE #56739
+- Christopher Hart (chart2@cisco.com) — Sr. Software Consulting Engineering Technical Leader
+
+Web guide: _(link TBD once published to ciscolabs)_
+
+PDF guide: _(link TBD)_
