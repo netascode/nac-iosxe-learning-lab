@@ -21,8 +21,8 @@ variables:
   IOSXE_PASSWORD:
     description: "Cisco IOS-XE Password"
   IOSXE_PROTOCOL:
-    description: "Cisco IOS-XE Connection Protocol (restconf or netconf)"
-    value: "restconf"
+    description: "Cisco IOS XE connection protocol (netconf or restconf)"
+    value: "netconf"
   GITLAB_TOKEN:
     description: "User Access Token. Used to create comments on Merge Requests"
   TF_HTTP_USERNAME:
