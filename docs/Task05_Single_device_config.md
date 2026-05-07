@@ -30,68 +30,51 @@ Only `core` will receive this. The other three devices (`border`, `access01`, `a
 
 ## Step 1: Add device-specific configuration
 
-First, create placeholder files for each device using your **WSL Ubuntu terminal**. This establishes a consistent structure for device-specific configurations:
+You already created a per-device file for `core` in [Task 02](Task02_Editing_YAML_files.md) — you'll extend it now by adding a `configuration:` block. The file currently registers `core` with NAC; adding `configuration:` tells NAC what to actually push to that specific device.
 
-```bash
-touch ~/nac-iosxe/data/config-device-core.nac.yaml
-touch ~/nac-iosxe/data/config-device-border.nac.yaml
-touch ~/nac-iosxe/data/config-device-access01.nac.yaml
-touch ~/nac-iosxe/data/config-device-access02.nac.yaml
-```
+Open `data/config-device-core.nac.yaml` in VS Code and replace its contents with:
 
-!!! tip "Placeholder Files"
-    Creating placeholder files for all devices establishes a consistent naming pattern. Even if a device doesn't have specific configuration yet, the file is ready when you need it. Empty files are ignored by NAC.
-
-Now open `data/config-device-core.nac.yaml` in VS Code and add the following content. Notice how the configuration references the device by name:
-
-```yaml title="data/config-device-core.nac.yaml"
+```yaml title="data/config-device-core.nac.yaml" hl_lines="5-13"
 ---
 iosxe:
   devices:
     - name: core
+      host: 198.18.130.10
       configuration:
-        system:
-          ip_hosts:
-            - name: ntp-server
-              ips:
-                - 198.18.129.11
-              vrf: Mgmt-vrf
-            - name: syslog-server
-              ips:
-                - 198.18.129.12
-              vrf: Mgmt-vrf
+        interfaces:
+          loopbacks:
+            - id: 0
+              description: "Router-ID loopback"
+              ipv4:
+                address: 198.51.100.10
+                address_mask: 255.255.255.255
 ```
 
-The image below illustrates the device-specific configuration in VS Code:
-
 <figure markdown>
-  ![VS Code Core Configuration](./assets/vscode-core-config.png){ width="100%" }
+  ![Device-specific configuration in VS Code](./assets/vscode-core-config.png){ width="100%" }
 </figure>
 
-### Configuration Breakdown
+### Configuration breakdown
 
-Let's break down the key elements:
+**Device section:**
 
-**Device Section:**
+- `devices:` — the top-level device list. Every per-device file contributes exactly one entry here.
+- `name: core` — unique device identifier. NAC matches this against the same `name` in other files (global, group, etc.) when it decides what to apply to which device.
+- `host: 198.18.130.10` — carries over from Task 02. Same device, same IP, now with configuration attached.
+- `configuration:` — everything under this key applies **only to `core`**, no other device.
 
-- **`devices:`** - Defines device-specific configurations
-- **`name: core`** - Targets the specific device by name (must match the device name in `devices.nac.yaml`)
-- **`configuration:`** - Contains settings applied only to this device
+**Loopback configuration:**
 
-**System Configuration:**
+- `interfaces.loopbacks` — the NAC data-model path for virtual loopback interfaces.
+- `id: 0` — creates `Loopback0`.
+- `description` — free-form description, visible in `show interfaces`.
+- `ipv4.address` / `ipv4.address_mask` — IP (RFC 5737 documentation range) and mask. `/32` is conventional for loopbacks used as router IDs.
 
-- **`system:`** - System-level configurations
-- **`ip_hosts:`** - List of IP host entries (static hostname-to-IP mappings)
+!!! note "Why a loopback here?"
+    A loopback is the canonical single-device configuration. Every device in a routed network needs its **own** unique loopback interface for router-ID (OSPF, BGP, MPLS-LDP, etc.), so this example naturally belongs under device-specific config rather than global or group config. It's the pattern you'll use any time a setting is meaningful only in the context of one specific device.
 
-**IP Host Entry Details:**
-
-- **`name: ntp-server`** / **`syslog-server`** - The hostnames to create
-- **`ips:`** - List of IP addresses associated with the hostname
-- **`198.18.129.11`** / **`198.18.129.12`** - The IP addresses of the NTP and Syslog servers that resolve when using the hostnames
-- **`vrf: Mgmt-vrf`** - Specifies the VRF context for the IP host entry
-
-!!! note
-    This configuration will only be applied to the **core** device. The **border**, **access01**, and **access02** devices will not receive these IP host entries.
+!!! note "What about NTP, syslog, DNS entries?"
+    The lab also has `ntp-server` (`198.18.129.11`) and `syslog-server` (`198.18.129.12`) reachable from every device. Things like those — an `ntp server` pointer, a `logging host` — should typically be **global** (every device needs to know about them), not device-specific. That's a good exercise to try at home.
 
 ### File Organization
 
