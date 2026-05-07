@@ -1,4 +1,8 @@
-In this task, you'll learn how to use **templates of type 'cli'** to inject raw CLI commands directly into your device configuration. The *cli* template type is useful when you need to configure IOS-XE features that aren't yet supported by the NAC data model.
+# Task 09 — Templates type `cli` (Optional)
+
+**⏱ ~10 minutes**
+
+In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the NAC data model — reach for them rarely, but they're genuinely useful when you need them.
 
 ## CLI Templates
 
