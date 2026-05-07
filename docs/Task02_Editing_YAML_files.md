@@ -237,11 +237,10 @@ module "iosxe" {
 
 - **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
 
-The figure below illustrates the `main.tf` file in Visual Studio Code
+The figure below illustrates the `main.tf` file in Visual Studio Code:
 
-<!-- TODO: Update image with tagged to specific commit -->
 <figure markdown>
-  ![alt text](./assets/vscode-maintf-file.png){ width="100%" }
+  ![main.tf in VS Code](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
 ## Edit Lab Device Inventory
