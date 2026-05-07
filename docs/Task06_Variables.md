@@ -1,4 +1,8 @@
-In this task, you'll learn how to use **variables** in your Network-as-Code configurations. Variables allow you to define values once and reference them throughout your configuration files, making your configurations more dynamic, reusable, and easier to maintain.
+# Task 06 — Variables
+
+**⏱ ~15 minutes**
+
+In this task you'll use **variables** in your Network-as-Code configurations. Variables let you define a value once (at the global, group, or device level) and reference it everywhere it's needed, so you can keep shared settings in one place while letting each device override only what's unique to it.
 
 ## Variables in Network-as-Code
 
