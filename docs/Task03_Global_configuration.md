@@ -78,11 +78,18 @@ Now that you've created your configuration files, it's time to deploy them to yo
 
 ## Terraform Workflow
 
-Terraform uses a declarative approach where you define the desired state (in your YAML files), and Terraform figures out how to achieve that state. The workflow consists of:
+Terraform uses a declarative approach where you define the desired state (in your YAML files), and Terraform figures out how to achieve that state. There are four moving parts:
 
-1. **Initialize** - Download required modules and providers
-2. **Plan** - Preview what changes Terraform will make
-3. **Apply** - Execute the changes on your devices
+<figure markdown>
+  ![Terraform workflow](./assets/terraform-workflow.png){ width="100%" }
+</figure>
+
+1. **Author** (`*.nac.yaml`) — the YAML you write. Version-controlled, never touched by Terraform itself.
+2. **Preview** (`terraform plan`) — read-only. Connects to devices, reads current state, shows you what *would* change. Safe to run any time.
+3. **Execute** (`terraform apply`) — writes configuration over NETCONF and updates state. **This is the step that actually changes the network.**
+4. **Remember** (`terraform.tfstate`) — auto-maintained. Tracks every resource Terraform has created, so subsequent plans know what's already there.
+
+Of the three commands, only `apply` (and its counterpart `destroy`) change anything on the wire. `plan` is a read-only diff and can be run freely.
 
 ### Step 1: In WSL (Ubuntu) and Navigate to Your Project
 
