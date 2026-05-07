@@ -215,14 +215,25 @@ This confirms the standard ACL was successfully deployed to both **access01** an
 
 ## Generated Model File
 
-As configured in `main.tf`, Terraform generates a merged model file (`model.yaml`) that combines global, device group, and device-specific configurations. Open `model.yaml` in VS Code to see how the ACL from the **ACCESS_SWITCHES** group is included only under the relevant devices.
+When Terraform applies your configuration, the NAC module performs a deep merge of all your YAML files — global configuration, device group configuration, and device-specific configuration — into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
+
+The merge follows the same precedence hierarchy you've been working with: **global → device group → device**, where more specific levels override less specific ones for the same keys. Variables are substituted, templates are rendered, and the output is a flat list of devices, each with its fully resolved configuration.
+
+<figure markdown>
+  ![Configuration merge process](./assets/config-merge.png){ width="100%" }
+</figure>
+
+Open `model.yaml` in VS Code to see the result. Notice how the ACL from the **ACCESS_SWITCHES** group appears under `access01` and `access02` but not under `core` or `border`:
 
 <figure markdown>
   ![Model YAML File](./assets/vscode-model-file.png){ width="100%" }
 </figure>
 
-!!! tip "Review model.yaml"
-    Reviewing the `model.yaml` file helps you understand how configurations are structured and is very useful for troubleshooting.
+**Why this matters:**
+
+- **Debugging** — if a device gets unexpected configuration, `model.yaml` shows you exactly what the module computed for that device after all merges and variable substitutions.
+- **Verification** — `nac-test` (Task 11) uses `model.yaml` as its input to generate post-deployment tests. The tests assert against what the model says *should* be on the device.
+- **Transparency** — rather than trusting the module as a black box, you can inspect the fully resolved intent for every device in one file.
 
 
 ## What You've Accomplished
