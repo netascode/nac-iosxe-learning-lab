@@ -1,4 +1,8 @@
-Before moving to CI/CD automation, you need to clean up the manual work you've done so far. This ensures a fresh starting point for the GitLab-based workflow.
+# Task 12 — Cleanup
+
+**⏱ ~5 minutes**
+
+Before moving to CI/CD automation, clean up the manual work you've done so far. This ensures a clean starting point for the GitLab-based workflow.
 
 
 !!! warning "Important Note"
