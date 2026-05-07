@@ -1,4 +1,4 @@
-This step-by-step guide walks you through the **Network-as-Code for IOS-XE** lab. By the end, you will know how to deploy and manage IOS-XE devices with declarative infrastructure-as-code and CI/CD pipelines.
+This step-by-step guide walks you through the **Network-as-Code for IOS XE** lab. By the end, you will know how to deploy and manage IOS XE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
 **Network-as-Code (NAC)** is an approach to network automation that treats network infrastructure configuration as code. Similar to how developers manage software application code, NAC allows network engineers to define network configurations in human-readable YAML files, version control all changes using Git, and automate deployment with Terraform.
 
@@ -16,6 +16,16 @@ This lab shows how Network-as-Code addresses each of them using:
 
 !!! note "Terminology"
     *Network-as-Code IOS XE*, *NAC IOS XE*, and *IOS XE-as-Code* are used interchangeably in this guide — all refer to the same automation solution.
+
+## What the stack looks like
+
+NAC isn't a single tool — it's a layered stack. You write intent in YAML; the stack turns that into actual configuration on the device:
+
+<figure markdown>
+  ![NAC stack overview](./assets/nac-stack.png){ width="100%" }
+</figure>
+
+You'll spend all your time in **layer 1** (the YAML). The rest of the stack — the Terraform module, the IOS XE provider, the NETCONF/RESTCONF transport — is maintained by Cisco and the Network-as-Code open-source community.
 
 ## Lab scope
 
