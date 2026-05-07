@@ -1,35 +1,245 @@
-.md-typeset__table {
-    min-width: 100%;
-}
-
-.md-typeset table:not([class]) {
-    display: table;
-}
-
-.md-grid {
-    max-width: 1440px;
-}
+/* ============================================================================
+   LTRXAR-2008 · Cisco Live 2026 — MkDocs Material overrides.
+   All colors taken from the PPT theme1.xml palette so the site, the slides,
+   and the in-line diagrams share a single visual identity:
+     accent1  #02C8FF  cyan    — primary accent (headings, links)
+     accent2  #0A60FF  blue    — secondary accent (H2, nav)
+     accent3  #FF007F  pink    — tertiary accent (H3, warnings, highlights)
+     accent4  #FF9000  orange  — warm accent (admonition notes, callouts)
+     accent6  #6B6B6B  gray    — neutral (muted lines, borders)
+     lt1      #07182D  navy    — deep background
+   ========================================================================= */
 
 :root {
-    --md-primary-fg-color: #0b172c;
-    --md-accent-fg-color: #00bdeb;
+    --clus-cyan:   #02C8FF;
+    --clus-blue:   #0A60FF;
+    --clus-pink:   #FF007F;
+    --clus-orange: #FF9000;
+    --clus-gray:   #6B6B6B;
+    --clus-navy:   #07182D;
+
+    --md-primary-fg-color: var(--clus-navy);
+    --md-accent-fg-color:  var(--clus-cyan);
 }
 
 [data-md-color-scheme="default"] {
-    --md-typeset-a-color: #3a7fff;
-    --md-accent-fg-color: #00bdeb;
+    --md-typeset-a-color: var(--clus-blue);
+    --md-accent-fg-color: var(--clus-cyan);
 }
 
 [data-md-color-scheme="slate"] {
-    --md-typeset-a-color: #3a7fff;
-    --md-accent-fg-color: #00bdeb;
+    --md-typeset-a-color: #3a9bff;
+    --md-accent-fg-color: var(--clus-cyan);
 }
-.max-code-height>pre>code {
-    max-height: 500px; 
-    overflow-y: auto;
+
+/* ---------- layout ---------- */
+.md-grid { max-width: 1440px; }
+.md-typeset__table { min-width: 100%; }
+.md-typeset table:not([class]) { display: table; }
+.max-code-height > pre > code { max-height: 500px; overflow-y: auto; }
+
+/* Tighter, denser admonitions — they were eating too much vertical real-estate. */
+.md-typeset .admonition,
+.md-typeset details { font-size: .72rem; }
+
+
+/* ============================================================================
+   Colorized headers — each level gets its own PPT accent so the page reads
+   as a visual hierarchy, not a wall of identical text. H1 is the page title
+   (strong cyan top rule), H2 separates major sections (blue left rule), H3
+   marks sub-steps (pink accent).
+   ========================================================================= */
+
+.md-typeset h1 {
+    color: var(--md-default-fg-color);
+    font-weight: 800;
+    border-top: 4px solid var(--clus-cyan);
+    padding-top: 0.6rem;
+    margin-top: 0.5rem;
+    letter-spacing: -0.01em;
 }
+
+.md-typeset h2 {
+    color: var(--md-default-fg-color);
+    font-weight: 700;
+    border-left: 4px solid var(--clus-blue);
+    padding-left: 0.7rem;
+    margin-top: 2.2rem;
+    letter-spacing: -0.005em;
+}
+
+.md-typeset h3 {
+    color: var(--clus-pink);
+    font-weight: 700;
+    margin-top: 1.8rem;
+    position: relative;
+}
+
+.md-typeset h3::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--clus-pink);
+    border-radius: 2px;
+    margin-right: 0.55rem;
+    transform: translateY(-2px);
+}
+
+.md-typeset h4 {
+    color: var(--clus-orange);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.06em;
+    margin-top: 1.5rem;
+}
+
+/* Dark-mode slate pulls the foreground to white; keep the accents the same. */
+[data-md-color-scheme="slate"] .md-typeset h3 { color: var(--clus-pink); }
+[data-md-color-scheme="slate"] .md-typeset h4 { color: var(--clus-orange); }
+
+
+/* ============================================================================
+   Page navigation (← Previous / Next → links at the bottom of every task).
+   The lab guide uses a uniform markdown convention — the last paragraph of
+   every page is `**← Previous:** [...] · **Next:** [...]` — so we can style
+   that one paragraph into a pair of pills without touching the markdown.
+   ========================================================================= */
+
+.md-typeset hr + p:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 0;
+    background: transparent;
+}
+
+.md-typeset hr + p:last-child strong {
+    display: none;  /* hide "← Previous:" / "Next:" labels — icons carry the meaning */
+}
+
+.md-typeset hr + p:last-child a {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.25rem;
+    border-radius: 10px;
+    background: rgba(2, 200, 255, 0.06);
+    border: 1px solid rgba(2, 200, 255, 0.3);
+    color: var(--md-default-fg-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    line-height: 1.35;
+    position: relative;
+}
+
+.md-typeset hr + p:last-child a:first-of-type {
+    /* Previous */
+    border-left: 4px solid var(--clus-blue);
+    padding-left: 1.1rem;
+}
+
+.md-typeset hr + p:last-child a:first-of-type::before {
+    content: "◀";
+    color: var(--clus-blue);
+    font-size: 0.85em;
+    margin-right: 0.35rem;
+}
+
+.md-typeset hr + p:last-child a:last-of-type {
+    /* Next */
+    border-right: 4px solid var(--clus-pink);
+    padding-right: 1.1rem;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.md-typeset hr + p:last-child a:last-of-type::after {
+    content: "▶";
+    color: var(--clus-pink);
+    font-size: 0.85em;
+    margin-left: 0.35rem;
+}
+
+.md-typeset hr + p:last-child a:hover {
+    background: rgba(2, 200, 255, 0.14);
+    border-color: var(--clus-cyan);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Hide the " · " separator between prev and next — flexbox already gaps them. */
+.md-typeset hr + p:last-child {
+    font-size: 0;  /* kills whitespace text nodes */
+}
+.md-typeset hr + p:last-child a { font-size: 0.78rem; }
+
+
+/* ============================================================================
+   Admonition accents — thin colored edge instead of Material's default heavy
+   fill. Matches the same palette used in the diagrams.
+   ========================================================================= */
 
 .md-typeset .admonition,
 .md-typeset details {
-  font-size: .7rem;
+    border-left-width: 4px;
 }
+
+.md-typeset .admonition.note, .md-typeset details.note              { border-left-color: var(--clus-blue); }
+.md-typeset .admonition.info, .md-typeset details.info              { border-left-color: var(--clus-cyan); }
+.md-typeset .admonition.tip,  .md-typeset details.tip               { border-left-color: var(--clus-cyan); }
+.md-typeset .admonition.warning, .md-typeset details.warning        { border-left-color: var(--clus-orange); }
+.md-typeset .admonition.danger,  .md-typeset details.danger         { border-left-color: var(--clus-pink); }
+.md-typeset .admonition.failure, .md-typeset details.failure        { border-left-color: var(--clus-pink); }
+.md-typeset .admonition.example, .md-typeset details.example        { border-left-color: var(--clus-pink); }
+.md-typeset .admonition.abstract,.md-typeset details.abstract       { border-left-color: var(--clus-gray); }
+
+
+/* ============================================================================
+   Code blocks — a thin cyan left edge pins them to the CLUS visual identity
+   without being loud. Inline `code` gets the same pink the diagrams use for
+   `accent` words, so inline code in prose doesn't disappear.
+   ========================================================================= */
+
+.md-typeset pre > code { border-left: 3px solid var(--clus-cyan); }
+
+.md-typeset :not(pre) > code {
+    color: var(--clus-pink);
+    background: rgba(255, 0, 127, 0.07);
+    border-radius: 3px;
+    padding: 0.1rem 0.35rem;
+}
+[data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
+    background: rgba(255, 0, 127, 0.12);
+}
+
+
+/* ============================================================================
+   Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
+   section is instantly visible (Material default is a muted indigo).
+   ========================================================================= */
+
+.md-tabs__link--active {
+    color: var(--clus-cyan);
+    font-weight: 700;
+}
+.md-tabs__link:hover { color: var(--clus-cyan); }
+
+
+/* ============================================================================
+   Right-column TOC — PPT pink for the active section, cyan for hover.
+   ========================================================================= */
+
+.md-nav__link--active,
+.md-nav__link--active:focus,
+.md-nav__link--active:hover {
+    color: var(--clus-cyan);
+    font-weight: 600;
+}
+
+.md-nav__link:hover { color: var(--clus-cyan); }

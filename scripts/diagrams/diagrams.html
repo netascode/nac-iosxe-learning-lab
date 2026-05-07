@@ -5,14 +5,21 @@
 <title>LTRXAR-2008 — Diagrams</title>
 <style>
   :root {
-    --cyan: #02C8FF;
-    --blue: #0A60FF;
-    --orange: #FF9000;
-    --green: #00D17A;
-    --teal: #009EA6;
-    --purple: #7B61FF;
-    --coral: #FF6B6B;
-    --yellow: #FFD93D;
+    /* CLUS 2026 / LTRXAR-2008 PPT theme1 palette — the only colors used.
+       accent1=cyan, accent2=blue, accent3=pink, accent4=orange, accent6=gray.
+       Legacy variable names below are kept as aliases so diagrams don't need
+       per-selector edits; every legacy color resolves to a PPT accent. */
+    --cyan:   #02C8FF;  /* accent1 */
+    --blue:   #0A60FF;  /* accent2 */
+    --pink:   #FF007F;  /* accent3 */
+    --orange: #FF9000;  /* accent4 */
+    --gray:   #6B6B6B;  /* accent6 */
+    /* legacy aliases → PPT */
+    --green:  var(--cyan);    /* was #00D17A */
+    --teal:   var(--gray);    /* was #009EA6 */
+    --purple: var(--pink);    /* was #7B61FF */
+    --coral:  var(--pink);    /* was #FF6B6B */
+    --yellow: var(--orange);  /* was #FFD93D */
     --white: #FFFFFF;
     --dk-text: #B4B9C0;
     --dim: #3A4450;
@@ -49,7 +56,7 @@
   .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 14.5px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
   .chip.cyan { background: rgba(2,200,255,.12); color: var(--cyan); border: 1px solid rgba(2,200,255,.4); }
   .chip.blue { background: rgba(10,96,255,.15); color: #6d9bff; border: 1px solid rgba(10,96,255,.5); }
-  .chip.green { background: rgba(0,209,122,.12); color: var(--green); border: 1px solid rgba(0,209,122,.4); }
+  .chip.green { background: rgba(255,0,127,.12); color: var(--green); border: 1px solid rgba(255,0,127,.4); }
   .chip.orange { background: rgba(255,144,0,.12); color: var(--orange); border: 1px solid rgba(255,144,0,.4); }
 
   code, .mono { font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; font-size: 15.5px; }
@@ -62,8 +69,8 @@
   .hier .tier .desc { font-size: 18px; color: var(--dk-text); }
   .hier .tier .ex   { font-family: "JetBrains Mono", Menlo, monospace; font-size: 16px; color: var(--cyan); }
   .hier .tier.t1 { width: 820px; background: linear-gradient(120deg, #0a2847, #0e3a62); border: 1.5px solid rgba(10,96,255,.6); }
-  .hier .tier.t2 { width: 620px; background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(0,158,166,.55); }
-  .hier .tier.t3 { width: 420px; background: linear-gradient(120deg, #153b3c, #156050); border: 1.5px solid rgba(0,209,122,.55); }
+  .hier .tier.t2 { width: 620px; background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(107,107,107,.55); }
+  .hier .tier.t3 { width: 420px; background: linear-gradient(120deg, #153b3c, #156050); border: 1.5px solid rgba(255,0,127,.55); }
   .hier .prec { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--dk-text); font-size: 15px; letter-spacing: 2px; text-transform: uppercase; }
   .hier .prec svg { height: 320px; }
 
@@ -87,7 +94,7 @@
   .tpl .node pre { background: var(--code-bg); margin: 0; padding: 12px 14px; border-radius: 6px; font-size: 14.5px; color: var(--white); font-family: "JetBrains Mono", monospace; line-height: 1.4; }
   .tpl .arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--dk-text); font-size: 15px; }
   .tpl .arrow .lbl { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; writing-mode: horizontal-tb; text-align: center; color: var(--cyan); }
-  .tpl .group { background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(0,158,166,.55); }
+  .tpl .group { background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(107,107,107,.55); }
   .tpl .rendered { display: flex; flex-direction: column; gap: 8px; }
   .tpl .device { background: var(--code-bg); padding: 12px; border-radius: 6px; border-left: 3px solid var(--green); font-family: "JetBrains Mono", monospace; font-size: 14.5px; color: var(--white); }
   .tpl .device .nm { color: var(--green); font-weight: 700; }
@@ -104,7 +111,7 @@
   .mr .lane .cell { padding: 12px 8px; display: flex; align-items: center; justify-content: center; }
   .mr .step { background: var(--card-bg); border: 1.5px solid var(--cyan); border-radius: 8px; padding: 12px 16px; text-align: center; font-size: 15.5px; color: var(--white); min-width: 120px; box-shadow: 0 2px 8px rgba(2,200,255,.15); }
   .mr .step.blue { border-color: var(--blue); box-shadow: 0 2px 8px rgba(10,96,255,.2); }
-  .mr .step.green { border-color: var(--green); box-shadow: 0 2px 8px rgba(0,209,122,.2); }
+  .mr .step.green { border-color: var(--green); box-shadow: 0 2px 8px rgba(255,0,127,.2); }
   .mr .step.orange { border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,144,0,.2); }
   .mr .step .t { font-weight: 700; margin-bottom: 2px; }
   .mr .step .s { font-size: 14px; color: var(--dk-text); }
@@ -119,10 +126,10 @@
   .stack .layer .tech { font-family: "JetBrains Mono", monospace; font-size: 15px; color: var(--cyan); }
   .stack .layer .desc { font-size: 15.5px; color: var(--dk-text); }
   .stack .l1 { background: linear-gradient(120deg, #14304a, #1f4d82); border: 1.5px solid rgba(10,96,255,.5); }
-  .stack .l2 { background: linear-gradient(120deg, #13354d, #1c5270); border: 1.5px solid rgba(0,158,166,.55); }
-  .stack .l3 { background: linear-gradient(120deg, #153b3c, #1d5f55); border: 1.5px solid rgba(0,209,122,.5); }
+  .stack .l2 { background: linear-gradient(120deg, #13354d, #1c5270); border: 1.5px solid rgba(107,107,107,.55); }
+  .stack .l3 { background: linear-gradient(120deg, #153b3c, #1d5f55); border: 1.5px solid rgba(255,0,127,.5); }
   .stack .l4 { background: linear-gradient(120deg, #3f2d1a, #66471e); border: 1.5px solid rgba(255,144,0,.5); }
-  .stack .l5 { background: linear-gradient(120deg, #2f1f3e, #4c2f62); border: 1.5px solid rgba(123,97,255,.55); }
+  .stack .l5 { background: linear-gradient(120deg, #2f1f3e, #4c2f62); border: 1.5px solid rgba(255,0,127,.55); }
   .stack-side { color: var(--dk-text); font-size: 17px; line-height: 1.65; }
   .stack-side h3 { color: var(--cyan); margin: 0 0 8px; font-size: 20px; letter-spacing: .3px; }
   .stack-side p { margin: 0 0 12px; }
@@ -137,11 +144,11 @@
   .pipe .stage .act { font-size: 14.5px; color: var(--dk-text); }
   .pipe .stage.plan { border-color: var(--blue); box-shadow: 0 2px 8px rgba(10,96,255,.2); }
   .pipe .stage.plan .tool { color: #6d9bff; }
-  .pipe .stage.deploy { border-color: var(--green); box-shadow: 0 2px 8px rgba(0,209,122,.2); }
+  .pipe .stage.deploy { border-color: var(--green); box-shadow: 0 2px 8px rgba(255,0,127,.2); }
   .pipe .stage.deploy .tool { color: var(--green); }
   .pipe .stage.test { border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,144,0,.2); }
   .pipe .stage.test .tool { color: var(--orange); }
-  .pipe .stage.notify { border-color: var(--purple); box-shadow: 0 2px 8px rgba(123,97,255,.2); }
+  .pipe .stage.notify { border-color: var(--purple); box-shadow: 0 2px 8px rgba(255,0,127,.2); }
   .pipe .stage.notify .tool { color: var(--purple); }
   .pipe .arrow-h { text-align: center; color: var(--dk-text); font-size: 24px; }
   .pipe .footer { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; }
@@ -158,9 +165,9 @@
   .tfwf .card-tf .desc { font-size: 15.5px; color: var(--dk-text); line-height: 1.55; }
   .tfwf .card-tf.plan   { border-color: rgba(10,96,255,.5); }
   .tfwf .card-tf.plan .step, .tfwf .card-tf.plan .cmd { color: #6d9bff; border-left-color: #6d9bff; }
-  .tfwf .card-tf.apply  { border-color: rgba(0,209,122,.5); }
+  .tfwf .card-tf.apply  { border-color: rgba(255,0,127,.5); }
   .tfwf .card-tf.apply .step, .tfwf .card-tf.apply .cmd { color: var(--green); border-left-color: var(--green); }
-  .tfwf .card-tf.state  { border-color: rgba(123,97,255,.5); }
+  .tfwf .card-tf.state  { border-color: rgba(255,0,127,.5); }
   .tfwf .card-tf.state .step, .tfwf .card-tf.state .cmd { color: #b3a3ff; border-left-color: #b3a3ff; }
   .tfwf .arrow-tf { display: flex; align-items: center; justify-content: center; color: var(--dk-text); font-size: 24px; }
 
@@ -169,8 +176,8 @@
   .nc-panels { display: flex; flex-direction: column; gap: 16px; }
   .nc-flow  { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 22px; display: flex; flex-direction: column; gap: 14px; position: relative; }
   .nc-ds { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 8px; }
-  .nc-ds.candidate { background: linear-gradient(120deg, #2a1e45, #3f2d62); border: 1.5px solid rgba(123,97,255,.55); }
-  .nc-ds.running { background: linear-gradient(120deg, #143e34, #176b51); border: 1.5px solid rgba(0,209,122,.55); }
+  .nc-ds.candidate { background: linear-gradient(120deg, #2a1e45, #3f2d62); border: 1.5px solid rgba(255,0,127,.55); }
+  .nc-ds.running { background: linear-gradient(120deg, #143e34, #176b51); border: 1.5px solid rgba(255,0,127,.55); }
   .nc-ds .lbl { font-size: 14.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
   .nc-ds.candidate .lbl { color: #cdc0ff; }
   .nc-ds.running  .lbl { color: #9ae8c3; }
@@ -230,7 +237,7 @@
   .labtop .tool.ssh { border-left-color: var(--orange); }
   .labtop .tool.br { border-left-color: var(--purple); }
   .labtop .zone.cml { background: linear-gradient(145deg, #0f2a46, #102c4e); border-color: rgba(10,96,255,.5); }
-  .labtop .zone.gitlab { background: linear-gradient(145deg, #2f1a1a, #451e1e); border-color: rgba(255,107,107,.45); }
+  .labtop .zone.gitlab { background: linear-gradient(145deg, #2f1a1a, #451e1e); border-color: rgba(255,0,127,.45); }
   .labtop .mini { background: rgba(255,255,255,.04); border-radius: 6px; padding: 10px 12px; font-size: 15.5px; color: var(--dk-text); display: flex; justify-content: space-between; align-items: center; }
   .labtop .mini .nm { color: var(--white); font-weight: 600; }
   .labtop .mini .ip { font-family: "JetBrains Mono", monospace; font-size: 14.5px; color: var(--cyan); }
@@ -274,7 +281,7 @@
   .cmltop .dev.access .role { color: var(--green); }
   .cmltop .dev.host { border-color: var(--purple); border-style: dashed; }
   .cmltop .dev.host .role { color: var(--purple); }
-  .cmltop .dev.svc { border-color: var(--teal); border-style: dotted; background: rgba(0,158,166,.08); }
+  .cmltop .dev.svc { border-color: var(--teal); border-style: dotted; background: rgba(107,107,107,.08); }
   .cmltop .dev.svc .role { color: var(--teal); }
   /* Grid cell placements — explicit rather than implicit so empty cells
      don't collapse and the SVG coordinates stay in sync with the layout. */
@@ -303,13 +310,13 @@
   .flay .row .fn { font-family: "JetBrains Mono", monospace; font-size: 15px; color: var(--white); flex: 1; }
   .flay .row .desc { font-size: 12.5px; color: var(--dk-text); }
   .flay .tag.global { background: rgba(10,96,255,.2); color: #6d9bff; }
-  .flay .tag.group  { background: rgba(0,158,166,.2); color: #6fd6dd; }
-  .flay .tag.device { background: rgba(0,209,122,.2); color: var(--green); }
+  .flay .tag.group  { background: rgba(107,107,107,.2); color: #6fd6dd; }
+  .flay .tag.device { background: rgba(255,0,127,.2); color: var(--green); }
   .flay .tag.tpl    { background: rgba(255,144,0,.2); color: var(--orange); }
   .flay .tag.gen    { background: rgba(180,185,192,.2); color: var(--dk-text); }
-  .flay .tag.tf     { background: rgba(123,97,255,.2); color: #b3a3ff; }
-  .flay .tag.test   { background: rgba(255,217,61,.2); color: var(--yellow); }
-  .flay .tag.env    { background: rgba(255,107,107,.2); color: #ffb3b3; }
+  .flay .tag.tf     { background: rgba(255,0,127,.2); color: #b3a3ff; }
+  .flay .tag.test   { background: rgba(255,144,0,.2); color: var(--yellow); }
+  .flay .tag.env    { background: rgba(255,0,127,.2); color: #ffb3b3; }
   .flay .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; padding: 8px 12px; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 6px; }
   .flay .legend .li { font-size: 12px; color: var(--dk-text); display: flex; gap: 6px; align-items: center; }
 
@@ -330,9 +337,9 @@
   .ms-pair .arrow { text-align: center; color: var(--cyan); font-size: 20px; }
   .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
   .ms-rule.dict  .result { border-left-color: var(--blue); background: linear-gradient(120deg, rgba(10,96,255,.12), rgba(10,96,255,.04)); }
-  .ms-rule.prim  .result { border-left-color: var(--green); background: linear-gradient(120deg, rgba(0,209,122,.12), rgba(0,209,122,.04)); }
+  .ms-rule.prim  .result { border-left-color: var(--green); background: linear-gradient(120deg, rgba(255,0,127,.12), rgba(255,0,127,.04)); }
   .ms-rule.dictl .result { border-left-color: var(--orange); background: linear-gradient(120deg, rgba(255,144,0,.12), rgba(255,144,0,.04)); }
-  .ms-rule .warn { margin-top: 4px; font-size: 12.5px; color: var(--coral); background: rgba(255,107,107,.08); border-left: 3px solid var(--coral); border-radius: 4px; padding: 6px 10px; line-height: 1.5; }
+  .ms-rule .warn { margin-top: 4px; font-size: 12.5px; color: var(--coral); background: rgba(255,0,127,.08); border-left: 3px solid var(--coral); border-radius: 4px; padding: 6px 10px; line-height: 1.5; }
   .ms-rule .warn strong { color: var(--coral); }
 
   /* ======================================================== MODULE INPUTS (new) */
@@ -342,7 +349,7 @@
   .mi-var { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; border-left: 3px solid var(--cyan); }
   .mi-var .name { font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: var(--white); font-weight: 700; }
   .mi-var .meta { font-size: 11.5px; color: var(--dk-text); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .mi-var .meta .req { background: rgba(255,107,107,.2); color: var(--coral); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
+  .mi-var .meta .req { background: rgba(255,0,127,.2); color: var(--coral); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
   .mi-var .meta .opt { background: rgba(180,185,192,.15); color: var(--dk-text); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
   .mi-var .meta .def { font-family: "JetBrains Mono", monospace; color: var(--green); }
   .mi-var .desc { font-size: 12.5px; color: var(--dk-text); line-height: 1.4; }
@@ -362,7 +369,7 @@
   .sd-dev { background: var(--card-bg); border: 1.5px solid var(--muted-line); border-radius: 6px; padding: 10px 14px; text-align: left; display: flex; align-items: center; gap: 10px; }
   .sd-dev .dnm { font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--white); font-weight: 700; }
   .sd-dev .dip { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--dk-text); margin-left: auto; }
-  .sd-dev.picked { border-color: var(--green); background: linear-gradient(120deg, rgba(0,209,122,.12), rgba(0,209,122,.04)); }
+  .sd-dev.picked { border-color: var(--green); background: linear-gradient(120deg, rgba(255,0,127,.12), rgba(255,0,127,.04)); }
   .sd-dev.picked .dnm { color: var(--green); }
   .sd-dev.skipped { opacity: .35; }
   .sd-dev .tick { font-size: 16px; }
@@ -383,7 +390,6 @@
 <!-- ============================================================== 1. CONFIG HIERARCHY — DARK -->
 <section class="card" id="config-hierarchy-dark">
   <div>
-    <span class="chip cyan">DIAGRAM · 01</span>
     <h1>Configuration hierarchy <span class="accent">— precedence flows top-to-bottom</span></h1>
     <p class="sub">More specific wins. A device-level override trumps its group; a group setting trumps the global default. You'll practice this in Tasks 03–05.</p>
   </div>
@@ -408,9 +414,9 @@
     <div class="prec">
       <div>MOST<br/>SPECIFIC</div>
       <svg viewBox="0 0 40 320" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00D17A"/><stop offset="1" stop-color="#0A60FF"/></linearGradient></defs>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#02C8FF"/><stop offset="1" stop-color="#0A60FF"/></linearGradient></defs>
         <line x1="20" y1="10" x2="20" y2="310" stroke="url(#g1)" stroke-width="3"/>
-        <polygon points="20,0 14,14 26,14" fill="#00D17A"/>
+        <polygon points="20,0 14,14 26,14" fill="#02C8FF"/>
         <polygon points="20,320 14,306 26,306" fill="#0A60FF"/>
       </svg>
       <div>LEAST<br/>SPECIFIC</div>
@@ -422,7 +428,6 @@
 <!-- ============================================================== 2. VARIABLE SUBSTITUTION -->
 <section class="card" id="variable-substitution-dark">
   <div>
-    <span class="chip orange">DIAGRAM · 02</span>
     <h1>Variable substitution <span class="accent">— one template, per-device output</span></h1>
     <p class="sub">NAC resolves <code style="color:var(--orange)">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
   </div>
@@ -467,7 +472,6 @@ globally by every device
 <!-- ============================================================== 3. TEMPLATES -->
 <section class="card" id="templates-dark">
   <div>
-    <span class="chip green">DIAGRAM · 03</span>
     <h1>Template resolution <span class="accent">— define once, apply to many</span></h1>
     <p class="sub">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
   </div>
@@ -521,7 +525,6 @@ globally by every device
 <!-- ============================================================== 4. MR WORKFLOW -->
 <section class="card" id="mr-workflow-dark">
   <div>
-    <span class="chip blue">DIAGRAM · 04</span>
     <h1>Merge request workflow <span class="accent">— MR gets preview, <code>main</code> gets deploy</span></h1>
     <p class="sub">An MR pipeline runs <em>validate + plan only</em>. Merging to <code>main</code> runs the full pipeline (validate + plan + deploy + test + notify).</p>
   </div>
@@ -562,7 +565,6 @@ globally by every device
 <!-- ============================================================== 5. NAC STACK OVERVIEW (new) -->
 <section class="card" id="nac-stack">
   <div>
-    <span class="chip cyan">DIAGRAM · 05</span>
     <h1>What NAC actually does <span class="accent">— from YAML to YANG</span></h1>
     <p class="sub">Your intent is YAML. Under the hood, NAC translates it through a stack that ends as NETCONF/RESTCONF traffic the device understands.</p>
   </div>
@@ -602,7 +604,6 @@ globally by every device
 <!-- ============================================================== 6. PIPELINE ANATOMY (new) -->
 <section class="card" id="pipeline-anatomy">
   <div>
-    <span class="chip green">DIAGRAM · 06</span>
     <h1>CI/CD pipeline anatomy <span class="accent">— what runs, when, and why</span></h1>
     <p class="sub">Every push or MR triggers a pipeline. The stages that run depend on the branch — guardrails against accidental production deploys.</p>
   </div>
@@ -663,7 +664,6 @@ globally by every device
 <!-- ============================================================== 10. TERRAFORM WORKFLOW (new) -->
 <section class="card" id="terraform-workflow">
   <div>
-    <span class="chip cyan">DIAGRAM · 10</span>
     <h1>The Terraform workflow <span class="accent">— init, plan, apply, state</span></h1>
     <p class="sub">Four steps, two of them read-only, one of them destructive, and one produced file you should never edit by hand.</p>
   </div>
@@ -706,7 +706,6 @@ globally by every device
 <!-- ============================================================== 11. NETCONF DATASTORES (new) -->
 <section class="card" id="netconf-datastores">
   <div>
-    <span class="chip blue">DIAGRAM · 11</span>
     <h1>NETCONF datastores <span class="accent">— why NAC uses it instead of RESTCONF</span></h1>
     <p class="sub">NETCONF separates "the change you're describing" from "the config actually on the device" — so a half-applied change can't leave a device broken.</p>
   </div>
@@ -744,7 +743,6 @@ globally by every device
 <!-- ============================================================== 12. CONFIG MERGE (new) -->
 <section class="card" id="config-merge">
   <div>
-    <span class="chip orange">DIAGRAM · 12</span>
     <h1>How NAC merges your YAML <span class="accent">— three files, one model, one device</span></h1>
     <p class="sub">Every <code style="color:var(--cyan)">*.nac.yaml</code> file in <code style="color:var(--cyan)">data/</code> contributes a slice. NAC merges them in precedence order (Global → Group → Device) and writes <code style="color:var(--cyan)">model.yaml</code> — the fully-resolved per-device config Terraform actually pushes.</p>
   </div>
@@ -819,7 +817,6 @@ globally by every device
 <!-- ============================================================== 13. MERGE SEMANTICS (new) -->
 <section class="card" id="merge-semantics">
   <div>
-    <span class="chip blue">DIAGRAM · 13</span>
     <h1>YAML merge semantics <span class="accent">— three rules, one outcome</span></h1>
     <p class="sub">NAC merges every <code style="color:var(--cyan)">data/*.nac.yaml</code> file using three deterministic rules. Understanding them is the difference between "my config deployed" and "why is there a duplicate device entry?"</p>
   </div>
@@ -871,7 +868,6 @@ globally by every device
 <!-- ============================================================== 14. MODULE INPUTS (new) -->
 <section class="card" id="module-inputs">
   <div>
-    <span class="chip orange">DIAGRAM · 14</span>
     <h1>NAC IOS XE module inputs <span class="accent">— everything <code>module "iosxe"</code> accepts</span></h1>
     <p class="sub">The lab's <code style="color:var(--cyan)">main.tf</code> uses three of these. The module actually exposes nine. Here they are, grouped by what they control.</p>
   </div>
@@ -893,7 +889,7 @@ globally by every device
         <span class="meta"><span class="opt">MAP</span></span>
         <span class="desc">Pass configuration directly as native Terraform data.</span>
       </div>
-      <div style="font-size:11.5px;color:var(--dk-text);margin-top:4px;padding:6px 8px;background:rgba(255,107,107,.08);border-radius:4px;line-height:1.4">At least one source is required.</div>
+      <div style="font-size:11.5px;color:var(--dk-text);margin-top:4px;padding:6px 8px;background:rgba(255,0,127,.08);border-radius:4px;line-height:1.4">At least one source is required.</div>
     </div>
     <div class="mi-group filter">
       <span class="gttl">Filter</span>
@@ -941,7 +937,6 @@ globally by every device
 <!-- ============================================================== 15. SELECTIVE DEPLOYMENT (new) -->
 <section class="card" id="selective-deployment">
   <div>
-    <span class="chip green">DIAGRAM · 15</span>
     <h1>Selective deployment <span class="accent">— <code>managed_devices</code> in action</span></h1>
     <p class="sub">You have four devices registered. You want to push changes to <code style="color:var(--green)">core</code> only — without destroying or re-deploying the others. Set <code style="color:var(--orange)">managed_devices</code>.</p>
   </div>
@@ -979,7 +974,6 @@ globally by every device
 <!-- ============================================================== 7. LAB TOPOLOGY (dCloud) -->
 <section class="card" id="lab-topology">
   <div>
-    <span class="chip cyan">DIAGRAM · 07</span>
     <h1>Lab topology <span class="accent">— three zones, one RDP session</span></h1>
     <p class="sub">Everything you need lives on the Win10 VM. Terraform and GitLab both manage the same CML-hosted IOS XE devices over NETCONF.</p>
   </div>
@@ -1046,7 +1040,6 @@ globally by every device
 <!-- ============================================================== 8. CML TOPOLOGY -->
 <section class="card" id="cml-topology">
   <div>
-    <span class="chip blue">DIAGRAM · 08</span>
     <h1>CML topology <span class="accent">— the four devices you'll manage</span></h1>
     <p class="sub">NAC manages <strong style="color:var(--green)">core</strong>, <strong style="color:var(--green)">border</strong>, <strong style="color:var(--green)">access01</strong>, and <strong style="color:var(--green)">access02</strong>. The ISP, hosts, and management servers are pre-configured and used for verification.</p>
   </div>
@@ -1056,7 +1049,7 @@ globally by every device
          (measured as % of container). Labels are HTML so they inherit fonts. -->
     <svg class="overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
       <defs>
-        <linearGradient id="bgpgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF9000"/><stop offset="1" stop-color="#FF6B6B"/></linearGradient>
+        <linearGradient id="bgpgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF9000"/><stop offset="1" stop-color="#FF007F"/></linearGradient>
       </defs>
       <!-- isp (50%, row 1 ≈ 12%) ↔ border (50%, row 2 ≈ 38%) -->
       <line x1="50" y1="18" x2="50" y2="33" stroke="url(#bgpgrad)" stroke-width="0.35" vector-effect="non-scaling-stroke" style="stroke-width:3"/>
@@ -1067,9 +1060,9 @@ globally by every device
       <!-- core ↔ access02 (83%, row 4 top) -->
       <line x1="54" y1="72" x2="83" y2="84" stroke="#02C8FF" stroke-dasharray="5 3" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
       <!-- border (right edge, row 2) → hosts (row 2 right) -->
-      <line x1="62" y1="40" x2="82" y2="40" stroke="#7B61FF" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
+      <line x1="62" y1="40" x2="82" y2="40" stroke="#FF007F" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
       <!-- mgmt services (18%, row 1) ··· core (50%, row 3) -->
-      <line x1="18" y1="17" x2="47" y2="62" stroke="#009EA6" stroke-dasharray="2 3" vector-effect="non-scaling-stroke" style="stroke-width:1.5"/>
+      <line x1="18" y1="17" x2="47" y2="62" stroke="#6B6B6B" stroke-dasharray="2 3" vector-effect="non-scaling-stroke" style="stroke-width:1.5"/>
     </svg>
 
     <div class="cmltop-grid">
@@ -1087,9 +1080,9 @@ globally by every device
       <div class="legend g-legend">
         <div class="li"><span class="sw" style="background:#FF9000"></span>ISP</div>
         <div class="li"><span class="sw" style="background:#0A60FF"></span>Core</div>
-        <div class="li"><span class="sw" style="background:#00D17A"></span>Access</div>
-        <div class="li"><span class="sw" style="background:#7B61FF"></span>Hosts</div>
-        <div class="li"><span class="sw" style="background:#009EA6"></span>Mgmt</div>
+        <div class="li"><span class="sw" style="background:#02C8FF"></span>Access</div>
+        <div class="li"><span class="sw" style="background:#FF007F"></span>Hosts</div>
+        <div class="li"><span class="sw" style="background:#6B6B6B"></span>Mgmt</div>
         <div class="li"><span style="color:#02C8FF">━ L3</span> · <span style="color:#02C8FF">┅ trunk</span></div>
       </div>
 
@@ -1139,7 +1132,6 @@ globally by every device
 <!-- ============================================================== 9. FILE LAYOUT -->
 <section class="card" id="file-layout">
   <div>
-    <span class="chip cyan">DIAGRAM · 09</span>
     <h1>Project file layout <span class="accent">— one file per concern</span></h1>
     <p class="sub">The whole lab lives in <code style="color:var(--cyan)">~/nac-iosxe/</code>. Each file owns one responsibility. NAC merges them into a single data model at load time.</p>
   </div>
@@ -1204,7 +1196,6 @@ globally by every device
 <!-- ============================================================== 1L. CONFIG HIERARCHY — LIGHT -->
 <section class="card light" id="config-hierarchy-light">
   <div>
-    <span class="chip cyan">DIAGRAM · 01</span>
     <h1 style="color:#0b172c">Configuration hierarchy <span style="color:#0A60FF">— precedence flows top-to-bottom</span></h1>
     <p class="sub" style="color:#13344E">More specific wins. A device-level override trumps its group; a group setting trumps the global default. You'll practice this in Tasks 03–05.</p>
   </div>
@@ -1215,7 +1206,7 @@ globally by every device
         <span class="desc" style="color:#13344E">Applies only to one named device.</span>
         <span class="ex" style="color:#0A60FF">config-device-core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
       </div>
-      <div class="tier t2" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#009EA6;color:#0b3239;">
+      <div class="tier t2" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#6B6B6B;color:#0b3239;">
         <span class="label" style="color:#0b3239">DEVICE GROUP</span>
         <span class="desc" style="color:#13344E">Applies to every device listed in the group.</span>
         <span class="ex" style="color:#0A60FF">config-group-access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
@@ -1243,7 +1234,6 @@ globally by every device
 <!-- ============================================================== 2L. VARIABLE SUBSTITUTION — LIGHT -->
 <section class="card light" id="variable-substitution-light">
   <div>
-    <span class="chip orange">DIAGRAM · 02</span>
     <h1 style="color:#0b172c">Variable substitution <span style="color:#0A60FF">— one template, per-device output</span></h1>
     <p class="sub" style="color:#13344E">NAC resolves <code style="color:#FF9000">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
   </div>
@@ -1286,7 +1276,6 @@ globally by every device
 <!-- ============================================================== 3L. TEMPLATES — LIGHT -->
 <section class="card light" id="templates-light">
   <div>
-    <span class="chip green">DIAGRAM · 03</span>
     <h1 style="color:#0b172c">Template resolution <span style="color:#0A60FF">— define once, apply to many</span></h1>
     <p class="sub" style="color:#13344E">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
   </div>
@@ -1307,7 +1296,7 @@ globally by every device
             <span style="color:#0A60FF">name:</span> MGMT</pre>
     </div>
     <div class="arrow" style="color:#13344E"><div class="lbl" style="color:#0A60FF">Referenced<br/>by group</div>→</div>
-    <div class="node group" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#009EA6">
+    <div class="node group" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#6B6B6B">
       <span class="ttl" style="color:#0b3239">2. Group reference</span>
       <pre style="background:rgba(255,255,255,.6);color:#0b3239"><span style="color:#007983">device_groups:</span>
   - <span style="color:#007983">name:</span> ACCESS_SWITCHES
@@ -1336,7 +1325,6 @@ globally by every device
 <!-- ============================================================== 4L. MR WORKFLOW — LIGHT -->
 <section class="card light" id="mr-workflow-light">
   <div>
-    <span class="chip blue">DIAGRAM · 04</span>
     <h1 style="color:#0b172c">Merge request workflow <span style="color:#0A60FF">— MR gets preview, <code>main</code> gets deploy</span></h1>
     <p class="sub" style="color:#13344E">An MR pipeline runs <em>validate + plan only</em>. Merging to <code>main</code> runs the full pipeline (validate + plan + deploy + test + notify).</p>
   </div>
