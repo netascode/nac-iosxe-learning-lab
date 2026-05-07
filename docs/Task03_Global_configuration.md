@@ -164,11 +164,11 @@ You should see the environment variables displayed:
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
-IOSXE_PROTOCOL=restconf
+IOSXE_PROTOCOL=netconf
 cisco@wkst1:~/nac-iosxe$
 ```
 
-These credentials allow Terraform to authenticate with your IOS XE devices using the RESTCONF API.
+These credentials allow Terraform to authenticate with your IOS XE devices over NETCONF.
 
 **Making Environment Variables Persistent:**
 
