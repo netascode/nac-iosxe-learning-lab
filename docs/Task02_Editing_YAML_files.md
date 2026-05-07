@@ -204,7 +204,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 </figure>
 
 !!! note "Protocol selection"
-    This lab uses **NETCONF** as the management protocol. If you want to use RESTCONF instead (for example, on your own devices at home), set `IOSXE_PROTOCOL=restconf` — see the "Alternative: RESTCONF" note at the bottom of [Task 01](Task01_SSH_to_network_devices.md) for the device-side CLI.
+    This lab uses **NETCONF** as the management protocol (`IOSXE_PROTOCOL=netconf`).
 
 !!! warning "Never commit `.env` to a real repository"
     The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them — deleting the file from history isn't enough.
