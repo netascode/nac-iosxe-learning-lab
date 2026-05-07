@@ -99,6 +99,11 @@ Terraform uses a declarative approach where you define the desired state (in you
 
 Of the three commands, only `apply` (and its counterpart `destroy`) change anything on the wire. `plan` is a read-only diff and can be run freely.
 
+!!! info "Why state matters — Terraform vs. stateless tools"
+    Because Terraform maintains a local state file that records exactly what it has configured on each device, it can compute a precise diff between your desired YAML and the actual device state — then push **only the changes**. If nothing changed in your YAML, `terraform plan` reports "No changes" without touching the network at all.
+
+    This is a fundamental advantage over stateless automation tools (such as Ansible), which have no local record of what's on the device. Those tools must connect to the device and gather its current configuration on every run before they can determine whether a change is needed. Terraform's state-based approach means faster runs, less network traffic, and a clear audit trail of what was deployed and when.
+
 ### Step 1: In WSL (Ubuntu) and Navigate to Your Project
 
 In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
