@@ -4,7 +4,7 @@
 
 Before we deploy any Network-as-Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
 
-## What You'll Learn
+## What you'll learn
 
 - How to connect to IOS XE devices using Solar-PuTTY
 - How to verify device information with basic `show` commands
@@ -20,13 +20,10 @@ Before we deploy any Network-as-Code configuration, let's confirm baseline conne
 
 ## Open Solar-PuTTY
 
-Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for managing multiple device connections. The application is pre-installed in the lab Win10 VM and ready to use.
+Solar-PuTTY is an enhanced SSH client with a tabbed interface for managing multiple device connections. It's pre-installed on the Win10 VM.
 
-**To launch Solar-PuTTY:**
-
-1. Look for the **Solar-PuTTY** icon on your lab's Win10 VM
-2. Double-click to open the application
-3. You'll see the Solar-PuTTY interface with a list of devices
+1. Double-click the **Solar-PuTTY** icon on the Win10 VM desktop.
+2. You'll see the Solar-PuTTY interface with the lab devices already listed.
 
 <figure markdown>
   ![Solar-PuTTY Interface](./assets/solarputty.png){ width="95%" }
@@ -34,35 +31,32 @@ Solar-PuTTY is an enhanced SSH client that provides a tabbed interface for manag
 
 ## Connect to the lab devices
 
-The lab environment includes multiple IOS XE switches. All device credentials are **pre-configured** in Solar-PuTTY, so you can connect immediately without entering any login information.
+Credentials are **pre-configured** for all devices — just double-click the device name and you're in.
 
-**Devices in this lab:**
-
-- **access01** - Access switch (198.18.130.11)
-- **access02** - Access switch (198.18.130.12)
-- **border** - Border switch (198.18.130.20)
-- **core** - Core switch (198.18.130.10)
-
-!!! info "Additional Devices"
-    The lab topology also includes **isp**, **host01**, **host02**, **ntp-server**, and **syslog-server** devices. These are pre-configured for connectivity testing and will not be managed via Network-as-Code in this lab. The figure below shows the switches, routers, and hosts and their connections to each other. The NTP and SYSLOG servers (omitted from the diagram) are reachable via the management interface of each lab device.
+| Device     | Role           | Management IP   |
+|------------|----------------|-----------------|
+| **core**     | Core switch    | 198.18.130.10   |
+| **border**   | Border router  | 198.18.130.20   |
+| **access01** | Access switch  | 198.18.130.11   |
+| **access02** | Access switch  | 198.18.130.12   |
 
 <figure markdown>
   ![CML Topology](./assets/cml-topology.png){ width="60%" }
 </figure>
 
-!!! tip "Lab Topologies Reference"
-    At any time during the lab, you can refer to [Topologies](Intro05_topologies.md) (see the top navigation bar of this page) for the topology diagrams, device IP addresses and credentials.
+!!! info "Additional devices in the topology"
+    The lab also includes an **isp** router, **host01** / **host02** end-hosts, and **ntp-server** / **syslog-server** VMs. These are pre-configured for connectivity testing and are not managed via Network-as-Code in this lab. The NTP and Syslog servers are reachable via the management interface of each lab device (they're omitted from the diagram above for clarity).
 
-**To connect to a device:**
+!!! tip "Reference any time"
+    The [Topologies](Intro05_topologies.md) page (top navigation bar) has the full topology diagram, device IPs, and credentials for quick reference.
 
-1. In Solar-PuTTY, **double-click** on a device (e.g. the **core** device)
-2. You'll be automatically logged in with the pre-configured credentials
+**To connect:** double-click the **core** device. Solar-PuTTY logs you in automatically.
 
 <figure markdown>
   ![Solar-PuTTY SSH to core](./assets/solarputty-ssh-core.png){ width="95%" }
 </figure>
 
-## Verify Device Information
+## Verify device information
 
 Once you're on the device, run:
 
@@ -89,8 +83,6 @@ show run
 
 The running configuration is intentionally minimal. The devices are a clean slate for you to configure via Terraform — but you'll see a few essential lines that make that automation possible.
 
-## Configuration Required for Terraform Access
-
 Look for:
 
 ```text { .no-copy }
@@ -114,6 +106,12 @@ restconf
 
 Repeat `show version` and `show run` on **access01**, **access02**, and **border**. All four devices should look the same: minimal config plus the seed automation plumbing above.
 
+## What to observe across all devices
+
+- Every device has a near-empty running configuration — ready for NAC to take over.
+- Every device has the `nac_admin` user provisioned, **NETCONF** enabled for config push, and **RESTCONF** enabled for verification.
+- No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
+
 ## Enabling NETCONF + RESTCONF manually (reference only)
 
 !!! info "You don't need to run these — the lab devices are already configured."
@@ -134,13 +132,6 @@ Repeat `show version` and `show run` on **access01**, **access02**, and **border
     For a pure NETCONF setup, you can omit `ip http secure-server` and `restconf` — but you'll then need to configure `nac-test` to use NETCONF as well. See the [`terraform-provider-iosxe` documentation](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3) for the full protocol selection matrix.
 
 You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830.
-
-
-## What to observe across all devices
-
-- Every device has a near-empty running configuration — ready for NAC to take over.
-- Every device has the `nac_admin` user provisioned, **NETCONF** enabled for config push, and **RESTCONF** enabled for verification.
-- No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
 ## What you've accomplished
 
