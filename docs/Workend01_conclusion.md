@@ -44,12 +44,20 @@ A few small extensions make great follow-ups once you're back at your own enviro
 
 ## Continue your journey
 
-**Resources**
+**Core documentation and code**
 
-- [Network as Code documentation](https://netascode.cisco.com)
-- [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0, publicly available)
-- [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the provider underneath
-- [NetAsCode on GitHub](https://github.com/netascode) — all the modules, tools, and data models
+- [Network as Code documentation](https://netascode.cisco.com) — the authoritative docs site; start with *Guides → Concepts* if you want to go deeper on merge semantics, defaults precedence, and variable scope resolution
+- [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0). File issues via its [GitHub Issues](https://github.com/netascode/terraform-iosxe-nac-iosxe/issues) page.
+- [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the IOS XE Terraform provider. Full resource and data-source reference at [registry.terraform.io/providers/CiscoDevNet/iosxe](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs).
+- [NetAsCode on GitHub](https://github.com/netascode) — the full org: modules, tools, and data models for every supported Cisco platform (IOS XE, SD-WAN, ACI, Catalyst Center, Nexus Dashboard, Meraki, etc.)
+
+**Sibling tools worth knowing about**
+
+This lab uses `nac-validate` (Task 10) and `nac-test` (Task 11). The NAC toolchain ships a few more:
+
+- [**`nac-tool`**](https://netascode.cisco.com/docs/tools/nac-tool/overview/) — **brownfield import.** Point it at a running device and it writes out the equivalent NAC YAML. This is the bridge between "existing network" and "Network as Code adoption" — no need to start from scratch.
+- [**`nac-api`**](https://netascode.cisco.com/docs/tools/nac-api/overview/) — REST API over NAC configs. Useful for custom integrations.
+- [**`nac-collector`**](https://netascode.cisco.com/docs/tools/nac-collector/overview/) — gather deployed configs from the field into a central store.
 
 **Related Cisco Live sessions**
 
