@@ -119,7 +119,7 @@ Apply the configuration:
 terraform apply
 ```
 
-When prompted, type `yes` to confirm the deployment. Terraform will create the IP host entries only on the core device.
+When prompted, type `yes` to confirm the deployment. Terraform will create `Loopback0` on `core` only.
 
 **What to observe in the plan output:**
 
@@ -130,95 +130,57 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the I
   ![Terraform Apply core](./assets/terraform-apply-core.png){ width="80%" }
 </figure>
 
-## Step 3: Verify Device-Specific Configuration
+## Step 3: Verify the device-specific configuration
 
-After successfully running `terraform apply`, verify that the IP host entries were deployed only to the core switch.
+After `terraform apply` finishes, verify that `Loopback0` exists on `core` and **only** on `core`.
 
-**Verify on core Switch (should have the configuration)**
+**Verify on `core` (should have Loopback0)**
 
-1. Open **Solar-PuTTY** from your desktop
-2. Connect to the **core** switch
-3. Run the verification commands below
+1. Open Solar-PuTTY and connect to **core**.
+2. Run the verification commands below.
 
-**Verification via host resolution and ping:**
-
-```
-ping vrf Mgmt-vrf ntp-server
-```
-
-```
-ping vrf Mgmt-vrf syslog-server
-```
-
-
-```text { title="Expected Output" .no-copy }
-core#ping vrf Mgmt-vrf ntp-server
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 198.18.129.11, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
-core#ping vrf Mgmt-vrf syslog-server
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 198.18.129.12, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/201/1002 ms
-core#
-```
-
-
-**Verification via `show hosts`**
-
-```
-show hosts vrf Mgmt-vrf
-```
-
-```text { title="Expected Output" .no-copy }
-core#show hosts vrf Mgmt-vrf
-Name lookup VRF: Mgmt-vrf
-Default domain is not set
-Name servers are 255.255.255.255
-NAME  TTL  CLASS   TYPE      DATA/ADDRESS
------------------------------------------
-11.129.18.198.in-addr.arpa     10      IN      PTR     ntp-server
-12.129.18.198.in-addr.arpa     10      IN      PTR     syslog-server
-ntp-server     10      IN      A       198.18.129.11
-syslog-server  10      IN      A       198.18.129.12
-
-core#
-```
-
-
-<!-- ??? info "Verification via `show run | include ip host`"
-    ```bash
-    show run | include ip host
-    ```
-
-    ???+ quote "Expected output"
-        ```
-        core#show run | include ip host
-        ip host vrf Mgmt-vrf ntp-server 198.18.129.11
-        ip host vrf Mgmt-vrf syslog-server 198.18.129.12
-        core#
-        ``` -->
-
-You should see both IP host entries configured on the **core** switch.
-
-
-**Verify on Other Devices (should NOT have the configuration)**
-
-Connect to the **border** switch and run the same command:
+**Check the loopback interface:**
 
 ```bash
-show run | include ip host
+show ip interface brief | include Loopback
 ```
 
-**Expected output on border:**
+```text { title="Expected output" .no-copy }
+core#show ip interface brief | include Loopback
+Loopback0              198.51.100.10   YES NVRAM  up                    up
+core#
+```
 
-The command should return no output, confirming that the IP host entries were NOT applied to the border switch.
+**Inspect the full interface:**
 
+```bash
+show interfaces Loopback0
+```
+
+```text { title="Expected output (truncated)" .no-copy }
+core#show interfaces Loopback0
+Loopback0 is up, line protocol is up
+  Hardware is Loopback
+  Description: Router-ID loopback
+  Internet address is 198.51.100.10/32
+  MTU 1514 bytes, BW 8000000 Kbit/sec, DLY 5000 usec,
+  ...
+```
+
+You should see `Loopback0` up/up with IP `198.51.100.10/32` and your description.
+
+**Verify on the other devices (should NOT have Loopback0)**
+
+Connect to **border** and run:
+
+```bash
+show ip interface brief | include Loopback
+```
+
+The command should return no output — confirming that `Loopback0` was not configured on `border`. Repeat on `access01` and `access02` if you want to be thorough; same expected result.
 
 !!! note "Key observation"
-    The IP host configuration only appears on the **core** device because it was defined under the device-specific configuration section.
+    `Loopback0` only appears on `core` because you declared it inside that device's per-device file. This is the essence of device-specific configuration: the YAML scope **is** the deployment scope.
 
 
 ## Configuration Hierarchy Comparison
