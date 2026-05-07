@@ -123,5 +123,5 @@ While manual Terraform commands are useful for learning and small-scale changes,
 
 ---
 
-**Next:** [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md)
+**Next:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
 

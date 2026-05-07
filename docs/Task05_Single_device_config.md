@@ -221,4 +221,4 @@ You've now worked with all three levels of the Network-as-Code hierarchy.
 
 ---
 
-**Next:** [Task06 - Variables](Task06_Variables.md)
+**Next:** [Task 06 — Variables](Task06_Variables.md)

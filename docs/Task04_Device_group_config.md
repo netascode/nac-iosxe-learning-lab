@@ -228,5 +228,5 @@ In this task, you have:
 
 ---
 
-**Next:** [Task05 - Single Device Config](Task05_Single_device_config.md)
+**Next:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
 

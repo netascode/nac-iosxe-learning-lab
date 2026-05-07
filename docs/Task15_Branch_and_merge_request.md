@@ -319,4 +319,4 @@ In this task, you have:
 
 ---
 
-**Next:** [Lab Conclusion](Workend01_conclusion.md) - Complete the lab and review what you've learned
+**Next:** [Lab Conclusion](Workend01_conclusion.md)
