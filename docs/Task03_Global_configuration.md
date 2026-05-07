@@ -326,14 +326,32 @@ Type `yes` and press Enter to proceed.
   ![Terraform Apply](./assets/terraform-apply.png){ width="80%" }
 </figure>
 
-!!! tip "Automate Approval"
-    To skip the confirmation prompt and apply changes automatically, you can use the `-auto-approve` flag:
+!!! tip "Automate approval with `-auto-approve`"
+    To skip the confirmation prompt, add the `-auto-approve` flag:
 
     ```bash
     terraform apply -auto-approve
     ```
 
-    This is useful for automation scenarios, such as CI/CD pipelines, where manual intervention is not feasible.
+    Useful in CI/CD pipelines (Tasks 13–15) where the job runs
+    unattended. The plan + apply still happen; only the "Do you
+    want to proceed? yes/no" prompt is skipped.
+
+!!! warning "…but not everywhere"
+    Do **not** run `terraform apply -auto-approve` against production
+    devices from a developer laptop. The interactive "yes/no" prompt
+    is the last line of defence against a `plan` that accidentally
+    proposes destroying a loopback, re-shutting an interface, or
+    deleting every route-map because someone renamed a YAML key.
+
+    In a CI/CD pipeline the equivalent safeguard is different and
+    higher-leverage: protected branches + merge-request review
+    gates (Task 15). `-auto-approve` is safe **inside** a pipeline
+    because the pipeline itself can only run after a reviewed merge
+    to the target branch.
+
+    Rule of thumb: interactive shell → always confirm. Pipeline job
+    behind a reviewed merge → `-auto-approve` is fine.
 
 !!! note "Skipping the Plan Step"
     As shown above, `terraform apply` first generates and displays the plan before asking for confirmation to proceed with the changes.
