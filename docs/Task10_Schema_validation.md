@@ -1,6 +1,10 @@
-You've been creating Network-as-Code (NAC) YAML configuration files and deploying them with Terraform. But how can you ensure your YAML files are correctly structured and contain valid data before deploying them to production devices?
+# Task 10 — Pre-checks with schema validation
 
-Pre-change validation is a critical step in the NAC workflow. It catches errors early (before they reach your network devices), improving operational reliability and giving you confidence that your configurations are both syntactically and semantically correct.
+**⏱ ~15 minutes**
+
+You've been creating NAC YAML files and deploying them with Terraform. How do you ensure your YAML is correctly structured and contains valid data **before** hitting a device?
+
+Pre-change validation catches errors at the YAML layer — before `terraform plan` ever opens a connection to a switch. It's the same principle as compiling code before running it: fail fast, fail cheap, fail with a clear error message.
 
 ## What is Schema Validation?
 
