@@ -2,7 +2,7 @@
 
 **⏱ ~20 minutes**
 
-In this task you'll use IOS XE-as-Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
+In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
 ## Global Configuration
 
@@ -36,7 +36,7 @@ iosxe:
   global:
     configuration:
       banner:
-        login: "Welcome to Network-as-Code Lab"
+        login: "Welcome to Network as Code Lab"
 ```
 
 **Key elements explained:**
@@ -62,7 +62,7 @@ The figure below illustrates how to create the `data/config-global.nac.yaml` fil
 
 But how do you know what configuration options are supported, and what the correct YAML structure is?
 
-The data model documentation is published on the [Network-as-Code website](https://netascode.cisco.com/docs/data_models/).
+The data model documentation is published on the [Network as Code website](https://netascode.cisco.com/docs/data_models/).
 Specifically, the banner configuration is described here: [IOS XE Banner Configuration](https://netascode.cisco.com/docs/data_models/iosxe/device/banner/).
 
 <figure markdown>
@@ -189,7 +189,7 @@ To avoid manually exporting variables every time you open WSL, you can add the e
 echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 ```
 
-This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
+This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOS XE credentials will be automatically loaded from the `.env` file.
 
 
 ### Step 3: Verify NETCONF reachability
@@ -232,7 +232,7 @@ If you see the `<hello>` XML with a capability list, NETCONF is reachable and yo
 
 ### Step 4: Initialize Terraform
 
-Initialize your Terraform project to download the required Network-as-Code module:
+Initialize your Terraform project to download the required Network as Code module:
 
 ```bash
 terraform init
@@ -315,7 +315,7 @@ Type `yes` and press Enter to proceed.
 **What happens during apply:**
 
 - Terraform connects to each device via HTTPS
-- Uses the Network-as-Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and send it over NETCONF
+- Uses the Network as Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and send it over NETCONF
 - Applies the commands to the devices
 - Tracks the applied state in `terraform.tfstate` file
 
@@ -367,7 +367,7 @@ show run | include banner
 
 ```text { title="Expected Output" hl_lines="2" .no-copy }
 core#show run | include banner
-banner login ^CWelcome to Network-as-Code Lab^C
+banner login ^CWelcome to Network as Code Lab^C
 core#
 ```
 
@@ -380,8 +380,8 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 - ✅ The banner appears on the **access01** switch (198.18.130.11)
 - ✅ The banner appears on the **access02** switch (198.18.130.12)
 
-!!! Success "You've just deployed your first Network-as-Code configuration using Terraform!"
-    Notice how you defined the banner once in the global section, and it was automatically applied to all four devices. This is the power of Network-as-Code!
+!!! Success "You've just deployed your first Network as Code configuration using Terraform!"
+    Notice how you defined the banner once in the global section, and it was automatically applied to all four devices. This is the power of Network as Code!
 
 ???+ note "Terraform Command Reference"
     Here's a quick reference of the most common Terraform commands:
@@ -439,7 +439,7 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 Congratulations! You've successfully:
 
 - ✅ Created YAML configuration files
-- ✅ Initialized Terraform with the Network-as-Code module
+- ✅ Initialized Terraform with the Network as Code module
 - ✅ Previewed changes with `terraform plan`
 - ✅ Applied configuration to your network devices with `terraform apply`
 - ✅ Verified the banner on your devices

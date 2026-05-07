@@ -9,7 +9,7 @@
 
 In Tasks 13 and 14, you triggered CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
 
-In Network-as-Code, the `main` branch represents the live production network configuration.
+In Network as Code, the `main` branch represents the live production network configuration.
 In real-world scenarios, many engineers collaborate on the same codebase. To ensure stability, reliability, and accountability, changes must go through a structured review process before being applied to production.
 
 !!! note "Best Practice"

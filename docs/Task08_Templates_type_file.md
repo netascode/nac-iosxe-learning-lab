@@ -4,7 +4,7 @@
 
 In this task you'll use **templates of type `file`** to reference external template files that use Terraform templating syntax (`.tftpl`). File templates are the right tool when you need loops, conditionals, or complex structures that plain YAML can't express cleanly.
 
-For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
+For detailed documentation, see: [IOS XE as Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
 ## File Templates
 
@@ -82,7 +82,7 @@ routing:
 
 This template uses:
 
-- **`routing: bgp:`** - BGP configuration must be nested under `routing` per the NAC IOSXE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
+- **`routing: bgp:`** - BGP configuration must be nested under `routing` per the NAC IOS XE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
 - **`${BGP_AS_NUMBER}`** - Variable for the local AS number
 - **`%{ for NEIGHBOR in BGP_NEIGHBORS }`** - Loop through list of neighbors (twice, in two sections)
 - **`%{ endfor }`** - End of the loops
@@ -153,7 +153,7 @@ iosxe:
 - **`name: border`** - The **border** switch where BGP will be configured
 - **`variables:`** - Variables that will be substituted into the template
 - **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
-- **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the IOSXE-as-Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
+- **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the IOS XE as Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
 
 **Variable Breakdown:**
 

@@ -2,7 +2,7 @@
 
 **⏱ ~10 minutes**
 
-Before we deploy any Network-as-Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
+Before we deploy any Network as Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
 
 ## What you'll learn
 
@@ -53,7 +53,7 @@ Credentials are **pre-configured** for all devices — just double-click the dev
 </figure>
 
 !!! info "Additional devices in the topology"
-    The lab also includes an **isp** router, **host01** / **host02** end-hosts, and **ntp-server** / **syslog-server** VMs. These are pre-configured for connectivity testing and are not managed via Network-as-Code in this lab. The NTP and Syslog servers are reachable via the management interface of each lab device (they're omitted from the diagram above for clarity).
+    The lab also includes an **isp** router, **host01** / **host02** end-hosts, and **ntp-server** / **syslog-server** VMs. These are pre-configured for connectivity testing and are not managed via Network as Code in this lab. The NTP and Syslog servers are reachable via the management interface of each lab device (they're omitted from the diagram above for clarity).
 
 !!! tip "Reference any time"
     The [Topologies](Intro05_topologies.md) page (top navigation bar) has the full topology diagram, device IPs, and credentials for quick reference.
@@ -137,7 +137,7 @@ You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_co
 - ✅ Verified device information with `show version`
 - ✅ Reviewed the minimal running configuration
 - ✅ Identified the configuration lines that enable NAC automation (`username nac_admin …` and `netconf-yang`)
-- ✅ Confirmed all devices are ready for Network-as-Code deployment
+- ✅ Confirmed all devices are ready for Network as Code deployment
 
 In the next task, you'll start creating the YAML configuration files that describe your desired network state.
 

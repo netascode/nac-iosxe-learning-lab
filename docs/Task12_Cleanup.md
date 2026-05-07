@@ -16,7 +16,7 @@ In the previous tasks, you:
 
 - Created configuration files manually in VS Code
 - Ran Terraform commands directly from WSL Ubuntu
-- Deployed configurations to the IOS-XE devices
+- Deployed configurations to the IOS XE devices
 
 Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate all of this. The GitLab repository already contains a complete project setup, so you need to:
 
@@ -25,7 +25,7 @@ Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate a
 
 ## Step 1: Destroy Terraform Resources
 
-First, remove all configurations that Terraform deployed to the IOS-XE devices. Open your WSL Ubuntu terminal.
+First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal.
 
 Navigate to the project folder:
 
@@ -41,7 +41,7 @@ terraform destroy
 
 When prompted, type `yes` to confirm. Terraform will:
 
-- Connect to each IOS-XE device
+- Connect to each IOS XE device
 - Remove all configurations it previously applied (banners, ACLs, VLANs, etc.)
 - Update the state file to reflect the clean state
 
@@ -107,7 +107,7 @@ In the next tasks, you will no longer need VS Code and the WSL Ubuntu terminal. 
 
 ## What You've Accomplished
 
-- ✅ Removed all Terraform-deployed configurations from IOS-XE devices
+- ✅ Removed all Terraform-deployed configurations from IOS XE devices
 - ✅ (Optionally) deleted the manually created project folder
 - ✅ Prepared a clean environment for CI/CD automation
 
@@ -119,7 +119,7 @@ In the next task, you'll work with **GitLab** to:
 - Make changes through the GitLab Web IDE
 - Let the pipeline automatically validate, plan, and deploy configurations
 
-While manual Terraform commands are useful for learning and small-scale changes, in production environments you will typically use automated CI/CD pipelines to implement the Network-as-Code workflow.
+While manual Terraform commands are useful for learning and small-scale changes, in production environments you will typically use automated CI/CD pipelines to implement the Network as Code workflow.
 
 ---
 

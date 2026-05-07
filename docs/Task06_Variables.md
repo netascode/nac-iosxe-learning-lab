@@ -2,9 +2,9 @@
 
 **⏱ ~15 minutes**
 
-In this task you'll use **variables** in your Network-as-Code configurations. Variables let you define a value once (at the global, group, or device level) and reference it everywhere it's needed, so you can keep shared settings in one place while letting each device override only what's unique to it.
+In this task you'll use **variables** in your Network as Code configurations. Variables let you define a value once (at the global, group, or device level) and reference it everywhere it's needed, so you can keep shared settings in one place while letting each device override only what's unique to it.
 
-## Variables in Network-as-Code
+## Variables in Network as Code
 
 Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the NAC module processes your configuration, it substitutes the variable references with their actual values.
 
@@ -48,7 +48,7 @@ iosxe:
         login: |
           ######################################
           #                                    #
-          #   Welcome to Network-as-Code Lab!  #
+          #   Welcome to Network as Code Lab!  #
           #                                    #
           ######################################
           Site:   ${SITE}
@@ -261,7 +261,7 @@ After Terraform completes successfully, verify the configuration was applied cor
             access01#show banner login
             ######################################
             #                                    #
-            #   Welcome to Network-as-Code Lab!  #
+            #   Welcome to Network as Code Lab!  #
             #                                    #
             ######################################
             Device: access01
@@ -315,7 +315,7 @@ In the example above, the `ENABLE_SECRET` environment variable is referenced and
 
 In this task, you have:
 
-- ✅ Learned how variables work in Network-as-Code configurations
+- ✅ Learned how variables work in Network as Code configurations
 - ✅ Updated the global configuration to use a variable placeholder
 - ✅ Defined device-specific variable values
 - ✅ Understood variable substitution and precedence rules
