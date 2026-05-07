@@ -251,6 +251,54 @@ terraform init
   ![Terraform Init](./assets/terraform-init.png){ width="80%" }
 </figure>
 
+??? info "What the `terraform init` output tells you (annotated)"
+    First-time Terraform users can find the init output intimidating because Terraform is chatty — it narrates everything it does. Here's a typical healthy run, annotated:
+
+    ```text
+    Initializing the backend...             ← Reading backend config from main.tf.
+
+    Initializing modules...                 ← Found `module "iosxe"` in main.tf.
+    Downloading git::https://github.com/
+      netascode/terraform-iosxe-nac-iosxe.
+      git for iosxe...                      ← Cloning the NAC module from GitHub.
+    - iosxe in .terraform/modules/iosxe     ← Stored locally under .terraform/.
+
+    Initializing provider plugins...        ← Now downloading the IOS XE provider
+                                              the NAC module declares.
+    - Finding ciscodevnet/iosxe versions
+      matching "~> 0.6"...
+    - Installing ciscodevnet/iosxe v0.6.1...
+    - Installed ciscodevnet/iosxe v0.6.1
+      (signed by a HashiCorp partner)       ← Signature-verified. Good.
+
+    Terraform has created a lock file
+      .terraform.lock.hcl                   ← Next init will pin these versions.
+
+    Terraform has been successfully
+      initialized!                          ← 🎉 You're ready to run `plan`.
+    ```
+
+    Things that look scary but are normal:
+
+      - **"Downloading git::https://..."** — Terraform is pulling the NAC module
+        fresh. Happens every `init` unless the module's already cached.
+      - **"Finding ... versions matching"** — version-constraint resolution.
+        Lines like "Reusing previous version of ciscodevnet/iosxe" on subsequent
+        runs mean the lock file is doing its job.
+      - **"Terraform has created a lock file"** — this is good. `.terraform.lock.hcl`
+        pins provider versions. Commit it alongside `main.tf` in a real project.
+
+    Things that actually mean something's wrong:
+
+      - **"Could not download module"** — internet access broken, or the module
+        URL is wrong, or the referenced ref/tag doesn't exist.
+      - **"Failed to install provider"** — provider registry unreachable or the
+        version constraint can't be satisfied. Re-run `terraform init`; if it
+        keeps failing, check the `~> 0.6` constraint matches a published version.
+      - **"Backend configuration changed"** — not applicable for this lab (we use
+        the default local backend), but in CI/CD projects with remote state
+        you'll see this if someone reconfigured the backend and you need to
+        migrate state.
 
 !!! warning "Internet Connection Required"
     As shown in this lab, the `terraform init` step requires an active internet connection to download the necessary modules from GitHub. In production environments, you may want to set up a private module registry or use a local mirror to avoid dependency on external connectivity.
