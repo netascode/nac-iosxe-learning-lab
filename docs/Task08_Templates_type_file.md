@@ -259,50 +259,59 @@ border#
 !!! note
     It may take a minute or two for the BGP session to establish and for the route to appear in the routing table.
 
-<!-- Challenge removed from the lab flow
+## Advanced challenge — for learners who finish early
 
-## Challenge (Optional): Add default gateway for host01 and host02
+!!! tip "Skip this if you're running short on time"
+    This is an optional extension inside an already-optional task. Come back to it if you've completed the recommended path and still have time left. If not, the same challenge is repeated in the **Conclusion** as something to try at home.
 
-Host devices (`host01` and `host02`) need a default gateway to reach external networks. They are already pre-configured with static IPs and a default gateway:
+**The goal:** extend `border` so that traffic from `host01` / `host02` can actually reach the "internet" via the ISP BGP peering you just configured. Right now the BGP session is up and advertising `8.8.8.0/24`, but `border` has no interface facing the host subnet, so nothing from the hosts can get there.
 
-| Host Device  | IP Address          | Default Gateway  |
-|--------------|---------------------|------------------|
-| **host01**   | 192.168.100.100/24  | 192.168.100.1    |
-| **host02**   | 192.168.100.200/24  | 192.168.100.1    |
+| Host       | IP address          | Default gateway |
+|------------|---------------------|-----------------|
+| `host01`   | 192.168.100.100/24  | 192.168.100.1   |
+| `host02`   | 192.168.100.200/24  | 192.168.100.1   |
 
-Your task is to add the default gateway ip address configuration to `border` on its interface GigabitEthernet3, so that it can route traffic from these hosts to the "internet" via the **isp** connection.
+Your job: add an interface configuration on `border` so that `GigabitEthernet3` (facing the host network) has IP `192.168.100.1/24`. The hosts are already configured with that IP as their default gateway.
 
 <figure markdown>
-  ![Lab Topology](./assets/cml-topology.png){ width="60%" }
+  ![CML topology showing the host subnet](./assets/cml-topology.png){ width="60%" }
 </figure>
 
-!!! info "Verification"
-    You can verify successful connectivity by pinging `8.8.8.8` from both hosts.
+**Primary verification** (easy path — just SSH into `border`):
 
-    To do that, you need to connect to each host via CML console:
+```bash
+show ip interface brief | include GigabitEthernet3
+show ip route 8.8.8.0
+```
 
-    1. Open CML web interface: [https://198.18.130.34/login](https://198.18.130.34/login)
-    2. Login with credentials: `guest` / `CiscoLive`
-    3. Click on **NAC IOSXE-AS-CODE Topology**
-    4. Right-click on **host01** and select **Console**
-    5. Click on **Open Console**
-    6. Login with credentials: `cisco` / `cisco`
-    7. Run the ping command: `ping 8.8.8.8`
-    8. Repeat steps 4-7 for **host02**
+You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` as a BGP-learned route via the ISP neighbor.
 
-With what has been covered so far, you should be able to figure this out on your own! If you get stuck, you can reveal the solution below.
+??? tip "End-to-end verification via CML console (more work, more satisfying)"
+    To prove actual end-to-end reachability, ping `8.8.8.8` from inside one of the hosts:
+
+    1. Open the CML web interface: [https://198.18.130.34/login](https://198.18.130.34/login).
+    2. Log in with `guest` / `CiscoLive`.
+    3. Click on **NAC IOSXE-AS-CODE Topology**.
+    4. Right-click **host01** → **Console** → **Open Console**.
+    5. Log in with `cisco` / `cisco`.
+    6. Run: `ping 8.8.8.8`.
+    7. Repeat for `host02`.
+
+    This takes a minute to set up but is the only way to confirm the full end-to-end path from host → gateway → BGP → ISP loopback.
+
+**Try it yourself first.** You've seen every NAC concept you need to solve this — per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
 
 ??? tip "Solution"
-    Open `data/config-device-border.nac.yaml` in VS Code and add the following under `configuration: interfaces: ethernets`:
+    Open `data/config-device-border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
 
-
-    ```yaml title="data/config-device-border.nac.yaml" hl_lines="27-33"
+    ```yaml title="data/config-device-border.nac.yaml" hl_lines="22-28"
     ---
     iosxe:
       devices:
         - name: border
+          host: 198.18.130.20
           variables:
-            HOSTNAME: border  # Added in Task06
+            HOSTNAME: border
             BGP_AS_NUMBER: 65000
             BGP_NEIGHBORS:
               - IP: 198.18.100.1
@@ -325,16 +334,17 @@ With what has been covered so far, you should be able to figure this out on your
                     address_mask: 255.255.255.252
                 - type: GigabitEthernet
                   id: "3"
-                  description: "core G1/0/3"
+                  description: "host network G1/0/3"
                   shutdown: false
                   ipv4:
                     address: 192.168.100.1
                     address_mask: 255.255.255.0
     ```
--->
+
+    Run `terraform apply`, then verify with the `show` commands above. For bonus points, ping `8.8.8.8` from `host01` via CML console.
 
 
-## What You've Accomplished
+## What you've accomplished
 
 - ✅ Created a `.tftpl` template file with Terraform templating syntax in `tftpl/` folder
 - ✅ Created a separate template definition file (`template-bgp.nac.yaml`)
