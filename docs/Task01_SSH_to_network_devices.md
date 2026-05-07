@@ -10,13 +10,11 @@ Before we deploy any Network-as-Code configuration, let's confirm baseline conne
 - How to verify device information with basic `show` commands
 - What minimal configuration is required to enable NETCONF automation
 
-!!! info "This lab uses NETCONF for config, RESTCONF for verification"
-    NAC IOS XE supports both **NETCONF** and **RESTCONF**. In this lab:
+!!! info "This lab uses NETCONF"
+    NAC IOS XE uses **NETCONF** for both configuration and verification in this lab:
 
-    - **Terraform pushes configuration over NETCONF** — it's transactional (all-or-nothing), uses a candidate datastore, and produces much richer error reporting than RESTCONF.
-    - **`nac-test` (Optional Task 11) queries the device over RESTCONF** — the generated Robot tests read operational state via RESTCONF URLs for post-deployment verification.
-
-    That's why the lab devices have **both** protocols enabled. In production you can run NAC IOS XE over NETCONF only if you prefer; `nac-test` can be configured to use NETCONF as well.
+    - **Terraform pushes configuration over NETCONF** — it's transactional (all-or-nothing), uses a candidate datastore, and produces rich error reporting.
+    - **`nac-test` (Optional Task 11) queries the device over NETCONF** — the generated Robot tests read operational state for post-deployment verification.
 
 ## Open Solar-PuTTY
 
@@ -88,11 +86,7 @@ Look for:
 ```text { .no-copy }
 username nac_admin privilege 15 secret cisco
 ...
-ip http secure-server
-...
 netconf-yang
-...
-restconf
 ```
 
 ### What each line does
@@ -100,36 +94,30 @@ restconf
 | Line | Purpose |
 |------|---------|
 | `username nac_admin privilege 15 secret cisco` | Dedicated admin user that Terraform (and `nac-test`) authenticates as. Separating human and automation accounts is a core security practice. |
-| `ip http secure-server` | Enables the HTTPS server. Required by RESTCONF — `nac-test` uses this channel for post-deployment verification. |
-| `netconf-yang` | Enables the NETCONF-over-SSH server on TCP/830. This is the primary channel Terraform uses to push YANG-modelled configuration. |
-| `restconf` | Enables the RESTCONF API alongside NETCONF. Used by `nac-test` (Task 11) to read operational state for verification. |
+| `netconf-yang` | Enables the NETCONF-over-SSH server on TCP/830. This is the channel Terraform uses to push YANG-modelled configuration and `nac-test` uses to verify operational state. |
 
 Repeat `show version` and `show run` on **access01**, **access02**, and **border**. All four devices should look the same: minimal config plus the seed automation plumbing above.
 
 ## What to observe across all devices
 
 - Every device has a near-empty running configuration — ready for NAC to take over.
-- Every device has the `nac_admin` user provisioned, **NETCONF** enabled for config push, and **RESTCONF** enabled for verification.
+- Every device has the `nac_admin` user provisioned and **NETCONF** enabled for configuration and verification.
 - No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
-## Enabling NETCONF + RESTCONF manually (reference only)
+## Enabling NETCONF manually (reference only)
 
 !!! info "You don't need to run these — the lab devices are already configured."
-    If you want to try NAC IOS XE on your own devices after Cisco Live, these are the minimum commands to enable both protocols:
+    If you want to try NAC IOS XE on your own devices after Cisco Live, these are the minimum commands to enable NETCONF:
 
     ```text
     configure terminal
      username nac_admin privilege 15 secret cisco
-     ip http secure-server
      netconf-yang
-     restconf
     end
     write memory
     ```
 
     After enabling `netconf-yang`, give the subsystem ~60 seconds to initialize before pointing Terraform at the device.
-
-    For a pure NETCONF setup, you can omit `ip http secure-server` and `restconf` — but you'll then need to configure `nac-test` to use NETCONF as well. See the [`terraform-provider-iosxe` documentation](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3) for the full protocol selection matrix.
 
 You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830.
 
@@ -138,7 +126,7 @@ You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_co
 - ✅ Connected to all four IOS XE devices via Solar-PuTTY
 - ✅ Verified device information with `show version`
 - ✅ Reviewed the minimal running configuration
-- ✅ Identified the configuration lines that enable NAC automation (`username nac_admin …`, `netconf-yang`, and `restconf`)
+- ✅ Identified the configuration lines that enable NAC automation (`username nac_admin …` and `netconf-yang`)
 - ✅ Confirmed all devices are ready for Network-as-Code deployment
 
 In the next task, you'll start creating the YAML configuration files that describe your desired network state.

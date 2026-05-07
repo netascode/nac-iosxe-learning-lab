@@ -25,7 +25,7 @@ NAC isn't a single tool — it's a layered stack. You write intent in YAML; the 
   ![NAC stack overview](./assets/nac-stack.png){ width="100%" }
 </figure>
 
-You'll spend all your time in **layer 1** (the YAML). The rest of the stack — the Terraform module, the IOS XE provider, the NETCONF/RESTCONF transport — is maintained by Cisco and the Network-as-Code open-source community.
+You'll spend all your time in **layer 1** (the YAML). The rest of the stack — the Terraform module, the IOS XE provider, the NETCONF transport — is maintained by Cisco and the Network-as-Code open-source community.
 
 ## Lab scope
 

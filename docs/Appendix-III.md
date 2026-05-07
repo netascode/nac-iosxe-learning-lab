@@ -22,7 +22,7 @@ Default Tags    config   iosxe   access_lists
 *** Test Cases ***
 
 Verify Standard Access List AccessLayerACL Device access01
-    ${r}=   GET On Session   IOSXE_access01   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
+    ${r}=   GET On Session   IOSXE_access01   url=/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
@@ -33,7 +33,7 @@ Verify Standard Access List AccessLayerACL Device access01
     Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
 
 Verify Standard Access List AccessLayerACL Device access02
-    ${r}=   GET On Session   IOSXE_access02   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
+    ${r}=   GET On Session   IOSXE_access02   url=/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
@@ -47,7 +47,7 @@ Verify Standard Access List AccessLayerACL Device access02
 ## How `nac-test` wires the pieces together
 
 1. **Jinja2 template** — `tests/templates/config/access_lists.robot` is a Jinja2 template that iterates over every device's `access_lists.standard[]` in the merged model.
-2. **Filters** — `tests/filters/url_encode.py` provides the `url_encode` filter (e.g. to URL-safe ACL names with special characters in the RESTCONF URI).
+2. **Filters** — `tests/filters/url_encode.py` provides the `url_encode` filter (e.g. to encode ACL names with special characters in the NETCONF query).
 3. **Resource file** — `tests/templates/iosxe_common.resource` defines reusable Robot keywords like `Login IOSXE`, shared across all test suites.
 4. **Python library** — `tests/templates/lib/UtilsLib.py` exposes the `Should Be Equal Value Json String` and `Should Be Equal Value Json Bool` keywords used above.
 5. **Pabot** — `nac-test` invokes the rendered Robot suites in parallel via Pabot, so all four devices run concurrently.

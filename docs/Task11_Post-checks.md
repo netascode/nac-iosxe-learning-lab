@@ -162,7 +162,7 @@ Default Tags    config   iosxe   access_lists
 *** Test Cases ***
 
 Verify Standard Access List AccessLayerACL Device access01
-    ${r}=   GET On Session   IOSXE_access01   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
+    ${r}=   GET On Session   IOSXE_access01   url=/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
     Log   Response Status Code: ${r.status_code}
     Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
     ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]

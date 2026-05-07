@@ -204,7 +204,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 </figure>
 
 !!! note "Protocol selection"
-    This lab uses **NETCONF** as the management protocol. If you want to use RESTCONF instead (for example, on your own devices at home), set `IOSXE_PROTOCOL=restconf` — see the "Alternative: RESTCONF" note at the bottom of [Task 01](Task01_SSH_to_network_devices.md) for the device-side CLI.
+    This lab uses **NETCONF** as the management protocol (`IOSXE_PROTOCOL=netconf`).
 
 
 ## Edit Terraform main.tf file
