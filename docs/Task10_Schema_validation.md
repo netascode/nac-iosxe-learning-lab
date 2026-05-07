@@ -236,12 +236,50 @@ By validating before running Terraform, you catch configuration errors immediate
     In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment – without manual intervention.
 
 
-## Extensibility - Semantic Validation
+## Extensibility — semantic validation
 
-The `nac-validate` tool is extensible. It doesn't only allow for syntax validation, but also semantic checks based custom rules. Cisco CX has developed additional validation rules that check for best practices and common mistakes. For example, rules can verify that: key attributes are unique (no duplicate device names), or that IP routing is enabled when routing protocols (BGP, OSPF, EIGRP, ISIS) are configured.
+Schema validation (everything above) is **syntactic**: does the YAML match the shape of the data model? `nac-validate` can also do **semantic** validation — rules that answer "does this configuration make sense in context?".
 
-Customers can also create their own validation rules to enforce specific requirements, such as naming conventions, security policies, or organizational configuration standards.
+Cisco CX ships a rule pack covering common semantic checks:
 
+- Key attributes are unique (no duplicate device names, no overlapping ACL sequence numbers, etc.).
+- IP routing is enabled when a routing protocol (BGP, OSPF, EIGRP, IS-IS) is configured.
+- VLAN IDs referenced from an interface exist in the VLAN database.
+
+You can also write your own. Rules are Python classes that subclass a base and implement a `match` method against the merged data model.
+
+!!! example "A custom rule: flag `permit any` in ACLs"
+    A rule that fails validation if any standard ACL entry permits `any` — a common security anti-pattern:
+
+    ```python title=".nac-validate/rules/no_permit_any.py"
+    from nac_validate.rule import Rule
+
+    class NoPermitAny(Rule):
+        id = "CX101"
+        description = "Standard ACLs must not have 'permit any' entries"
+        severity = "HIGH"
+
+        def match(self, data):
+            errors = []
+            acls = data.get("iosxe", {}).get("configuration", {}) \
+                       .get("access_lists", {}).get("standard", [])
+            for acl in acls:
+                for entry in acl.get("entries", []):
+                    if entry.get("action") == "permit" and entry.get("any"):
+                        errors.append(
+                            f"ACL '{acl['name']}' entry {entry['sequence']} permits any"
+                        )
+            return errors
+    ```
+
+    Run with `nac-validate -r .nac-validate/rules/ data/` and the rule executes against every YAML file.
+
+## Where to find the full schema
+
+The lab's `.schema.yaml` is a curated subset covering just the data-model paths exercised across Tasks 03–09. The full schema — with every supported IOS XE configuration option — is published at [netascode.cisco.com/docs/data_models/iosxe/overview/](https://netascode.cisco.com/docs/data_models/iosxe/overview/).
+
+!!! tip "Need the schema subset used in this lab?"
+    See [Appendix II](Appendix-II.md) for the full `.schema.yaml` you copied in earlier. It's a useful reference if you want to know what keys are valid without running into them via error messages.
 
 ## Reference
 
