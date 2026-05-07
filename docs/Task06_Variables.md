@@ -14,7 +14,7 @@ By the end of this task you will have:
 
 ## Variables in Network as Code
 
-Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the NAC module processes your configuration, it substitutes the variable references with their actual values.
+Variables in Network as Code work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the Network as Code module processes your configuration, it substitutes the variable references with their actual values.
 
 **Benefits of using variables:**
 
@@ -33,7 +33,7 @@ In this example, you'll touch two different pieces of configuration on each devi
 
  - You'll update the login banners on each device to display its own hostname. Instead of creating separate banner configurations for each device, you'll use the same **global banner configuration** with the `HOSTNAME` variable.
 
- - Let NAC substitute the variable automatically in both the system hostname and banner configuration
+ - Let Network as Code substitute the variable automatically in both the system hostname and banner configuration
 
 !!! tip "The power of variables"
     One banner template, multiple device-specific outputs!
@@ -80,7 +80,7 @@ iosxe:
 - `system: hostname:` — sets the IOS XE `hostname` CLI to the resolved value of `${HOSTNAME}`.
 
 !!! note "Variable syntax"
-    Variables use the `${VARIABLE_NAME}` syntax. Names are case-sensitive: `${HOSTNAME}` and `${hostname}` are different variables. The lab uses uppercase by convention — it makes variables visually distinct from the surrounding YAML, and is a common pattern across NAC data models.
+    Variables use the `${VARIABLE_NAME}` syntax. Names are case-sensitive: `${HOSTNAME}` and `${hostname}` are different variables. The lab uses uppercase by convention — it makes variables visually distinct from the surrounding YAML, and is a common pattern across Network as Code data models.
 
 The image below illustrates the updated global configuration in VS Code:
 
@@ -167,7 +167,7 @@ iosxe:
 ```
 
 !!! note "Name and hostname"
-    The `name` attribute under `devices` identifies the device in NAC. The `HOSTNAME` variable value you set is what will be used in the system hostname and banner configuration. They can be the same or different, depending on your design.
+    The `name` attribute under `devices` identifies the device in Network as Code. The `HOSTNAME` variable value you set is what will be used in the system hostname and banner configuration. They can be the same or different, depending on your design.
 
 
 ## How Variable Substitution Works
@@ -296,7 +296,7 @@ Variables are powerful for many scenarios beyond hostnames (device identity). He
 
 ## Environment Variables
 
-Environment variables can also be used in NAC configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
+Environment variables can also be used in Network as Code configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
 
 
 !!! info "Environment Variable Example"

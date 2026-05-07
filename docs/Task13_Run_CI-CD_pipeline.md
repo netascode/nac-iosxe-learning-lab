@@ -17,7 +17,7 @@ By the end of this task you will have:
 
 ## CI/CD for Network as Code
 
-The lab ships with a pre-configured GitLab repository containing your NAC project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
+The lab ships with a pre-configured GitLab repository containing your Network as Code project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
 
 <figure markdown>
   ![CI/CD pipeline anatomy](./assets/pipeline-anatomy.png){ width="100%" }

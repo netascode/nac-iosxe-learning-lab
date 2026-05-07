@@ -8,7 +8,7 @@ In this task you'll use IOS XE as Code **global configuration** to apply setting
 
 By the end of this task you will have:
 
-- Written a **global** NAC configuration file that applies to every registered device
+- Written a **global** Network as Code configuration file that applies to every registered device
 - Run the full Terraform workflow end-to-end: `init` → `plan` → `apply`
 - Verified the deployed banner by SSH-ing to each device
 
@@ -74,7 +74,7 @@ The data model documentation is published on the [Network as Code website](https
 Specifically, the banner configuration is described here: [IOS XE Banner Configuration](https://netascode.cisco.com/docs/data_models/iosxe/device/banner/).
 
 <figure markdown>
-  ![NAC IOS XE Banner Documentation](./assets/netascode-documentation.png){ width="100%" }
+  ![IOS XE as Code Banner Documentation](./assets/netascode-documentation.png){ width="100%" }
 </figure>
 
 You can refer to this documentation at any time for more details on available configuration options, data types and guides. The curated configuration examples provide excellent references to help you create your own configurations.
@@ -275,11 +275,11 @@ terraform init
     Initializing modules...                 ← Found `module "iosxe"` in main.tf.
     Downloading git::https://github.com/
       netascode/terraform-iosxe-nac-iosxe.
-      git for iosxe...                      ← Cloning the NAC module from GitHub.
+      git for iosxe...                      ← Cloning the Network as Code module from GitHub.
     - iosxe in .terraform/modules/iosxe     ← Stored locally under .terraform/.
 
     Initializing provider plugins...        ← Now downloading the IOS XE provider
-                                              the NAC module declares.
+                                              the Network as Code module declares.
     - Finding ciscodevnet/iosxe versions
       matching "~> 0.6"...
     - Installing ciscodevnet/iosxe v0.6.1...
@@ -295,7 +295,7 @@ terraform init
 
     Things that look scary but are normal:
 
-      - **"Downloading git::https://..."** — Terraform is pulling the NAC module
+      - **"Downloading git::https://..."** — Terraform is pulling the Network as Code module
         fresh. Happens every `init` unless the module's already cached.
       - **"Finding ... versions matching"** — version-constraint resolution.
         Lines like "Reusing previous version of ciscodevnet/iosxe" on subsequent
@@ -426,7 +426,7 @@ Type `yes` and press Enter to proceed.
     However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
 
 !!! warning "Want the config to survive a device reboot? Set `save_config = true`"
-    By default, NAC writes to the **running configuration** only. If the device reboots, anything Terraform pushed is lost unless it was explicitly saved to `startup-config`. This is usually fine in the lab (devices don't reboot mid-session), but it's a real production footgun.
+    By default, Network as Code writes to the **running configuration** only. If the device reboots, anything Terraform pushed is lost unless it was explicitly saved to `startup-config`. This is usually fine in the lab (devices don't reboot mid-session), but it's a real production footgun.
 
     The module exposes a flag for this:
 

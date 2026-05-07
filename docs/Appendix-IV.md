@@ -8,7 +8,7 @@ Task 08 (Templates type `file`) has you configure `border` as an eBGP speaker pe
 
 Two reasons it's pre-provisioned rather than having you configure both sides:
 
-- **Time.** Configuring both ends of a BGP session inside a 4-hour lab burns ~15 minutes of wall clock on a pattern that isn't the learning point — the learning point is "NAC can push BGP config to my side", not "I can configure BGP on two devices by hand".
+- **Time.** Configuring both ends of a BGP session inside a 4-hour lab burns ~15 minutes of wall clock on a pattern that isn't the learning point — the learning point is "Network as Code can push BGP config to my side", not "I can configure BGP on two devices by hand".
 - **Simulation scope.** The `isp` router stands in for an external service provider. Real ISPs don't give you a login to their edge routers; you configure your side, they configure theirs, and the session comes up if both sides are consistent. Splitting the work across both sides of the peering preserves that mental model.
 
 With the ISP side already in place, Task 08's job is just "get `border`'s side consistent with it". You'll see the BGP session move from `Idle` → `Active` → `OpenSent` → `Established` over 30–60 seconds once Terraform applies your config.

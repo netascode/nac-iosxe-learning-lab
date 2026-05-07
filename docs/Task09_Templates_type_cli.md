@@ -2,7 +2,7 @@
 
 **⏱ ~10 minutes**
 
-In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the NAC data model — reach for them rarely, but they're genuinely useful when you need them.
+In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the IOS XE as Code data model — reach for them rarely, but they're genuinely useful when you need them.
 
 ## What you'll learn
 
@@ -23,20 +23,20 @@ The CLI template type allows you to include raw IOS XE CLI commands that are app
 |-----------|-----------------------------------|--------------------------------------------------------|
 | *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
 | *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*      |
-| *cli*   | Raw CLI commands                  | IOS XE features not in NAC data model ← *This task*    |
+| *cli*   | Raw CLI commands                  | IOS XE features not in the IOS XE as Code data model ← *This task*    |
 
 
 **When to use 'cli' templates:**
 
-- **Unsupported features**: Configurations not yet in the [NAC data model](https://netascode.cisco.com/docs/data_models/iosxe/overview/)
-- **Temporary workarounds**: Quick fixes before proper NAC support is added
+- **Unsupported features**: Configurations not yet in the [IOS XE as Code data model](https://netascode.cisco.com/docs/data_models/iosxe/overview/)
+- **Temporary workarounds**: Quick fixes before proper Network as Code support is added
 
 !!! warning "Use with Caution"
     Always prefer *model* and *file*  templates when possible. They provide dependency handling, better validation, consistency, and they are easier to maintain.
 
 ## Use Case: Custom Alias for the `show logging` Command
 
-In this example, you'll configure a custom alias command `logs` that maps to the `show logging` command. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the NAC data model.
+In this example, you'll configure a custom alias command `logs` that maps to the `show logging` command. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the IOS XE as Code data model.
 
 ## Step 1: Create the CLI Template
 

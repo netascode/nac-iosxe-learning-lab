@@ -215,7 +215,7 @@ This confirms the standard ACL was successfully deployed to both **access01** an
 
 ## Generated Model File
 
-When Terraform applies your configuration, the NAC module performs a deep merge of all your YAML files — global configuration, device group configuration, and device-specific configuration — into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
+When Terraform applies your configuration, the Network as Code module performs a deep merge of all your YAML files — global configuration, device group configuration, and device-specific configuration — into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
 
 The merge follows the same precedence hierarchy you've been working with: **global → device group → device**, where more specific levels override less specific ones for the same keys. Variables are substituted, templates are rendered, and the output is a flat list of devices, each with its fully resolved configuration.
 

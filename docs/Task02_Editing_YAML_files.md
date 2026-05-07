@@ -2,13 +2,13 @@
 
 **⏱ ~15 minutes**
 
-In this task you'll set up the project directory and use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
+In this task you'll set up the project directory and use VS Code to edit Network as Code IOS XE intent configuration YAML files.
 
 ## What you'll learn
 
 By the end of this task you will have:
 
-- Set up a NAC IOS XE project directory under `~/nac-iosxe/` in WSL
+- Set up an IOS XE as Code project directory under `~/nac-iosxe/` in WSL
 - Edited YAML configuration files using VS Code and the Red Hat YAML extension
 - Registered all four lab devices in their own per-device YAML files
 
@@ -42,7 +42,7 @@ You should see `/home/cisco` displayed.
   ![PWD command](./assets/pwd.png){ width="80%" }
 </figure>
 
-**Create the NAC IOS XE project directory:**
+**Create the IOS XE as Code project directory:**
 
 ```bash
 mkdir nac-iosxe
@@ -99,17 +99,17 @@ touch data/devices/access02.nac.yaml
 One file per device is the pattern we'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
 
 !!! note "Why one file per device, not a single inventory file?"
-    The NAC IOS XE data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time — **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
+    The IOS XE as Code data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time — **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
 
-### How NAC merges YAML: the three rules
+### How Network as Code merges YAML: the three rules
 
-NAC's file-merging behavior is [formally documented](https://netascode.cisco.com/docs/guides/concepts/merging_yaml/). Three rules govern what happens when two YAML files in `data/` touch the same structure:
+Network as Code's file-merging behavior is [formally documented](https://netascode.cisco.com/docs/guides/concepts/merging_yaml/). Three rules govern what happens when two YAML files in `data/` touch the same structure:
 
 <figure markdown>
   ![YAML merge semantics](./assets/merge-semantics.png){ width="100%" }
 </figure>
 
-The "one device per file" pattern you just set up relies on **Rule 3** — two files that each declare a `devices:` list with an entry named `core` merge into a single `core` entry with the fields from both. The invariant: if you typo the `name` in one file, you get **two separate entries** instead of one merged one, and NAC won't warn you. It's the single most common way a learner's config silently misbehaves.
+The "one device per file" pattern you just set up relies on **Rule 3** — two files that each declare a `devices:` list with an entry named `core` merge into a single `core` entry with the fields from both. The invariant: if you typo the `name` in one file, you get **two separate entries** instead of one merged one, and Network as Code won't warn you. It's the single most common way a learner's config silently misbehaves.
 
 <figure markdown>
   ![Creating the project files](./assets/wsl-create-files.png){ width="80%" }
@@ -266,7 +266,7 @@ The figure below illustrates the `main.tf` file in Visual Studio Code:
 
 ## Populate the per-device files
 
-Each per-device file registers one device with NAC — it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
+Each per-device file registers one device with Network as Code — it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
 
 Open `data/devices/core.nac.yaml` in VS Code and paste:
 
@@ -314,13 +314,13 @@ iosxe:
 **What each key means:**
 
 - `---` — YAML document-start marker (optional but conventional).
-- `iosxe:` — root key. Every NAC IOS XE YAML starts here.
-- `devices:` — the top-level list of devices NAC manages.
+- `iosxe:` — root key. Every IOS XE as Code YAML starts here.
+- `devices:` — the top-level list of devices Network as Code manages.
 - `name:` — unique identifier for the device. Other YAML files will match against this name.
-- `host:` — management IP NAC connects to.
+- `host:` — management IP Network as Code connects to.
 
 !!! note "Why one device per file?"
-    NAC merges all YAML files in `data/` into a single data model at load time. Because `devices` is a list, keeping each device in its own file makes it immediately obvious which file owns which device, and avoids the accidental-merge bugs that can happen when several files all append to the same list. You'll extend these files with real configuration starting in [Task 05](Task05_Single_device_config.md).
+    Network as Code merges all YAML files in `data/` into a single data model at load time. Because `devices` is a list, keeping each device in its own file makes it immediately obvious which file owns which device, and avoids the accidental-merge bugs that can happen when several files all append to the same list. You'll extend these files with real configuration starting in [Task 05](Task05_Single_device_config.md).
 
 <figure markdown>
   ![VS Code showing the four per-device files](./assets/vscode-devices-list.png){ width="100%" }

@@ -37,7 +37,7 @@ File templates reference external `.tftpl` files that use **Terraform templating
 |---------|-----------------------------------|--------------------------------------------------------|
 | *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *Task07* |
 | *file*  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
-| *cli*   | Raw CLI commands                  | IOS XE features not in NAC data model ← *Task09*       |
+| *cli*   | Raw CLI commands                  | IOS XE features not in the IOS XE as Code data model ← *Task09*       |
 
 ## Use Case: BGP Configuration on border Switch
 
@@ -90,7 +90,7 @@ routing:
 
 This template uses:
 
-- **`routing: bgp:`** - BGP configuration must be nested under `routing` per the NAC IOS XE [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
+- **`routing: bgp:`** - BGP configuration must be nested under `routing` per the IOS XE as Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/device/bgp/#examples)
 - **`${BGP_AS_NUMBER}`** - Variable for the local AS number
 - **`%{ for NEIGHBOR in BGP_NEIGHBORS }`** - Loop through list of neighbors (twice, in two sections)
 - **`%{ endfor }`** - End of the loops
@@ -307,7 +307,7 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
     This takes a minute to set up but is the only way to confirm the full end-to-end path from host → gateway → BGP → ISP loopback.
 
-**Try it yourself first.** You've seen every NAC concept you need to solve this — per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
+**Try it yourself first.** You've seen every Network as Code concept you need to solve this — per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
 
 ??? tip "Solution"
     Open `data/devices/border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
