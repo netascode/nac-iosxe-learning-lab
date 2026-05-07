@@ -97,28 +97,28 @@ Once you have verified the `show version` and `show run` outputs on the **core**
 
 ## Configuration Required for Terraform Access
 
-Look for these specific configuration lines in the `show run` output:
+Look for:
 
 ```text { .no-copy }
 username nac_admin privilege 15 secret cisco
 ...
 ip http secure-server
 ...
+netconf-yang
+...
 restconf
 ```
 
-**What these commands do:**
+### What each line does
 
-- **`ip http secure-server`** - Enables HTTPS server on the switch, required for RESTCONF API access
-- **`restconf`** - Enables the RESTCONF API, which Terraform uses to configure the device
-- **`username nac_admin privilege 15 secret cisco`** - Creates an administrative user that Terraform will use for authentication. In the `show run` output, the password is displayed as encrypted for security.
+| Line | Purpose |
+|------|---------|
+| `username nac_admin privilege 15 secret cisco` | Dedicated admin user that Terraform (and `nac-test`) authenticates as. Separating human and automation accounts is a core security practice. |
+| `ip http secure-server` | Enables the HTTPS server. Required by RESTCONF — `nac-test` uses this channel for post-deployment verification. |
+| `netconf-yang` | Enables the NETCONF-over-SSH server on TCP/830. This is the primary channel Terraform uses to push YANG-modelled configuration. |
+| `restconf` | Enables the RESTCONF API alongside NETCONF. Used by `nac-test` (Task 11) to read operational state for verification. |
 
-**Important:** This configuration was pre-configured in the lab environment to enable automation. Without these commands, Terraform would not be able to connect to and configure the devices.
-
-!!! note "Dedicated User"
-    It is good practice to have a dedicated administrative user configured for automation tasks, as shown above with the `nac_admin` user. This helps separate human and automated access for better security and auditing.
-
-    With the Network-as-Code framework, this user needs to be configured on all devices that Terraform will manage.
+Repeat `show version` and `show run` on **access01**, **access02**, and **border**. All four devices should look the same: minimal config plus the seed automation plumbing above.
 
 ## Enabling RESTCONF Manually
 
@@ -150,9 +150,9 @@ You will use this command later (in [Task 03](Task03_Global_configuration.md)) t
 
 ## What to observe across all devices
 
-- All devices have minimal configuration
-- All devices have RESTCONF enabled
-- All devices are ready for Network-as-Code automation
+- Every device has a near-empty running configuration — ready for NAC to take over.
+- Every device has the `nac_admin` user provisioned, **NETCONF** enabled for config push, and **RESTCONF** enabled for verification.
+- No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
 ## What You've Accomplished
 
