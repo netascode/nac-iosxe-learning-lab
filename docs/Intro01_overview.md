@@ -2,17 +2,17 @@ This step-by-step guide walks you through the **Network-as-Code for IOS-XE** lab
 
 **Network-as-Code (NAC)** is an approach to network automation that treats network infrastructure configuration as code. Similar to how developers manage software application code, NAC allows network engineers to define network configurations in human-readable YAML files, version control all changes using Git, and automate deployment with Terraform.
 
-**Why This Lab Matters**
+## Why this lab matters
 
-Traditional network management relies on manual CLI commands, scripts, and templates, which can lead to configuration drift, human errors, lack of change tracking, and difficulty testing changes before deployment.
+Traditional network management relies on manual CLI commands, scripts, and brittle templates. The typical failure modes — configuration drift, human error, no change history, and no safe way to preview or test changes — are well understood but rarely solved at scale.
 
-This lab demonstrates how Network-as-Code solves these challenges using:
+This lab shows how Network-as-Code addresses each of them using:
 
-- **Declarative configuration** - Define the desired state, not the steps to get there
-- **Terraform** - Industry-standard Infrastructure-as-Code tool
-- **Schema validation** - Ensure configurations are correct before deployment
-- **Post-deployment testing** - Verify configurations after deployment
-- **GitLab CI/CD pipelines** - Automate validation, deployment, and testing
+- **Declarative configuration** — define the desired state, not the steps to reach it
+- **Terraform** — industry-standard Infrastructure-as-Code engine
+- **Schema validation** — catch misconfigurations before they ever reach a device
+- **Post-deployment testing** — verify what was deployed actually matches what you asked for
+- **GitLab CI/CD pipelines** — automate validation, deployment, and testing end-to-end
 
 !!! note "Network-as-Code"
     Throughout this document, the terms Network-as-Code IOSXE, NAC IOSXE, and IOSXE-as-Code are used interchangeably and refer to the same automation solution.
