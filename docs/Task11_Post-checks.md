@@ -232,30 +232,16 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
     The `log.html` file contains detailed step-by-step execution information, including request and response data for each test case. This is useful for troubleshooting any test failures or understanding the test flow in depth.
 
 
-## Step 7: Try Additional Tests (Optional)
+## What you've accomplished
 
-Now that you understand the process, try expanding your tests:
+- ✅ Copied the pre-built `tests/` directory into your project
+- ✅ Ran `nac-test` to render and execute Robot Framework tests from your intent YAML
+- ✅ Reviewed the auto-generated `access_lists.robot` suite
+- ✅ Interpreted the HTML report and JUnit results
 
-**Add more access-list entries:**
-
-1. Update `data/config-group-access.nac.yaml` with additional access-list entries
-2. Run `terraform apply` to deploy the changes (this also regenerates `model.yaml`)
-3. Run `nac-test` again
-4. Check the updated `access_lists.robot` file – it will include tests for your new entries
-
-## What You've Accomplished
-
-In this task, you have:
-
-- ✅ Learned how `nac-test` automates post-change validation
-- ✅ Created the required file structure for testing (templates and filters)
-- ✅ Executed `nac-test` to generate and execute tests from your configuration
-- ✅ Reviewed the auto-generated Robot test cases
-- ✅ Understood how to interpret test results and reports
-
-!!! tip "CI/CD Integration"
-    In [Task14 - Edit CI/CD](Task14_Edit_CI-CD.md), you'll see how `nac-test` tests are automatically integrated into the GitLab CI/CD workflow. The pipeline runs these tests after every deployment, ensuring continuous validation without manual intervention.
+!!! tip "CI/CD integration"
+    In [Task 14](Task14_Edit_CI-CD.md) you'll wire `nac-test` into the GitLab pipeline so every deployment auto-verifies itself — no manual step.
 
 ---
 
-**Next:** [Task12 - Cleanup](Task12_Cleanup.md)
+**Next:** [Task 12 — Cleanup](Task12_Cleanup.md)
