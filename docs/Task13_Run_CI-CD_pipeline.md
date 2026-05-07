@@ -233,7 +233,7 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network as Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
-The only files that are currently **not** ignored are the four per-device registration files — `config-device-core.nac.yaml`, `config-device-border.nac.yaml`, `config-device-access01.nac.yaml`, `config-device-access02.nac.yaml` — each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
+The only files that are currently **not** ignored are the four per-device registration files — `devices/core.nac.yaml`, `devices/border.nac.yaml`, `devices/access01.nac.yaml`, `devices/access02.nac.yaml` — each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
 
 For this task, you'll rename one more file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
 
@@ -241,12 +241,12 @@ For this task, you'll rename one more file (the global config from Tasks 03 and 
 ### Add Global Configuration
 
 1. In the file explorer (left panel), navigate to the **data** folder
-2. Find the file `config-global.nac.yaml_` (note the underscore at the end)
+2. Find the file `global.nac.yaml_` (note the underscore at the end)
 3. Right-click on the file and select **Rename**
-4. **Rename the file** from `config-global.nac.yaml_` to `config-global.nac.yaml` (remove the underscore)
+4. **Rename the file** from `global.nac.yaml_` to `global.nac.yaml` (remove the underscore)
 5. Click on the file to open it and inspect the banner content:
 
-```yaml title="config-global.nac.yaml" hl_lines="10"
+```yaml title="global.nac.yaml" hl_lines="10"
 ---
 iosxe:
   global:

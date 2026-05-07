@@ -38,7 +38,7 @@ You've reached the end of the **Network as Code for IOS XE** lab — well done.
 
 A few small extensions make great follow-ups once you're back at your own environment:
 
-- **Default gateway for host networks** — extend `config-device-border.nac.yaml` to add a `GigabitEthernet3` interface with IP `192.168.100.1/24` so the host networks can route to the ISP. Validate by pinging `8.8.8.8` from `host01`/`host02` via the CML console. (This is also the "Advanced Challenge" in Task 08 if you finished early during the session.)
+- **Default gateway for host networks** — extend `devices/border.nac.yaml` to add a `GigabitEthernet3` interface with IP `192.168.100.1/24` so the host networks can route to the ISP. Validate by pinging `8.8.8.8` from `host01`/`host02` via the CML console. (This is also the "Advanced Challenge" in Task 08 if you finished early during the session.)
 - **More variables, more precedence** — introduce a `${DNS_DOMAIN}` or `${MGMT_VLAN}` variable at the global level and override it on one device to see precedence in action.
 - **Your own validation rules** — `nac-validate` is extensible. Write a rule that enforces a naming convention or flags a forbidden configuration (for example, any ACL entry with `action: permit` on `any`).
 - **Verify via data sources, not SSH** — the `terraform-provider-iosxe` ships [~120 data sources](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs) that read operational state. Instead of SSHing in and running `show ip bgp summary`, define a `data "iosxe_bgp_neighbor"` resource and assert the state in a Terraform `check` or `output`. Same answer, fully programmatic — useful for letting another part of your IaC codebase condition on device state.

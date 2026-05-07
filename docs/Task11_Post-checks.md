@@ -29,9 +29,9 @@ In [Task 4](Task04_Device_group_config.md) you deployed `AccessLayerACL` to `acc
 !!! note "Lab scope vs production"
     Production NAC deployments ship 100+ Robot test templates covering every configuration type. This task demonstrates the workflow with one (`access_lists.robot`) — once you see the pattern, the rest is more of the same.
 
-The deployed intent (from `data/config-group-access.nac.yaml`):
+The deployed intent (from `data/groups/access.nac.yaml`):
 
-```yaml title="data/config-group-access.nac.yaml"
+```yaml title="data/groups/access.nac.yaml"
 ---
 iosxe:
   device_groups:

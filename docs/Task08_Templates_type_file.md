@@ -103,15 +103,15 @@ This template uses:
 
 ## Step 2: Create the Template Definition File
 
-Create a new file `data/template-bgp.nac.yaml` that defines the template:
+Create a new file `data/templates/bgp.nac.yaml` that defines the template:
 
 ```bash
-touch ~/nac-iosxe/data/template-bgp.nac.yaml
+touch ~/nac-iosxe/data/templates/bgp.nac.yaml
 ```
 
-Then open `data/template-bgp.nac.yaml` in VS Code and add the following content:
+Then open `data/templates/bgp.nac.yaml` in VS Code and add the following content:
 
-```yaml title="data/template-bgp.nac.yaml"
+```yaml title="data/templates/bgp.nac.yaml"
 ---
 iosxe:
   templates:
@@ -124,9 +124,9 @@ This separates the template definition from the device configuration, making it 
 
 ## Step 3: Apply the Template to Border Device
 
-Now open the existing `data/config-device-border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
+Now open the existing `data/devices/border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
-```yaml title="data/config-device-border.nac.yaml" hl_lines="7-26"
+```yaml title="data/devices/border.nac.yaml" hl_lines="7-26"
 ---
 iosxe:
   devices:
@@ -160,7 +160,7 @@ iosxe:
 - **`devices:`** - Device-specific configuration
 - **`name: border`** - The **border** switch where BGP will be configured
 - **`variables:`** - Variables that will be substituted into the template
-- **`templates:`** - References the `bgp_isp_peering` template defined in `template-bgp.nac.yaml`
+- **`templates:`** - References the `bgp_isp_peering` template defined in `templates/bgp.nac.yaml`
 - **`configuration: interfaces`** - Interface configuration for the ISP connection. Refer to the IOS XE as Code [data model](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples)
 
 **Variable Breakdown:**
@@ -310,9 +310,9 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 **Try it yourself first.** You've seen every NAC concept you need to solve this — per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
 
 ??? tip "Solution"
-    Open `data/config-device-border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
+    Open `data/devices/border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
 
-    ```yaml title="data/config-device-border.nac.yaml" hl_lines="22-28"
+    ```yaml title="data/devices/border.nac.yaml" hl_lines="22-28"
     ---
     iosxe:
       devices:
@@ -355,7 +355,7 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 ## What you've accomplished
 
 - ✅ Created a `.tftpl` template file with Terraform templating syntax in `tftpl/` folder
-- ✅ Created a separate template definition file (`template-bgp.nac.yaml`)
+- ✅ Created a separate template definition file (`templates/bgp.nac.yaml`)
 - ✅ Used variable interpolation (`${ }`) for dynamic values
 - ✅ Used loops (`%{ for }`) for multiple BGP neighbors
 - ✅ Applied templates at device level to the **border** switch

@@ -27,7 +27,7 @@ By placing the banner in the `global` section, it will automatically apply to al
 First, create the global configuration file using your **WSL Ubuntu terminal**:
 
 ```bash
-touch ~/nac-iosxe/data/config-global.nac.yaml
+touch ~/nac-iosxe/data/global.nac.yaml
 ```
 
 !!! tip "Alternative: File creation with VS Code"
@@ -36,9 +36,9 @@ touch ~/nac-iosxe/data/config-global.nac.yaml
 
     Throughout this lab guide, you will use the `touch` command in WSL to create files, but feel free to use VS Code if you prefer a graphical interface.
 
-Then open `data/config-global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to every device registered in the per-device files you created in Task 02:
+Then open `data/global.nac.yaml` in VS Code and add the following content. Notice how the banner is defined once in the `global` section and will be applied to every device registered in the per-device files you created in Task 02:
 
-```yaml title="data/config-global.nac.yaml"
+```yaml title="data/global.nac.yaml"
 ---
 iosxe:
   global:
@@ -57,9 +57,9 @@ iosxe:
 - **`login:`** - The login banner text displayed to users before they log in to the device
 
 !!! note "Separation of concerns"
-    The global configuration lives in its own file (`config-global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NAC merges them all automatically when it reads the `data/` directory.
+    The global configuration lives in its own file (`global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NAC merges them all automatically when it reads the `data/` directory.
 
-The figure below illustrates how to create the `data/config-global.nac.yaml` file with Visual Studio Code:
+The figure below illustrates how to create the `data/global.nac.yaml` file with Visual Studio Code:
 
 <figure markdown>
   ![VS Code Global Banner](./assets/vscode-global-banner.png){ width="100%" }
@@ -126,11 +126,11 @@ cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
 ├── data
-│   ├── config-device-access01.nac.yaml
-│   ├── config-device-access02.nac.yaml
-│   ├── config-device-border.nac.yaml
-│   ├── config-device-core.nac.yaml
-│   └── config-global.nac.yaml    # ← File with banner configuration
+│   ├── devices/access01.nac.yaml
+│   ├── devices/access02.nac.yaml
+│   ├── devices/border.nac.yaml
+│   ├── devices/core.nac.yaml
+│   └── global.nac.yaml    # ← File with banner configuration
 └── main.tf
 
 1 directory, 7 files
