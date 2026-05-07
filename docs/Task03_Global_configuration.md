@@ -418,6 +418,23 @@ Type `yes` and press Enter to proceed.
 
     However, when automating with CI/CD pipelines, you can rather save the plan output to a file and supply it to `terraform apply` for non-interactive execution.
 
+!!! warning "Want the config to survive a device reboot? Set `save_config = true`"
+    By default, NAC writes to the **running configuration** only. If the device reboots, anything Terraform pushed is lost unless it was explicitly saved to `startup-config`. This is usually fine in the lab (devices don't reboot mid-session), but it's a real production footgun.
+
+    The module exposes a flag for this:
+
+    ```terraform title="main.tf"
+    module "iosxe" {
+      source      = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
+      # ... other arguments ...
+      save_config = true     # persist to startup-config after every apply
+    }
+    ```
+
+    With `save_config = true`, the module instantiates an `iosxe_commit` resource that executes `write memory` (via RESTCONF/NETCONF) after config apply — so subsequent reboots boot with the configuration intact.
+
+    For this lab you can leave it at the default (`false`) — the lab devices don't reboot. For your own devices at home, turn it on before you walk away from the terminal.
+
 
 ### Step 7: Verify the Global Configuration
 
