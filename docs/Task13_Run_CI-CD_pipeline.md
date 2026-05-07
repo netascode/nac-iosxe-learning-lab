@@ -196,9 +196,12 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 
 ## Step 3: Make a Change
 
+!!! danger "This step deploys real configuration to the lab devices"
+    The moment you commit to `main`, the pipeline's **deploy** stage runs `terraform apply` against the CML devices over NETCONF — exactly like you did by hand in Task 03. The first pipeline run after Task 12 will re-push global + per-device config to all four switches. That's expected here (the whole point of Task 13) but worth naming explicitly: **you are about to trigger a real device change from a web UI**. In production, this is exactly the power commit-to-main protected branches are meant to gate (Task 15 covers that).
+
 The best way to see the CI/CD pipeline in action is to make a configuration change.
-You'll add the global configuration (from [Task 03 - Global Configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
-To edit the configuration files, you'll use GitLab's built-in **Web IDE** – an editor similar to VS Code that runs directly in your browser.
+You'll add the global configuration (from [Task 03 — Global Configuration](Task03_Global_configuration.md) and [Task 06 — Variables](Task06_Variables.md)). This includes the login banner and hostnames.
+To edit the configuration files, you'll use GitLab's built-in **Web IDE** — an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
 
