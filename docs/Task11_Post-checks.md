@@ -131,8 +131,16 @@ nac-test \
 4. **Executes tests** - Pabot runs all test suites in parallel
 5. **Creates reports** - Generates reports in the specified output directory
 
-!!! info "Output Location"
+!!! info "Output location"
     The test results are saved to your Windows Desktop (`C:\Users\admin\Desktop\TestResults`) for easy access. You can open the HTML reports directly in your browser.
+
+!!! warning "At home? The `/mnt/c/Users/admin/...` path is lab-specific"
+    The `--output /mnt/c/Users/admin/Desktop/TestResults` path works because the dCloud Win10 VM's user is literally `admin`, WSL mounts `C:` under `/mnt/c`, and `Desktop` is in a fixed location. If you re-run this command at home, **substitute the path**:
+
+    - **On your own WSL setup** — replace `admin` with your Windows username: `/mnt/c/Users/<YOU>/Desktop/TestResults`. Run `cmd.exe /c echo %USERNAME%` from the WSL prompt if you're not sure.
+    - **On native Linux / macOS** — pick any regular Linux path, e.g. `~/nac-test-results` or `./tests/results` (the pattern Task 14 uses when wiring `nac-test` into the GitLab pipeline).
+
+    The tool itself doesn't care — `--output` just needs a writable directory.
 
 ## Step 5: Review the Generated Robot Test
 
