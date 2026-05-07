@@ -4,6 +4,13 @@
 
 Before moving to CI/CD automation, clean up the manual work you've done so far. This ensures a clean starting point for the GitLab-based workflow.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Run `terraform destroy` to remove all Terraform-managed configuration from the lab devices
+- Understood **why** state separation matters — two Terraform environments fighting over the same devices produces unpredictable results
+- Prepared a clean environment ready for the GitLab-driven workflow starting in Task 13
 
 !!! warning "Important Note"
     Once you run the cleanup, you will no longer be able to complete the optional [Tasks 07-09 (Templates)](Task07_Templates_type_model.md), or [Task 11 (Post-check Tests)](Task11_Post-checks.md). The cleanup removes all previous configuration from your devices to prepare for the CI/CD tasks.
