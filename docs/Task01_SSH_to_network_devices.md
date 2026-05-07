@@ -18,6 +18,16 @@ Before we deploy any Network-as-Code configuration, let's confirm baseline conne
 
     That's why the lab devices have **both** protocols enabled. In production you can run NAC IOS XE over NETCONF only if you prefer; `nac-test` can be configured to use NETCONF as well.
 
+### Why NETCONF's "transactional" property matters
+
+NETCONF separates the change you're describing (candidate datastore) from the config actually driving traffic (running datastore). Terraform writes to `candidate`, asks the device to validate, then issues `commit` — which atomically swaps candidate into running. If the commit fails at any point, `discard-changes` throws the proposed config away and the device keeps running exactly the same config it was running before.
+
+<figure markdown>
+  ![NETCONF datastores](./assets/netconf-datastores.png){ width="100%" }
+</figure>
+
+That's the whole "transactional" story in one picture: a broken `apply` can't leave a device half-configured, because "half-configured" isn't a state NETCONF allows. RESTCONF has no equivalent — it writes directly to `running`, one HTTP call per resource. A mid-batch failure leaves whatever the successful calls produced.
+
 ## Open Solar-PuTTY
 
 Solar-PuTTY is an enhanced SSH client with a tabbed interface for managing multiple device connections. It's pre-installed on the Win10 VM.
