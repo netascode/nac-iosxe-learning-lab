@@ -113,53 +113,49 @@ This creates a dedicated folder to organize your device configuration files, kee
 
 ## Create placeholder files
 
-Now create the empty files that will hold your Network-as-Code configuration.
-
-Create the `.env` file to store IOS XE device username and password credentials:
+Create the skeleton files you'll fill in below.
 
 ```bash
-touch .env
+touch .env                                        # credentials for the IOS XE devices
+touch main.tf                                     # Terraform entry point
+touch data/config-device-core.nac.yaml            # per-device configuration files
+touch data/config-device-border.nac.yaml
+touch data/config-device-access01.nac.yaml
+touch data/config-device-access02.nac.yaml
 ```
 
-The `touch` command creates an empty file.
+One file per device is the pattern we'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
 
-Create the `main.tf` file for Terraform configuration. Terraform uses this file as the entry point to understand which modules to use and how to connect to your devices:
-
-```bash
-touch main.tf
-```
-
-Create the `devices.nac.yaml` file inside the data folder for lab device inventory:
-
-```bash
-touch data/devices.nac.yaml
-```
-
-This YAML file will contain your network device inventory, the list of devices that Network-as-Code will manage.
-
-You can verify the files and directories you created by running `ls -la` in the WSL terminal to see a detailed listing.
+!!! note "Why one file per device, not a single inventory file?"
+    The NAC IOS XE data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time — **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
 
 <figure markdown>
-  ![WSL Create Files](./assets/wsl-create-files.png){ width="80%" }
+  ![Creating the project files](./assets/wsl-create-files.png){ width="80%" }
 </figure>
 
-## Verify Your Project Structure
+## Verify your project structure
 
-Verify your project structure by running `tree -a` in the terminal. The output should look like this:
+```bash
+tree -a
+```
 
-```bash { .no-copy }
+You should see:
+
+```text { .no-copy }
 cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
-├── data/
-│   └── devices.nac.yaml
+├── data
+│   ├── config-device-access01.nac.yaml
+│   ├── config-device-access02.nac.yaml
+│   ├── config-device-border.nac.yaml
+│   └── config-device-core.nac.yaml
 └── main.tf
 
-1 directory, 3 files
-cisco@wkst1:~/nac-iosxe$
+1 directory, 6 files
 ```
 
-You are now ready to start populating your configuration files. All subsequent steps in this guide will assume you are working within the `/home/cisco/nac-iosxe` directory.
+You're now ready to populate the files. Every subsequent step in this guide assumes your current working directory is `/home/cisco/nac-iosxe`.
 
 ## Open Visual Studio Code
 
