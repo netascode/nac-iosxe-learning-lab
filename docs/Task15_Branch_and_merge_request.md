@@ -1,8 +1,11 @@
-!!! warning "Prerequisite"
-    This is an advanced task that requires a basic understanding of **Git** and **GitLab** concepts such as branches and merge requests.
+# Task 15 — Branch and merge-request workflow (Optional)
 
+**⏱ ~20 minutes**
 
-## Why This Task Matters
+!!! info "Prerequisite"
+    Basic familiarity with **Git** (branches, commits) and **GitLab** (merge requests, protected branches). If you're new to these, skim Git's [Basic Branching guide](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) first.
+
+## Why this matters
 
 In Tasks 13 and 14, you triggered CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
 
