@@ -4,55 +4,15 @@
 
 In this task you'll set up the project directory and use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
 
-## What is VS Code?
+## Create the project directory
 
-Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet powerful source code editor developed by Microsoft. It runs on Windows, macOS, and Linux and has become one of the most popular code editors among developers and IT professionals.
+You'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network as Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
 
-<figure markdown>
-  ![VS Code Interface](./assets/vscode-00.png){ width="100%" }
-</figure>
-
-**Key features that make VS Code ideal for Network as Code:**
-
-- **Syntax highlighting** - Colors and formats YAML files for easy readability
-- **IntelliSense** - Provides intelligent code completion and suggestions
-- **Integrated terminal** - Run commands directly within the editor
-- **Extensions** - Add functionality like YAML validators and schema support
-- **Git integration** - Built-in version control for tracking changes
-- **Multi-file editing** - Work with multiple configuration files simultaneously
-- **File explorer** - Easy navigation through project folders and files
-
-### YAML Linting with RedHat Extension
-
-Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
-
-<figure markdown>
-  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
-</figure>
-
-This extension provides:
-
-- **Real-time syntax validation** - Highlights errors as you type
-- **Auto-completion** - Suggests valid YAML structures
-- **Formatting** - Automatically formats your YAML files
-- **Schema validation** - Can validate against predefined schemas
-
-!!! info "The YAML extension is already pre-installed in your lab"
-    You'll see syntax highlighting and error detection automatically as you edit YAML files.
-
-!!! warning "File Extension"
-    The YAML extension recognizes only files ending with `.nac.yaml` as Network as Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
-
-
-## Create Project Directory in WSL
-
-For this lab, you'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network as Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
-
-## What is WSL?
+### What is WSL?
 
 Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly on Windows without a virtual machine. WSL is pre-installed in this lab, and you'll use it to run Terraform commands because most DevOps tools are designed for Linux.
 
-## Open WSL Terminal (Ubuntu)
+### Open WSL Terminal (Ubuntu)
 
 Open Windows Subsystem for Linux (WSL) terminal. You can use the desktop shortcut, the icon on the taskbar, or on the Start menu.
 
@@ -163,7 +123,48 @@ You're now ready to populate the files. Every subsequent step in this guide assu
 
 ## Open Visual Studio Code
 
-To begin working with your project in a development-friendly environment, open your WSL home folder in Visual Studio Code (VS Code).
+Now that the project structure exists, you'll open it in VS Code to edit the files.
+
+### What is VS Code?
+
+Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet powerful source code editor developed by Microsoft. It runs on Windows, macOS, and Linux and has become one of the most popular code editors among developers and IT professionals.
+
+<figure markdown>
+  ![VS Code Interface](./assets/vscode-00.png){ width="100%" }
+</figure>
+
+**Key features that make VS Code ideal for Network as Code:**
+
+- **Syntax highlighting** - Colors and formats YAML files for easy readability
+- **IntelliSense** - Provides intelligent code completion and suggestions
+- **Integrated terminal** - Run commands directly within the editor
+- **Extensions** - Add functionality like YAML validators and schema support
+- **Git integration** - Built-in version control for tracking changes
+- **Multi-file editing** - Work with multiple configuration files simultaneously
+- **File explorer** - Easy navigation through project folders and files
+
+### YAML Linting with RedHat Extension
+
+Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
+
+<figure markdown>
+  ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
+</figure>
+
+This extension provides:
+
+- **Real-time syntax validation** - Highlights errors as you type
+- **Auto-completion** - Suggests valid YAML structures
+- **Formatting** - Automatically formats your YAML files
+- **Schema validation** - Can validate against predefined schemas
+
+!!! info "The YAML extension is already pre-installed in your lab"
+    You'll see syntax highlighting and error detection automatically as you edit YAML files.
+
+!!! warning "File Extension"
+    The YAML extension recognizes only files ending with `.nac.yaml` as Network as Code YAML files. To benefit from the VS Code extension, ensure your configuration files end with `.nac.yaml`.
+
+### Open the project folder
 
 **To open the folder in VS Code:**
 
