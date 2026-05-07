@@ -1,4 +1,8 @@
-In this task, you'll learn how to use IOSXE-as-Code **global configuration** to apply settings across all devices at once. Using a login banner as an example, you'll see how global settings eliminate the need to repeat the same configuration for each device.
+# Task 03 — Global configuration
+
+**⏱ ~20 minutes**
+
+In this task you'll use IOS XE-as-Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
 ## Global Configuration
 
