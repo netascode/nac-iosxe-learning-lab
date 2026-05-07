@@ -32,7 +32,6 @@ In **Chrome**, navigate to GitLab – open the following link in a new tab:
 
 If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sco12345`
 
-<!-- SCREENSHOT: GitLab login page with username/password fields -->
 <figure markdown>
   ![GitLab Login](./assets/gitlab-login.png){ width="50%" }
 </figure>
@@ -47,7 +46,6 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
 
 After logging in, you'll see the GitLab dashboard. Click on the **netascode/nac-iosxe-terraform** project to open it.
 
-<!-- SCREENSHOT: GitLab dashboard showing the netascode/nac-iosxe-terraform project -->
 <figure markdown>
   ![GitLab Dashboard](./assets/gitlab-dashboard.png){ width="100%" }
 </figure>
@@ -161,14 +159,12 @@ success:
 
 To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
 
-<!-- SCREENSHOT: Left sidebar with Build > Pipelines highlighted -->
 <figure markdown>
   ![Pipelines Menu](./assets/gitlab-pipelines-menu.png){ width="100%" }
 </figure>
 
 You'll see a list of past pipeline runs with their status (passed, failed, running).
 
-<!-- SCREENSHOT: Pipeline list showing multiple runs with status -->
 <figure markdown>
   ![Pipeline List](./assets/gitlab-pipeline-list.png){ width="100%" }
 </figure>
@@ -208,14 +204,12 @@ To edit the configuration files, you'll use GitLab's built-in **Web IDE** – an
 1. From the project page, click the **Edit** dropdown button (with a pencil icon)
 2. Select **Web IDE**
 
-<!-- SCREENSHOT: Edit dropdown showing Web IDE option -->
 <figure markdown>
   ![Open Web IDE](./assets/gitlab-open-webide.png){ width="100%" }
 </figure>
 
 The Web IDE opens with a familiar VS Code-like interface:
 
-<!-- SCREENSHOT: GitLab Web IDE interface -->
 <figure markdown>
   ![Web IDE Interface](./assets/gitlab-webide-interface.png){ width="100%" }
 </figure>
@@ -270,7 +264,6 @@ iosxe:
 Optionally, you can also change the banner text to something new, if you'd like.
 
 
-<!-- SCREENSHOT: Editing config-global.nac.yaml in Web IDE -->
 <!-- <figure markdown>
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
 </figure> -->
@@ -290,7 +283,6 @@ Optionally, you can also change the banner text to something new, if you'd like.
 4. Click **Commit and push to 'main'**
 5. If prompted with “You're committing your changes to the default branch. Do you want to continue?”. Select **Continue**.
 
-<!-- SCREENSHOT: Commit dialog in Web IDE -->
 <figure markdown>
   ![Commit Message](./assets/gitlab-webide-commit-message.png){ width="100%" }
 </figure>
@@ -310,7 +302,6 @@ To view the pipeline progress, navigate to **Build** → **Pipelines** in the le
 !!! tip
     You need to click on the pipeline status icon or the pipeline ID.
 
-<!-- SCREENSHOT: Pipeline detail view showing stages -->
 <figure markdown>
   ![Pipeline Stages](./assets/gitlab-pipeline-stages.png){ width="100%" }
 </figure>
@@ -324,7 +315,6 @@ You'll see each stage progressing:
 
 Click on any stage to view its detailed logs.
 
-<!-- SCREENSHOT: Job logs showing terraform plan output -->
 <figure markdown>
   ![Job Logs](./assets/gitlab-job-logs.png){ width="100%" }
 </figure>
@@ -333,7 +323,6 @@ Click on any stage to view its detailed logs.
 
 When all stages complete successfully, the pipeline shows a green **passed** status.
 
-<!-- SCREENSHOT: Completed pipeline with all stages green -->
 <figure markdown>
   ![Pipeline Passed](./assets/gitlab-pipeline-passed.png){ width="100%" }
 </figure>
