@@ -15,7 +15,7 @@ This lab shows how Network-as-Code addresses each of them using:
 - **GitLab CI/CD pipelines** — automate validation, deployment, and testing end-to-end
 
 !!! note "Terminology"
-    *Network-as-Code IOS XE*, *NAC IOS XE*, and *IOS XE-as-Code* are used interchangeably in this guide — all refer to the same automation solution.
+    *IOS XE as Code*, *Network-as-Code for IOS XE*, and *NAC IOS XE* are used interchangeably in this guide — all refer to the same automation solution.
 
 ## What the stack looks like
 

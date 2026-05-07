@@ -2,7 +2,7 @@
 
 **⏱ ~20 minutes**
 
-In this task you'll use IOS XE-as-Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
+In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
 ## Global Configuration
 
@@ -189,7 +189,7 @@ To avoid manually exporting variables every time you open WSL, you can add the e
 echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 ```
 
-This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
+This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOS XE credentials will be automatically loaded from the `.env` file.
 
 
 ### Step 3: Verify NETCONF reachability

@@ -56,7 +56,7 @@ The project page shows your repository files, including:
 - `data/` folder with your YAML configurations – Same as you created in Task 02
 - `tests/` folder with your ROBOT tests – Same as the ACL tests from optional Task 11
 - `main.tf` - Terraform configuration – Same as you created in Task 02
-- `.schema.yaml` - The Network-as-Code for IOS-XE schema – Same as you used in Task 10
+- `.schema.yaml` - The Network-as-Code for IOS XE schema – Same as you used in Task 10
 - `.gitlab-ci.yml` - CI/CD pipeline definition file – This is new!
 
 
@@ -84,9 +84,9 @@ stages:
 
 variables:
   IOSXE_USERNAME:
-    description: "Cisco IOS-XE Username"
+    description: "Cisco IOS XE Username"
   IOSXE_PASSWORD:
-    description: "Cisco IOS-XE Password"
+    description: "Cisco IOS XE Password"
   IOSXE_PROTOCOL:
     description: "Cisco IOS XE connection protocol"
     value: "netconf"

@@ -74,7 +74,7 @@ You should see `/home/cisco` displayed.
   ![PWD command](./assets/pwd.png){ width="80%" }
 </figure>
 
-**Create the NAC IOSXE project directory:**
+**Create the NAC IOS XE project directory:**
 
 ```bash
 mkdir nac-iosxe
@@ -83,7 +83,7 @@ mkdir nac-iosxe
 !!! tip "Copy and Paste"
     You can copy commands directly from this lab guide by clicking on the icon at the top right corner of the command block and paste them into the WSL terminal using **right-click**.
 
-This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code IOSXE project files.
+This creates a dedicated folder named `nac-iosxe` for all your Network-as-Code IOS XE project files.
 
 **Navigate into the new directory:**
 
@@ -105,7 +105,7 @@ You should now see `/home/cisco/nac-iosxe` displayed.
 
 ## Create project structure
 
-Now you'll create a folder structure and placeholder files for your Network-as-Code IOSXE project.
+Now you'll create a folder structure and placeholder files for your Network-as-Code IOS XE project.
 
 **Create a data directory for YAML configuration files:**
 

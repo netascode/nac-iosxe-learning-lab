@@ -17,9 +17,9 @@ variables:
   GIT_SSL_NO_VERIFY: "true"
 
   IOSXE_USERNAME:
-    description: "Cisco IOS-XE Username"
+    description: "Cisco IOS XE Username"
   IOSXE_PASSWORD:
-    description: "Cisco IOS-XE Password"
+    description: "Cisco IOS XE Password"
   IOSXE_PROTOCOL:
     description: "Cisco IOS XE connection protocol"
     value: "netconf"
