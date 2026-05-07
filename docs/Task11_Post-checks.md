@@ -14,6 +14,14 @@ After Terraform applies a change, how do you confirm the configuration actually 
 
 **The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces — so the tests always match the intent.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Installed `nac-test` and copied the pre-built `tests/` scaffolding into your project
+- Rendered a Robot Framework test suite directly from your intent YAML and `model.yaml`
+- Read the generated HTML + JUnit test reports
+
 ## Use case: validating the ACL on access switches
 
 In [Task 4](Task04_Device_group_config.md) you deployed `AccessLayerACL` to `access01` and `access02` via a device group. You'll validate that it landed correctly.
