@@ -1,26 +1,12 @@
-From your workstation, you will work on a Web RDP session to the dCloud lab `Win10` VM with IP address `198.18.133.20` and credentials `admin` / `cisco`.
+# Getting started
 
-Below is the dCloud lab topology diagram:
+You'll access the lab through a Web RDP session to the dCloud **Windows 10 VM** at `198.18.133.20` (user `admin`, password `cisco`). Everything you need — VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome — is already installed on that VM.
 
-<figure markdown>
-  ![Lab Topology](./assets/lab-topology.png){ width="100%" }
-</figure>
+!!! tip "Work from inside the VM, not your laptop"
+    The lab guide is already set as the Chrome start page on the Win10 VM, and it's bookmarked for later. Read the guide from inside the RDP session — copy/paste between your laptop and the Web RDP window is finicky, and you will be pasting YAML into VS Code and commands into the WSL terminal constantly.
 
-This lab consists of:
-
-- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs – network simulation platform)
-- **GitLab** as Git repository and to run CI/CD pipelines, running in an Ubuntu VM
-- Win10 VM with:
-    - **VS Code** for editing Infrastructure as Code YAML files
-    - **Solar-PuTTY** SSH client to access the IOS XE devices
-    - **Windows Subsystem for Linux (WSL)** to run Terraform, and other command-line tools
-    - **Google Chrome** Web Browser to read this lab guide and access GitLab
-
-!!! tip "Recommendation: Use the Lab Guide from within the VM"
-    It is recommended to read this lab guide directly from the **Win10 VM**. The lab guide is already bookmarked in **Chrome** on the VM. **Why?** Copy/paste between the laptop and the Web RDP session is not straightforward. Since you'll need to copy YAML configurations from this guide into VS Code and WSL Ubuntu terminal, working entirely within the VM will be much more practical and save you time.
-
-    Once you RDP into the Windows 10 VM, open **Google Chrome**. The lab guide is set as the start page, and it is also bookmarked for easy access later.
+For the full topology diagram and device inventory, see **[Topologies](Intro05_topologies.md)** (also linked from the top navigation bar throughout the lab).
 
 ---
 
-**Next:** [Task 01 - SSH to Devices](Task01_SSH_to_network_devices.md)
+**Next:** [Task 01 — SSH to Devices](Task01_SSH_to_network_devices.md)
