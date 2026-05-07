@@ -1,5 +1,8 @@
+# Disclaimer
 
-Although the lab design and configuration examples could be used as a reference, for design-related questions please contact your representative at Cisco, or a Cisco partner.
+The configurations, patterns, and examples in this lab are provided for educational purposes. They illustrate **how** Network-as-Code works and are a good starting point for your own experimentation, but they are not a production design.
+
+Before applying any of these patterns to a production network, engage your Cisco account team or a Cisco partner to validate the approach against your specific requirements — including device lifecycle, state storage, secret handling, change-approval workflows, and integration with existing monitoring and ticketing.
 
 ---
 
