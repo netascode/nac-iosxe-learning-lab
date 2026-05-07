@@ -196,8 +196,8 @@ Now that you've completed Tasks 03, 04, and 05, you've experienced all three lev
 In case of conflicting settings, the higher precedence level overrides the lower. For example, you can have a global banner, and configure a different banner for a specific device.
 
 <figure markdown>
-  ![Configuration Hierarchy](./assets/config-hierarchy-light.png#only-light){ width="50%" }
-  ![Configuration Hierarchy](./assets/config-hierarchy-dark.png#only-dark){ width="50%" }
+  ![Configuration Hierarchy](./assets/config-hierarchy-light.png#only-light){ width="100%" }
+  ![Configuration Hierarchy](./assets/config-hierarchy-dark.png#only-dark){ width="100%" }
 </figure>
 
 ## When to Use Each Configuration Level
