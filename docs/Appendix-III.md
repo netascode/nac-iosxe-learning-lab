@@ -1,84 +1,18 @@
-## Test Files for Post-Change Validation
+# Appendix III — `nac-test` reference
 
-This appendix contains the `nac-test` files required for post-change validation in [Task 11 - Post-checks](Task11_Post-checks.md).
+[Task 11](Task11_Post-checks.md) uses `nac-test` to render and execute Robot Framework tests from your intent YAML. The lab WSL image ships the full test scaffolding at `~/tests/`; Task 11's Step 1 copies it into your project with `cp -r ~/tests ~/nac-iosxe/`.
+
+This appendix shows the **rendered** Robot test you'll end up with — the file that `nac-test` produces after expanding the Jinja2 template with your merged model data. It's the file you open in `TestResults/config/access_lists.robot` after running `nac-test` in Task 11.
+
+For the full template sources (`access_lists.robot`, `iosxe_common.resource`, `UtilsLib.py`, `url_encode.py`), read them directly from `~/tests/` in the WSL image, or browse them online in the Cisco-maintained [nac-test-pyats-common](https://github.com/netascode/nac-test-pyats-common) repository.
 
 {% raw %}
 
-### `tests/filters/url_encode.py`
+## Rendered `access_lists.robot`
 
-```python
-# Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
-from urllib.parse import quote_plus
+Below is what you get after `nac-test` renders the Jinja2 template against your intent YAML. Notice how the two entries from your `AccessLayerACL` (sequence 10 and 20) become explicit assertions, one per device in the `ACCESS_SWITCHES` group:
 
-
-class Filter:
-    name = "url_encode"
-
-    @classmethod
-    def filter(cls, text):
-        """url encodes a string with characters in order to make them safe for restconf
-
-        Example: converts "/" to "%2F" to make them not break the restconf uri.
-
-        Args:
-            text: The string to url encode. If not a string, returns unchanged.
-
-        Returns:
-            str: The url encoded string.
-        """
-        try:
-            return quote_plus(str(text))
-        except AttributeError:
-            return text
-```
-
-
-### `tests/templates/lib/UtilsLib.py`
-
-
-```python
-# Copyright: (c) 2025, Daniel Schmidt <danischm@cisco.com>
-
-from robot.api.deco import keyword
-import re
-
-__version__ = "0.1.0"
-
-
-class UtilsLib(object):
-    ROBOT_LIBRARY_VERSION = __version__
-    ROBOT_LIBRARY_SCOPE = "GLOBAL"
-
-    @keyword("Normalize String")
-    def normalize_string(self, text):
-        try:
-            if isinstance(text, list):
-                if len(text) == 0:
-                    return ""
-                text = text[0]
-            text = str(text)
-            if re.search(r"(\\n|\\t|\\r|  |\\x0[d,D]|\\x0[a,A]|\\x09)", text):
-                return (
-                    text.replace("\\n", "\n")
-                    .replace("\\r", "\r")
-                    .replace("\\t", "\t")
-                    .replace("  ", "${SPACE}${SPACE}")
-                    .replace("\\x0d", "\r")
-                    .replace("\\x0a", "\n")
-                    .replace("\\x09", "\t")
-                )
-            else:
-                return text
-        except AttributeError:
-            return text
-```
-
-
-
-### `tests/templates/config/access_lists.robot`
-
-
-```
+```robot
 *** Settings ***
 Documentation   Verify Access Lists Configuration
 Suite Setup     Login IOSXE
@@ -87,339 +21,46 @@ Default Tags    config   iosxe   access_lists
 
 *** Test Cases ***
 
-{% for device in iosxe.devices | default([]) %}
-{% if device.configuration.access_lists.standard is defined %}
-{% for acl in device.configuration.access_lists.standard | default([]) %}
-Verify Standard Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard={{ acl.name | url_encode }}   expected_status=200
+Verify Standard Access List AccessLayerACL Device access01
+    ${r}=   GET On Session   IOSXE_access01   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
     Log   Response Status Code: ${r.status_code}
-    Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
-{% for entry in acl.entries | default([]) %}
-    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='{{ entry.sequence }}')]
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   {{ entry.remark | default(defaults.iosxe.configuration.access_lists.standard.entries.remark) | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..{{ entry.action | default(defaults.iosxe.configuration.access_lists.standard.entries.action)}}.std-ace.ipv4-address-prefix   {{ entry.prefix | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..{{ entry.action | default(defaults.iosxe.configuration.access_lists.standard.entries.action)}}.std-ace.mask   {{ entry.prefix_mask | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..{{ entry.action | default(defaults.iosxe.configuration.access_lists.standard.entries.action)}}.std-ace.any   {{ entry.any | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..{{ entry.action | default(defaults.iosxe.configuration.access_lists.standard.entries.action)}}.std-ace.host   {{ entry.host | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..{{ entry.action | default(defaults.iosxe.configuration.access_lists.standard.entries.action)}}.std-ace.log   {{ entry.log | default() }}
-{% endfor %}
-{% endfor %}
-{% endif %}
+    Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
+    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   10.0.0.0
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
+    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='20')]
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   20.0.0.0
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
 
-{% if device.configuration.access_lists.extended is defined %}
-{% for acl in device.configuration.access_lists.extended | default([]) %}
-Verify Extended Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:extended={{ acl.name | url_encode }}   expected_status=200
+Verify Standard Access List AccessLayerACL Device access02
+    ${r}=   GET On Session   IOSXE_access02   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:standard=AccessLayerACL   expected_status=200
     Log   Response Status Code: ${r.status_code}
-    Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
-{% for entry in acl.entries | default([]) %}
-    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='{{ entry.sequence }}')]
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   {{ entry.remark | default(defaults.iosxe.configuration.access_lists.extended.entries.remark) | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.action   {{ entry.action | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.protocol   {{ entry.protocol | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.object-group-str   {{ entry.service_object_group | default() }}
-{% if entry.tcp_flags is defined and "ack" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.ack   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.ack   {{ entry.ack | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "fin" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fin   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fin   {{ entry.fin | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "psh" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.psh   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.psh   {{ entry.psh | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "rst" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.rst   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.rst   {{ entry.rst | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "syn" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.syn   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.syn   {{ entry.syn | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "urg" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.urg   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.urg   {{ entry.urg | default() }}
-{% endif %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.established   {{ entry.established | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dscp   {{ entry.dscp | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fragments   {{ entry.fragments | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.precedence   {{ entry.precedence | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.tos   {{ entry.tos | default() }}
-{% if entry.icmp_message_type is defined %}
-{% if entry.icmp_message_type is string %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.icmp-named-msg-type   {{ entry.icmp_message_type | default() }}
-{% else %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.icmp-msg-type   {{ entry.icmp_message_type | default() }}
-{% endif %}
-{% endif %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.icmp-msg-code   {{ entry.icmp_message_code | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.log   {{ entry.log | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.log-input   {{ entry.log_input | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.ipv4-address   {{ entry.source.prefix | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.mask   {{ entry.source.prefix_mask | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.any   {{ entry.source.any | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.host-address   {{ entry.source.host | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.object-group   {{ entry.source.object_group | default() }}
-{% if entry.source.port_type | default() == "equal" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.src-eq   {{ entry.source.port | default() }}
-{% endif %}
-{% if entry.source.port_type | default() == "greater_than" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.src-gt   {{ entry.source.port | default() }}
-{% endif %}
-{% if entry.source.port_type | default() == "lesser_than" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.src-lt   {{ entry.source.port | default() }}
-{% endif %}
-{% if entry.source.port_type | default() == "range" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.src-range1   {{ entry.source.port_from | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.src-range2   {{ entry.source.port_to | default() }}
-{% endif %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dest-ipv4-address   {{ entry.destination.prefix | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dest-mask   {{ entry.destination.prefix_mask | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.dst-any   {{ entry.destination.any | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-host-address   {{ entry.destination.host | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-object-group   {{ entry.destination.object_group | default() }}
-{% if entry.destination.port_type | default() == "equal" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq   {{ entry.destination.port | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 0 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq2   {{ entry.destination.additional_equal_ports[0] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 1 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq3   {{ entry.destination.additional_equal_ports[1] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 2 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq4   {{ entry.destination.additional_equal_ports[2] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 3 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq5   {{ entry.destination.additional_equal_ports[3] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 4 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq6   {{ entry.destination.additional_equal_ports[4] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 5 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq7   {{ entry.destination.additional_equal_ports[5] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 6 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq8   {{ entry.destination.additional_equal_ports[6] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 7 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq9   {{ entry.destination.additional_equal_ports[7] | default() }}
-{% endif %}
-{% if entry.destination.additional_equal_ports is defined and entry.destination.additional_equal_ports|length > 8 %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-eq10   {{ entry.destination.additional_equal_ports[8] | default() }}
-{% endif %}
-{% if entry.destination.port_type | default() == "greater_than" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-gt   {{ entry.destination.port | default() }}
-{% endif %}
-{% if entry.destination.port_type | default() == "lesser_than" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-lt   {{ entry.destination.port | default() }}
-{% endif %}
-{% if entry.destination.port_type | default() == "range" %}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-range1   {{ entry.destination.port_from | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dst-range2   {{ entry.destination.port_to | default() }}
-{% endif %}
-{% endfor %}
-{% endfor %}
-{% endif %}
-
-{% if device.configuration.access_lists.role_based is defined %}
-{% for acl in device.configuration.access_lists.role_based | default([]) %}
-Verify Role-Based Access List {{ acl.name }} Device {{ device.name }}
-    ${r}=   GET On Session   IOSXE_{{ device.name }}   url=/restconf/data/Cisco-IOS-XE-native:native/ip/access-list/Cisco-IOS-XE-acl:role-based={{ acl.name | url_encode }}   expected_status=200
-    Log   Response Status Code: ${r.status_code}
-    Should Be Equal Value Json String   ${r.json()}   $..name   {{ acl.name }}
-{% for entry in acl.entries | default([]) %}
-    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='{{ entry.sequence }}')]
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..remark   {{ entry.remark | default(defaults.iosxe.configuration.access_lists.role_based.entries.remark) | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.action   {{ entry.action | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.protocol   {{ entry.protocol | default() }}
-{% if entry.tcp_flags is defined and "ack" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.ack   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.ack   {{ entry.ack | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "fin" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fin   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fin   {{ entry.fin | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "psh" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.psh   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.psh   {{ entry.psh | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "rst" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.rst   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.rst   {{ entry.rst | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "syn" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.syn   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.syn   {{ entry.syn | default() }}
-{% endif %}
-{% if entry.tcp_flags is defined and "urg" in entry.tcp_flags %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.urg   true
-{% else %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.urg   {{ entry.urg | default() }}
-{% endif %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.established   {{ entry.established | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.fragments   {{ entry.fragments | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.dscp   {{ entry.dscp | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.precedence   {{ entry.precedence | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.tos   {{ entry.tos | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.option   {{ entry.option | default() }}
-    Should Be Equal Value Json String   ${r.json()}   ${entry}..ace-rule.time-range   {{ entry.time_range | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.log   {{ entry.log | default() }}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.log-input   {{ entry.log_input | default() }}
-{% if entry.match_all is defined and "+ack" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+ack   true
-{% endif %}
-{% if entry.match_all is defined and "+fin" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+fin   true
-{% endif %}
-{% if entry.match_all is defined and "+psh" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+psh   true
-{% endif %}
-{% if entry.match_all is defined and "+rst" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+rst   true
-{% endif %}
-{% if entry.match_all is defined and "+syn" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+syn   true
-{% endif %}
-{% if entry.match_all is defined and "+urg" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.+urg   true
-{% endif %}
-{% if entry.match_all is defined and "-ack" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-ack   true
-{% endif %}
-{% if entry.match_all is defined and "-fin" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-fin   true
-{% endif %}
-{% if entry.match_all is defined and "-psh" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-psh   true
-{% endif %}
-{% if entry.match_all is defined and "-rst" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-rst   true
-{% endif %}
-{% if entry.match_all is defined and "-syn" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-syn   true
-{% endif %}
-{% if entry.match_all is defined and "-urg" in entry.match_all %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-all.-urg   true
-{% endif %}
-{% if entry.match_any is defined and "+ack" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+ack   true
-{% endif %}
-{% if entry.match_any is defined and "+fin" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+fin   true
-{% endif %}
-{% if entry.match_any is defined and "+psh" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+psh   true
-{% endif %}
-{% if entry.match_any is defined and "+rst" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+rst   true
-{% endif %}
-{% if entry.match_any is defined and "+syn" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+syn   true
-{% endif %}
-{% if entry.match_any is defined and "+urg" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.+urg   true
-{% endif %}
-{% if entry.match_any is defined and "-ack" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-ack   true
-{% endif %}
-{% if entry.match_any is defined and "-fin" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-fin   true
-{% endif %}
-{% if entry.match_any is defined and "-psh" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-psh   true
-{% endif %}
-{% if entry.match_any is defined and "-rst" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-rst   true
-{% endif %}
-{% if entry.match_any is defined and "-syn" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-syn   true
-{% endif %}
-{% if entry.match_any is defined and "-urg" in entry.match_any %}
-    Should Be Equal Value Json Bool   ${r.json()}   ${entry}..ace-rule.match-any.-urg   true
-{% endif %}
-{% endfor %}
-{% endfor %}
-{% endif %}
-{% endfor %}
+    Should Be Equal Value Json String   ${r.json()}   $..name   AccessLayerACL
+    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='10')]
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   10.0.0.0
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
+    ${entry}=   Set Variable   $..access-list-seq-rule[?(@.sequence=='20')]
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.ipv4-address-prefix   20.0.0.0
+    Should Be Equal Value Json String   ${r.json()}   ${entry}..permit.std-ace.mask   0.0.0.255
 ```
 
+## How `nac-test` wires the pieces together
 
-### `tests/templates/iosxe_common.resource`
+1. **Jinja2 template** — `tests/templates/config/access_lists.robot` is a Jinja2 template that iterates over every device's `access_lists.standard[]` in the merged model.
+2. **Filters** — `tests/filters/url_encode.py` provides the `url_encode` filter (e.g. to URL-safe ACL names with special characters in the RESTCONF URI).
+3. **Resource file** — `tests/templates/iosxe_common.resource` defines reusable Robot keywords like `Login IOSXE`, shared across all test suites.
+4. **Python library** — `tests/templates/lib/UtilsLib.py` exposes the `Should Be Equal Value Json String` and `Should Be Equal Value Json Bool` keywords used above.
+5. **Pabot** — `nac-test` invokes the rendered Robot suites in parallel via Pabot, so all four devices run concurrently.
 
-```
-*** Settings ***
-Library   pabot.PabotLib
-Library   RequestsLibrary
-Library   JSONLibrary
-Library   Collections
-Library   OperatingSystem
-Library   ./lib/UtilsLib.py
+## Extending the pattern
 
-*** Keywords ***
-Login IOSXE
-    ${auth}=   Create List   %{IOSXE_USERNAME}   %{IOSXE_PASSWORD}
-    ${iosxe_insecure}=   Get Environment Variable   IOSXE_INSECURE   True
-    ${verify}=   Set Variable If   '${iosxe_insecure}' == 'True' or '${iosxe_insecure}' == 'true'   False   True
-{% for device in iosxe.devices | default([]) %}
-    Create Session   IOSXE_{{ device.name }}   {{ 'https://' ~ device.host | default(device.url) }}   auth=${auth}   verify=${verify}   headers={"Accept": "application/yang-data+json", "Content-Type": "application/yang-data+json"}
-{% endfor %}
+Most of the Cisco-maintained `nac-test` template set (interfaces, routing protocols, VLANs, etc.) lives in the same style as the snippet above. To add your own test:
 
-Should Be Equal Value Json String
-    [Arguments]   ${json}   ${json_path}   ${value}=${EMPTY}
-    ${length}=   Get Length   ${value}
-    IF   ${length} == 0   RETURN
-    ${r_value}=   Get Value From Json   ${json}   ${json_path}
-    ${r_value}=   Normalize String   text=${r_value}
-    ${value}=   Normalize String   text=${value}
-    Should Be Equal As Strings   ${r_value}   ${value}
+1. Create a new `.robot` Jinja2 template under `tests/templates/config/`.
+2. Walk `iosxe.devices[]` → `device.configuration.<your feature>` to pull fields from the merged model.
+3. Emit one `*** Test Cases ***` block per device/resource.
+4. Re-run `nac-test` — the new suite is rendered and executed automatically.
 
-Should Be Equal Value Json List
-    [Arguments]   ${json}   ${json_path}   ${value}=${EMPTY}   ${normalize_types}=${False}
-    ${r_value}=   Get Value From Json   ${json}   ${json_path}
-    IF   ${r_value} == [] or ${value} == [] or "${value}" == "${EMPTY}"
-        RETURN
-    END
-    IF   ${normalize_types}
-        # Convert both lists to strings for type-insensitive comparison
-        ${r_value_str}=   Evaluate   [str(x) for x in ${r_value}[0]]
-        ${value_str}=   Evaluate   [str(x) for x in ${value}]
-        Lists Should Be Equal   ${r_value_str}   ${value_str}   ignore_order=True
-    ELSE
-        Lists Should Be Equal   ${r_value}[0]   ${value}   ignore_order=True
-    END
-
-Should Be Equal Value Json Bool
-    [Arguments]   ${json}   ${json_path}   ${value}=${EMPTY}
-    ${r_value}=   Get Value From Json   ${json}   ${json_path}
-    IF   "${value}" == "${EMPTY}"
-        RETURN
-    END
-    IF   "${value}" == "True"
-        IF   ${r_value} == []   Fail   Expected True but got nothing
-        IF   ${r_value}[0] == [None]   RETURN
-        IF   ${r_value}[0] == ${True}   RETURN
-        IF   ${r_value}[0] != ""  RETURN
-        Fail   Expected True but got ${r_value}[0]
-    ELSE IF   "${value}" == "False"
-        IF   ${r_value} == []   RETURN
-        IF   ${r_value}[0] == ${False}   RETURN
-        Fail   Expected False but got ${r_value}[0]
-    END
-```
+The Jinja2 context `nac-test` exposes is the full merged data model (the same `model.yaml` you inspected in earlier tasks) plus a `defaults` variable containing the NAC module's default values. Anything you can put in YAML, you can assert against from a template.
 
 {% endraw %}
