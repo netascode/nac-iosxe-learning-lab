@@ -75,9 +75,8 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 | **Allowed to push and merge** | No one       | Prevents direct commits to main             |
 
 
-<!-- SCREENSHOT PLACEHOLDER: gitlab-protected-branch.png -->
 <figure markdown>
-  ![Repository Settings](./assets/gitlab-protected-branch.png){ width="100%" }
+  ![Protected branches settings](./assets/gitlab-protected-branch.png){ width="100%" }
 </figure>
 
 !!! info "Default Branch Protection in GitLab"
