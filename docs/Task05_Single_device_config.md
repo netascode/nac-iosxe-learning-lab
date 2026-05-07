@@ -71,7 +71,7 @@ iosxe:
 - `ipv4.address` / `ipv4.address_mask` — IP (RFC 5737 documentation range) and mask. `/32` is conventional for loopbacks used as router IDs.
 
 !!! note "Why a loopback here?"
-    A loopback is the canonical single-device configuration. Every device in a routed network needs its **own** unique loopback interface for router-ID (OSPF, BGP, MPLS-LDP, etc.), so this example naturally belongs under device-specific config rather than global or group config. It's the pattern you'll use any time a setting is meaningful only in the context of one specific device.
+    A loopback is the canonical single-device configuration. Every device in a routed network needs its **own** unique loopback for router-ID (OSPF, BGP, MPLS-LDP, etc.), so this example naturally belongs under device-specific config rather than global or group config. It's the pattern you'll use any time a setting is meaningful only in the context of one specific device.
 
 !!! note "What about NTP, syslog, DNS entries?"
     The lab also has `ntp-server` (`198.18.129.11`) and `syslog-server` (`198.18.129.12`) reachable from every device. Things like those — an `ntp server` pointer, a `logging host` — should typically be **global** (every device needs to know about them), not device-specific. That's a good exercise to try at home.
@@ -187,11 +187,11 @@ The command should return no output — confirming that `Loopback0` was not conf
 
 Now that you've completed Tasks 03, 04, and 05, you've experienced all three levels of the configuration hierarchy. Here's a summary:
 
-| Level            | Scope             | Example      | File                           |
-|------------------|-------------------|--------------|--------------------------------|
-| **Global**       | All devices       | Login banner | `config-global.nac.yaml`       |
-| **Device Group** | Subset of devices | Standard ACL | `config-group-access.nac.yaml` |
-| **Device**       | Single device     | IP hosts     | `config-device-core.nac.yaml`  |
+| Level            | Scope             | Example        | File                           |
+|------------------|-------------------|----------------|--------------------------------|
+| **Global**       | All devices       | Login banner   | `config-global.nac.yaml`       |
+| **Device Group** | Subset of devices | Standard ACL   | `config-group-access.nac.yaml` |
+| **Device**       | Single device     | `Loopback0`    | `config-device-core.nac.yaml`  |
 
 In case of conflicting settings, the higher precedence level overrides the lower. For example, you can have a global banner, and configure a different banner for a specific device.
 
@@ -207,20 +207,17 @@ In case of conflicting settings, the higher precedence level overrides the lower
 | Organization-wide standards (banners, NTP, logging)           | **Global**        |
 | Role-based settings (ACLs for access layer, routing for core) | **Device Group**  |
 | Location-specific settings (site-specific config, Timezone)   | **Device Group**  |
-| Unique device requirements (management IPs, special features) | **Device**        |
+| Intrinsically unique values (loopbacks, router-IDs, per-device IPs) | **Device**        |
 | Overriding group or global settings for one device            | **Device**        |
 
-## What You've Accomplished
+## What you've accomplished
 
-In this task, you have:
+- ✅ Extended `config-device-core.nac.yaml` with device-specific configuration (`Loopback0`)
+- ✅ Deployed a configuration that applies to exactly one device
+- ✅ Verified the deployment is selective: loopback exists on `core`, absent from `border`/`access01`/`access02`
+- ✅ Internalized the configuration precedence hierarchy: **Global < Device Group < Device**
 
-- ✅ Learned about device-specific configuration
-- ✅ Created a dedicated NAC YAML file for core switch configuration
-- ✅ Configured IP host entries for infrastructure services
-- ✅ Verified selective deployment to a single device only
-- ✅ Understood the configuration precedence hierarchy: Global < Device Group < Device
-
-You've now mastered all three levels of the Network-as-Code configuration hierarchy: Global, Device Group, and Device-specific configurations!
+You've now worked with all three levels of the Network-as-Code hierarchy.
 
 ---
 
