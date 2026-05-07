@@ -4,6 +4,14 @@
 
 In this task you'll use **variables** in your Network as Code configurations. Variables let you define a value once (at the global, group, or device level) and reference it everywhere it's needed, so you can keep shared settings in one place while letting each device override only what's unique to it.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Used `${VARIABLE_NAME}` placeholders inside a global configuration
+- Defined a **global** variable (`${SITE}`) that every device inherits
+- Defined a **per-device** variable (`${HOSTNAME}`) that resolves differently on each device
+
 ## Variables in Network as Code
 
 Variables in NAC work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the NAC module processes your configuration, it substitutes the variable references with their actual values.
