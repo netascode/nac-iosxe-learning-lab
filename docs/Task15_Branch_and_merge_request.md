@@ -216,22 +216,17 @@ In this lab, the approval step is not required to merge. In production environme
 !!! warning "Verify Pipeline Passed"
     Before merging, ensure that the pipeline completed successfully, all stages passed, the config and the plan looks good.
 
-You can now proceed to merge the changes into `main`.
+You can now merge the changes into `main`.
 
-<!-- TODO: UPDATE OPTIONS (ACCORDING TO SCREENSHOT) -->
+1. On the merge request page, review the final diff one more time.
+2. Review the merge options below the **Merge** button:
+    - **Delete source branch** — removes the feature branch after merging. Leave **checked** to keep the repository tidy.
+    - **Squash commits** — combines all commits from the feature branch into one before merging. Useful for noisy feature branches.
+    - **Edit commit message** — lets you rewrite the merge commit message.
+3. Click **Merge**.
 
-1. On the merge request page, review the changes and the merge options
-2. You will see the following options:
-    - **Delete source branch** - Removes the feature branch after merging
-    - **Squash commits** - Combines all commits from the feature branch into one before merging to main
-    - **Edit commit message** - You could also change the commit message for the merge commit here
-3. Leave the **Delete source branch** option checked - to keep the repository clean
-4. Click **Merge**
-
-<!-- TODO: ADD SCREENSHOT -->
-
-!!! success "Congratulations!"
-    Your changes have been merged into the main branch! This triggers the deployment pipeline.
+!!! success "Merged!"
+    Your changes are now on `main`. Because `main` is the deployed branch, this automatically triggers the full deployment pipeline (validate + plan + deploy + test + notify).
 
 
 ## Step 7: Observe the Deployment Pipeline
