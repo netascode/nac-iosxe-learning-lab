@@ -284,6 +284,70 @@
   .flay .tag.env    { background: rgba(255,107,107,.2); color: #ffb3b3; }
   .flay .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; padding: 8px 12px; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 6px; }
   .flay .legend .li { font-size: 12px; color: var(--dk-text); display: flex; gap: 6px; align-items: center; }
+
+  /* ======================================================== MERGE SEMANTICS (new) */
+  .ms { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+  .ms-rule { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; border-top: 3px solid var(--cyan); }
+  .ms-rule.dict  { border-top-color: var(--blue); }
+  .ms-rule.prim  { border-top-color: var(--green); }
+  .ms-rule.dictl { border-top-color: var(--orange); }
+  .ms-rule .tag { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .ms-rule.dict  .tag { color: #6d9bff; }
+  .ms-rule.prim  .tag { color: var(--green); }
+  .ms-rule.dictl .tag { color: var(--orange); }
+  .ms-rule .ttl { font-size: 16px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .ms-rule .rule-desc { font-size: 14px; color: var(--dk-text); line-height: 1.5; }
+  .ms-pair { display: grid; grid-template-columns: 1fr 30px 1fr; gap: 8px; align-items: center; font-size: 12px; }
+  .ms-pair .src { background: var(--code-bg); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  .ms-pair .arrow { text-align: center; color: var(--cyan); font-size: 20px; }
+  .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  .ms-rule.dict  .result { border-left-color: var(--blue); background: linear-gradient(120deg, rgba(10,96,255,.12), rgba(10,96,255,.04)); }
+  .ms-rule.prim  .result { border-left-color: var(--green); background: linear-gradient(120deg, rgba(0,209,122,.12), rgba(0,209,122,.04)); }
+  .ms-rule.dictl .result { border-left-color: var(--orange); background: linear-gradient(120deg, rgba(255,144,0,.12), rgba(255,144,0,.04)); }
+  .ms-rule .warn { margin-top: 4px; font-size: 12.5px; color: var(--coral); background: rgba(255,107,107,.08); border-left: 3px solid var(--coral); border-radius: 4px; padding: 6px 10px; line-height: 1.5; }
+  .ms-rule .warn strong { color: var(--coral); }
+
+  /* ======================================================== MODULE INPUTS (new) */
+  .mi { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; align-items: stretch; }
+  .mi-group { display: flex; flex-direction: column; gap: 8px; }
+  .mi-group .gttl { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); padding-bottom: 6px; border-bottom: 1px solid var(--muted-line); }
+  .mi-var { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; border-left: 3px solid var(--cyan); }
+  .mi-var .name { font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: var(--white); font-weight: 700; }
+  .mi-var .meta { font-size: 11.5px; color: var(--dk-text); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .mi-var .meta .req { background: rgba(255,107,107,.2); color: var(--coral); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
+  .mi-var .meta .opt { background: rgba(180,185,192,.15); color: var(--dk-text); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
+  .mi-var .meta .def { font-family: "JetBrains Mono", monospace; color: var(--green); }
+  .mi-var .desc { font-size: 12.5px; color: var(--dk-text); line-height: 1.4; }
+  .mi-var.input { border-left-color: var(--blue); }
+  .mi-var.filter { border-left-color: var(--orange); }
+  .mi-var.output { border-left-color: var(--purple); }
+  .mi-var.behavior { border-left-color: var(--green); }
+  .mi-group.sources .gttl { color: #6d9bff; }
+  .mi-group.filter .gttl { color: var(--orange); }
+  .mi-group.output .gttl { color: #b3a3ff; }
+  .mi-group.behavior .gttl { color: var(--green); }
+
+  /* ======================================================== SELECTIVE DEPLOYMENT (new) */
+  .sd { flex: 1; display: grid; grid-template-columns: 1fr 60px 1fr 60px 1fr; gap: 0; align-items: stretch; }
+  .sd-col { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+  .sd-col .colhd { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); text-align: center; }
+  .sd-dev { background: var(--card-bg); border: 1.5px solid var(--muted-line); border-radius: 6px; padding: 10px 14px; text-align: left; display: flex; align-items: center; gap: 10px; }
+  .sd-dev .dnm { font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--white); font-weight: 700; }
+  .sd-dev .dip { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--dk-text); margin-left: auto; }
+  .sd-dev.picked { border-color: var(--green); background: linear-gradient(120deg, rgba(0,209,122,.12), rgba(0,209,122,.04)); }
+  .sd-dev.picked .dnm { color: var(--green); }
+  .sd-dev.skipped { opacity: .35; }
+  .sd-dev .tick { font-size: 16px; }
+  .sd-dev.picked .tick { color: var(--green); }
+  .sd-dev.skipped .tick { color: var(--dk-text); }
+  .sd-filter { background: var(--card-bg); border: 1.5px solid rgba(255,144,0,.6); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .sd-filter .flt-ttl { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); }
+  .sd-filter pre { background: var(--code-bg); margin: 0; padding: 10px 12px; border-radius: 5px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--white); line-height: 1.6; }
+  .sd-filter pre .var { color: var(--orange); }
+  .sd-filter pre .list { color: var(--green); }
+  .sd-filter .flt-note { font-size: 12.5px; color: var(--dk-text); line-height: 1.5; }
+  .sd-arrow { display: flex; align-items: center; justify-content: center; color: var(--dk-text); font-size: 28px; }
+
 </style>
 </head>
 <body>
@@ -719,6 +783,166 @@ globally by every device
         <span><span style="color:#6fd6dd">━</span> from group</span>
         <span><span style="color:var(--green)">━</span> from device file</span>
       </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 13. MERGE SEMANTICS (new) -->
+<section class="card" id="merge-semantics">
+  <div>
+    <span class="chip blue">DIAGRAM · 13</span>
+    <h1>YAML merge semantics <span class="accent">— three rules, one outcome</span></h1>
+    <p class="sub">NAC merges every <code style="color:var(--cyan)">data/*.nac.yaml</code> file using three deterministic rules. Understanding them is the difference between "my config deployed" and "why is there a duplicate device entry?"</p>
+  </div>
+  <div class="ms">
+    <div class="ms-rule dict">
+      <span class="tag">RULE 1 · DICT</span>
+      <span class="ttl">Dicts deep-merge by key</span>
+      <span class="rule-desc">Keys from both documents are combined. If the same key appears in both, values are merged recursively.</span>
+      <div class="ms-pair">
+        <div class="src">global:<br/>  system:<br/>    hostname: r1</div>
+        <div class="arrow">+</div>
+        <div class="src">global:<br/>  system:<br/>    domain: lab</div>
+      </div>
+      <div class="ms-pair" style="grid-template-columns:1fr;margin-top:-4px">
+        <div class="result">global:<br/>  system:<br/>    hostname: r1<br/>    domain: lab</div>
+      </div>
+    </div>
+    <div class="ms-rule prim">
+      <span class="tag">RULE 2 · LIST OF PRIMITIVES</span>
+      <span class="ttl">Lists of scalars are appended</span>
+      <span class="rule-desc">Strings, numbers, bools — concatenated. Order preserved. Duplicates NOT deduped.</span>
+      <div class="ms-pair">
+        <div class="src">ntp_servers:<br/>  - 10.0.0.1<br/>  - 10.0.0.2</div>
+        <div class="arrow">+</div>
+        <div class="src">ntp_servers:<br/>  - 10.0.0.3</div>
+      </div>
+      <div class="ms-pair" style="grid-template-columns:1fr;margin-top:-4px">
+        <div class="result">ntp_servers:<br/>  - 10.0.0.1<br/>  - 10.0.0.2<br/>  - 10.0.0.3</div>
+      </div>
+    </div>
+    <div class="ms-rule dictl">
+      <span class="tag">RULE 3 · LIST OF DICTS</span>
+      <span class="ttl">Lists of dicts merge by identity key</span>
+      <span class="rule-desc">If two entries share identical primitive-valued keys (e.g. <code style="color:var(--white);background:var(--code-bg);padding:1px 4px;border-radius:3px;font-size:12px">name</code>), they deep-merge. Otherwise both are kept.</span>
+      <div class="ms-pair">
+        <div class="src">devices:<br/>  - name: core<br/>    host: 10.0.0.10</div>
+        <div class="arrow">+</div>
+        <div class="src">devices:<br/>  - name: core<br/>    variables:<br/>      site: eu</div>
+      </div>
+      <div class="ms-pair" style="grid-template-columns:1fr;margin-top:-4px">
+        <div class="result">devices:<br/>  - name: core<br/>    host: 10.0.0.10<br/>    variables:<br/>      site: eu</div>
+      </div>
+      <div class="warn"><strong>Watch out:</strong> typo the <code style="color:var(--white);background:rgba(0,0,0,.25);padding:1px 4px;border-radius:3px;font-size:12px">name</code> in one file and you get <strong>two</strong> device entries instead of one merged one — and NAC won't warn you.</div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 14. MODULE INPUTS (new) -->
+<section class="card" id="module-inputs">
+  <div>
+    <span class="chip orange">DIAGRAM · 14</span>
+    <h1>NAC IOS XE module inputs <span class="accent">— everything <code>module "iosxe"</code> accepts</span></h1>
+    <p class="sub">The lab's <code style="color:var(--cyan)">main.tf</code> uses three of these. The module actually exposes nine. Here they are, grouped by what they control.</p>
+  </div>
+  <div class="mi">
+    <div class="mi-group sources">
+      <span class="gttl">Sources</span>
+      <div class="mi-var input">
+        <span class="name">yaml_directories</span>
+        <span class="meta"><span class="opt">LIST</span> lab uses this</span>
+        <span class="desc">Recursively scan directories for <code style="color:var(--white);background:var(--code-bg);padding:1px 4px;border-radius:3px;font-size:11.5px">*.nac.yaml</code>.</span>
+      </div>
+      <div class="mi-var input">
+        <span class="name">yaml_files</span>
+        <span class="meta"><span class="opt">LIST</span></span>
+        <span class="desc">Load a specific list of files instead of scanning a dir.</span>
+      </div>
+      <div class="mi-var input">
+        <span class="name">model</span>
+        <span class="meta"><span class="opt">MAP</span></span>
+        <span class="desc">Pass configuration directly as native Terraform data.</span>
+      </div>
+      <div style="font-size:11.5px;color:var(--dk-text);margin-top:4px;padding:6px 8px;background:rgba(255,107,107,.08);border-radius:4px;line-height:1.4">At least one source is required.</div>
+    </div>
+    <div class="mi-group filter">
+      <span class="gttl">Filter</span>
+      <div class="mi-var filter">
+        <span class="name">managed_devices</span>
+        <span class="meta"><span class="opt">LIST</span> <span class="def">[] = all</span></span>
+        <span class="desc">Only push to devices whose <code style="color:var(--white);background:var(--code-bg);padding:1px 4px;border-radius:3px;font-size:11.5px">name</code> is in this list.</span>
+      </div>
+      <div class="mi-var filter">
+        <span class="name">managed_device_groups</span>
+        <span class="meta"><span class="opt">LIST</span> <span class="def">[] = all</span></span>
+        <span class="desc">Only push to members of these groups.</span>
+      </div>
+    </div>
+    <div class="mi-group behavior">
+      <span class="gttl">Behavior</span>
+      <div class="mi-var behavior">
+        <span class="name">device_transaction</span>
+        <span class="meta"><span class="opt">BOOL</span> <span class="def">false</span></span>
+        <span class="desc">Buffer all changes, commit atomically per device.</span>
+      </div>
+      <div class="mi-var behavior">
+        <span class="name">save_config</span>
+        <span class="meta"><span class="opt">BOOL</span> <span class="def">false</span></span>
+        <span class="desc">Persist to <code style="color:var(--white);background:var(--code-bg);padding:1px 4px;border-radius:3px;font-size:11.5px">startup-config</code> so changes survive reboot.</span>
+      </div>
+    </div>
+    <div class="mi-group output">
+      <span class="gttl">Debug output</span>
+      <div class="mi-var output">
+        <span class="name">write_model_file</span>
+        <span class="meta"><span class="opt">STRING</span> lab uses this</span>
+        <span class="desc">Path to write the fully-merged data model (one entry per device).</span>
+      </div>
+      <div class="mi-var output">
+        <span class="name">write_default_values_file</span>
+        <span class="meta"><span class="opt">STRING</span> lab uses this</span>
+        <span class="desc">Path to write the defaults the module applied.</span>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 15. SELECTIVE DEPLOYMENT (new) -->
+<section class="card" id="selective-deployment">
+  <div>
+    <span class="chip green">DIAGRAM · 15</span>
+    <h1>Selective deployment <span class="accent">— <code>managed_devices</code> in action</span></h1>
+    <p class="sub">You have four devices registered. You want to push changes to <code style="color:var(--green)">core</code> only — without destroying or re-deploying the others. Set <code style="color:var(--orange)">managed_devices</code>.</p>
+  </div>
+  <div class="sd">
+    <div class="sd-col">
+      <span class="colhd">Registered in YAML</span>
+      <div class="sd-dev"><span class="dnm">core</span><span class="dip">198.18.130.10</span></div>
+      <div class="sd-dev"><span class="dnm">border</span><span class="dip">198.18.130.20</span></div>
+      <div class="sd-dev"><span class="dnm">access01</span><span class="dip">198.18.130.11</span></div>
+      <div class="sd-dev"><span class="dnm">access02</span><span class="dip">198.18.130.12</span></div>
+    </div>
+    <div class="sd-arrow">→</div>
+    <div class="sd-col" style="justify-content:center">
+      <div class="sd-filter">
+        <span class="flt-ttl">Filter in main.tf</span>
+        <pre>module <span class="var">"iosxe"</span> {
+  source = <span class="var">"..."</span>
+  <span class="var">managed_devices</span> = <span class="list">["core"]</span>
+}</pre>
+        <span class="flt-note">Leave empty (or omit) to push to <strong style="color:var(--white)">every</strong> registered device. Equivalent env var: <code style="color:var(--white);background:var(--code-bg);padding:1px 4px;border-radius:3px;font-size:12px">IOSXE_SELECTED_DEVICES=core</code>.</span>
+      </div>
+    </div>
+    <div class="sd-arrow">→</div>
+    <div class="sd-col">
+      <span class="colhd">Pushed this run</span>
+      <div class="sd-dev picked"><span class="tick">✓</span><span class="dnm">core</span><span class="dip">configured</span></div>
+      <div class="sd-dev skipped"><span class="tick">—</span><span class="dnm">border</span><span class="dip">skipped</span></div>
+      <div class="sd-dev skipped"><span class="tick">—</span><span class="dnm">access01</span><span class="dip">skipped</span></div>
+      <div class="sd-dev skipped"><span class="tick">—</span><span class="dnm">access02</span><span class="dip">skipped</span></div>
     </div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
