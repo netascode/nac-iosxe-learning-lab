@@ -213,29 +213,26 @@ Next, edit a Terraform `main.tf` file with the following content. This file serv
 
 ```text title="main.tf"
 module "iosxe" {
-  source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"
-  yaml_directories = ["data/"]
-  write_model_file = "model.yaml"
+  source                    = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
+  yaml_directories          = ["data/"]
+  write_model_file          = "model.yaml"
   write_default_values_file = "defaults.yaml"
 }
 ```
 
-!!! tip "Formatting Matters"
-    Terraform (`.tf`) files use braces `{}` and proper indentation for structure. While Terraform is more forgiving than YAML, consistent formatting makes your code readable and maintainable. When copying code from this guide, formatting is preserved, but be careful when typing manually.
+!!! tip "Formatting matters"
+    Terraform (`.tf`) files use braces `{}` and indentation for structure. Unlike YAML, Terraform is forgiving about whitespace, but consistent formatting makes your code readable. The snippets in this guide are formatted with `terraform fmt`; if you type manually, run `terraform fmt` after to clean up.
 
 **Understanding the configuration:**
 
-- **`module "iosxe"`** - Declares a Terraform module named "iosxe". Modules are reusable Terraform configurations that encapsulate infrastructure logic.
+- **`module "iosxe"`** — declares a Terraform module named `iosxe`. Modules package reusable Terraform logic; you invoke them with `module.iosxe`.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** — tells Terraform where to fetch the module. This is the Cisco-maintained Network-as-Code module that translates your YAML into the low-level resource calls the `terraform-provider-iosxe` understands.
+- **`yaml_directories = ["data/"]`** — tells the module which directories to scan for YAML. Every `*.nac.yaml` file inside `data/` is auto-discovered and merged. This is why you can split configurations across many files without wiring them up individually.
+- **`write_model_file = "model.yaml"`** — after merging, the module writes the final merged data model to `model.yaml`. You'll use this file to debug variable substitution and as input to `nac-test` for post-deployment validation.
+- **`write_default_values_file = "defaults.yaml"`** — similar, but for the default values the module applies when your YAML omits a field. Useful for understanding "where did this setting come from?"
 
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - Tells Terraform where to find the module. This points to the Network-as-Code for IOS XE module on GitHub, published by Cisco under the netascode organization. The module handles all the complexity of translating YAML configurations into Terraform HashiCorp Configuration Language (HCL) code needed by the IOS-XE Terraform provider.
-
-- **`?ref=269527803a951f8629a71d8e4f91a89a5d2f0033"`** - Specifies a particular Git commit hash to ensure you use a specific, tested version of the module. This commit was pinned on **January 15, 2026**.
-
-- **`yaml_directories = ["data/"]`** - Specifies which directories contain your YAML configuration files. Terraform will automatically discover and process all YAML files within the `data/` folder. This approach is more flexible than listing individual files; you can add multiple YAML files to the `data/` folder and they'll all be processed automatically.
-
-- **`write_model_file = "model.yaml"`** - Outputs the merged YAML data model to a file. This is useful for debugging and for running Robot Framework tests against the combined configuration. You will generate and examine this file later in the lab.
-
-- **`write_default_values_file = "defaults.yaml"`** - Outputs the default values used by the module. This helps you understand what default settings are applied when you don't explicitly specify values.
+!!! note "Why no version pin?"
+    For the lab we source directly from the module's default branch (`main`) to always get the latest schema and features. In production you should pin to a specific tag or commit (for example, `?ref=v0.12.3`) so every `terraform init` yields a reproducible build. Unpinned sources are convenient for experimentation but will occasionally break learners when upstream ships schema changes — pin once you ship.
 
 The figure below illustrates the `main.tf` file in Visual Studio Code:
 
