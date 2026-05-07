@@ -51,5 +51,5 @@ Thank you for participating in this lab. Hopefully, you've gained valuable skill
 
 Reach out to the lab authors:
 
-- Asier Arlegui (aarlegui@cisco.com)
-- Balu Novak-Bohak (balnovak@cisco.com)
+- Andrea Testino (atestini@cisco.com)
+- Christopher Hart (chart2@cisco.com)
