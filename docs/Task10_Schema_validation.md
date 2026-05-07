@@ -152,18 +152,18 @@ cisco@wkst1:~/nac-iosxe$
 No output means success. To confirm what `nac-validate` actually checked, re-run with verbose logging:
 
 ```bash
-nac-validate -s .schema.yaml -v INFO data/
+nac-validate -s .schema.yaml -v DEBUG data/
 ```
 
 ```text { .no-copy }
-cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml -v INFO data/
-INFO - Loading schema
-INFO - Validate file: data/global.nac.yaml
-INFO - Validate file: data/devices/core.nac.yaml
-INFO - Validate file: data/devices/border.nac.yaml
-INFO - Validate file: data/devices/access01.nac.yaml
-INFO - Validate file: data/devices/access02.nac.yaml
-INFO - Validate file: data/groups/access.nac.yaml
+cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml -v DEBUG data/
+DEBUG - Loading schema
+DEBUG - Validate file: data/global.nac.yaml
+DEBUG - Validate file: data/devices/core.nac.yaml
+DEBUG - Validate file: data/devices/border.nac.yaml
+DEBUG - Validate file: data/devices/access01.nac.yaml
+DEBUG - Validate file: data/devices/access02.nac.yaml
+DEBUG - Validate file: data/groups/access.nac.yaml
 cisco@wkst1:~/nac-iosxe$
 ```
 
