@@ -37,10 +37,12 @@ In this example, you'll touch two different pieces of configuration on each devi
 
 First, let's update the global configuration to use a variable in the banner. Open `data/config-global.nac.yaml` in VS Code and update it with the following content:
 
-```yaml title="data/config-global.nac.yaml" hl_lines="6-14"
+```yaml title="data/config-global.nac.yaml" hl_lines="4 5 14 15 17"
 ---
 iosxe:
   global:
+    variables:
+      SITE: "LTRXAR-2008 Lab"
     configuration:
       banner:
         login: |
@@ -49,26 +51,28 @@ iosxe:
           #   Welcome to Network-as-Code Lab!  #
           #                                    #
           ######################################
+          Site:   ${SITE}
           Device: ${HOSTNAME}
       system:
         hostname: ${HOSTNAME}
 ```
 
-**Key elements of the Banner config:**
+**Two kinds of variable reference at work here:**
 
-- **`banner: login:`** - The login banner text shown when users connect
-- **`|`** - YAML multi-line string indicator (preserves line breaks and formatting)
-- **`${HOSTNAME}`** - Variable reference that will be replaced with the actual hostname
+- **`${SITE}`** — defined **globally** (at the `iosxe.global.variables` level). Every device inherits the same value unless a device explicitly overrides it. This is how you keep organization-wide constants (site name, location, lab ID, DNS domain) in exactly one place.
+- **`${HOSTNAME}`** — referenced globally, but you'll define it **per-device** in Step 2 so each device resolves it to its own value.
 
-**Key elements of the System Hostname config:**
+**Banner config:**
 
-- **`system: hostname:`** - Sets the device hostname using the same variable
-- **`${HOSTNAME}`** - Variable reference that will be replaced with the actual hostname
+- `banner: login:` — the login banner shown on SSH connect.
+- `|` — YAML block-scalar indicator; preserves newlines and indentation inside the string.
 
-!!! note "Variable Syntax"
-    Variables use the `${VARIABLE_NAME}` syntax. The variable name is case-sensitive, so `${HOSTNAME}` and `${hostname}` are different variables.
+**System config:**
 
-    This lab uses uppercase variable names by convention, to improve readability and distinguish them from other text. You can choose any naming convention that works for you.
+- `system: hostname:` — sets the IOS XE `hostname` CLI to the resolved value of `${HOSTNAME}`.
+
+!!! note "Variable syntax"
+    Variables use the `${VARIABLE_NAME}` syntax. Names are case-sensitive: `${HOSTNAME}` and `${hostname}` are different variables. The lab uses uppercase by convention — it makes variables visually distinct from the surrounding YAML, and is a common pattern across NAC data models.
 
 The image below illustrates the updated global configuration in VS Code:
 
