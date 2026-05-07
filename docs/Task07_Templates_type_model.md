@@ -221,7 +221,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 
 Use the following command on both **access01** and **access02** switches to verify the VLANs:
 
-```
+```text
 show vlan brief
 ```
 

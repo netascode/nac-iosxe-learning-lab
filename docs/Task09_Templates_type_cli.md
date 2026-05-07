@@ -122,7 +122,7 @@ Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` sw
 
 After connecting to the device, run the following command to check if the alias was created:
 
-```
+```text
 show alias
 ```
 
