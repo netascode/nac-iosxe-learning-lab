@@ -7,6 +7,14 @@
 
 Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way — without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Navigated the `netascode/nac-iosxe-terraform` GitLab project and read its `.gitlab-ci.yml`
+- Committed a change via the GitLab Web IDE and watched the pipeline trigger automatically
+- Observed a complete pipeline run (validate → plan → deploy → notify) and verified the deployed change on the lab devices
+
 ## CI/CD for Network as Code
 
 The lab ships with a pre-configured GitLab repository containing your NAC project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
