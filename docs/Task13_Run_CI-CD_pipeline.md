@@ -338,9 +338,45 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 ## Validation Test (Optional)
 
-Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema Validation](Task10_Schema_validation.md).
+Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 — Schema Validation](Task10_Schema_validation.md).
 
 If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
+
+## Troubleshooting common pipeline failures
+
+If your pipeline shows a red **failed** status, click into the failing job to see the logs. Here are the failure modes you're most likely to hit during the lab:
+
+??? failure "`nac-validate` reports a schema error"
+    **Symptom:** The `validate` stage fails with an `ERROR - Syntax error 'data/…'` message.
+
+    **Fix:** Open the file named in the error and fix the reported issue. Schema errors in the pipeline are the same errors you'd see running `nac-validate` locally — same tool, same rules. Refer back to [Task 10 — Schema Validation](Task10_Schema_validation.md) for the full error catalog and fix patterns.
+
+??? failure "`terraform plan` or `apply` can't reach the devices"
+    **Symptom:** `deploy` stage fails with an error mentioning `dial tcp`, `connection refused`, or `Error: Connection to host failed`.
+
+    **Likely causes (in order of frequency):**
+
+    1. `IOSXE_USERNAME` / `IOSXE_PASSWORD` variables weren't supplied when you ran the pipeline. Re-run with **Run pipeline** and fill in the credentials.
+    2. The CML lab devices are down. Check CML UI and restart the stopped node.
+    3. Wrong `IOSXE_PROTOCOL` value. Should be `netconf` for this lab (or `restconf` if you opted out). Anything else, and the provider won't know how to talk to the device.
+
+??? failure "`terraform apply` fails with `Error acquiring the state lock`"
+    **Symptom:** `deploy` stage fails with `Error acquiring the state lock` and a lock ID.
+
+    **Fix:** An earlier pipeline run died mid-apply and left the HTTP backend state locked. Unlock it from the command line:
+
+    ```bash
+    terraform force-unlock <lock-id>
+    ```
+
+    Or, from GitLab: **Operate → Terraform states → nac-iosxe-terraform → Remove lock**.
+
+    Then re-run the pipeline. Only do this if you're confident no other apply is actually in progress — force-unlocking a live apply will corrupt state.
+
+??? failure "Pipeline blocked: "You cannot push to this protected branch""
+    **Symptom:** The commit is rejected before the pipeline even starts.
+
+    **Fix:** The target branch is protected (see Task 15). Create a feature branch instead, push to it, open a merge request. This is expected behavior once protected-branch rules are in place — it's the system telling you to use the MR workflow.
 
 
 ## What You've Accomplished
