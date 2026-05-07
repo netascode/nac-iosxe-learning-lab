@@ -21,7 +21,10 @@ theme:
     - search.share                  # share deep-linked search URLs
     - content.code.copy
     - content.code.annotate         # numbered callouts inside code blocks
-    # - toc.integrate              # Disabled: gives us a floating right-rail TOC on wide pages
+    - toc.integrate                 # Re-enabled: merges TOC into the left nav so the
+                                    # right rail goes away and the content column
+                                    # widens enough for our 1600x720 diagrams to
+                                    # render legibly instead of getting downsized.
   custom_dir: docs/overrides
   palette:
     # Palette toggle for light mode

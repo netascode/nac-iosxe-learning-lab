@@ -32,8 +32,10 @@
     --md-accent-fg-color: var(--clus-cyan);
 }
 
-/* ---------- layout ---------- */
-.md-grid { max-width: 1440px; }
+/* ---------- layout ----------
+   Wider grid so the 1600x720 HTML diagrams (and their text) stop getting
+   downsized into an unreadable band when the right-rail TOC is off. */
+.md-grid { max-width: 1680px; }
 .md-typeset__table { min-width: 100%; }
 .md-typeset table:not([class]) { display: table; }
 .max-code-height > pre > code { max-height: 500px; overflow-y: auto; }
@@ -489,15 +491,68 @@
 
 
 /* ============================================================================
-   Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
-   section is instantly visible (Material default is a muted indigo).
+   Top tabs nav — transform the flat default into a visually alive row:
+     • Labels go a half-weight bolder with slightly more letter-spacing so
+       they read as section titles, not inline text.
+     • Each tab grows a cyan→pink gradient underline that slides in from
+       the left on hover. Pure CSS transform, no layout shift.
+     • The active tab's underline is solid (always visible) and its label
+       is 800-weight + white. No icon noise — typography + motion carry
+       the identity.
+     • The tabs row itself inherits the header's navy so it extends the
+       gradient bar above it instead of sitting on a visible seam.
    ========================================================================= */
 
-.md-tabs__link--active {
-    color: var(--clus-cyan);
-    font-weight: 700;
+.md-tabs {
+    background: transparent;  /* let the header gradient show through */
+    border-bottom: 1px solid rgba(2, 200, 255, 0.12);
 }
-.md-tabs__link:hover { color: var(--clus-cyan); }
+
+.md-tabs__link {
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    margin: 0 0.2rem;
+    padding: 0.65rem 0.85rem 0.75rem;
+    position: relative;
+    transition: color 160ms ease, transform 160ms ease;
+}
+
+.md-tabs__link::after {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.35rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.md-tabs__link:hover {
+    color: #FFFFFF;
+}
+.md-tabs__link:hover::after {
+    transform: scaleX(1);
+}
+
+.md-tabs__link--active {
+    color: #FFFFFF !important;
+    font-weight: 800;
+}
+.md-tabs__link--active::after {
+    transform: scaleX(1);
+    /* active state: glow slightly to distinguish from hover */
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    box-shadow: 0 0 8px rgba(2, 200, 255, 0.5);
+    height: 2.5px;
+}
 
 
 /* ============================================================================
