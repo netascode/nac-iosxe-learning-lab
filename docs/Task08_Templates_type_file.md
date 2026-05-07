@@ -1,4 +1,8 @@
-In this task, you'll learn how to use **templates of type 'file'** to reference external template files with dynamic content generation. The *file* template type uses Terraform templating syntax (`.tftpl` files) for complex configurations with loops, conditionals, and variable interpolation.
+# Task 08 — Templates type `file` (Optional)
+
+**⏱ ~15 minutes**
+
+In this task you'll use **templates of type `file`** to reference external template files that use Terraform templating syntax (`.tftpl`). File templates are the right tool when you need loops, conditionals, or complex structures that plain YAML can't express cleanly.
 
 For detailed documentation, see: [IOSXE-as-Code Template Documentation](https://netascode.cisco.com/docs/data_models/iosxe/entity/template/#file-templates)
 
