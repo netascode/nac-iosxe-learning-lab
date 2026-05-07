@@ -1,29 +1,34 @@
-In this task, you'll learn how to apply configuration to a **single specific device** rather than globally or to a group. This is the highest level in the configuration precedence hierarchy and is used when a device requires unique settings that are specific to a given device.
+# Task 05 — Single-device configuration
 
-## Device-Specific Configuration
+**⏱ ~15 minutes**
 
-Device-specific configurations are applied directly to individual devices and take the highest precedence in the Network-as-Code hierarchy. This approach is ideal for:
+In this task, you'll apply configuration to a **single specific device** rather than globally or to a group. This is the top of the precedence hierarchy — device-specific settings override anything a device might have inherited from its group or from the global defaults.
 
-- **Unique device settings**: Configuration that only applies to one device (e.g., management IP hosts, device-specific routing)
-- **Override scenarios**: When a device needs different settings than its group or global defaults
-- **Special-purpose devices**: Management switches or devices with unique roles
+## Device-specific configuration
 
-**Configuration Precedence Hierarchy (reminder):**
+Device-specific config is the right tool when a setting is meaningful only for one device. Typical use cases:
 
-1. **Global** (lowest precedence) - organization-wide defaults ← *Task03*
-2. **Device Group** (medium precedence) - role or location-specific settings ← *Task04*
-3. **Device** (highest precedence) - device-specific overrides ← *This task*
+- **Intrinsically unique values** — loopback interfaces, router IDs, management IPs, OSPF/BGP/MPLS identifiers — every device needs its **own** value.
+- **Overrides** — one device needs to diverge from what its group or the global default says (a different banner on a lab device, a stricter ACL on the border router, etc.).
+- **Special-purpose devices** — a single out-of-band management switch that doesn't fit any group.
 
-## Use Case: IP Host Entries for core Switch
+**Precedence hierarchy (reminder):**
 
-In this example, you'll add IP host entries to the **core** switch only. IP hosts create static DNS-like mappings that allow you to reference devices by name instead of IP address. This is particularly useful on core switches that need to reference multiple infrastructure devices.
+1. **Global** (lowest precedence) — organization-wide defaults ← *Task 03*
+2. **Device group** (medium) — role- or location-specific settings ← *Task 04*
+3. **Device** (highest) — the specific-device override you're adding now ← *this task*
 
-You'll configure the core switch to resolve these hostnames in its management VRF:
+## Use case: Loopback0 on the core switch
 
-- `ntp-server` → `198.18.129.11`
-- `syslog-server` → `198.18.129.12`
+`core` is acting as the routing core of the lab topology. In any routed network, every device needs its **own** unique loopback interface for router IDs (OSPF, BGP, MPLS-LDP) and for policies that key on a stable IP. That's the textbook "single-device configuration" use case — and a cleaner fit than, say, NTP or syslog pointers, which every device in the network would typically need.
 
-## Step 1: Create Device-Specific Configuration Files
+You'll configure `core` with:
+
+- `Loopback0` — IP `198.51.100.10/32` (RFC 5737 documentation range), described as "Router-ID loopback"
+
+Only `core` will receive this. The other three devices (`border`, `access01`, `access02`) will be untouched.
+
+## Step 1: Add device-specific configuration
 
 First, create placeholder files for each device using your **WSL Ubuntu terminal**. This establishes a consistent structure for device-specific configurations:
 
