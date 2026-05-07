@@ -34,6 +34,9 @@ DIAGRAMS = [
     ("terraform-workflow", "terraform-workflow.png"),
     ("netconf-datastores", "netconf-datastores.png"),
     ("config-merge", "config-merge.png"),
+    ("merge-semantics", "merge-semantics.png"),
+    ("module-inputs", "module-inputs.png"),
+    ("selective-deployment", "selective-deployment.png"),
 ]
 
 SCALE = 2
