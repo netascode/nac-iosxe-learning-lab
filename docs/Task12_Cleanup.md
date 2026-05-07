@@ -60,6 +60,27 @@ When prompted, type `yes` to confirm. Terraform will:
 
     If you made any manual changes directly on the devices outside of Terraform, those changes will remain.
 
+!!! tip "Need to clean up just *one* device? Use `managed_devices`"
+    `terraform destroy` unconfigures every device the module manages. If you only want to touch a subset, the NAC module exposes a filter variable — `managed_devices` — that restricts Terraform's scope to a specific list of device names. Every other registered device is left alone.
+
+    <figure markdown>
+      ![Selective deployment with managed_devices](./assets/selective-deployment.png){ width="100%" }
+    </figure>
+
+    To use it, edit `main.tf`:
+
+    ```terraform title="main.tf" hl_lines="4"
+    module "iosxe" {
+      source              = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
+      yaml_directories    = ["data/"]
+      managed_devices     = ["core"]   # only core is in scope this run
+    }
+    ```
+
+    The equivalent environment variable, useful for CI jobs without editing `main.tf`, is `IOSXE_SELECTED_DEVICES=core` (comma-separated for multiple).
+
+    `managed_devices = []` (the default, or omitting the variable) means "all registered devices" — which is the behavior you're using in this lab.
+
 ## Step 2: Verify NAC Configurations Are Removed (Optional)
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 01, double-click on the **core** switch to connect.
