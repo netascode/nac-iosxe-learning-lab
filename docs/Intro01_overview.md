@@ -25,15 +25,18 @@ This lab uses virtualized IOS XE devices in Cisco Modeling Labs (CML) and a GitL
 
 By completing this lab, you will gain hands-on experience with:
 
-- Writing desired network state configurations in NAC YAML format for IOS-XE devices
-- Deploying the desired state using the Terraform implementation of NAC
-- Validating and testing configurations
-- Automating the network deployment lifecycle using GitLab CI/CD pipelines
-- Applying best practices for network automation
+- Writing declarative IOS XE configurations in NAC YAML format
+- Deploying configurations using the NAC Terraform module
+- Understanding the NAC configuration hierarchy: **global → group → device**
+- Using variables and templates for reusable, scalable configurations
+- Pre-deployment validation with `nac-validate` (schema and semantic checks)
+- Post-deployment validation with `nac-test` (automated Robot Framework tests)
+- Automating the full Infrastructure-as-Code lifecycle with GitLab CI/CD pipelines
+- Implementing GitOps workflow safeguards (branch protection, merge requests)
 
-**About This Guide**
+## About this guide
 
-Created by Asier Arlegui and Balu Novak-Bohak.
+Authored by Andrea Testino and Christopher Hart, building on the original Amsterdam delivery by Asier Arlegui and Balu Novak-Bohak.
 
 ---
 
