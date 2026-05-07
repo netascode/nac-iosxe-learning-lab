@@ -185,56 +185,42 @@ echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 This appends the source command to your `~/.bashrc` file. Now every time you open WSL, your IOSXE credentials will be automatically loaded from the `.env` file.
 
 
-### Step 3: Verify RESTCONF
+### Step 3: Verify NETCONF reachability
 
-Before proceeding with Terraform, it's a good idea to verify that the RESTCONF API is accessible on the IOS XE devices. For more details on RESTCONF, refer to [Task 01 - SSH to Network Devices](Task01_SSH_to_network_devices.md).
+Before running Terraform, confirm the NETCONF subsystem is up on one of the lab devices. NETCONF listens on TCP/830 by default, and the simplest way to check it from WSL is a one-shot SSH handshake against the `netconf` subsystem — the device replies with an XML `<hello>` message containing its supported capabilities.
 
-You can use the `curl` command to test connectivity to one of your IOS XE devices.
-
-For example, you can check RESTCONF on the **access01** device (`198.18.130.11`) by running the following command in your WSL Ubuntu terminal:
+Test against **access01** (`198.18.130.11`):
 
 ```bash
-curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
+ssh -s -p 830 -o StrictHostKeyChecking=no $IOSXE_USERNAME@198.18.130.11 netconf
 ```
 
-Understanding the command:
+When prompted, enter the password (`cisco`).
 
-- **`curl`** - Command-line tool for transferring data with URLs
-- **`-i`** - Include HTTP response headers in the output
-- **`-k`** - Allow insecure server connections when using SSL (ignore certificate warnings in the lab)
-- **`-X "GET"`** - Specify the HTTP method (GET request)
-- **`"https://198.18.130.11/restconf/"`** - The RESTCONF URL on the **access01** device
-- **`-u $IOSXE_USERNAME:$IOSXE_PASSWORD`** - Authentication using the environment variables loaded in the previous step
+What each flag does:
 
+- `-s` — request an SSH **subsystem** (rather than an interactive shell).
+- `-p 830` — NETCONF's default port.
+- `-o StrictHostKeyChecking=no` — skip the first-connection host-key prompt (lab-only; never use this in production).
+- `netconf` — the subsystem name.
 
-```text { title="Expected Output" hl_lines="2" .no-copy }
-cisco@wkst1:~$ curl -i -k -X "GET" "https://198.18.130.11/restconf/" -u $IOSXE_USERNAME:$IOSXE_PASSWORD
-HTTP/1.1 200 OK
-Server: openresty
-Date: Tue, 13 Jan 2026 09:30:06 GMT
-Content-Type: application/yang-data+xml
-Transfer-Encoding: chunked
-Connection: keep-alive
-Cache-Control: private, no-cache, must-revalidate, proxy-revalidate
-Pragma: no-cache
-Content-Security-Policy: default-src 'self'; block-all-mixed-content; base-uri 'self'; frame-ancestors 'none';
-Strict-Transport-Security: max-age=15552000; includeSubDomains
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1; mode=block
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'
-X-Content-Type-Options: nosniff
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-
-<restconf xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf">
-  <data/>
-  <operations/>
-  <yang-library-version>2019-01-04</yang-library-version>
-</restconf>
-cisco@wkst1:~$
+```text { title="Expected output (truncated)" hl_lines="1 2" .no-copy }
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    ...
+  </capabilities>
+  <session-id>123</session-id>
+</hello>
+]]>]]>
 ```
 
-If you see an `HTTP/1.1 200 OK` response, it means the RESTCONF API is accessible and your credentials are correct. You are now ready to proceed with Terraform!
+If you see the `<hello>` XML with a capability list, NETCONF is reachable and your credentials work. Press **Ctrl+C** to exit — Terraform will manage its own NETCONF sessions from here on.
 
 
 ### Step 4: Initialize Terraform
