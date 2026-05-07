@@ -142,14 +142,32 @@ nac-validate -s .schema.yaml data/
 
 ## Successful Validation
 
-If your YAML files are correct, the command will return without any output – you'll just get your prompt back:
+If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
 ```text { .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
 cisco@wkst1:~/nac-iosxe$
 ```
 
-**No output means success!** This confirms that:
+No output means success. To confirm what `nac-validate` actually checked, re-run with verbose logging:
+
+```bash
+nac-validate -s .schema.yaml -v INFO data/
+```
+
+```text { .no-copy }
+cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml -v INFO data/
+INFO - Loading schema
+INFO - Validate file: data/global.nac.yaml
+INFO - Validate file: data/devices/core.nac.yaml
+INFO - Validate file: data/devices/border.nac.yaml
+INFO - Validate file: data/devices/access01.nac.yaml
+INFO - Validate file: data/devices/access02.nac.yaml
+INFO - Validate file: data/groups/access.nac.yaml
+cisco@wkst1:~/nac-iosxe$
+```
+
+Each file in `data/` was loaded, parsed, and validated against the schema. This confirms that:
 
 - ✅ Your YAML syntax is correct
 - ✅ All attributes match the schema
