@@ -199,6 +199,9 @@ When prompted, type `yes` to confirm the deployment.
 
 Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
 
+!!! tip "BGP convergence takes 30–60 seconds"
+    BGP sessions don't come up instantly. After `terraform apply` finishes, expect a 30–60 second window before the neighbor state transitions from `Idle` → `Active` → `OpenSent` → `Established`. If your first `show ip bgp summary` looks like everything is idle, wait a minute and run it again.
+
 ```
 show ip bgp summary
 ```
@@ -231,7 +234,7 @@ The **isp** neighbor shows as **Established** with 1 prefix received, while **is
 
 The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a loopback address configured on the **isp** device.
 
-You can verify the received route with:
+You can verify the received route with (same 30–60 second convergence window applies):
 
 ```
 show ip route
@@ -255,9 +258,6 @@ C     198.18.128.0/20 is directly connected, GigabitEthernet2
 L        198.18.130.20 is directly connected, GigabitEthernet2
 border#
 ```
-
-!!! note
-    It may take a minute or two for the BGP session to establish and for the route to appear in the routing table.
 
 ## Advanced challenge — for learners who finish early
 
