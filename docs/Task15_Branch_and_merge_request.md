@@ -77,6 +77,13 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 | **Allowed to merge**          | Maintainers  | Only maintainers can merge approved changes |
 | **Allowed to push and merge** | No one       | Prevents direct commits to main             |
 
+!!! info "Why two separate knobs?"
+    GitLab protects a branch along **two dimensions** — who can *merge an approved MR* and who can *push directly*. Those are different capabilities:
+
+    - **Merge** is the gated, reviewed path: an MR has to exist, pipelines have to pass, reviewers have to approve.
+    - **Push** is the ungated path: `git push origin main` bypasses the MR flow entirely.
+
+    A role can have one without the other. For a production repo you typically want **Maintainers: allowed to merge, No one: allowed to push** — maintainers can approve and click the button, but nobody (not even maintainers) can force-push around the review process. That's the configuration this task sets up. You'll see the effect in Step 2 when GitLab rejects your direct commit to main.
 
 <figure markdown>
   ![Protected branches settings](./assets/gitlab-protected-branch.png){ width="100%" }
