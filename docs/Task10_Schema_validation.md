@@ -60,15 +60,14 @@ Your project structure should now include:
 /home/cisco/nac-iosxe/
 │
 ├── data/
-│   ├── config-device-access01.nac.yaml # Task05: access01 device config
-│   ├── config-device-access02.nac.yaml # Task05: access02 device config
-│   ├── config-device-border.nac.yaml   # Task05 + Task08: Border device + BGP templates
-│   ├── config-device-core.nac.yaml     # Task05: IP hosts for core
-│   ├── config-global.nac.yaml          # Task03: Global banner
-│   ├── config-group-access.nac.yaml    # Task04 + Task07: ACCESS_SWITCHES group ACL + templates
-│   ├── devices.nac.yaml                # Task02: Device inventory
+│   ├── config-device-access01.nac.yaml # Task02: access01 registration
+│   ├── config-device-access02.nac.yaml # Task02: access02 registration
+│   ├── config-device-border.nac.yaml   # Task02 + Task08 (optional): border + BGP
+│   ├── config-device-core.nac.yaml     # Task02 + Task05: core + Loopback0
+│   ├── config-global.nac.yaml          # Task03 + Task06: banner + hostname
+│   ├── config-group-access.nac.yaml    # Task04 + Task07 (optional): ACL + VLAN template
 │   ├── template-bgp.nac.yaml           # Task08: BGP file template definition (optional)
-│   ├── template-logging.nac.yaml       # Task09: Logging alias cli template (optional)
+│   ├── template-logging.nac.yaml       # Task09: Logging alias CLI template (optional)
 │   └── template-vlan.nac.yaml          # Task07: VLAN model template (optional)
 ├── tftpl/
 │   └── bgp.yaml.tftpl                  # Task08: BGP template file (optional)
