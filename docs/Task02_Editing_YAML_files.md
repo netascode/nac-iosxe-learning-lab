@@ -310,25 +310,29 @@ VS Code has auto-save enabled, so your files are saved a few seconds after you s
 - `main.tf` — Terraform module configuration
 - `data/config-device-*.nac.yaml` — four per-device skeleton files
 
-## What You've Accomplished
+## How the project will grow
 
-Congratulations! In this chapter, you have:
+Every subsequent task in this lab will either extend the per-device files or introduce a new file type under `data/`, `tftpl/`, or `tests/`. Here's the **final** layout you'll end up with by the time you reach Task 11 — refer back to this any time you lose track of which file owns what:
 
-- ✅ **Created project structure** - Set up the `/home/cisco/nac-iosxe` directory
-- ✅ **Organized configuration files** - Created a `data/` folder to separate Network-as-Code YAML config from other files
-- ✅ **Created environment file** - Set up `.env` with IOS XE device authentication
-- ✅ **Configured Terraform** - Created `main.tf` pointing to the Network-as-Code module and data directory
-- ✅ **Prepared device inventory** - Created `data/devices.nac.yaml` with network device definitions
+<figure markdown>
+  ![Project file layout](./assets/file-layout.png){ width="100%" }
+</figure>
 
-**Tools Introduced:**
+## What you've accomplished
 
-- **VS Code** - For editing configuration files in this lab
-- **VS Code YAML Extension** - For YAML syntax validation and linting
-- **WSL** - For running Linux/Terraform commands
+- ✅ Set up the project directory `/home/cisco/nac-iosxe` with a `data/` subfolder
+- ✅ Created `.env` with your IOS XE credentials and the NETCONF protocol setting
+- ✅ Created `main.tf` pointing to the Network-as-Code module
+- ✅ Registered all four lab devices in their own per-device YAML files
 
-In the next task, you'll deploy your first configuration using Terraform to apply a global banner across all your network devices.
+**Tools introduced:**
+
+- **VS Code** (with the Red Hat YAML extension) — YAML-aware editing, validation, linting
+- **WSL Ubuntu** — the Linux environment where you'll run Terraform and other CLI tools
+
+In the next task, you'll deploy your first piece of configuration — a login banner — to all four devices using Terraform.
 
 ---
 
-**Next:** [Task03 - Global Configuration](Task03_Global_configuration.md)
+**Next:** [Task 03 — Global Configuration](Task03_Global_configuration.md)
 
