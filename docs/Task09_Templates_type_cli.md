@@ -4,6 +4,15 @@
 
 In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the NAC data model — reach for them rarely, but they're genuinely useful when you need them.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Created a `cli`-type template containing a raw IOS XE command (`alias exec logs show logging`)
+- Applied the template globally via `config-global.nac.yaml`
+- Verified the alias appears on every device using `show alias`
+- Understood **when** to reach for `cli` templates vs `model` / `file` (rarely — only for features outside the data model)
+
 ## CLI Templates
 
 The CLI template type allows you to include raw IOS XE CLI commands that are applied directly to devices. This can be used as a workaround for features not yet supported by the Network as Code IOS XE data model, as it accepts any valid CLI command.
