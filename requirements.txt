@@ -1,9 +1,8 @@
 mkdocs
 mkdocs-material
-mkdocs-to-pdf
+mkdocs-awesome-nav
+mkdocs-macros-plugin
 mkdocs-glightbox
+mkdocs-to-pdf
 Pygments
 pygments-ios @ git+https://github.com/vincentbernat/pygments-ios@d6b79303cd9dda7b7130e2bb06934a8a22470b11
-mkdocs-awesome-pages-plugin
-mkdocs-git-revision-date-localized-plugin
-mkdocs-macros-plugin
