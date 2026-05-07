@@ -1,5 +1,28 @@
 ## Schema Reference (Lab Features Only)
 
+!!! info "This is a ~15% slice of the full schema"
+    The full NAC IOS XE schema covers ~249 top-level configuration keys. This appendix includes only the ~38 keys the lab actually uses (global, devices, device_groups, templates, banner, access_lists, ip_hosts, loopbacks, vlan, bgp, system, aliases). For the complete data model — including MACsec, DMVPN, QoS, HSRP/VRRP, MPLS, IS-IS, EIGRP, multicast, AAA/TACACS/RADIUS, STP, 802.1X, SNMP, EEM, segment routing, EVPN, and more — browse [netascode.cisco.com/docs/data_models/iosxe/overview/](https://netascode.cisco.com/docs/data_models/iosxe/overview/).
+
+??? abstract "How to read this schema (Yamale syntax reference)"
+    The schema is written in [Yamale](https://github.com/23andMe/Yamale), a YAML-based schema validation format. Quick reference for the syntax you'll see below:
+
+    | Syntax                                     | Meaning                                                  |
+    |--------------------------------------------|----------------------------------------------------------|
+    | `str()`                                    | Any string.                                              |
+    | `int()`                                    | Any integer.                                             |
+    | `int(min=1, max=4094)`                     | Integer with bounds (e.g. VLAN IDs).                     |
+    | `bool()`                                   | `true` or `false`.                                       |
+    | `enum('permit', 'deny')`                   | One of the listed values — nothing else.                 |
+    | `regex('^[A-Z]+$')`                        | String matching the given regex.                         |
+    | `ip()`                                     | A valid IP address.                                      |
+    | `list(include('X'))`                       | A list of objects conforming to the `X` sub-schema.      |
+    | `include('X')`                             | A single object conforming to the `X` sub-schema.        |
+    | `map(key=str())`                           | Key/value map with string keys.                          |
+    | `required=False`                           | Field is optional (defaults to required otherwise).      |
+    | `any(...)`                                 | Value can match any of several type constructors.        |
+
+    So a line like `login: str(required=False)` reads as "the `login` field is an optional string", and `sequence: int(min=1, max=2147483647)` reads as "`sequence` is a required integer between 1 and 2^31-1".
+
 Copy this single schema block for reference. It includes only the features used in this lab:
 
 ```yaml title="schema.yaml"
