@@ -306,7 +306,7 @@ terraform init
 
 !!! note "Initialization Only Once"
     You only need to run `terraform init` once per project. To add or update modules later, you can run it again to download any additional dependencies.
-    To upgrade to a newer version of a module or provider, update the version reference in your `main.tf` (e.g. change `?ref=v0.12.3` to `?ref=v0.13.0`), then run `terraform init -upgrade` to pull the new version.
+    To upgrade to a newer version of a module or provider in a production environment, you would update the version reference in your `main.tf` (e.g. change `?ref=v0.12.3` to `?ref=v0.13.0`), then run `terraform init -upgrade` to pull the new version. However, in this lab environment, there is no need to change version references or run `terraform init -upgrade`.
 
 
 ### Step 5: Preview Changes with Terraform Plan
