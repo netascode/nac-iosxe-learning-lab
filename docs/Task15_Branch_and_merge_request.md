@@ -5,6 +5,15 @@
 !!! info "Prerequisite"
     Basic familiarity with **Git** (branches, commits) and **GitLab** (merge requests, protected branches). If you're new to these, skim Git's [Basic Branching guide](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) first.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Enabled protected-branch rules on `main` so direct commits are blocked
+- Created a feature branch, committed to it, and opened a merge request
+- Observed two pipelines — the MR preview (validate + plan only) and the post-merge deploy (all five stages)
+- Approved and merged a change, seeing GitOps end-to-end: code review → plan preview → deploy
+
 ## Why this matters
 
 In Tasks 13 and 14, you triggered CI/CD pipelines by committing directly to the `main` branch. While this approach works for learning purposes, **it's not how production environments operate**.
