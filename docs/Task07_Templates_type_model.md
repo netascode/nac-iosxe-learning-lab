@@ -1,4 +1,8 @@
-In this task, you'll learn how to use **templates of type 'model'** to define reusable YAML-based configuration blocks that can be applied to multiple devices. The **model** template type is a powerful Network-as-Code (NAC) feature that promotes configuration reuse, reduces duplication, and ensures consistency across your network infrastructure.
+# Task 07 — Templates type `model` (Optional)
+
+**⏱ ~10 minutes**
+
+In this task you'll use **templates of type `model`** to define reusable YAML-based configuration blocks that can be applied to multiple devices. Templates promote reuse, reduce duplication, and keep configuration consistent across the network.
 
 ## Templates
 
