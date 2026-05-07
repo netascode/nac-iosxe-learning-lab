@@ -6,7 +6,17 @@ You've been creating NAC YAML files and deploying them with Terraform. How do yo
 
 Pre-change validation catches errors at the YAML layer — before `terraform plan` ever opens a connection to a switch. It's the same principle as compiling code before running it: fail fast, fail cheap, fail with a clear error message.
 
-## What is Schema Validation?
+## First, what is NAC actually validating?
+
+Before `nac-validate` runs, it's useful to see what it's validating *against*. NAC doesn't look at your individual YAML files in isolation — it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
+
+<figure markdown>
+  ![How NAC merges your YAML](./assets/config-merge.png){ width="100%" }
+</figure>
+
+That merged model is what Terraform ultimately sends to each device (you've seen it written to `model.yaml` after each `terraform apply`). Schema validation checks the merged result — so an error might come from a bad key in a global file that only affects one group's rendered output. `nac-validate` tells you exactly which file and which path in the merged model caused the problem.
+
+## What is schema validation?
 
 Schema validation verifies that your YAML configuration files:
 
