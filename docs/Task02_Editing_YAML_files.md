@@ -1,4 +1,8 @@
-In this chapter, you will learn how to use VS Code to edit Network-as-Code (NAC) IOS XE intent configuration YAML files.
+# Task 02 — Editing YAML files in VS Code
+
+**⏱ ~15 minutes**
+
+In this task you'll set up the project directory and use VS Code to edit Network-as-Code (NAC) IOS XE intent configuration YAML files.
 
 ## What is VS Code?
 
