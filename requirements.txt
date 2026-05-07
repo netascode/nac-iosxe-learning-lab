@@ -1,5 +1,5 @@
 mkdocs
-mkdocs-material
+mkdocs-material[imaging]   # bundles pillow + cairosvg for the social-card plugin
 mkdocs-awesome-nav
 mkdocs-macros-plugin
 mkdocs-glightbox

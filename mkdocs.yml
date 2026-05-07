@@ -1,6 +1,7 @@
 ---
 site_name: "LTRXAR-2008: Accelerate Your Network Operations"
-#site_description: {site_name} # This parameter will be auto-set to site_name, unless explicitly defined. Used for HTML meta tags
+site_url: "https://chartinolabs.github.io/LTRXAR-2008-CLUS2026/"
+site_description: "Cisco Live 2026 hands-on lab — Network as Code for IOS XE. Terraform + YAML + GitLab CI/CD across four CML devices."
 site_author: "Andrea Testino, Christopher Hart"
 copyright: Copyright &copy; {year} Cisco # This parameter will auto-update the year in HTML pages based on the build date
 theme:
@@ -10,11 +11,17 @@ theme:
     - navigation.tabs.sticky
     - navigation.indexes
     - navigation.instant
+    - navigation.instant.progress   # thin horizontal progress bar while a page loads
     - navigation.top
-    # - navigation.footer  # Removed so that we only use custom links at the end of each page
+    - navigation.tracking           # URL fragment tracks the section you're reading
+    - navigation.path               # breadcrumbs above each page title
+    # - navigation.footer           # Removed so that we only use custom links at the end of each page
     - search.suggest
+    - search.highlight              # highlight matched terms on the target page
+    - search.share                  # share deep-linked search URLs
     - content.code.copy
-    - toc.integrate
+    - content.code.annotate         # numbered callouts inside code blocks
+    # - toc.integrate              # Disabled: gives us a floating right-rail TOC on wide pages
   custom_dir: docs/overrides
   palette:
     # Palette toggle for light mode
@@ -41,6 +48,10 @@ extra_css:
 plugins:
   - search
   - awesome-nav
+  - social:
+      cards_layout_options:
+        background_color: "#07182D"   # CLUS navy
+        color: "#FFFFFF"
   - to-pdf:
       cover_subtitle: "Instructor-Led Labs"
       cover_logo: template_assets/PDF_Event_General_Logo.png
@@ -82,12 +93,20 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist:
+      custom_checkbox: true      # render - [ ] / - [x] as real styled checkboxes
+      clickable_checkbox: false  # not interactive — these are progress markers, not form inputs
 hooks:
   - hooks/config.py
 dev_addr: "0.0.0.0:8000"

@@ -220,6 +220,147 @@
 
 
 /* ============================================================================
+   Tables — striped rows + hover highlight. The Appendix-V cheat sheet and
+   Task 10 error catalog both rely on scan-reading; striping gives the eye
+   a rail to follow. Plus a cyan left border for the whole table so it feels
+   like it belongs with the rest of the CLUS-accented chrome.
+   ========================================================================= */
+
+.md-typeset table:not([class]) {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border-left: 3px solid var(--clus-cyan);
+}
+
+.md-typeset table:not([class]) thead th {
+    background: rgba(2, 200, 255, 0.12);
+    color: var(--md-default-fg-color);
+    font-weight: 700;
+    border-bottom: 2px solid var(--clus-cyan);
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background: rgba(2, 200, 255, 0.04);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+    background: rgba(255, 0, 127, 0.06);
+    transition: background 120ms ease;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead th {
+    background: rgba(2, 200, 255, 0.18);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background: rgba(2, 200, 255, 0.06);
+}
+
+
+/* ============================================================================
+   Task lists — pymdownx.tasklist with custom_checkbox renders - [ ] / - [x]
+   as real checkboxes. Restyle them to the CLUS palette so they read as
+   progress markers rather than form controls.
+   ========================================================================= */
+
+.md-typeset .task-list-item { list-style-type: none; }
+.md-typeset .task-list-item [type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--clus-cyan);
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    margin-left: -1.4rem;
+    position: relative;
+    top: 2px;
+}
+.md-typeset .task-list-item [type="checkbox"]:checked {
+    background: var(--clus-cyan);
+    border-color: var(--clus-cyan);
+}
+.md-typeset .task-list-item [type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    color: white;
+    font-weight: 900;
+    font-size: 11px;
+}
+
+
+/* ============================================================================
+   Scroll progress bar — a 2px cyan bar pinned to the very top of the page
+   that fills left-to-right as the learner scrolls. Pure CSS via a fixed
+   element driven by a CSS variable that JS updates on scroll. If JS is
+   disabled the bar simply doesn't render — zero degraded behavior.
+   Material's own instant.progress handles the loading-bar case; this adds
+   the reading-progress case.
+   ========================================================================= */
+
+.clus-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    transform-origin: 0 0;
+    transform: scaleX(var(--clus-scroll, 0));
+    transition: transform 60ms linear;
+}
+
+
+/* ============================================================================
+   Footer — denser and more useful than the bare `Copyright © 2026 Cisco`.
+   Use display:flex so author block + revision time align horizontally.
+   ========================================================================= */
+
+.md-footer-meta__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+}
+
+.md-footer-meta a { color: var(--clus-cyan); }
+.md-footer-meta a:hover { color: var(--clus-pink); }
+
+
+/* ============================================================================
+   Breadcrumbs (navigation.path) — subtle row above each H1. Material's
+   default is mid-gray chevrons; make the active (last) segment cyan so the
+   current page is obvious at a glance.
+   ========================================================================= */
+
+.md-path__list {
+    font-size: 0.72rem;
+    opacity: 0.85;
+}
+.md-path__item:last-child .md-path__link {
+    color: var(--clus-cyan);
+    font-weight: 600;
+}
+
+
+/* ============================================================================
+   Code annotations (content.code.annotate) — numbered markers inside code
+   blocks are rendered as small circles. Tint them cyan to match.
+   ========================================================================= */
+
+.md-typeset .md-annotation__index {
+    background: var(--clus-cyan);
+    color: var(--clus-navy);
+    font-weight: 700;
+}
+
+
+/* ============================================================================
    Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
    section is instantly visible (Material default is a muted indigo).
    ========================================================================= */
