@@ -306,10 +306,12 @@ To view the pipeline progress, navigate to **Build** → **Pipelines** in the le
 
 You'll see each stage progressing:
 
-1. **validate** - Green checkmark when YAML validation passes
-2. **plan** - Generates the Terraform plan
-3. **deploy** - Applies the configuration to devices
-4. **notify** - Sends success or failure notifications (not used in this lab)
+1. **validate** — green checkmark when YAML validation passes. *Usually <10s.*
+2. **plan** — generates the Terraform plan against the live devices. *~30–60s.*
+3. **deploy** — applies the configuration to the four CML devices over NETCONF. *~60–90s.*
+4. **notify** — sends success or failure notifications (not used in this lab). *<5s.*
+
+End-to-end a healthy pipeline run completes in about **2–3 minutes**. If the `deploy` stage sits on "running" for more than 4–5 minutes, one of the CML devices is probably unreachable — click into the job to see the NETCONF error. (The troubleshooting section below covers the most common causes.)
 
 Click on any stage to view its detailed logs.
 

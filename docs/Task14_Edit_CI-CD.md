@@ -165,11 +165,13 @@ After committing, a new pipeline will automatically start. Navigate to **Build**
 
 You should now see **5 stages** in the pipeline:
 
-1. **validate** - Schema and format validation
-2. **plan** - Terraform planning
-3. **deploy** - Apply configuration
-4. **test** - Integration and idempotency tests
-5. **notify** - Success/failure notifications
+1. **validate** — schema and format validation. *Usually <10s.*
+2. **plan** — Terraform planning. *~30–60s.*
+3. **deploy** — apply configuration. *~60–90s.*
+4. **test** — integration (`nac-test`) + idempotency (`terraform plan -detailed-exitcode`). *~45–60s — nac-test does the heaviest work here.*
+5. **notify** — success/failure notifications. *<5s.*
+
+End-to-end with the test stage, expect about **3–4 minutes** total. If `test` sits on running for more than 3 minutes, it's probably waiting on a device that didn't respond — click into the job to see which assertion timed out.
 
 <figure markdown>
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }

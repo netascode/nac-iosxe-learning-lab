@@ -192,10 +192,12 @@ When you create the merge request, GitLab automatically triggers the same pipeli
 
 The pipeline uses the config from your feature branch (`feature/core`) and runs the following stages:
 
-| Stage        | Job                             | Purpose                                               |
-|--------------|---------------------------------|-------------------------------------------------------|
-| **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance (See Task 10) |
-| **plan**     | `terraform plan`                | Show what changes will be made to the network         |
+| Stage        | Job                             | Purpose                                               | Typical duration |
+|--------------|---------------------------------|-------------------------------------------------------|------------------|
+| **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance (See Task 10) | <10s |
+| **plan**     | `terraform plan`                | Show what changes will be made to the network         | ~30–60s |
+
+End-to-end the MR pipeline completes in about **90 seconds**. If it's still running at 3+ minutes, something's stuck — click into the running job to see where.
 
 !!! note "No Deploy Stage!"
     Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional – you want to see what will change without actually changing anything yet.
@@ -256,11 +258,13 @@ Merging to main triggers a new pipeline – this time including the deployment a
 
 The main branch pipeline runs ALL stages:
 
-- **validate**
-- **plan**
-- **deploy**
-- **test**
-- **notify**
+- **validate** — <10s
+- **plan** — ~30–60s
+- **deploy** — ~60–90s
+- **test** — ~45–60s
+- **notify** — <5s
+
+Total: about **3–4 minutes** end-to-end. If it stalls in `deploy` or `test` past 4 minutes, click into the job logs — it's usually a device that went unreachable or a test that timed out on operational state (see the troubleshooting section below).
 
 After the pipeline completes successfully, you can verify the changes on the network devices.
 
