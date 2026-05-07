@@ -333,9 +333,12 @@
   .ms-rule .ttl { font-size: 16px; font-weight: 700; color: var(--white); line-height: 1.3; }
   .ms-rule .rule-desc { font-size: 14px; color: var(--dk-text); line-height: 1.5; }
   .ms-pair { display: grid; grid-template-columns: 1fr 30px 1fr; gap: 8px; align-items: center; font-size: 12px; }
-  .ms-pair .src { background: var(--code-bg); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  /* white-space: pre preserves the leading spaces that indent the nested
+     YAML keys. Without it, HTML whitespace collapse flattens `  system:`
+     to `system:` and the merge-semantics demo loses its whole point. */
+  .ms-pair .src { background: var(--code-bg); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; white-space: pre; }
   .ms-pair .arrow { text-align: center; color: var(--cyan); font-size: 20px; }
-  .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; white-space: pre; }
   .ms-rule.dict  .result { border-left-color: var(--blue); background: linear-gradient(120deg, rgba(10,96,255,.12), rgba(10,96,255,.04)); }
   .ms-rule.prim  .result { border-left-color: var(--green); background: linear-gradient(120deg, rgba(255,0,127,.12), rgba(255,0,127,.04)); }
   .ms-rule.dictl .result { border-left-color: var(--orange); background: linear-gradient(120deg, rgba(255,144,0,.12), rgba(255,144,0,.04)); }
