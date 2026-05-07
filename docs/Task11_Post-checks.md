@@ -1,21 +1,18 @@
-!!! warning "Task Prerequisite"
-    Before starting this task, ensure you have completed [Task 10: Schema Validation](Task10_Schema_validation.md). The `.schema.yaml` file created in that task is required for the `nac-test` tool to function correctly.
+# Task 11 — Post-checks with `nac-test` (Optional)
 
-After deploying configuration changes, how do you verify they were applied correctly? For a single device, you might SSH in and run `show running-config`. But what about when you're managing multiple switches? What about config that's not in the running configuration, such as the VLAN database? Manual verification doesn't scale.
+**⏱ ~15 minutes**
 
-In this task, you'll learn how to automate **post-change validation** using Robot Framework. Instead of manually verifying configurations on each device, you'll use the `nac-test` tool to automatically validate that your intent configuration was deployed correctly.
+!!! info "Before you start"
+    This task depends on `.schema.yaml` from [Task 10 — Schema Validation](Task10_Schema_validation.md). Make sure Task 10 is done before continuing.
 
-!!! warning "Time Check"
-    This is the most laborious task in the lab. If you're running short on time and want to experience the CI/CD pipeline, consider skipping this task and moving directly to [Task 12: Cleanup](Task12_Cleanup.md) followed by [Task 13: Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md).
+After Terraform applies a change, how do you confirm the configuration actually landed correctly on the devices? For one device, `show running-config` works. For a fleet, manual spot-checks don't scale — and running-config can't even tell you about operational state (BGP neighbor established, interface line-protocol up, VLAN database populated, etc.).
 
-## Post-Change Validation
+**`nac-test`** automates post-change validation by rendering Robot Framework tests directly from your intent YAML, then running them against the live devices. The test cases describe *what you asked for*; the framework confirms *what actually happened*.
 
-The Network-as-Code framework's `nac-test` tool automates post-change validations using:
+- **Robot Framework** — a keyword-driven test framework; test cases are readable and easy to extend.
+- **Pabot** — a parallel executor for Robot that runs suites simultaneously. Fast enough to run against many devices during a CI pipeline.
 
-- **Robot Framework** - An open-source automation framework for testing. It's keyword-driven, making test cases easy to write and understand.
-- **Pabot** - A parallel executor for Robot Framework that speeds up test execution by running tests simultaneously across multiple processes.
-
-The key insight is that **tests are rendered from your intent configuration YAML files**. This means you don't write tests manually – they're automatically generated based on what you intended to configure.
+**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces — so the tests always match the intent.
 
 ## Use Case: Validating Access-List Configuration
 
