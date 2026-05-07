@@ -90,6 +90,40 @@ module "iosxe" {
 
 In production, pin to a specific tag: `?ref=v0.12.3`.
 
+## Module inputs reference
+
+The NAC IOS XE module accepts nine input variables. The lab uses three. Here are all nine, grouped by what they control:
+
+<figure markdown>
+  ![All NAC IOS XE module inputs](./assets/module-inputs.png){ width="100%" }
+</figure>
+
+Quick decision table:
+
+| You want to… | Set |
+|--------------|-----|
+| Scan a directory of YAML files | `yaml_directories = ["data/"]` |
+| Load a specific list of files | `yaml_files = ["data/core.nac.yaml", ...]` |
+| Provide config as a Terraform map | `model = { … }` |
+| Push to only a subset of devices | `managed_devices = ["core", "border"]` |
+| Push to only members of certain groups | `managed_device_groups = ["ACCESS_SWITCHES"]` |
+| Commit atomically per device (multi-RPC safety) | `device_transaction = true` |
+| Persist to `startup-config` so config survives reboot | `save_config = true` |
+| Write the merged data model for inspection | `write_model_file = "model.yaml"` |
+| Write the resolved defaults for inspection | `write_default_values_file = "defaults.yaml"` |
+
+## Fleet-level vs per-device transactions
+
+Two separate "atomicity" layers are worth distinguishing because they're easy to conflate:
+
+| Scope | Mechanism | Guarantee |
+|-------|-----------|-----------|
+| **Single device, single apply** | NETCONF candidate datastore + `<commit>` (see Task 01 diagram) | All RPCs in one Terraform-to-device session commit together, or all roll back. Requires `netconf-yang feature candidate-datastore` on the device. |
+| **Multiple RPCs, single apply, same device** | Module's `device_transaction = true` input | Terraform buffers all changes destined for a device and commits them in one NETCONF transaction. Same guarantee, applied per-device across every changeset Terraform computes. |
+| **Fleet-level (across devices)** | Not available — Terraform applies per-device | If an apply touches 10 devices and device #7 fails, the first six have their changes committed; devices 7–10 don't. There is **no** "all 10 devices or none" primitive. |
+
+For the lab's 4-device deployment, the per-device transaction layer is what matters. For real production rollouts, plan for the fleet-level case: stage rollouts by pipeline phase, roll back via a subsequent `apply` that reverses the intent, or use `managed_devices` to scope the blast radius.
+
 ## Terraform command reference
 
 | Command | What it does | Changes devices? |
