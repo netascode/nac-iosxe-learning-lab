@@ -1,8 +1,8 @@
-# Task 04 — Device group configuration
+# Task 04 - Device group configuration
 
 **⏱ ~15 minutes**
 
-In this task you'll apply configuration to a **group of devices** at once using device groups. An Access Control List (ACL) is the example — device groups let you apply the same configuration to every device that shares a role or location, without duplicating the YAML.
+In this task you'll apply configuration to a **group of devices** at once using device groups. An Access Control List (ACL) is the example - device groups let you apply the same configuration to every device that shares a role or location, without duplicating the YAML.
 
 ## What you'll learn
 
@@ -25,10 +25,10 @@ Device groups are particularly effective for:
 
 ## Use Case: Standard ACL for Access Switches
 
-In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) – a typical requirement for access layer devices controlling traffic from known networks.
+In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) - a typical requirement for access layer devices controlling traffic from known networks.
 
 !!! note "The power of Device Groups: Scalability"
-    Using device groups may appear unnecessary for just two access switches – in this example. However, consider a large network with more than 1,000 access switches. Utilizing device groups helps keep the configuration organized and scalable.
+    Using device groups may appear unnecessary for just two access switches - in this example. However, consider a large network with more than 1,000 access switches. Utilizing device groups helps keep the configuration organized and scalable.
 
 ## Step 1: Create the Device Group Configuration File
 
@@ -215,7 +215,7 @@ This confirms the standard ACL was successfully deployed to both **access01** an
 
 ## Generated Model File
 
-When Terraform applies your configuration, the Network as Code module performs a deep merge of all your YAML files — global configuration, device group configuration, and device-specific configuration — into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
+When Terraform applies your configuration, the Network as Code module performs a deep merge of all your YAML files - global configuration, device group configuration, and device-specific configuration - into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
 
 The merge follows the same precedence hierarchy you've been working with: **global → device group → device**, where more specific levels override less specific ones for the same keys. Variables are substituted, templates are rendered, and the output is a flat list of devices, each with its fully resolved configuration.
 
@@ -231,9 +231,9 @@ Open `model.yaml` in VS Code to see the result. Notice how the ACL from the **AC
 
 **Why this matters:**
 
-- **Debugging** — if a device gets unexpected configuration, `model.yaml` shows you exactly what the module computed for that device after all merges and variable substitutions.
-- **Verification** — `nac-test` (Task 11) uses `model.yaml` as its input to generate post-deployment tests. The tests assert against what the model says *should* be on the device.
-- **Transparency** — rather than trusting the module as a black box, you can inspect the fully resolved intent for every device in one file.
+- **Debugging** - if a device gets unexpected configuration, `model.yaml` shows you exactly what the module computed for that device after all merges and variable substitutions.
+- **Verification** - `nac-test` (Task 11) uses `model.yaml` as its input to generate post-deployment tests. The tests assert against what the model says *should* be on the device.
+- **Transparency** - rather than trusting the module as a black box, you can inspect the fully resolved intent for every device in one file.
 
 
 ## What You've Accomplished
@@ -247,5 +247,5 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 03 — Global configuration](Task03_Global_configuration.md)  ·  **Next:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
+**← Previous:** [Task 03 - Global configuration](Task03_Global_configuration.md)  ·  **Next:** [Task 05 - Single-device configuration](Task05_Single_device_config.md)
 

@@ -1,4 +1,4 @@
-# Task 06 — Variables
+# Task 06 - Variables
 
 **⏱ ~15 minutes**
 
@@ -67,20 +67,20 @@ iosxe:
 
 **Two kinds of variable reference at work here:**
 
-- **`${SITE}`** — defined **globally** (at the `iosxe.global.variables` level). Every device inherits the same value unless a device explicitly overrides it. This is how you keep organization-wide constants (site name, location, lab ID, DNS domain) in exactly one place.
-- **`${HOSTNAME}`** — referenced globally, but you'll define it **per-device** in Step 2 so each device resolves it to its own value.
+- **`${SITE}`** - defined **globally** (at the `iosxe.global.variables` level). Every device inherits the same value unless a device explicitly overrides it. This is how you keep organization-wide constants (site name, location, lab ID, DNS domain) in exactly one place.
+- **`${HOSTNAME}`** - referenced globally, but you'll define it **per-device** in Step 2 so each device resolves it to its own value.
 
 **Banner config:**
 
-- `banner: login:` — the login banner shown on SSH connect.
-- `|` — YAML block-scalar indicator; preserves newlines and indentation inside the string.
+- `banner: login:` - the login banner shown on SSH connect.
+- `|` - YAML block-scalar indicator; preserves newlines and indentation inside the string.
 
 **System config:**
 
-- `system: hostname:` — sets the IOS XE `hostname` CLI to the resolved value of `${HOSTNAME}`.
+- `system: hostname:` - sets the IOS XE `hostname` CLI to the resolved value of `${HOSTNAME}`.
 
 !!! note "Variable syntax"
-    Variables use the `${VARIABLE_NAME}` syntax. Names are case-sensitive: `${HOSTNAME}` and `${hostname}` are different variables. The lab uses uppercase by convention — it makes variables visually distinct from the surrounding YAML, and is a common pattern across Network as Code data models.
+    Variables use the `${VARIABLE_NAME}` syntax. Names are case-sensitive: `${HOSTNAME}` and `${hostname}` are different variables. The lab uses uppercase by convention - it makes variables visually distinct from the surrounding YAML, and is a common pattern across Network as Code data models.
 
 The image below illustrates the updated global configuration in VS Code:
 
@@ -117,8 +117,8 @@ iosxe:
 
 **What's new:**
 
-- **`variables:`** — section where you define device-specific variables.
-- **`HOSTNAME: core`** — sets `${HOSTNAME}` to `core` for this device only. The `system.hostname` and `banner.login` in `global.nac.yaml` will resolve to this value when the merged model is rendered for `core`.
+- **`variables:`** - section where you define device-specific variables.
+- **`HOSTNAME: core`** - sets `${HOSTNAME}` to `core` for this device only. The `system.hostname` and `banner.login` in `global.nac.yaml` will resolve to this value when the merged model is rendered for `core`.
 
 The image below illustrates the device configuration with variables in VS Code:
 
@@ -280,7 +280,7 @@ After Terraform completes successfully, verify the configuration was applied cor
 Each device shows its own hostname in the banner, demonstrating that the same template produced device-specific results.
 
 !!! tip "Review the `model.yaml` file"
-    After running `terraform apply`, open `model.yaml` in VS Code to see how variables are resolved. Each device appears with its variable values already substituted into the rendered configuration — this is the final form Terraform sends to the devices.
+    After running `terraform apply`, open `model.yaml` in VS Code to see how variables are resolved. Each device appears with its variable values already substituted into the rendered configuration - this is the final form Terraform sends to the devices.
 
 ## Common variable use cases
 
@@ -331,11 +331,11 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
+**← Previous:** [Task 05 - Single-device configuration](Task05_Single_device_config.md)
 
 **Next Steps:**
 
 You can either explore **optional** template tasks or continue with the **recommended** path:
 
-- **Optional:** [Task 07 — Templates type `model`](Task07_Templates_type_model.md) — reusable YAML-based configuration templates
-- **Recommended:** [Task 10 — Schema validation](Task10_Schema_validation.md) — skip templates and continue with pre-change validation
+- **Optional:** [Task 07 - Templates type `model`](Task07_Templates_type_model.md) - reusable YAML-based configuration templates
+- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip templates and continue with pre-change validation

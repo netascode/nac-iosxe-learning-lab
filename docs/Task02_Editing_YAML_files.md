@@ -1,4 +1,4 @@
-# Task 02 — Editing YAML files in VS Code
+# Task 02 - Editing YAML files in VS Code
 
 **⏱ ~15 minutes**
 
@@ -99,7 +99,7 @@ touch data/devices/access02.nac.yaml
 One file per device is the pattern we'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
 
 !!! note "Why one file per device, not a single inventory file?"
-    The IOS XE as Code data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time — **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
+    The IOS XE as Code data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time - **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
 
 ### How Network as Code merges YAML: the three rules
 
@@ -109,7 +109,7 @@ Network as Code's file-merging behavior is [formally documented](https://netasco
   ![YAML merge semantics](./assets/merge-semantics.png){ width="100%" }
 </figure>
 
-The "one device per file" pattern you just set up relies on **Rule 3** — two files that each declare a `devices:` list with an entry named `core` merge into a single `core` entry with the fields from both. The invariant: if you typo the `name` in one file, you get **two separate entries** instead of one merged one, and Network as Code won't warn you. It's the single most common way a learner's config silently misbehaves.
+The "one device per file" pattern you just set up relies on **Rule 3** - two files that each declare a `devices:` list with an entry named `core` merge into a single `core` entry with the fields from both. The invariant: if you typo the `name` in one file, you get **two separate entries** instead of one merged one, and Network as Code won't warn you. It's the single most common way a learner's config silently misbehaves.
 
 <figure markdown>
   ![Creating the project files](./assets/wsl-create-files.png){ width="80%" }
@@ -166,7 +166,7 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 
 ### YAML Linting with RedHat Extension (pre-installed)
 
-Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files. This extension is already installed in your lab's VS Code — no action required.
+Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files. This extension is already installed in your lab's VS Code - no action required.
 
 <figure markdown>
   ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
@@ -197,7 +197,7 @@ This extension provides:
 
 !!! note "VS Code automatically connects to WSL (pre-configured)"
     The **WSL** VS Code extension is pre-installed, so VS Code connects to your Ubuntu environment automatically.
-    You'll see a `WSL: Ubuntu-22.04` indicator in the bottom-left corner confirming the connection — files you edit in VS Code are saved directly to the WSL filesystem.
+    You'll see a `WSL: Ubuntu-22.04` indicator in the bottom-left corner confirming the connection - files you edit in VS Code are saved directly to the WSL filesystem.
 
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
@@ -225,10 +225,10 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
     This lab uses **NETCONF** as the management protocol (`IOSXE_PROTOCOL=netconf`).
 
 !!! warning "Never commit `.env` to a real repository"
-    The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them — deleting the file from history isn't enough.
+    The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them - deleting the file from history isn't enough.
 
 !!! tip "If `source .env` fails with a weird error, check line endings"
-    VS Code on Windows sometimes saves files with Windows-style (`CRLF`) line endings. WSL's Bash chokes on those in a sourced file. If `source .env` errors, run `dos2unix .env` in the WSL terminal and try again. You can also configure VS Code to always use LF — see the status-bar indicator at the bottom-right of the editor window.
+    VS Code on Windows sometimes saves files with Windows-style (`CRLF`) line endings. WSL's Bash chokes on those in a sourced file. If `source .env` errors, run `dos2unix .env` in the WSL terminal and try again. You can also configure VS Code to always use LF - see the status-bar indicator at the bottom-right of the editor window.
 
 
 ## Edit Terraform main.tf file
@@ -249,14 +249,14 @@ module "iosxe" {
 
 **Understanding the configuration:**
 
-- **`module "iosxe"`** — declares a Terraform module named `iosxe`. Modules package reusable Terraform logic; you invoke them with `module.iosxe`.
-- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** — tells Terraform where to fetch the module. This is the Cisco-maintained Network as Code module that translates your YAML into the low-level resource calls the `terraform-provider-iosxe` understands.
-- **`yaml_directories = ["data/"]`** — tells the module which directories to scan for YAML. Every `*.nac.yaml` file inside `data/` is auto-discovered and merged. This is why you can split configurations across many files without wiring them up individually.
-- **`write_model_file = "model.yaml"`** — after merging, the module writes the final merged data model to `model.yaml`. You'll use this file to debug variable substitution and as input to `nac-test` for post-deployment validation.
-- **`write_default_values_file = "defaults.yaml"`** — similar, but for the default values the module applies when your YAML omits a field. Useful for understanding "where did this setting come from?"
+- **`module "iosxe"`** - declares a Terraform module named `iosxe`. Modules package reusable Terraform logic; you invoke them with `module.iosxe`.
+- **`source = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"`** - tells Terraform where to fetch the module. This is the Cisco-maintained Network as Code module that translates your YAML into the low-level resource calls the `terraform-provider-iosxe` understands.
+- **`yaml_directories = ["data/"]`** - tells the module which directories to scan for YAML. Every `*.nac.yaml` file inside `data/` is auto-discovered and merged. This is why you can split configurations across many files without wiring them up individually.
+- **`write_model_file = "model.yaml"`** - after merging, the module writes the final merged data model to `model.yaml`. You'll use this file to debug variable substitution and as input to `nac-test` for post-deployment validation.
+- **`write_default_values_file = "defaults.yaml"`** - similar, but for the default values the module applies when your YAML omits a field. Useful for understanding "where did this setting come from?"
 
 !!! note "Why no version pin?"
-    For the lab we source directly from the module's default branch (`main`) to always get the latest schema and features. In production you should pin to a specific tag or commit (for example, `?ref=v0.12.3`) so every `terraform init` yields a reproducible build. Unpinned sources are convenient for experimentation but will occasionally break learners when upstream ships schema changes — pin once you ship.
+    For the lab we source directly from the module's default branch (`main`) to always get the latest schema and features. In production you should pin to a specific tag or commit (for example, `?ref=v0.12.3`) so every `terraform init` yields a reproducible build. Unpinned sources are convenient for experimentation but will occasionally break learners when upstream ships schema changes - pin once you ship.
 
 The figure below illustrates the `main.tf` file in Visual Studio Code:
 
@@ -266,7 +266,7 @@ The figure below illustrates the `main.tf` file in Visual Studio Code:
 
 ## Populate the per-device files
 
-Each per-device file registers one device with Network as Code — it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
+Each per-device file registers one device with Network as Code - it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
 
 Open `data/devices/core.nac.yaml` in VS Code and paste:
 
@@ -309,15 +309,15 @@ iosxe:
 ```
 
 !!! warning "Indentation matters in YAML"
-    YAML uses **spaces** (not tabs) and relies on consistent indentation to express structure. Each level of nesting should be exactly 2 spaces. Copy-pasting from this guide preserves the right indentation; if you type manually, watch for the red squiggles from the VS Code YAML extension — they point at exactly the line that's off.
+    YAML uses **spaces** (not tabs) and relies on consistent indentation to express structure. Each level of nesting should be exactly 2 spaces. Copy-pasting from this guide preserves the right indentation; if you type manually, watch for the red squiggles from the VS Code YAML extension - they point at exactly the line that's off.
 
 **What each key means:**
 
-- `---` — YAML document-start marker (optional but conventional).
-- `iosxe:` — root key. Every IOS XE as Code YAML starts here.
-- `devices:` — the top-level list of devices Network as Code manages.
-- `name:` — unique identifier for the device. Other YAML files will match against this name.
-- `host:` — management IP Network as Code connects to.
+- `---` - YAML document-start marker (optional but conventional).
+- `iosxe:` - root key. Every IOS XE as Code YAML starts here.
+- `devices:` - the top-level list of devices Network as Code manages.
+- `name:` - unique identifier for the device. Other YAML files will match against this name.
+- `host:` - management IP Network as Code connects to.
 
 !!! note "Why one device per file?"
     Network as Code merges all YAML files in `data/` into a single data model at load time. Because `devices` is a list, keeping each device in its own file makes it immediately obvious which file owns which device, and avoids the accidental-merge bugs that can happen when several files all append to the same list. You'll extend these files with real configuration starting in [Task 05](Task05_Single_device_config.md).
@@ -330,13 +330,13 @@ iosxe:
 
 VS Code has auto-save enabled, so your files are saved a few seconds after you stop typing. At this point your project contains:
 
-- `.env` — device credentials and protocol
-- `main.tf` — Terraform module configuration
-- `data/devices/*.nac.yaml` — four per-device skeleton files
+- `.env` - device credentials and protocol
+- `main.tf` - Terraform module configuration
+- `data/devices/*.nac.yaml` - four per-device skeleton files
 
 ## How the project will grow
 
-Every subsequent task in this lab will either extend the per-device files or introduce a new file type under `data/`, `tftpl/`, or `tests/`. Here's the **final** layout you'll end up with by the time you reach Task 11 — refer back to this any time you lose track of which file owns what:
+Every subsequent task in this lab will either extend the per-device files or introduce a new file type under `data/`, `tftpl/`, or `tests/`. Here's the **final** layout you'll end up with by the time you reach Task 11 - refer back to this any time you lose track of which file owns what:
 
 <figure markdown>
   ![Project file layout](./assets/file-layout.png){ width="100%" }
@@ -351,12 +351,12 @@ Every subsequent task in this lab will either extend the per-device files or int
 
 **Tools introduced:**
 
-- **VS Code** (with the Red Hat YAML extension) — YAML-aware editing, validation, linting
-- **WSL Ubuntu** — the Linux environment where you'll run Terraform and other CLI tools
+- **VS Code** (with the Red Hat YAML extension) - YAML-aware editing, validation, linting
+- **WSL Ubuntu** - the Linux environment where you'll run Terraform and other CLI tools
 
-In the next task, you'll deploy your first piece of configuration — a login banner — to all four devices using Terraform.
+In the next task, you'll deploy your first piece of configuration - a login banner - to all four devices using Terraform.
 
 ---
 
-**← Previous:** [Task 01 — SSH to the lab devices](Task01_SSH_to_network_devices.md)  ·  **Next:** [Task 03 — Global Configuration](Task03_Global_configuration.md)
+**← Previous:** [Task 01 - SSH to the lab devices](Task01_SSH_to_network_devices.md)  ·  **Next:** [Task 03 - Global Configuration](Task03_Global_configuration.md)
 

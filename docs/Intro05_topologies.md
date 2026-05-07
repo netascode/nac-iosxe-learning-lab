@@ -24,7 +24,7 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
     For example: `ssh cisco@198.18.130.10`
 
 !!! warning "Host Device Connectivity"
-    The host devices (**host01** and **host02**) are not reachable from your lab Win10 VM or Ubuntu VM. They are only reachable from CML – see below.
+    The host devices (**host01** and **host02**) are not reachable from your lab Win10 VM or Ubuntu VM. They are only reachable from CML - see below.
 
 ---
 
@@ -38,7 +38,7 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
 | **GitLab**        | 198.18.133.101 | root     | C1sco12345 | [web](https://198.18.133.101) |
 
 !!! info "Ubuntu VM and GitLab share a host"
-    The Ubuntu VM and GitLab entries above both show `198.18.133.101` — that's not a typo. They're the same underlying VM, accessed as two different services:
+    The Ubuntu VM and GitLab entries above both show `198.18.133.101` - that's not a typo. They're the same underlying VM, accessed as two different services:
 
     - **SSH as `guest`** → you get an Ubuntu shell
     - **HTTPS as `root`** → you get the GitLab web UI
@@ -56,7 +56,7 @@ Below is the dCloud lab topology diagram:
 
 This lab consists of:
 
-- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs – network simulation platform)
+- Multiple **IOS XE** virtual switches running in CML (Cisco Modeling Labs - network simulation platform)
 - **GitLab** as Git repository and to run CI/CD pipelines, running in an Ubuntu VM
 - Windows 10 VM with:
     - **VS Code** for editing Infrastructure as Code YAML files

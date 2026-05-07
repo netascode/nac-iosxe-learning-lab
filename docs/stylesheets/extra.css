@@ -1,13 +1,13 @@
 /* ============================================================================
-   LTRXAR-2008 · Cisco Live 2026 — MkDocs Material overrides.
+   LTRXAR-2008 · Cisco Live 2026 - MkDocs Material overrides.
    All colors taken from the PPT theme1.xml palette so the site, the slides,
    and the in-line diagrams share a single visual identity:
-     accent1  #02C8FF  cyan    — primary accent (headings, links)
-     accent2  #0A60FF  blue    — secondary accent (H2, nav)
-     accent3  #FF007F  pink    — tertiary accent (H3, warnings, highlights)
-     accent4  #FF9000  orange  — warm accent (admonition notes, callouts)
-     accent6  #6B6B6B  gray    — neutral (muted lines, borders)
-     lt1      #07182D  navy    — deep background
+     accent1  #02C8FF  cyan    - primary accent (headings, links)
+     accent2  #0A60FF  blue    - secondary accent (H2, nav)
+     accent3  #FF007F  pink    - tertiary accent (H3, warnings, highlights)
+     accent4  #FF9000  orange  - warm accent (admonition notes, callouts)
+     accent6  #6B6B6B  gray    - neutral (muted lines, borders)
+     lt1      #07182D  navy    - deep background
    ========================================================================= */
 
 :root {
@@ -38,13 +38,13 @@
 .md-typeset table:not([class]) { display: table; }
 .max-code-height > pre > code { max-height: 500px; overflow-y: auto; }
 
-/* Tighter, denser admonitions — they were eating too much vertical real-estate. */
+/* Tighter, denser admonitions - they were eating too much vertical real-estate. */
 .md-typeset .admonition,
 .md-typeset details { font-size: .72rem; }
 
 
 /* ============================================================================
-   Colorized headers — each level gets its own PPT accent so the page reads
+   Colorized headers - each level gets its own PPT accent so the page reads
    as a visual hierarchy, not a wall of identical text. H1 is the page title
    (strong cyan top rule), H2 separates major sections (blue left rule), H3
    marks sub-steps (pink accent).
@@ -102,8 +102,8 @@
 
 /* ============================================================================
    Page navigation (← Previous / Next → links at the bottom of every task).
-   The lab guide uses a uniform markdown convention — the last paragraph of
-   every page is `**← Previous:** [...] · **Next:** [...]` — so we can style
+   The lab guide uses a uniform markdown convention - the last paragraph of
+   every page is `**← Previous:** [...] · **Next:** [...]` - so we can style
    that one paragraph into a pair of pills without touching the markdown.
    ========================================================================= */
 
@@ -118,7 +118,7 @@
 }
 
 .md-typeset hr + p:last-child strong {
-    display: none;  /* hide "← Previous:" / "Next:" labels — icons carry the meaning */
+    display: none;  /* hide "← Previous:" / "Next:" labels - icons carry the meaning */
 }
 
 .md-typeset hr + p:last-child a {
@@ -173,7 +173,7 @@
     text-decoration: none;
 }
 
-/* Hide the " · " separator between prev and next — flexbox already gaps them. */
+/* Hide the " · " separator between prev and next - flexbox already gaps them. */
 .md-typeset hr + p:last-child {
     font-size: 0;  /* kills whitespace text nodes */
 }
@@ -181,7 +181,7 @@
 
 
 /* ============================================================================
-   Admonition accents — thin colored edge instead of Material's default heavy
+   Admonition accents - thin colored edge instead of Material's default heavy
    fill. Matches the same palette used in the diagrams.
    ========================================================================= */
 
@@ -201,7 +201,7 @@
 
 
 /* ============================================================================
-   Code blocks — a thin cyan left edge pins them to the CLUS visual identity
+   Code blocks - a thin cyan left edge pins them to the CLUS visual identity
    without being loud. Inline `code` gets the same pink the diagrams use for
    `accent` words, so inline code in prose doesn't disappear.
    ========================================================================= */
@@ -220,7 +220,7 @@
 
 
 /* ============================================================================
-   Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
+   Top tabs nav - bump the primary-tab underline to CLUS cyan so the active
    section is instantly visible (Material default is a muted indigo).
    ========================================================================= */
 
@@ -232,7 +232,7 @@
 
 
 /* ============================================================================
-   Right-column TOC — PPT pink for the active section, cyan for hover.
+   Right-column TOC - PPT pink for the active section, cyan for hover.
    ========================================================================= */
 
 .md-nav__link--active,

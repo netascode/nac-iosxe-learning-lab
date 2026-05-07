@@ -1,10 +1,10 @@
-# Task 10 — Pre-checks with schema validation
+# Task 10 - Pre-checks with schema validation
 
 **⏱ ~15 minutes**
 
 You've been creating Network as Code YAML files and deploying them with Terraform. How do you ensure your YAML is correctly structured and contains valid data **before** hitting a device?
 
-Pre-change validation catches errors at the YAML layer — before `terraform plan` ever opens a connection to a switch. It's the same principle as compiling code before running it: fail fast, fail cheap, fail with a clear error message.
+Pre-change validation catches errors at the YAML layer - before `terraform plan` ever opens a connection to a switch. It's the same principle as compiling code before running it: fail fast, fail cheap, fail with a clear error message.
 
 ## What you'll learn
 
@@ -16,13 +16,13 @@ By the end of this task you will have:
 
 ## First, what is Network as Code actually validating?
 
-Before `nac-validate` runs, it's useful to see what it's validating *against*. Network as Code doesn't look at your individual YAML files in isolation — it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
+Before `nac-validate` runs, it's useful to see what it's validating *against*. Network as Code doesn't look at your individual YAML files in isolation - it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
 
 <figure markdown>
   ![How Network as Code merges your YAML](./assets/config-merge.png){ width="100%" }
 </figure>
 
-That merged model is what Terraform ultimately sends to each device (you've seen it written to `model.yaml` after each `terraform apply`). Schema validation checks the merged result — so an error might come from a bad key in a global file that only affects one group's rendered output. `nac-validate` tells you exactly which file and which path in the merged model caused the problem.
+That merged model is what Terraform ultimately sends to each device (you've seen it written to `model.yaml` after each `terraform apply`). Schema validation checks the merged result - so an error might come from a bad key in a global file that only affects one group's rendered output. `nac-validate` tells you exactly which file and which path in the merged model caused the problem.
 
 ## What is schema validation?
 
@@ -99,14 +99,14 @@ Your project structure should now include:
 !!! note "Generated Files"
     As shown earlier, the `model.yaml` and `defaults.yaml` files are automatically generated after you run `terraform apply`. These files are created by the Network as Code module based on the `write_model_file` and `write_default_values_file` parameters in your `main.tf`. The `model.yaml` contains the complete merged configuration, while `defaults.yaml` shows the default values used by the module.
 
-??? abstract "How defaults get applied — precedence order"
+??? abstract "How defaults get applied - precedence order"
     `defaults.yaml` shows the *effective* defaults at merge time. Those values come from three possible sources, merged in this precedence order (later wins):
 
-    1. **Module built-in defaults** — shipped inside the Network as Code module itself. You don't see or edit them.
-    2. **Your own defaults file** — optional YAML you place in `data/` matching the `defaults:` schema root. Overrides module built-ins.
-    3. **Per-device / per-group / global values in your intent YAML** — explicit values in `config-*.nac.yaml` files. Override both default tiers.
+    1. **Module built-in defaults** - shipped inside the Network as Code module itself. You don't see or edit them.
+    2. **Your own defaults file** - optional YAML you place in `data/` matching the `defaults:` schema root. Overrides module built-ins.
+    3. **Per-device / per-group / global values in your intent YAML** - explicit values in `config-*.nac.yaml` files. Override both default tiers.
 
-    The formal rule is documented at [netascode.cisco.com/docs/guides/concepts/default_values/](https://netascode.cisco.com/docs/guides/concepts/default_values/). Practical implication: if something in `model.yaml` isn't what you expected, `defaults.yaml` is the first place to look — a module built-in may be setting the value you thought was empty.
+    The formal rule is documented at [netascode.cisco.com/docs/guides/concepts/default_values/](https://netascode.cisco.com/docs/guides/concepts/default_values/). Practical implication: if something in `model.yaml` isn't what you expected, `defaults.yaml` is the first place to look - a module built-in may be setting the value you thought was empty.
 
 
 ## Install the nac-validate Tool
@@ -145,7 +145,7 @@ nac-validate -s .schema.yaml data/
 
 ## Successful Validation
 
-If your YAML files are correct, the command will return without any output – you'll just get your prompt back:
+If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
 ```text { .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
@@ -261,12 +261,12 @@ If everything is correct, you'll get your prompt back with no output. If there a
 By validating before running Terraform, you catch configuration errors immediately without attempting to connect to devices. This saves time and prevents partial deployments of invalid configurations.
 
 !!! tip "CI/CD Integration"
-    In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment – without manual intervention.
+    In [Task13 - Run CI/CD Pipeline](Task13_Run_CI-CD_pipeline.md), you'll see how schema validation is automatically integrated into the GitLab CI/CD workflow. The pipeline runs `nac-validate` as part of the automated process, ensuring that every configuration change is validated before deployment - without manual intervention.
 
 
-## Extensibility — semantic validation
+## Extensibility - semantic validation
 
-Schema validation (everything above) is **syntactic**: does the YAML match the shape of the data model? `nac-validate` can also do **semantic** validation — rules that answer "does this configuration make sense in context?".
+Schema validation (everything above) is **syntactic**: does the YAML match the shape of the data model? `nac-validate` can also do **semantic** validation - rules that answer "does this configuration make sense in context?".
 
 Cisco CX ships a rule pack covering common semantic checks:
 
@@ -277,7 +277,7 @@ Cisco CX ships a rule pack covering common semantic checks:
 You can also write your own. Rules are Python classes that subclass a base and implement a `match` method against the merged data model.
 
 !!! example "A custom rule: flag `permit any` in ACLs"
-    A rule that fails validation if any standard ACL entry permits `any` — a common security anti-pattern:
+    A rule that fails validation if any standard ACL entry permits `any` - a common security anti-pattern:
 
     ```python title=".nac-validate/rules/no_permit_any.py"
     from nac_validate.rule import Rule
@@ -304,7 +304,7 @@ You can also write your own. Rules are Python classes that subclass a base and i
 
 ## Where to find the full schema
 
-The lab's `.schema.yaml` is a curated subset covering just the data-model paths exercised across Tasks 03–09. The full schema — with every supported IOS XE configuration option — is published at [netascode.cisco.com/docs/data_models/iosxe/overview/](https://netascode.cisco.com/docs/data_models/iosxe/overview/).
+The lab's `.schema.yaml` is a curated subset covering just the data-model paths exercised across Tasks 03-09. The full schema - with every supported IOS XE configuration option - is published at [netascode.cisco.com/docs/data_models/iosxe/overview/](https://netascode.cisco.com/docs/data_models/iosxe/overview/).
 
 !!! tip "Need the schema subset used in this lab?"
     See [Appendix II](Appendix-II.md) for the full `.schema.yaml` you copied in earlier. It's a useful reference if you want to know what keys are valid without running into them via error messages.
@@ -329,11 +329,11 @@ You now have a safety check in place to catch configuration errors before they r
 
 ---
 
-**← Previous:** [Task 06 — Variables](Task06_Variables.md)
+**← Previous:** [Task 06 - Variables](Task06_Variables.md)
 
 **Next Steps:**
 
 You can explore the **optional** post-checks task or continue with the **recommended** cleanup:
 
-- **Optional:** [Task 11 — Post-checks with nac-test](Task11_Post-checks.md) — automate post-change validation
-- **Recommended:** [Task 12 — Cleanup](Task12_Cleanup.md) — skip Robot Framework and proceed to cleanup before CI/CD
+- **Optional:** [Task 11 - Post-checks with nac-test](Task11_Post-checks.md) - automate post-change validation
+- **Recommended:** [Task 12 - Cleanup](Task12_Cleanup.md) - skip Robot Framework and proceed to cleanup before CI/CD

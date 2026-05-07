@@ -1,8 +1,8 @@
-# Task 03 — Global configuration
+# Task 03 - Global configuration
 
 **⏱ ~20 minutes**
 
-In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example — you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
+In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example - you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
 ## What you'll learn
 
@@ -57,7 +57,7 @@ iosxe:
 - **`login:`** - The login banner text displayed to users before they log in to the device
 
 !!! note "Separation of concerns"
-    The global configuration lives in its own file (`global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" — NAC merges them all automatically when it reads the `data/` directory.
+    The global configuration lives in its own file (`global.nac.yaml`), separate from the per-device files. This modular layout keeps "what applies to everyone" distinct from "what applies to one device" - NAC merges them all automatically when it reads the `data/` directory.
 
 The figure below illustrates how to create the `data/global.nac.yaml` file with Visual Studio Code:
 
@@ -92,17 +92,17 @@ Terraform uses a declarative approach where you define the desired state (in you
   ![Terraform workflow](./assets/terraform-workflow.png){ width="100%" }
 </figure>
 
-1. **Author** (`*.nac.yaml`) — the YAML you write. Version-controlled, never touched by Terraform itself.
-2. **Preview** (`terraform plan`) — read-only. Connects to devices, reads current state, shows you what *would* change. Safe to run any time.
-3. **Execute** (`terraform apply`) — writes configuration over NETCONF and updates state. **This is the step that actually changes the network.**
-4. **Remember** (`terraform.tfstate`) — auto-maintained. Tracks every resource Terraform has created, so subsequent plans know what's already there.
+1. **Author** (`*.nac.yaml`) - the YAML you write. Version-controlled, never touched by Terraform itself.
+2. **Preview** (`terraform plan`) - read-only. Connects to devices, reads current state, shows you what *would* change. Safe to run any time.
+3. **Execute** (`terraform apply`) - writes configuration over NETCONF and updates state. **This is the step that actually changes the network.**
+4. **Remember** (`terraform.tfstate`) - auto-maintained. Tracks every resource Terraform has created, so subsequent plans know what's already there.
 
 Of the three commands, only `apply` (and its counterpart `destroy`) change anything on the wire. `plan` is a read-only diff and can be run freely.
 
-!!! info "Why state matters — Terraform vs. stateless tools"
-    Because Terraform maintains a local state file that records exactly what it has configured on each device, it can compute a precise diff between your desired YAML and the actual device state — then push **only the changes**. If nothing changed in your YAML, `terraform plan` reports "No changes" without touching the network at all.
+!!! info "Why state matters - Terraform vs. stateless tools"
+    Because Terraform maintains a local state file that records exactly what it has configured on each device, it can compute a precise diff between your desired YAML and the actual device state - then push **only the changes**. If nothing changed in your YAML, `terraform plan` reports "No changes" without touching the network at all.
 
-    This also gives you `terraform plan` — a fast, guaranteed-safe preview of exactly what would change on every device before you commit. Terraform's plan/apply separation is enforced at the framework level: providers cannot make write calls during plan, so it's architecturally read-only. By contrast, Ansible's check mode (`--check`) is opt-in per module — each module developer must explicitly implement dry-run support, and many modules don't, leaving you without a reliable preview for parts of your playbook.
+    This also gives you `terraform plan` - a fast, guaranteed-safe preview of exactly what would change on every device before you commit. Terraform's plan/apply separation is enforced at the framework level: providers cannot make write calls during plan, so it's architecturally read-only. By contrast, Ansible's check mode (`--check`) is opt-in per module - each module developer must explicitly implement dry-run support, and many modules don't, leaving you without a reliable preview for parts of your playbook.
 
     This is a fundamental advantage over stateless automation tools (such as Ansible), which have no local record of what's on the device. Those tools must connect to the device and gather its current configuration on every run before they can determine whether a change is needed. Terraform's state-based approach means faster runs, less network traffic, and a clear audit trail of what was deployed and when.
 
@@ -194,7 +194,7 @@ These credentials allow Terraform to authenticate with your IOS XE devices over 
 
 **Making Environment Variables Persistent:**
 
-Environment variables exported in your current shell session are not persistent – they disappear when you close the terminal. If you exit WSL and later open a new session, you must export them again.
+Environment variables exported in your current shell session are not persistent - they disappear when you close the terminal. If you exit WSL and later open a new session, you must export them again.
 
 To avoid manually exporting variables every time you open WSL, you can add the export command to your `~/.bashrc` file. This file runs automatically whenever you start a new bash session, so your environment variables will be loaded automatically.
 
@@ -209,7 +209,7 @@ This appends the source command to your `~/.bashrc` file. Now every time you ope
 
 ### Step 3: Verify NETCONF reachability
 
-Before running Terraform, confirm the NETCONF subsystem is up on one of the lab devices. NETCONF listens on TCP/830 by default, and the simplest way to check it from WSL is a one-shot SSH handshake against the `netconf` subsystem — the device replies with an XML `<hello>` message containing its supported capabilities.
+Before running Terraform, confirm the NETCONF subsystem is up on one of the lab devices. NETCONF listens on TCP/830 by default, and the simplest way to check it from WSL is a one-shot SSH handshake against the `netconf` subsystem - the device replies with an XML `<hello>` message containing its supported capabilities.
 
 Test against **access01** (`198.18.130.11`):
 
@@ -221,10 +221,10 @@ When prompted, enter the password (`cisco`).
 
 What each flag does:
 
-- `-s` — request an SSH **subsystem** (rather than an interactive shell).
-- `-p 830` — NETCONF's default port.
-- `-o StrictHostKeyChecking=no` — skip the first-connection host-key prompt (lab-only; never use this in production).
-- `netconf` — the subsystem name.
+- `-s` - request an SSH **subsystem** (rather than an interactive shell).
+- `-p 830` - NETCONF's default port.
+- `-o StrictHostKeyChecking=no` - skip the first-connection host-key prompt (lab-only; never use this in production).
+- `netconf` - the subsystem name.
 
 ```text { title="Expected output (truncated)" hl_lines="1 2" .no-copy }
 <?xml version="1.0" encoding="UTF-8"?>
@@ -242,7 +242,7 @@ What each flag does:
 ]]>]]>
 ```
 
-If you see the `<hello>` XML with a capability list, NETCONF is reachable and your credentials work. Press **Ctrl+C** to exit — Terraform will manage its own NETCONF sessions from here on.
+If you see the `<hello>` XML with a capability list, NETCONF is reachable and your credentials work. Press **Ctrl+C** to exit - Terraform will manage its own NETCONF sessions from here on.
 
 
 ### Step 4: Initialize Terraform
@@ -267,7 +267,7 @@ terraform init
 </figure>
 
 ??? info "What the `terraform init` output tells you (annotated)"
-    First-time Terraform users can find the init output intimidating because Terraform is chatty — it narrates everything it does. Here's a typical healthy run, annotated:
+    First-time Terraform users can find the init output intimidating because Terraform is chatty - it narrates everything it does. Here's a typical healthy run, annotated:
 
     ```text
     Initializing the backend...             ← Reading backend config from main.tf.
@@ -295,22 +295,22 @@ terraform init
 
     Things that look scary but are normal:
 
-      - **"Downloading git::https://..."** — Terraform is pulling the Network as Code module
+      - **"Downloading git::https://..."** - Terraform is pulling the Network as Code module
         fresh. Happens every `init` unless the module's already cached.
-      - **"Finding ... versions matching"** — version-constraint resolution.
+      - **"Finding ... versions matching"** - version-constraint resolution.
         Lines like "Reusing previous version of ciscodevnet/iosxe" on subsequent
         runs mean the lock file is doing its job.
-      - **"Terraform has created a lock file"** — this is good. `.terraform.lock.hcl`
+      - **"Terraform has created a lock file"** - this is good. `.terraform.lock.hcl`
         pins provider versions. Commit it alongside `main.tf` in a real project.
 
     Things that actually mean something's wrong:
 
-      - **"Could not download module"** — internet access broken, or the module
+      - **"Could not download module"** - internet access broken, or the module
         URL is wrong, or the referenced ref/tag doesn't exist.
-      - **"Failed to install provider"** — provider registry unreachable or the
+      - **"Failed to install provider"** - provider registry unreachable or the
         version constraint can't be satisfied. Re-run `terraform init`; if it
         keeps failing, check the `~> 0.6` constraint matches a published version.
-      - **"Backend configuration changed"** — not applicable for this lab (we use
+      - **"Backend configuration changed"** - not applicable for this lab (we use
         the default local backend), but in CI/CD projects with remote state
         you'll see this if someone reconfigured the backend and you need to
         migrate state.
@@ -352,7 +352,7 @@ terraform plan
 In this case, you will configure the login banner on all four devices. Terraform will create a resource for each banner on each device. This is indicated by the `+` signs in the plan output.
 
 !!! info "What are the `local_sensitive_file` resources in the plan?"
-    You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations — they're local files the NAC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
+    You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations - they're local files the NAC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
 
 
 ### Step 6: Apply Configuration to Devices
@@ -399,7 +399,7 @@ Type `yes` and press Enter to proceed.
     terraform apply -auto-approve
     ```
 
-    Useful in CI/CD pipelines (Tasks 13–15) where the job runs
+    Useful in CI/CD pipelines (Tasks 13-15) where the job runs
     unattended. The plan + apply still happen; only the "Do you
     want to proceed? yes/no" prompt is skipped.
 
@@ -438,9 +438,9 @@ Type `yes` and press Enter to proceed.
     }
     ```
 
-    With `save_config = true`, the module instantiates an `iosxe_commit` resource that executes `write memory` (via RESTCONF/NETCONF) after config apply — so subsequent reboots boot with the configuration intact.
+    With `save_config = true`, the module instantiates an `iosxe_commit` resource that executes `write memory` (via RESTCONF/NETCONF) after config apply - so subsequent reboots boot with the configuration intact.
 
-    For this lab you can leave it at the default (`false`) — the lab devices don't reboot. For your own devices at home, turn it on before you walk away from the terminal.
+    For this lab you can leave it at the default (`false`) - the lab devices don't reboot. For your own devices at home, turn it on before you walk away from the terminal.
 
 
 ### Step 7: Verify the Global Configuration
@@ -552,4 +552,4 @@ In the next task, you'll learn how to use device groups to apply configurations 
 
 ---
 
-**← Previous:** [Task 02 — Editing YAML files](Task02_Editing_YAML_files.md)  ·  **Next:** [Task 04 — Device group configuration](Task04_Device_group_config.md)
+**← Previous:** [Task 02 - Editing YAML files](Task02_Editing_YAML_files.md)  ·  **Next:** [Task 04 - Device group configuration](Task04_Device_group_config.md)

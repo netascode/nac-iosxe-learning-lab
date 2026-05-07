@@ -1,4 +1,4 @@
-# Task 12 — Cleanup
+# Task 12 - Cleanup
 
 **⏱ ~5 minutes**
 
@@ -9,7 +9,7 @@ Before moving to CI/CD automation, clean up the manual work you've done so far. 
 By the end of this task you will have:
 
 - Run `terraform destroy` to remove all Terraform-managed configuration from the lab devices
-- Understood **why** state separation matters — two Terraform environments fighting over the same devices produces unpredictable results
+- Understood **why** state separation matters - two Terraform environments fighting over the same devices produces unpredictable results
 - Prepared a clean environment ready for the GitLab-driven workflow starting in Task 13
 
 !!! warning "Important Note"
@@ -61,7 +61,7 @@ When prompted, type `yes` to confirm. Terraform will:
     If you made any manual changes directly on the devices outside of Terraform, those changes will remain.
 
 !!! tip "Need to clean up just *one* device? Use `managed_devices`"
-    `terraform destroy` unconfigures every device the module manages. If you only want to touch a subset, the Network as Code module exposes a filter variable — `managed_devices` — that restricts Terraform's scope to a specific list of device names. Every other registered device is left alone.
+    `terraform destroy` unconfigures every device the module manages. If you only want to touch a subset, the Network as Code module exposes a filter variable - `managed_devices` - that restricts Terraform's scope to a specific list of device names. Every other registered device is left alone.
 
     <figure markdown>
       ![Selective deployment with managed_devices](./assets/selective-deployment.png){ width="100%" }
@@ -79,7 +79,7 @@ When prompted, type `yes` to confirm. Terraform will:
 
     The equivalent environment variable, useful for CI jobs without editing `main.tf`, is `IOSXE_SELECTED_DEVICES=core` (comma-separated for multiple).
 
-    `managed_devices = []` (the default, or omitting the variable) means "all registered devices" — which is the behavior you're using in this lab.
+    `managed_devices = []` (the default, or omitting the variable) means "all registered devices" - which is the behavior you're using in this lab.
 
 ## Step 2: Verify Network as Code Configurations Are Removed (Optional)
 
@@ -151,5 +151,5 @@ While manual Terraform commands are useful for learning and small-scale changes,
 
 ---
 
-**← Previous:** [Task 10 — Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+**← Previous:** [Task 10 - Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
 

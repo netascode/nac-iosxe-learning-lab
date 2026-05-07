@@ -1,11 +1,11 @@
-# Task 13 — Run a CI/CD pipeline
+# Task 13 - Run a CI/CD pipeline
 
 **⏱ ~20 minutes**
 
 !!! info "Before you start"
-    Finish [Task 12 — Cleanup](./Task12_Cleanup.md) first. The GitLab pipeline you're about to trigger manages the same lab devices Terraform has been managing locally — if both environments hold state for those devices at the same time, every pipeline run fights your local `terraform apply` (and vice versa), producing unpredictable results. `terraform destroy` in Task 12 removes the local state so GitLab becomes the single source of truth from here on.
+    Finish [Task 12 - Cleanup](./Task12_Cleanup.md) first. The GitLab pipeline you're about to trigger manages the same lab devices Terraform has been managing locally - if both environments hold state for those devices at the same time, every pipeline run fights your local `terraform apply` (and vice versa), producing unpredictable results. `terraform destroy` in Task 12 removes the local state so GitLab becomes the single source of truth from here on.
 
-Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way — without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
+Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way - without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
 
 ## What you'll learn
 
@@ -17,7 +17,7 @@ By the end of this task you will have:
 
 ## CI/CD for Network as Code
 
-The lab ships with a pre-configured GitLab repository containing your Network as Code project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand — plus a few you didn't:
+The lab ships with a pre-configured GitLab repository containing your Network as Code project and a ready-to-run CI/CD pipeline. Every push or merge request triggers a pipeline that runs the same five stages you just performed by hand - plus a few you didn't:
 
 <figure markdown>
   ![CI/CD pipeline anatomy](./assets/pipeline-anatomy.png){ width="100%" }
@@ -25,14 +25,14 @@ The lab ships with a pre-configured GitLab repository containing your Network as
 
 Two important behaviors to notice before we run one:
 
-- **Merge-request pipelines only preview** — they run `validate` + `plan` and post the plan diff as an MR comment. They never touch the devices. This is the guardrail that makes code review meaningful.
-- **Main-branch pipelines actually deploy** — they run all five stages (`validate` → `plan` → `deploy` → `test` → `notify`). Merging to `main` is the act that commits a change to the real network.
+- **Merge-request pipelines only preview** - they run `validate` + `plan` and post the plan diff as an MR comment. They never touch the devices. This is the guardrail that makes code review meaningful.
+- **Main-branch pipelines actually deploy** - they run all five stages (`validate` → `plan` → `deploy` → `test` → `notify`). Merging to `main` is the act that commits a change to the real network.
 
-Same pipeline definition, different behavior per branch — a simple pattern that gives you a preview environment for free.
+Same pipeline definition, different behavior per branch - a simple pattern that gives you a preview environment for free.
 
 ## Step 1: Access GitLab
 
-In **Chrome**, navigate to GitLab – open the following link in a new tab:
+In **Chrome**, navigate to GitLab - open the following link in a new tab:
 
 [https://198.18.133.101](https://198.18.133.101)
 
@@ -61,11 +61,11 @@ After logging in, you'll see the GitLab dashboard. Click on the **netascode/nac-
 
 The project page shows your repository files, including:
 
-- `data/` folder with your YAML configurations – Same as you created in Task 02
-- `tests/` folder with your ROBOT tests – Same as the ACL tests from optional Task 11
-- `main.tf` - Terraform configuration – Same as you created in Task 02
-- `.schema.yaml` - The Network as Code for IOS XE schema – Same as you used in Task 10
-- `.gitlab-ci.yml` - CI/CD pipeline definition file – This is new!
+- `data/` folder with your YAML configurations - Same as you created in Task 02
+- `tests/` folder with your ROBOT tests - Same as the ACL tests from optional Task 11
+- `main.tf` - Terraform configuration - Same as you created in Task 02
+- `.schema.yaml` - The Network as Code for IOS XE schema - Same as you used in Task 10
+- `.gitlab-ci.yml` - CI/CD pipeline definition file - This is new!
 
 
 <figure markdown>
@@ -205,11 +205,11 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 ## Step 3: Make a Change
 
 !!! danger "This step deploys real configuration to the lab devices"
-    The moment you commit to `main`, the pipeline's **deploy** stage runs `terraform apply` against the CML devices over NETCONF — exactly like you did by hand in Task 03. The first pipeline run after Task 12 will re-push global + per-device config to all four switches. That's expected here (the whole point of Task 13) but worth naming explicitly: **you are about to trigger a real device change from a web UI**. In production, this is exactly the power commit-to-main protected branches are meant to gate (Task 15 covers that).
+    The moment you commit to `main`, the pipeline's **deploy** stage runs `terraform apply` against the CML devices over NETCONF - exactly like you did by hand in Task 03. The first pipeline run after Task 12 will re-push global + per-device config to all four switches. That's expected here (the whole point of Task 13) but worth naming explicitly: **you are about to trigger a real device change from a web UI**. In production, this is exactly the power commit-to-main protected branches are meant to gate (Task 15 covers that).
 
 The best way to see the CI/CD pipeline in action is to make a configuration change.
-You'll add the global configuration (from [Task 03 — Global Configuration](Task03_Global_configuration.md) and [Task 06 — Variables](Task06_Variables.md)). This includes the login banner and hostnames.
-To edit the configuration files, you'll use GitLab's built-in **Web IDE** — an editor similar to VS Code that runs directly in your browser.
+You'll add the global configuration (from [Task 03 - Global Configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
+To edit the configuration files, you'll use GitLab's built-in **Web IDE** - an editor similar to VS Code that runs directly in your browser.
 
 ### Open the Web IDE
 
@@ -233,7 +233,7 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network as Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
-The only files that are currently **not** ignored are the four per-device registration files — `devices/core.nac.yaml`, `devices/border.nac.yaml`, `devices/access01.nac.yaml`, `devices/access02.nac.yaml` — each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
+The only files that are currently **not** ignored are the four per-device registration files - `devices/core.nac.yaml`, `devices/border.nac.yaml`, `devices/access01.nac.yaml`, `devices/access02.nac.yaml` - each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
 
 For this task, you'll rename one more file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
 
@@ -314,12 +314,12 @@ To view the pipeline progress, navigate to **Build** → **Pipelines** in the le
 
 You'll see each stage progressing:
 
-1. **validate** — green checkmark when YAML validation passes. *Usually <10s.*
-2. **plan** — generates the Terraform plan against the live devices. *~30–60s.*
-3. **deploy** — applies the configuration to the four CML devices over NETCONF. *~60–90s.*
-4. **notify** — sends success or failure notifications (not used in this lab). *<5s.*
+1. **validate** - green checkmark when YAML validation passes. *Usually <10s.*
+2. **plan** - generates the Terraform plan against the live devices. *~30-60s.*
+3. **deploy** - applies the configuration to the four CML devices over NETCONF. *~60-90s.*
+4. **notify** - sends success or failure notifications (not used in this lab). *<5s.*
 
-End-to-end a healthy pipeline run completes in about **2–3 minutes**. If the `deploy` stage sits on "running" for more than 4–5 minutes, one of the CML devices is probably unreachable — click into the job to see the NETCONF error. (The troubleshooting section below covers the most common causes.)
+End-to-end a healthy pipeline run completes in about **2-3 minutes**. If the `deploy` stage sits on "running" for more than 4-5 minutes, one of the CML devices is probably unreachable - click into the job to see the NETCONF error. (The troubleshooting section below covers the most common causes.)
 
 Click on any stage to view its detailed logs.
 
@@ -339,7 +339,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to one of the devices (e.g., **core** switch)
-3. Check the banner and hostname – The banner will now include `GitLab - CI/CD`
+3. Check the banner and hostname - The banner will now include `GitLab - CI/CD`
 
 <figure markdown>
   ![New Banner](./assets/solarputty-gitlab-banner.png){ width="95%" }
@@ -348,7 +348,7 @@ You can verify the configuration was applied to the devices using **Solar-PuTTY*
 
 ## Validation Test (Optional)
 
-Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 — Schema Validation](Task10_Schema_validation.md).
+Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema Validation](Task10_Schema_validation.md).
 
 If the validation fails, the pipeline will stop, and you'll see a red **failed** status.
 
@@ -359,7 +359,7 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 ??? failure "`nac-validate` reports a schema error"
     **Symptom:** The `validate` stage fails with an `ERROR - Syntax error 'data/…'` message.
 
-    **Fix:** Open the file named in the error and fix the reported issue. Schema errors in the pipeline are the same errors you'd see running `nac-validate` locally — same tool, same rules. Refer back to [Task 10 — Schema Validation](Task10_Schema_validation.md) for the full error catalog and fix patterns.
+    **Fix:** Open the file named in the error and fix the reported issue. Schema errors in the pipeline are the same errors you'd see running `nac-validate` locally - same tool, same rules. Refer back to [Task 10 - Schema Validation](Task10_Schema_validation.md) for the full error catalog and fix patterns.
 
 ??? failure "`terraform plan` or `apply` can't reach the devices"
     **Symptom:** `deploy` stage fails with an error mentioning `dial tcp`, `connection refused`, or `Error: Connection to host failed`.
@@ -381,12 +381,12 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
     Or, from GitLab: **Operate → Terraform states → nac-iosxe-terraform → Remove lock**.
 
-    Then re-run the pipeline. Only do this if you're confident no other apply is actually in progress — force-unlocking a live apply will corrupt state.
+    Then re-run the pipeline. Only do this if you're confident no other apply is actually in progress - force-unlocking a live apply will corrupt state.
 
 ??? failure "Pipeline blocked: "You cannot push to this protected branch""
     **Symptom:** The commit is rejected before the pipeline even starts.
 
-    **Fix:** The target branch is protected (see Task 15). Create a feature branch instead, push to it, open a merge request. This is expected behavior once protected-branch rules are in place — it's the system telling you to use the MR workflow.
+    **Fix:** The target branch is protected (see Task 15). Create a feature branch instead, push to it, open a merge request. This is expected behavior once protected-branch rules are in place - it's the system telling you to use the MR workflow.
 
 !!! tip "Need more signal? Turn on Terraform's debug log"
     When a pipeline job logs a generic "apply failed" without naming the offender, re-run the job with Terraform's debug output. Add two env vars to the pipeline run (**Run pipeline** → custom variables):
@@ -396,9 +396,9 @@ If your pipeline shows a red **failed** status, click into the failing job to se
     TF_LOG_PATH=terraform-debug.log
     ```
 
-    `TF_LOG=DEBUG` prints every RPC the provider makes, including the NETCONF XML payloads. `TF_LOG_PATH` writes the same output to a file you can attach as a CI job artifact — much more usable than scrolling through the job log. Other levels: `TRACE` (noisier), `INFO`, `WARN`, `ERROR`.
+    `TF_LOG=DEBUG` prints every RPC the provider makes, including the NETCONF XML payloads. `TF_LOG_PATH` writes the same output to a file you can attach as a CI job artifact - much more usable than scrolling through the job log. Other levels: `TRACE` (noisier), `INFO`, `WARN`, `ERROR`.
 
-    Locally, the same env vars work in your shell: `TF_LOG=DEBUG terraform plan`. Turn it off (`unset TF_LOG`) once you've found the problem — debug output is verbose.
+    Locally, the same env vars work in your shell: `TF_LOG=DEBUG terraform plan`. Turn it off (`unset TF_LOG`) once you've found the problem - debug output is verbose.
 
 
 ## What You've Accomplished
@@ -410,12 +410,12 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 ---
 
-**← Previous:** [Task 12 — Cleanup](Task12_Cleanup.md)
+**← Previous:** [Task 12 - Cleanup](Task12_Cleanup.md)
 
 ## Next Steps
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:
 
-- **Optional:** [Task 14 — Extend the pipeline with automated tests](Task14_Edit_CI-CD.md) — add integration + idempotency tests to the pipeline
-- **Optional:** [Task 15 — Branch and merge-request workflow](Task15_Branch_and_merge_request.md) — change-approval workflows with protected branches and MRs
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) — wrap up and review what you've learned
+- **Optional:** [Task 14 - Extend the pipeline with automated tests](Task14_Edit_CI-CD.md) - add integration + idempotency tests to the pipeline
+- **Optional:** [Task 15 - Branch and merge-request workflow](Task15_Branch_and_merge_request.md) - change-approval workflows with protected branches and MRs
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - wrap up and review what you've learned

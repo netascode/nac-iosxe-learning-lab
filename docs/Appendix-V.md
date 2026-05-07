@@ -1,6 +1,6 @@
-# Appendix V — Quick reference card
+# Appendix V - Quick reference card
 
-One-page cheat sheet covering everything you need to rerun the lab — at home, on your own devices, or from memory. Bookmark this page; print it if that's your style.
+One-page cheat sheet covering everything you need to rerun the lab - at home, on your own devices, or from memory. Bookmark this page; print it if that's your style.
 
 ## Lab devices
 
@@ -12,8 +12,8 @@ One-page cheat sheet covering everything you need to rerun the lab — at home, 
 | **access02** | Access switch (Catalyst 9000v) | `198.18.130.12` | cisco | cisco |
 | **isp**      | Upstream BGP peer (pre-configured) | `198.18.130.200` | cisco | cisco |
 | **host01** / **host02** | End-hosts (CML console only) | `192.168.100.100/200` | cisco | cisco |
-| ntp-server   | NTP service (Ubuntu VM) | `198.18.129.11` | — | — |
-| syslog-server | Syslog service (Ubuntu VM) | `198.18.129.12` | — | — |
+| ntp-server   | NTP service (Ubuntu VM) | `198.18.129.11` | - | - |
+| syslog-server | Syslog service (Ubuntu VM) | `198.18.129.12` | - | - |
 
 Network as Code manages the top four. The rest are pre-configured and used for verification only.
 
@@ -120,7 +120,7 @@ Two separate "atomicity" layers are worth distinguishing because they're easy to
 |-------|-----------|-----------|
 | **Single device, single apply** | NETCONF candidate datastore + `<commit>` (see Task 01 diagram) | All RPCs in one Terraform-to-device session commit together, or all roll back. Requires `netconf-yang feature candidate-datastore` on the device. |
 | **Multiple RPCs, single apply, same device** | Module's `device_transaction = true` input | Terraform buffers all changes destined for a device and commits them in one NETCONF transaction. Same guarantee, applied per-device across every changeset Terraform computes. |
-| **Fleet-level (across devices)** | Not available — Terraform applies per-device | If an apply touches 10 devices and device #7 fails, the first six have their changes committed; devices 7–10 don't. There is **no** "all 10 devices or none" primitive. |
+| **Fleet-level (across devices)** | Not available - Terraform applies per-device | If an apply touches 10 devices and device #7 fails, the first six have their changes committed; devices 7-10 don't. There is **no** "all 10 devices or none" primitive. |
 
 For the lab's 4-device deployment, the per-device transaction layer is what matters. For real production rollouts, plan for the fleet-level case: stage rollouts by pipeline phase, roll back via a subsequent `apply` that reverses the intent, or use `managed_devices` to scope the blast radius.
 
@@ -141,7 +141,7 @@ For the lab's 4-device deployment, the per-device transaction layer is what matt
 | `terraform show` | Display current state | No |
 | `terraform state list` | List tracked resources | No |
 
-## `nac-validate` — pre-deployment schema check
+## `nac-validate` - pre-deployment schema check
 
 ```bash
 pip install nac-validate
@@ -153,7 +153,7 @@ nac-validate -s .schema.yaml data/
 
 Exit code 0 = valid. Non-zero + `ERROR - Syntax error ...` = something's wrong. The error message names the exact merged-model path at fault.
 
-## `nac-test` — post-deployment verification
+## `nac-test` - post-deployment verification
 
 ```bash
 pip install nac-test
@@ -169,9 +169,9 @@ nac-test \
 
 Artifacts in `./tests/results/`:
 
-- `report.html` — human-readable summary, open in browser
-- `log.html` — step-by-step execution log
-- `xunit.xml` — JUnit XML for CI integration
+- `report.html` - human-readable summary, open in browser
+- `log.html` - step-by-step execution log
+- `xunit.xml` - JUnit XML for CI integration
 
 ## GitLab CI/CD stages
 
@@ -187,11 +187,11 @@ MR pipelines are preview-only. `main` pipelines deploy.
 
 ## Further reading
 
-- [netascode.cisco.com](https://netascode.cisco.com) — Network as Code data models + tool docs for IOS XE, SD-WAN, ACI, Catalyst Center, Nexus Dashboard
-- [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) — the module used in this lab (Apache 2.0)
-- [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) — the IOS XE Terraform provider underneath
-- [netascode on GitHub](https://github.com/netascode) — all the modules, tools, and data models
+- [netascode.cisco.com](https://netascode.cisco.com) - Network as Code data models + tool docs for IOS XE, SD-WAN, ACI, Catalyst Center, Nexus Dashboard
+- [`terraform-iosxe-nac-iosxe`](https://github.com/netascode/terraform-iosxe-nac-iosxe) - the module used in this lab (Apache 2.0)
+- [`terraform-provider-iosxe`](https://github.com/CiscoDevNet/terraform-provider-iosxe) - the IOS XE Terraform provider underneath
+- [netascode on GitHub](https://github.com/netascode) - all the modules, tools, and data models
 
 ---
 
-**← Previous:** [Appendix IV — ISP Router Configuration](Appendix-IV.md)
+**← Previous:** [Appendix IV - ISP Router Configuration](Appendix-IV.md)

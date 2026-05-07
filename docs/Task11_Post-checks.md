@@ -1,18 +1,18 @@
-# Task 11 — Post-checks with `nac-test` (Optional)
+# Task 11 - Post-checks with `nac-test` (Optional)
 
 **⏱ ~15 minutes**
 
 !!! info "Before you start"
-    This task depends on `.schema.yaml` from [Task 10 — Schema Validation](Task10_Schema_validation.md). Make sure Task 10 is done before continuing.
+    This task depends on `.schema.yaml` from [Task 10 - Schema Validation](Task10_Schema_validation.md). Make sure Task 10 is done before continuing.
 
-After Terraform applies a change, how do you confirm the configuration actually landed correctly on the devices? For one device, `show running-config` works. For a fleet, manual spot-checks don't scale — and running-config can't even tell you about operational state (BGP neighbor established, interface line-protocol up, VLAN database populated, etc.).
+After Terraform applies a change, how do you confirm the configuration actually landed correctly on the devices? For one device, `show running-config` works. For a fleet, manual spot-checks don't scale - and running-config can't even tell you about operational state (BGP neighbor established, interface line-protocol up, VLAN database populated, etc.).
 
 **`nac-test`** automates post-change validation by rendering Robot Framework tests directly from your intent YAML, then running them against the live devices. The test cases describe *what you asked for*; the framework confirms *what actually happened*.
 
-- **Robot Framework** — a keyword-driven test framework; test cases are readable and easy to extend.
-- **Pabot** — a parallel executor for Robot that runs suites simultaneously. Fast enough to run against many devices during a CI pipeline.
+- **Robot Framework** - a keyword-driven test framework; test cases are readable and easy to extend.
+- **Pabot** - a parallel executor for Robot that runs suites simultaneously. Fast enough to run against many devices during a CI pipeline.
 
-**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces — so the tests always match the intent.
+**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces - so the tests always match the intent.
 
 ## What you'll learn
 
@@ -27,7 +27,7 @@ By the end of this task you will have:
 In [Task 4](Task04_Device_group_config.md) you deployed `AccessLayerACL` to `access01` and `access02` via a device group. You'll validate that it landed correctly.
 
 !!! note "Lab scope vs production"
-    Production Network as Code deployments ship 100+ Robot test templates covering every configuration type. This task demonstrates the workflow with one (`access_lists.robot`) — once you see the pattern, the rest is more of the same.
+    Production Network as Code deployments ship 100+ Robot test templates covering every configuration type. This task demonstrates the workflow with one (`access_lists.robot`) - once you see the pattern, the rest is more of the same.
 
 The deployed intent (from `data/groups/access.nac.yaml`):
 
@@ -69,7 +69,7 @@ Your project now has:
 ├── data/                              # (your YAML intent from earlier tasks)
 ├── tests/
 │   ├── filters/
-│   │   └── url_encode.py              # Jinja2 filter — encodes special characters
+│   │   └── url_encode.py              # Jinja2 filter - encodes special characters
 │   └── templates/
 │       ├── iosxe_common.resource      # Robot keywords shared across suites
 │       ├── lib/
@@ -145,10 +145,10 @@ nac-test \
 !!! warning "At home? The `/mnt/c/Users/admin/...` path is lab-specific"
     The `--output /mnt/c/Users/admin/Desktop/TestResults` path works because the dCloud Win10 VM's user is literally `admin`, WSL mounts `C:` under `/mnt/c`, and `Desktop` is in a fixed location. If you re-run this command at home, **substitute the path**:
 
-    - **On your own WSL setup** — replace `admin` with your Windows username: `/mnt/c/Users/<YOU>/Desktop/TestResults`. Run `cmd.exe /c echo %USERNAME%` from the WSL prompt if you're not sure.
-    - **On native Linux / macOS** — pick any regular Linux path, e.g. `~/nac-test-results` or `./tests/results` (the pattern Task 14 uses when wiring `nac-test` into the GitLab pipeline).
+    - **On your own WSL setup** - replace `admin` with your Windows username: `/mnt/c/Users/<YOU>/Desktop/TestResults`. Run `cmd.exe /c echo %USERNAME%` from the WSL prompt if you're not sure.
+    - **On native Linux / macOS** - pick any regular Linux path, e.g. `~/nac-test-results` or `./tests/results` (the pattern Task 14 uses when wiring `nac-test` into the GitLab pipeline).
 
-    The tool itself doesn't care — `--output` just needs a writable directory.
+    The tool itself doesn't care - `--output` just needs a writable directory.
 
 ## Step 5: Review the Generated Robot Test
 
@@ -208,7 +208,7 @@ Verify Standard Access List AccessLayerACL Device access02
 ```
 
 !!! note "Lines with no expected value"
-    Assertions where the expected value is blank (e.g. `remark`, `host-address`) are no-ops — the keyword returns immediately when the value is empty. They appear because the Jinja2 template renders every possible field; only the fields you defined in YAML actually perform a check.
+    Assertions where the expected value is blank (e.g. `remark`, `host-address`) are no-ops - the keyword returns immediately when the value is empty. They appear because the Jinja2 template renders every possible field; only the fields you defined in YAML actually perform a check.
 
 ## Step 6: Review the Test Results
 
@@ -266,8 +266,8 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
 - ✅ Interpreted the HTML report and JUnit results
 
 !!! tip "CI/CD integration"
-    In [Task 14](Task14_Edit_CI-CD.md) you'll wire `nac-test` into the GitLab pipeline so every deployment auto-verifies itself — no manual step.
+    In [Task 14](Task14_Edit_CI-CD.md) you'll wire `nac-test` into the GitLab pipeline so every deployment auto-verifies itself - no manual step.
 
 ---
 
-**← Previous:** [Task 10 — Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 12 — Cleanup](Task12_Cleanup.md)
+**← Previous:** [Task 10 - Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 12 - Cleanup](Task12_Cleanup.md)
