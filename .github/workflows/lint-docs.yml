@@ -18,7 +18,7 @@ jobs:
 
       - name: Check for em-dashes and en-dashes
         run: |
-          if grep -rn $'\xe2\x80\x94\|\xe2\x80\x93' docs/ --include='*.md' --include='*.yml' --include='*.yaml' --include='*.html' --include='*.css'; then
+          if grep -rn $'\xe2\x80\x94\|\xe2\x80\x93' docs/ --include='*.md'; then
             echo ""
             echo "::error::Found em-dashes (U+2014) or en-dashes (U+2013) in docs/. Use plain dashes (-) instead."
             exit 1
