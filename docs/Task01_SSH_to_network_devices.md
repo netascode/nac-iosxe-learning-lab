@@ -18,6 +18,9 @@ Before we deploy any Network as Code configuration, let's confirm baseline conne
 
 ### Why NETCONF's "transactional" property matters
 
+!!! abstract "What's a NETCONF datastore?"
+    A NETCONF **datastore** is just a named container for configuration — think of it as a git branch for your device's config. A device exposes multiple datastores; the two that matter here are **`candidate`** (writable scratch space) and **`running`** (the live configuration actually driving the forwarding plane). You propose changes to `candidate`, then `<commit>` them into `running` atomically. If anything fails mid-way, `<discard-changes>` throws the proposal away and `running` is untouched.
+
 NETCONF separates the change you're describing (candidate datastore) from the config actually driving traffic (running datastore). Terraform writes to `candidate`, asks the device to validate, then issues `commit` — which atomically swaps candidate into running. If the commit fails at any point, `discard-changes` throws the proposed config away and the device keeps running exactly the same config it was running before.
 
 <figure markdown>

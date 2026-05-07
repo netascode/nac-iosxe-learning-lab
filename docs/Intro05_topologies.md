@@ -37,6 +37,14 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
 | **Ubuntu VM**     | 198.18.133.101 | guest    | CiscoLive  | [ssh](ssh://198.18.133.101)   |
 | **GitLab**        | 198.18.133.101 | root     | C1sco12345 | [web](https://198.18.133.101) |
 
+!!! info "Ubuntu VM and GitLab share a host"
+    The Ubuntu VM and GitLab entries above both show `198.18.133.101` — that's not a typo. They're the same underlying VM, accessed as two different services:
+
+    - **SSH as `guest`** → you get an Ubuntu shell
+    - **HTTPS as `root`** → you get the GitLab web UI
+
+    GitLab runs as a containerized application on top of the Ubuntu host. You won't SSH into this VM during the lab (the pipeline work happens in the GitLab UI), but it's useful context if you ever see the shared address and wonder which credentials to use.
+
 !!! note "Self-signed Certificates"
     The CML and GitLab web interfaces use self-signed SSL certificates. Your browser may show a warning when accessing these sites. You can safely ignore the warning and proceed to the site.
 
