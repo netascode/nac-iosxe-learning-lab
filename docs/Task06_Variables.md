@@ -89,30 +89,28 @@ The image below illustrates the updated global configuration in VS Code:
 
 Now you need to define the `HOSTNAME` variable for each device. Open `data/config-device-core.nac.yaml` in VS Code and update it with the following content:
 
-```yaml title="data/config-device-core.nac.yaml" hl_lines="5 6"
+```yaml title="data/config-device-core.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
     - name: core
+      host: 198.18.130.10
       variables:
         HOSTNAME: core
       configuration:
-        system:
-          ip_hosts:
-            - name: ntp-server
-              ips:
-                - 198.18.129.11
-              vrf: Mgmt-vrf
-            - name: syslog-server
-              ips:
-                - 198.18.129.12
-              vrf: Mgmt-vrf
+        interfaces:
+          loopbacks:
+            - id: 0
+              description: "Router-ID loopback"
+              ipv4:
+                address: 198.51.100.10
+                address_mask: 255.255.255.255
 ```
 
 **What's new:**
 
-- **`variables:`** - Section where you define device-specific variables
-- **`HOSTNAME: core`** - Sets the `HOSTNAME` variable to `core` for this device
+- **`variables:`** — section where you define device-specific variables.
+- **`HOSTNAME: core`** — sets `${HOSTNAME}` to `core` for this device only. The `system.hostname` and `banner.login` in `config-global.nac.yaml` will resolve to this value when the merged model is rendered for `core`.
 
 The image below illustrates the device configuration with variables in VS Code:
 
@@ -126,33 +124,36 @@ Now add the `HOSTNAME` variable to the other device configuration files.
 
 **Update `data/config-device-border.nac.yaml`:**
 
-```yaml title="data/config-device-border.nac.yaml"
+```yaml title="data/config-device-border.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
     - name: border
+      host: 198.18.130.20
       variables:
         HOSTNAME: border
 ```
 
 **Update `data/config-device-access01.nac.yaml`:**
 
-```yaml title="data/config-device-access01.nac.yaml"
+```yaml title="data/config-device-access01.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
     - name: access01
+      host: 198.18.130.11
       variables:
         HOSTNAME: access01
 ```
 
 **Update `data/config-device-access02.nac.yaml`:**
 
-```yaml title="data/config-device-access02.nac.yaml"
+```yaml title="data/config-device-access02.nac.yaml" hl_lines="6 7"
 ---
 iosxe:
   devices:
     - name: access02
+      host: 198.18.130.12
       variables:
         HOSTNAME: access02
 ```
