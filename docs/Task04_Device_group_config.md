@@ -1,4 +1,8 @@
-In this task, you'll learn how to apply configuration to a **group of devices** simultaneously using device groups. You'll configure an Access Control List (ACL) as an example, demonstrating how device groups allow you to apply consistent configurations across devices that share common roles or functions.
+# Task 04 — Device group configuration
+
+**⏱ ~15 minutes**
+
+In this task you'll apply configuration to a **group of devices** at once using device groups. An Access Control List (ACL) is the example — device groups let you apply the same configuration to every device that shares a role or location, without duplicating the YAML.
 
 ## Device Groups
 
