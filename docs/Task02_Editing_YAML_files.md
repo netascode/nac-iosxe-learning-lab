@@ -4,6 +4,14 @@
 
 In this task you'll set up the project directory and use VS Code to edit Network as Code (NAC) IOS XE intent configuration YAML files.
 
+## What you'll learn
+
+By the end of this task you will have:
+
+- Set up a NAC IOS XE project directory under `~/nac-iosxe/` in WSL
+- Edited YAML configuration files using VS Code and the Red Hat YAML extension
+- Registered all four lab devices in their own per-device YAML files
+
 ## Create the project directory
 
 You'll create a dedicated project directory in your Windows Subsystem for Linux (WSL) home directory to organize your Network as Code configuration files and related resources. This location will serve as your workspace for storing YAML configuration files, Terraform files, and state information.
