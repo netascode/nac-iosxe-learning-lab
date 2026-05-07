@@ -236,49 +236,75 @@ The figure below illustrates the `main.tf` file in Visual Studio Code:
   ![main.tf in VS Code](./assets/vscode-maintf-file.png){ width="100%" }
 </figure>
 
-## Edit Lab Device Inventory
+## Populate the per-device files
 
-Now edit the `data/devices.nac.yaml` file to define your lab network device inventory. This file contains the list of devices that Network-as-Code will manage, along with their management IP addresses:
+Each per-device file registers one device with NAC — it declares the device's **name** (which every other YAML file will reference) and its **management IP address**. You'll add actual configuration to these files in later tasks.
 
-```yaml title="data/devices.nac.yaml"
+Open `data/config-device-core.nac.yaml` in VS Code and paste:
+
+```yaml title="data/config-device-core.nac.yaml"
 ---
 iosxe:
   devices:
     - name: core
       host: 198.18.130.10
+```
+
+Open `data/config-device-border.nac.yaml` and paste:
+
+```yaml title="data/config-device-border.nac.yaml"
+---
+iosxe:
+  devices:
     - name: border
       host: 198.18.130.20
+```
+
+Open `data/config-device-access01.nac.yaml` and paste:
+
+```yaml title="data/config-device-access01.nac.yaml"
+---
+iosxe:
+  devices:
     - name: access01
       host: 198.18.130.11
+```
+
+Open `data/config-device-access02.nac.yaml` and paste:
+
+```yaml title="data/config-device-access02.nac.yaml"
+---
+iosxe:
+  devices:
     - name: access02
       host: 198.18.130.12
 ```
 
-!!! warning "Indentation Matters in YAML!"
-    YAML uses **spaces for indentation** (not tabs) to define structure. Each level of nesting requires consistent spacing (typically 2 spaces). Incorrect indentation will cause parsing errors. When copying YAML from this guide, the formatting is preserved - but if you type manually, pay close attention to alignment. The Red Hat YAML extension will highlight indentation errors with red squiggly lines.
+!!! warning "Indentation matters in YAML"
+    YAML uses **spaces** (not tabs) and relies on consistent indentation to express structure. Each level of nesting should be exactly 2 spaces. Copy-pasting from this guide preserves the right indentation; if you type manually, watch for the red squiggles from the VS Code YAML extension — they point at exactly the line that's off.
 
-**Understanding the configuration:**
+**What each key means:**
 
-- **`---`** - YAML document start marker
-- **`iosxe:`** - Root key indicating IOS XE specific configuration
-- **`devices:`** - List of devices to be managed
-- **`name:`** - Unique identifier for each device (used to reference the device in other configuration files)
-- **`host:`** - Management IP address for device connectivity
+- `---` — YAML document-start marker (optional but conventional).
+- `iosxe:` — root key. Every NAC IOS XE YAML starts here.
+- `devices:` — the top-level list of devices NAC manages.
+- `name:` — unique identifier for the device. Other YAML files will match against this name.
+- `host:` — management IP NAC connects to.
 
-!!! note "Device Inventory vs Configuration"
-    This file contains only the device **inventory** – the list of devices and their connection details. Actual device **configurations** (banners, ACLs, VLANs, etc.) will be defined in separate files in subsequent tasks. This separation keeps your configurations modular and easy to manage.
+!!! note "Why one device per file?"
+    NAC merges all YAML files in `data/` into a single data model at load time. Because `devices` is a list, keeping each device in its own file makes it immediately obvious which file owns which device, and avoids the accidental-merge bugs that can happen when several files all append to the same list. You'll extend these files with real configuration starting in [Task 05](Task05_Single_device_config.md).
 
 <figure markdown>
-  ![VS Code Devices File](./assets/vscode-devices-list.png){ width="100%" }
+  ![VS Code showing the four per-device files](./assets/vscode-devices-list.png){ width="100%" }
 </figure>
 
-## Auto Save is Enabled
+## Auto-save is enabled
 
-VS Code has **auto-save** enabled, so your files are automatically saved after a few seconds of inactivity. At this point, you should have the following files in your project:
+VS Code has auto-save enabled, so your files are saved a few seconds after you stop typing. At this point your project contains:
 
-- `.env` - Contains your device credentials
-- `main.tf` - Contains your Terraform module configuration
-- `data/devices.nac.yaml` - Contains your network device inventory (4 switches)
+- `.env` — device credentials and protocol
+- `main.tf` — Terraform module configuration
+- `data/config-device-*.nac.yaml` — four per-device skeleton files
 
 ## What You've Accomplished
 
