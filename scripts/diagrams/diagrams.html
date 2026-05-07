@@ -237,17 +237,35 @@
   .labtop .zonearrow { position: absolute; top: 50%; right: -18px; width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border-right: 2px solid var(--cyan); border-top: 2px solid var(--cyan); }
   .labtop .arrow-label { position: absolute; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; }
 
-  /* ======================================================== CML TOPOLOGY */
+  /* ======================================================== CML TOPOLOGY
+     Rebuilt as a 4-row × 3-col CSS grid with an absolute SVG overlay.
+     Grid lives in layer 1 (cells are responsible for device placement); SVG
+     sits on top in layer 2 and draws links between cell centers using
+     viewBox-relative coordinates. Nothing is hand-positioned in pixels, so
+     adjusting the card height or fonts no longer breaks alignment. */
   .cmltop { flex: 1; position: relative; background:
     radial-gradient(ellipse at center, rgba(2,200,255,.05) 0%, transparent 70%);
     border: 1px dashed var(--muted-line); border-radius: 10px;
     overflow: hidden;
+    padding: 16px 20px;
+    display: grid;
   }
-  .cmltop svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-  .cmltop .dev { position: absolute; background: var(--card-bg); border: 2px solid var(--cyan); border-radius: 8px; padding: 10px 14px; min-width: 140px; text-align: center; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
-  .cmltop .dev .nm { font-size: 18px; font-weight: 700; color: var(--white); }
-  .cmltop .dev .role { font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cyan); margin-top: 2px; }
-  .cmltop .dev .ip { font-family: "JetBrains Mono", monospace; font-size: 14.5px; color: var(--dk-text); margin-top: 3px; }
+  .cmltop-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    align-items: center;
+    justify-items: center;
+    row-gap: 22px;
+    column-gap: 20px;
+  }
+  .cmltop svg.overlay { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+  .cmltop .dev { background: var(--card-bg); border: 2px solid var(--cyan); border-radius: 8px; padding: 10px 14px; min-width: 170px; max-width: 260px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+  .cmltop .dev .nm { font-size: 17px; font-weight: 700; color: var(--white); }
+  .cmltop .dev .role { font-size: 13.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cyan); margin-top: 2px; }
+  .cmltop .dev .ip { font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: var(--dk-text); margin-top: 3px; line-height: 1.4; }
   .cmltop .dev.router { border-color: var(--orange); box-shadow: 0 4px 12px rgba(255,144,0,.25); }
   .cmltop .dev.router .role { color: var(--orange); }
   .cmltop .dev.core { border-color: var(--blue); box-shadow: 0 4px 12px rgba(10,96,255,.25); }
@@ -258,10 +276,20 @@
   .cmltop .dev.host .role { color: var(--purple); }
   .cmltop .dev.svc { border-color: var(--teal); border-style: dotted; background: rgba(0,158,166,.08); }
   .cmltop .dev.svc .role { color: var(--teal); }
-  .cmltop .link-lbl { position: absolute; font-family: "JetBrains Mono", monospace; font-size: 14.5px; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; border-radius: 3px; z-index: 3; white-space: nowrap; }
-  .cmltop .legend { position: absolute; bottom: 18px; left: 18px; display: flex; gap: 14px; z-index: 2; padding: 10px 14px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--muted-line); font-size: 14.5px; }
-  .cmltop .legend .li { display: flex; align-items: center; gap: 6px; color: var(--dk-text); }
-  .cmltop .legend .li .sw { width: 10px; height: 10px; border-radius: 2px; }
+  /* Grid cell placements — explicit rather than implicit so empty cells
+     don't collapse and the SVG coordinates stay in sync with the layout. */
+  .cmltop .g-mgmt   { grid-column: 1; grid-row: 1; justify-self: start; }
+  .cmltop .g-isp    { grid-column: 2; grid-row: 1; }
+  .cmltop .g-legend { grid-column: 3; grid-row: 1; justify-self: end; }
+  .cmltop .g-border { grid-column: 2; grid-row: 2; }
+  .cmltop .g-host   { grid-column: 3; grid-row: 2; justify-self: end; }
+  .cmltop .g-core   { grid-column: 2; grid-row: 3; }
+  .cmltop .g-acc1   { grid-column: 1; grid-row: 4; }
+  .cmltop .g-acc2   { grid-column: 3; grid-row: 4; }
+  .cmltop .legend { display: flex; gap: 10px; flex-wrap: wrap; padding: 8px 12px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--muted-line); font-size: 12.5px; max-width: 280px; }
+  .cmltop .legend .li { display: flex; align-items: center; gap: 5px; color: var(--dk-text); white-space: nowrap; }
+  .cmltop .legend .li .sw { width: 9px; height: 9px; border-radius: 2px; }
+  .cmltop .lnk-lbl { position: absolute; font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; border-radius: 3px; z-index: 3; white-space: nowrap; transform: translate(-50%, -50%); }
 
   /* ======================================================== FILE LAYOUT */
   .flay { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: stretch; }
@@ -1023,86 +1051,87 @@ globally by every device
     <p class="sub">NAC manages <strong style="color:var(--green)">core</strong>, <strong style="color:var(--green)">border</strong>, <strong style="color:var(--green)">access01</strong>, and <strong style="color:var(--green)">access02</strong>. The ISP, hosts, and management servers are pre-configured and used for verification.</p>
   </div>
   <div class="cmltop">
-    <svg viewBox="0 0 1300 560" preserveAspectRatio="none">
+    <!-- SVG overlay uses percentage coordinates so it auto-scales with the
+         grid below. Each link terminates at a grid cell's geometric center
+         (measured as % of container). Labels are HTML so they inherit fonts. -->
+    <svg class="overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
       <defs>
         <linearGradient id="bgpgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF9000"/><stop offset="1" stop-color="#FF6B6B"/></linearGradient>
       </defs>
-      <!-- isp ↔ border (BGP eBGP) -->
-      <line x1="650" y1="85" x2="650" y2="175" stroke="url(#bgpgrad)" stroke-width="3"/>
-      <!-- border ↔ core -->
-      <line x1="650" y1="235" x2="650" y2="305" stroke="#02C8FF" stroke-width="2.5"/>
-      <!-- core ↔ access01 (trunk) -->
-      <line x1="570" y1="365" x2="330" y2="445" stroke="#02C8FF" stroke-width="2.5" stroke-dasharray="6 3"/>
-      <!-- core ↔ access02 (trunk) -->
-      <line x1="730" y1="365" x2="970" y2="445" stroke="#02C8FF" stroke-width="2.5" stroke-dasharray="6 3"/>
-      <!-- border → host subnet -->
-      <line x1="740" y1="205" x2="1115" y2="205" stroke="#7B61FF" stroke-width="2.5"/>
-      <line x1="1115" y1="205" x2="1115" y2="435" stroke="#7B61FF" stroke-width="2.5"/>
-      <!-- mgmt services (dotted backbone to core) -->
-      <line x1="150" y1="205" x2="560" y2="335" stroke="#009EA6" stroke-width="1.5" stroke-dasharray="2 3"/>
+      <!-- isp (50%, row 1 ≈ 12%) ↔ border (50%, row 2 ≈ 38%) -->
+      <line x1="50" y1="18" x2="50" y2="33" stroke="url(#bgpgrad)" stroke-width="0.35" vector-effect="non-scaling-stroke" style="stroke-width:3"/>
+      <!-- border (50%, row 2 ≈ 43%) ↔ core (50%, row 3 ≈ 62%) -->
+      <line x1="50" y1="48" x2="50" y2="58" stroke="#02C8FF" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
+      <!-- core (50%, row 3 bot) ↔ access01 (17%, row 4 top) -->
+      <line x1="46" y1="72" x2="17" y2="84" stroke="#02C8FF" stroke-dasharray="5 3" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
+      <!-- core ↔ access02 (83%, row 4 top) -->
+      <line x1="54" y1="72" x2="83" y2="84" stroke="#02C8FF" stroke-dasharray="5 3" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
+      <!-- border (right edge, row 2) → hosts (row 2 right) -->
+      <line x1="62" y1="40" x2="82" y2="40" stroke="#7B61FF" vector-effect="non-scaling-stroke" style="stroke-width:2.5"/>
+      <!-- mgmt services (18%, row 1) ··· core (50%, row 3) -->
+      <line x1="18" y1="17" x2="47" y2="62" stroke="#009EA6" stroke-dasharray="2 3" vector-effect="non-scaling-stroke" style="stroke-width:1.5"/>
     </svg>
 
-    <!-- ISP -->
-    <div class="dev router" style="top:20px; left:560px; width:200px;">
-      <div class="nm">isp</div>
-      <div class="role">ISP · AS 65001</div>
-      <div class="ip">198.18.100.1 · Lo0 8.8.8.8/24</div>
-    </div>
-    <div class="link-lbl" style="top:115px; left:665px;">eBGP AS 65000 ↔ 65001</div>
+    <div class="cmltop-grid">
+      <!-- Row 1: mgmt · ISP · legend -->
+      <div class="dev svc g-mgmt">
+        <div class="nm">ntp-server · syslog-server</div>
+        <div class="role">Management</div>
+        <div class="ip">198.18.129.11/.12</div>
+      </div>
+      <div class="dev router g-isp">
+        <div class="nm">isp</div>
+        <div class="role">ISP · AS 65001</div>
+        <div class="ip">198.18.100.1 · Lo0 8.8.8.8</div>
+      </div>
+      <div class="legend g-legend">
+        <div class="li"><span class="sw" style="background:#FF9000"></span>ISP</div>
+        <div class="li"><span class="sw" style="background:#0A60FF"></span>Core</div>
+        <div class="li"><span class="sw" style="background:#00D17A"></span>Access</div>
+        <div class="li"><span class="sw" style="background:#7B61FF"></span>Hosts</div>
+        <div class="li"><span class="sw" style="background:#009EA6"></span>Mgmt</div>
+        <div class="li"><span style="color:#02C8FF">━ L3</span> · <span style="color:#02C8FF">┅ trunk</span></div>
+      </div>
 
-    <!-- Border -->
-    <div class="dev router" style="top:175px; left:575px; width:170px;">
-      <div class="nm">border</div>
-      <div class="role">Border · AS 65000</div>
-      <div class="ip">198.18.130.20</div>
-    </div>
-    <div class="link-lbl" style="top:265px; left:660px;">Gig1 · 198.18.100.2/30</div>
+      <!-- Row 2: border + hosts -->
+      <div class="dev router g-border">
+        <div class="nm">border</div>
+        <div class="role">Border · AS 65000</div>
+        <div class="ip">198.18.130.20</div>
+      </div>
+      <div class="dev host g-host">
+        <div class="nm">host01 / host02</div>
+        <div class="role">End-hosts</div>
+        <div class="ip">192.168.100.100<br/>192.168.100.200</div>
+      </div>
 
-    <!-- Core -->
-    <div class="dev core" style="top:305px; left:580px; width:160px;">
-      <div class="nm">core</div>
-      <div class="role">Core C9000v</div>
-      <div class="ip">198.18.130.10 · Lo0 198.51.100.10</div>
-    </div>
+      <!-- Row 3: core -->
+      <div class="dev core g-core">
+        <div class="nm">core</div>
+        <div class="role">Core C9000v</div>
+        <div class="ip">198.18.130.10 · Lo0 198.51.100.10</div>
+      </div>
 
-    <!-- access01 -->
-    <div class="dev access" style="top:445px; left:180px; width:170px;">
-      <div class="nm">access01</div>
-      <div class="role">Access C9000v</div>
-      <div class="ip">198.18.130.11</div>
-    </div>
-
-    <!-- access02 -->
-    <div class="dev access" style="top:445px; left:950px; width:170px;">
-      <div class="nm">access02</div>
-      <div class="role">Access C9000v</div>
-      <div class="ip">198.18.130.12</div>
-    </div>
-
-    <!-- Hosts -->
-    <div class="dev host" style="top:420px; left:1050px; width:150px;">
-      <div class="nm">host01 / host02</div>
-      <div class="role">End-hosts</div>
-      <div class="ip">192.168.100.100/24<br/>192.168.100.200/24</div>
-    </div>
-    <div class="link-lbl" style="top:195px; left:900px;">Gig3 · 192.168.100.1/24 (Task 08)</div>
-
-    <!-- mgmt services island -->
-    <div class="dev svc" style="top:175px; left:40px; width:230px;">
-      <div class="nm">ntp-server · syslog-server</div>
-      <div class="role">Management services</div>
-      <div class="ip">198.18.129.11/.12 · reachable from all devices</div>
+      <!-- Row 4: access01 · · access02 -->
+      <div class="dev access g-acc1">
+        <div class="nm">access01</div>
+        <div class="role">Access C9000v</div>
+        <div class="ip">198.18.130.11</div>
+      </div>
+      <div class="dev access g-acc2">
+        <div class="nm">access02</div>
+        <div class="role">Access C9000v</div>
+        <div class="ip">198.18.130.12</div>
+      </div>
     </div>
 
-    <div class="legend">
-      <div class="li"><span class="sw" style="background:#FF9000"></span>ISP</div>
-      <div class="li"><span class="sw" style="background:#0A60FF"></span>Core</div>
-      <div class="li"><span class="sw" style="background:#00D17A"></span>Access</div>
-      <div class="li"><span class="sw" style="background:#7B61FF"></span>Hosts</div>
-      <div class="li"><span class="sw" style="background:#009EA6"></span>Management</div>
-      <div class="li" style="padding-left:10px;border-left:1px solid var(--muted-line)"><span style="color:#02C8FF">━</span> routed/L3</div>
-      <div class="li"><span style="color:#02C8FF">┅</span> trunk</div>
-    </div>
+    <!-- Floating labels for critical links (absolutely positioned as % of
+         container so they follow the SVG overlay rather than grid cells). -->
+    <div class="lnk-lbl" style="top:25%; left:61%;">eBGP 65000↔65001</div>
+    <div class="lnk-lbl" style="top:53%; left:61%;">Gig1 · 198.18.100.2/30</div>
+    <div class="lnk-lbl" style="top:35%; left:72%;">Gig3 · 192.168.100.1/24</div>
+    <div class="lnk-lbl" style="top:78%; left:30%;">trunk</div>
+    <div class="lnk-lbl" style="top:78%; left:70%;">trunk</div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>
