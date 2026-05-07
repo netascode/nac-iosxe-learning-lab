@@ -319,4 +319,4 @@ In this task, you have:
 
 ---
 
-**Next:** [Lab Conclusion](Workend01_conclusion.md)
+**← Previous:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)  ·  **Next:** [Lab Conclusion](Workend01_conclusion.md)

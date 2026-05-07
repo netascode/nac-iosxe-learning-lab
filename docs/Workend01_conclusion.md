@@ -67,3 +67,7 @@ Thanks for spending four hours with us. If you have questions or feedback after 
 - **Christopher Hart** — chart2@cisco.com — [LinkedIn](https://www.linkedin.com/in/christopherjhart95/)
 
 Original lab design by Asier Arlegui and Balu Novak-Bohak — thank you for laying the foundation.
+
+---
+
+**← Previous:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)

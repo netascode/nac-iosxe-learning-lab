@@ -123,5 +123,5 @@ While manual Terraform commands are useful for learning and small-scale changes,
 
 ---
 
-**Next:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+**← Previous:** [Task 10 — Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
 

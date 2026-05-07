@@ -221,4 +221,4 @@ You've now worked with all three levels of the Network as Code hierarchy.
 
 ---
 
-**Next:** [Task 06 — Variables](Task06_Variables.md)
+**← Previous:** [Task 04 — Device group configuration](Task04_Device_group_config.md)  ·  **Next:** [Task 06 — Variables](Task06_Variables.md)

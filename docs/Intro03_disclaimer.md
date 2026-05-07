@@ -6,4 +6,4 @@ Before applying any of these patterns to a production network, engage your Cisco
 
 ---
 
-**Next:** [Getting Started](Intro04_getting_started.md)
+**← Previous:** [Lab Content](Intro02_all_learners.md)  ·  **Next:** [Getting Started](Intro04_getting_started.md)

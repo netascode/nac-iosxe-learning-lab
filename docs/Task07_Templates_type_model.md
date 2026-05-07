@@ -305,6 +305,8 @@ In this task, you have:
 
 ---
 
+**← Previous:** [Task 06 — Variables](Task06_Variables.md)
+
 **Next Steps:**
 
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:

@@ -219,6 +219,8 @@ This is where GitLab displays the test results from the JUnit report. You should
 
 ---
 
+**← Previous:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+
 **Next Steps:**
 
 You can explore the **optional** merge request workflow or proceed to the **conclusion**:

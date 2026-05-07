@@ -254,4 +254,4 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
 
 ---
 
-**Next:** [Task 12 — Cleanup](Task12_Cleanup.md)
+**← Previous:** [Task 10 — Schema validation](Task10_Schema_validation.md)  ·  **Next:** [Task 12 — Cleanup](Task12_Cleanup.md)

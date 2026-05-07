@@ -450,4 +450,4 @@ In the next task, you'll learn how to use device groups to apply configurations 
 
 ---
 
-**Next:** [Task 04 — Device group configuration](Task04_Device_group_config.md)
+**← Previous:** [Task 02 — Editing YAML files](Task02_Editing_YAML_files.md)  ·  **Next:** [Task 04 — Device group configuration](Task04_Device_group_config.md)

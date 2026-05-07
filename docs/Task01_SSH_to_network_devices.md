@@ -143,4 +143,4 @@ In the next task, you'll start creating the YAML configuration files that descri
 
 ---
 
-**Next:** [Task 02 — Editing YAML Files](Task02_Editing_YAML_files.md)
+**← Previous:** [Getting Started](Intro04_getting_started.md)  ·  **Next:** [Task 02 — Editing YAML Files](Task02_Editing_YAML_files.md)

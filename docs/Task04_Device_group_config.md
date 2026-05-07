@@ -228,5 +228,5 @@ In this task, you have:
 
 ---
 
-**Next:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
+**← Previous:** [Task 03 — Global configuration](Task03_Global_configuration.md)  ·  **Next:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
 

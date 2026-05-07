@@ -340,5 +340,5 @@ In the next task, you'll deploy your first piece of configuration — a login ba
 
 ---
 
-**Next:** [Task 03 — Global Configuration](Task03_Global_configuration.md)
+**← Previous:** [Task 01 — SSH to the lab devices](Task01_SSH_to_network_devices.md)  ·  **Next:** [Task 03 — Global Configuration](Task03_Global_configuration.md)
 

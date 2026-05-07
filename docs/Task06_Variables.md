@@ -323,6 +323,8 @@ In this task, you have:
 
 ---
 
+**← Previous:** [Task 05 — Single-device configuration](Task05_Single_device_config.md)
+
 **Next Steps:**
 
 You can either explore **optional** template tasks or continue with the **recommended** path:

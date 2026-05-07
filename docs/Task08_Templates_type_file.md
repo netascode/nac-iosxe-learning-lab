@@ -355,6 +355,8 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
 ---
 
+**← Previous:** [Task 07 — Templates type `model`](Task07_Templates_type_model.md)
+
 **Next Steps:**
 
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:

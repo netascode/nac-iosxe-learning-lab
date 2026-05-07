@@ -149,7 +149,7 @@ You can also test the alias by running `logs` from exec mode.
 
 ---
 
-**Next:** [Task 10 — Schema validation](Task10_Schema_validation.md)
+**← Previous:** [Task 08 — Templates type `file`](Task08_Templates_type_file.md)  ·  **Next:** [Task 10 — Schema validation](Task10_Schema_validation.md)
 
 
 

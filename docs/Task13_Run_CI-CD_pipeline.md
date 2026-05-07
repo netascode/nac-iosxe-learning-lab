@@ -388,6 +388,8 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 ---
 
+**← Previous:** [Task 12 — Cleanup](Task12_Cleanup.md)
+
 ## Next Steps
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:

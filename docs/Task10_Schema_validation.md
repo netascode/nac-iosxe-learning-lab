@@ -312,6 +312,8 @@ You now have a safety check in place to catch configuration errors before they r
 
 ---
 
+**← Previous:** [Task 06 — Variables](Task06_Variables.md)
+
 **Next Steps:**
 
 You can explore the **optional** post-checks task or continue with the **recommended** cleanup:

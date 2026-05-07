@@ -31,4 +31,4 @@ This lab is designed for a broad range of experience levels — from learners ne
 
 ---
 
-**Next:** [Disclaimer](Intro03_disclaimer.md)
+**← Previous:** [Learning Objectives](Intro01_overview.md)  ·  **Next:** [Disclaimer](Intro03_disclaimer.md)
