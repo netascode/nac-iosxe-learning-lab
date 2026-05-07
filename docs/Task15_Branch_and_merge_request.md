@@ -29,8 +29,8 @@ In this exercise, you will:
 7. Observe the second pipeline (validate + plan + deploy + test + notify)
 
 <figure markdown>
-  ![Branch and Merge Request Workflow](./assets/mr-workflow-light.png#only-light){ width="70%" }
-  ![Branch and Merge Request Workflow](./assets/mr-workflow-dark.png#only-dark){ width="70%" }
+  ![Branch and Merge Request Workflow](./assets/mr-workflow-light.png#only-light){ width="100%" }
+  ![Branch and Merge Request Workflow](./assets/mr-workflow-dark.png#only-dark){ width="100%" }
 </figure>
 
 !!! note "Merge Request (MR) vs. Pull Request (PR)"
