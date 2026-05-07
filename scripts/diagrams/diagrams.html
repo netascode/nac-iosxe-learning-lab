@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LTRXAR-2008 — Diagrams</title>
+<style>
+  :root {
+    --cyan: #02C8FF;
+    --blue: #0A60FF;
+    --orange: #FF9000;
+    --green: #00D17A;
+    --teal: #009EA6;
+    --purple: #7B61FF;
+    --coral: #FF6B6B;
+    --yellow: #FFD93D;
+    --white: #FFFFFF;
+    --dk-text: #B4B9C0;
+    --dim: #3A4450;
+    --card-bg: #0D2238;
+    --deep-bg: #07182D;
+    --code-bg: #0A1422;
+    --muted-line: rgba(180,185,192,.25);
+    --shadow: 0 12px 28px rgba(0,0,0,.35);
+  }
+  /* Light palette overrides applied to .light wrappers */
+  .light {
+    --card-bg: #FFFFFF;
+    --deep-bg: #F5F7FA;
+    --code-bg: #EEF2F6;
+    --dk-text: #13344E;
+    --white: #0b172c;
+    --dim: #CBD5E0;
+    --muted-line: rgba(19,52,78,.15);
+    --shadow: 0 4px 14px rgba(11,23,44,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0e18; font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+  /* Every diagram is rendered inside a fixed 1400×800 card so screenshots come out a consistent size. */
+  .card { width: 1400px; height: 800px; background: var(--deep-bg); color: var(--dk-text); padding: 48px 56px; display: flex; flex-direction: column; gap: 24px; position: relative; overflow: hidden; box-shadow: var(--shadow); margin: 24px auto; }
+  .card.light { background: var(--deep-bg); color: var(--dk-text); }
+  .card h1 { margin: 0; font-size: 28px; color: var(--white); font-weight: 700; letter-spacing: -0.01em; }
+  .card .sub { margin: 0; font-size: 15px; color: var(--dk-text); opacity: .85; }
+  .card .accent { color: var(--cyan); }
+  .card .watermark { position: absolute; bottom: 24px; right: 32px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: .4; color: var(--dk-text); }
+
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
+  .chip.cyan { background: rgba(2,200,255,.12); color: var(--cyan); border: 1px solid rgba(2,200,255,.4); }
+  .chip.blue { background: rgba(10,96,255,.15); color: #6d9bff; border: 1px solid rgba(10,96,255,.5); }
+  .chip.green { background: rgba(0,209,122,.12); color: var(--green); border: 1px solid rgba(0,209,122,.4); }
+  .chip.orange { background: rgba(255,144,0,.12); color: var(--orange); border: 1px solid rgba(255,144,0,.4); }
+
+  code, .mono { font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; }
+
+  /* ======================================================== CONFIG HIERARCHY */
+  .hier { flex: 1; display: grid; grid-template-columns: 1fr 180px; gap: 48px; align-items: center; }
+  .hier .tiers { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+  .hier .tier { border-radius: 10px; padding: 18px 26px; display: flex; flex-direction: column; gap: 6px; position: relative; }
+  .hier .tier .label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--white); }
+  .hier .tier .desc { font-size: 14px; color: var(--dk-text); }
+  .hier .tier .ex   { font-family: "JetBrains Mono", Menlo, monospace; font-size: 12px; color: var(--cyan); }
+  .hier .tier.t1 { width: 820px; background: linear-gradient(120deg, #0a2847, #0e3a62); border: 1.5px solid rgba(10,96,255,.6); }
+  .hier .tier.t2 { width: 620px; background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(0,158,166,.55); }
+  .hier .tier.t3 { width: 420px; background: linear-gradient(120deg, #153b3c, #156050); border: 1.5px solid rgba(0,209,122,.55); }
+  .hier .prec { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--dk-text); font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase; }
+  .hier .prec svg { height: 320px; }
+
+  /* ======================================================== VARIABLE SUBSTITUTION */
+  .vars { flex: 1; display: grid; grid-template-columns: 1fr 36px 1fr 36px 1fr; gap: 0; align-items: stretch; }
+  .vars .col { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .vars .col .ttl { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+  .vars .col pre { background: var(--code-bg); margin: 0; padding: 10px 12px; border-radius: 6px; font-size: 11.5px; color: var(--white); font-family: "JetBrains Mono", monospace; line-height: 1.5; white-space: pre-wrap; }
+  .vars .col pre .var { color: var(--orange); }
+  .vars .col pre .key { color: var(--cyan); }
+  .vars .col pre .val { color: var(--green); }
+  .vars .arrow { display: flex; align-items: center; justify-content: center; color: var(--dk-text); font-size: 22px; }
+  .vars .stack { display: flex; flex-direction: column; gap: 10px; }
+  .vars .small { background: var(--code-bg); padding: 8px 10px; border-radius: 6px; font-size: 11px; color: var(--white); font-family: "JetBrains Mono", monospace; }
+  .vars .small .who { color: var(--cyan); font-weight: 700; }
+
+  /* ======================================================== TEMPLATES */
+  .tpl { flex: 1; display: grid; grid-template-columns: 1fr 60px 1fr 60px 1fr; gap: 0; align-items: stretch; }
+  .tpl .node { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .tpl .node .ttl { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); }
+  .tpl .node pre { background: var(--code-bg); margin: 0; padding: 10px 12px; border-radius: 6px; font-size: 11px; color: var(--white); font-family: "JetBrains Mono", monospace; line-height: 1.4; }
+  .tpl .arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--dk-text); font-size: 13px; }
+  .tpl .arrow .lbl { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; writing-mode: horizontal-tb; text-align: center; color: var(--cyan); }
+  .tpl .group { background: linear-gradient(120deg, #14304a, #135571); border: 1.5px solid rgba(0,158,166,.55); }
+  .tpl .rendered { display: flex; flex-direction: column; gap: 8px; }
+  .tpl .device { background: var(--code-bg); padding: 10px; border-radius: 6px; border-left: 3px solid var(--green); font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--white); }
+  .tpl .device .nm { color: var(--green); font-weight: 700; }
+
+  /* ======================================================== MR WORKFLOW */
+  .mr { flex: 1; display: grid; grid-template-rows: auto 1fr; gap: 18px; }
+  .mr .lanes { display: grid; grid-template-rows: 32px 1fr 1fr; gap: 0; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; overflow: hidden; }
+  .mr .lanes .hdr { display: grid; grid-template-columns: 150px repeat(6, 1fr); border-bottom: 1px solid var(--muted-line); }
+  .mr .lanes .hdr div { padding: 8px 12px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); text-align: center; }
+  .mr .lanes .hdr .pad { color: var(--dk-text); text-align: left; }
+  .mr .lane { display: grid; grid-template-columns: 150px repeat(6, 1fr); border-bottom: 1px solid var(--muted-line); position: relative; min-height: 170px; }
+  .mr .lane:last-child { border-bottom: 0; }
+  .mr .lane .label { padding: 16px; font-size: 12px; font-weight: 700; color: var(--white); display: flex; align-items: center; background: rgba(0,0,0,.2); border-right: 1px solid var(--muted-line); }
+  .mr .lane .cell { padding: 12px 8px; display: flex; align-items: center; justify-content: center; }
+  .mr .step { background: var(--card-bg); border: 1.5px solid var(--cyan); border-radius: 8px; padding: 10px 14px; text-align: center; font-size: 12px; color: var(--white); min-width: 120px; box-shadow: 0 2px 8px rgba(2,200,255,.15); }
+  .mr .step.blue { border-color: var(--blue); box-shadow: 0 2px 8px rgba(10,96,255,.2); }
+  .mr .step.green { border-color: var(--green); box-shadow: 0 2px 8px rgba(0,209,122,.2); }
+  .mr .step.orange { border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,144,0,.2); }
+  .mr .step .t { font-weight: 700; margin-bottom: 2px; }
+  .mr .step .s { font-size: 10.5px; color: var(--dk-text); }
+  .mr svg.arrows { position: absolute; top: 0; left: 150px; width: calc(100% - 150px); height: 100%; pointer-events: none; }
+
+  /* ======================================================== NAC STACK */
+  .stack-wrap { flex: 1; display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
+  .stack { display: flex; flex-direction: column; gap: 10px; }
+  .stack .layer { border-radius: 8px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; position: relative; }
+  .stack .layer .hdr { display: flex; align-items: center; justify-content: space-between; }
+  .stack .layer .nm { font-size: 14px; font-weight: 700; color: var(--white); }
+  .stack .layer .tech { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--cyan); }
+  .stack .layer .desc { font-size: 12px; color: var(--dk-text); }
+  .stack .l1 { background: linear-gradient(120deg, #14304a, #1f4d82); border: 1.5px solid rgba(10,96,255,.5); }
+  .stack .l2 { background: linear-gradient(120deg, #13354d, #1c5270); border: 1.5px solid rgba(0,158,166,.55); }
+  .stack .l3 { background: linear-gradient(120deg, #153b3c, #1d5f55); border: 1.5px solid rgba(0,209,122,.5); }
+  .stack .l4 { background: linear-gradient(120deg, #3f2d1a, #66471e); border: 1.5px solid rgba(255,144,0,.5); }
+  .stack .l5 { background: linear-gradient(120deg, #2f1f3e, #4c2f62); border: 1.5px solid rgba(123,97,255,.55); }
+  .stack-side { color: var(--dk-text); font-size: 13.5px; line-height: 1.65; }
+  .stack-side h3 { color: var(--cyan); margin: 0 0 8px; font-size: 16px; letter-spacing: .3px; }
+  .stack-side p { margin: 0 0 12px; }
+  .stack-side code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; color: var(--white); }
+
+  /* ======================================================== PIPELINE ANATOMY */
+  .pipe { flex: 1; display: grid; grid-template-rows: auto 1fr; gap: 20px; }
+  .pipe .flow { display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr 28px 1fr; align-items: center; }
+  .pipe .stage { background: var(--card-bg); border: 1.5px solid var(--cyan); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px; text-align: center; box-shadow: 0 2px 8px rgba(2,200,255,.15); }
+  .pipe .stage .nm { font-size: 14px; font-weight: 700; color: var(--white); }
+  .pipe .stage .tool { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--cyan); }
+  .pipe .stage .act { font-size: 10.5px; color: var(--dk-text); }
+  .pipe .stage.plan { border-color: var(--blue); box-shadow: 0 2px 8px rgba(10,96,255,.2); }
+  .pipe .stage.plan .tool { color: #6d9bff; }
+  .pipe .stage.deploy { border-color: var(--green); box-shadow: 0 2px 8px rgba(0,209,122,.2); }
+  .pipe .stage.deploy .tool { color: var(--green); }
+  .pipe .stage.test { border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,144,0,.2); }
+  .pipe .stage.test .tool { color: var(--orange); }
+  .pipe .stage.notify { border-color: var(--purple); box-shadow: 0 2px 8px rgba(123,97,255,.2); }
+  .pipe .stage.notify .tool { color: var(--purple); }
+  .pipe .arrow-h { text-align: center; color: var(--dk-text); font-size: 22px; }
+  .pipe .footer { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 8px; }
+  .pipe .footer .col h4 { margin: 0 0 8px; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); }
+  .pipe .footer .col ul { margin: 0; padding-left: 18px; color: var(--dk-text); font-size: 13px; line-height: 1.65; }
+  .pipe .footer .col code { color: var(--white); font-size: 12px; }
+
+  /* ======================================================== LAB TOPOLOGY (dCloud) */
+  .labtop { flex: 1; display: grid; grid-template-columns: 180px 1fr 1fr; gap: 24px; align-items: stretch; }
+  .labtop .zone { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px; position: relative; }
+  .labtop .zone .zhdr { font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); font-weight: 700; }
+  .labtop .zone .znm { font-size: 15px; font-weight: 700; color: var(--white); }
+  .labtop .zone .zip { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--dk-text); }
+  .labtop .you { align-items: center; justify-content: center; text-align: center; }
+  .labtop .you .avatar { font-size: 64px; line-height: 1; }
+  .labtop .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+  .labtop .tool { background: var(--code-bg); border-radius: 6px; padding: 10px 12px; border-left: 3px solid var(--cyan); }
+  .labtop .tool .tn { font-size: 12.5px; font-weight: 700; color: var(--white); }
+  .labtop .tool .td { font-size: 11px; color: var(--dk-text); }
+  .labtop .tool.vs { border-left-color: var(--blue); }
+  .labtop .tool.wsl { border-left-color: var(--green); }
+  .labtop .tool.ssh { border-left-color: var(--orange); }
+  .labtop .tool.br { border-left-color: var(--purple); }
+  .labtop .zone.cml { background: linear-gradient(145deg, #0f2a46, #102c4e); border-color: rgba(10,96,255,.5); }
+  .labtop .zone.gitlab { background: linear-gradient(145deg, #2f1a1a, #451e1e); border-color: rgba(255,107,107,.45); }
+  .labtop .mini { background: rgba(255,255,255,.04); border-radius: 6px; padding: 8px 10px; font-size: 11.5px; color: var(--dk-text); display: flex; justify-content: space-between; align-items: center; }
+  .labtop .mini .nm { color: var(--white); font-weight: 600; }
+  .labtop .mini .ip { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--cyan); }
+  .labtop .zonearrow { position: absolute; top: 50%; right: -18px; width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border-right: 2px solid var(--cyan); border-top: 2px solid var(--cyan); }
+  .labtop .arrow-label { position: absolute; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; }
+
+  /* ======================================================== CML TOPOLOGY */
+  .cmltop { flex: 1; position: relative; background:
+    radial-gradient(ellipse at center, rgba(2,200,255,.05) 0%, transparent 70%);
+    border: 1px dashed var(--muted-line); border-radius: 10px;
+    overflow: hidden;
+  }
+  .cmltop svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .cmltop .dev { position: absolute; background: var(--card-bg); border: 2px solid var(--cyan); border-radius: 8px; padding: 10px 14px; min-width: 140px; text-align: center; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+  .cmltop .dev .nm { font-size: 14px; font-weight: 700; color: var(--white); }
+  .cmltop .dev .role { font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cyan); margin-top: 2px; }
+  .cmltop .dev .ip { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--dk-text); margin-top: 3px; }
+  .cmltop .dev.router { border-color: var(--orange); box-shadow: 0 4px 12px rgba(255,144,0,.25); }
+  .cmltop .dev.router .role { color: var(--orange); }
+  .cmltop .dev.core { border-color: var(--blue); box-shadow: 0 4px 12px rgba(10,96,255,.25); }
+  .cmltop .dev.core .role { color: #6d9bff; }
+  .cmltop .dev.access { border-color: var(--green); }
+  .cmltop .dev.access .role { color: var(--green); }
+  .cmltop .dev.host { border-color: var(--purple); border-style: dashed; }
+  .cmltop .dev.host .role { color: var(--purple); }
+  .cmltop .dev.svc { border-color: var(--teal); border-style: dotted; background: rgba(0,158,166,.08); }
+  .cmltop .dev.svc .role { color: var(--teal); }
+  .cmltop .link-lbl { position: absolute; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; border-radius: 3px; z-index: 3; white-space: nowrap; }
+  .cmltop .legend { position: absolute; bottom: 18px; left: 18px; display: flex; gap: 14px; z-index: 2; padding: 8px 12px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--muted-line); font-size: 10.5px; }
+  .cmltop .legend .li { display: flex; align-items: center; gap: 6px; color: var(--dk-text); }
+  .cmltop .legend .li .sw { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ======================================================== FILE LAYOUT */
+  .flay { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: stretch; }
+  .flay .folder { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .flay .folder .fhdr { display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--muted-line); }
+  .flay .folder .fico { font-size: 18px; }
+  .flay .folder .fnm { font-family: "JetBrains Mono", monospace; font-size: 14px; font-weight: 700; color: var(--white); }
+  .flay .folder .fsub { font-size: 10.5px; color: var(--dk-text); text-transform: uppercase; letter-spacing: 1.5px; margin-left: auto; }
+  .flay .row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 5px; background: var(--code-bg); }
+  .flay .row .tag { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; min-width: 72px; text-align: center; }
+  .flay .row .fn { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--white); flex: 1; }
+  .flay .row .desc { font-size: 10.5px; color: var(--dk-text); }
+  .flay .tag.global { background: rgba(10,96,255,.2); color: #6d9bff; }
+  .flay .tag.group  { background: rgba(0,158,166,.2); color: #6fd6dd; }
+  .flay .tag.device { background: rgba(0,209,122,.2); color: var(--green); }
+  .flay .tag.tpl    { background: rgba(255,144,0,.2); color: var(--orange); }
+  .flay .tag.gen    { background: rgba(180,185,192,.2); color: var(--dk-text); }
+  .flay .tag.tf     { background: rgba(123,97,255,.2); color: #b3a3ff; }
+  .flay .tag.test   { background: rgba(255,217,61,.2); color: var(--yellow); }
+  .flay .tag.env    { background: rgba(255,107,107,.2); color: #ffb3b3; }
+  .flay .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; padding: 8px 12px; background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 6px; }
+  .flay .legend .li { font-size: 10px; color: var(--dk-text); display: flex; gap: 6px; align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== 1. CONFIG HIERARCHY — DARK -->
+<section class="card" id="config-hierarchy-dark">
+  <div>
+    <span class="chip cyan">DIAGRAM · 01</span>
+    <h1>Configuration hierarchy <span class="accent">— precedence flows top-to-bottom</span></h1>
+    <p class="sub">More specific wins. A device-level override trumps its group; a group setting trumps the global default. You'll practice this in Tasks 03–05.</p>
+  </div>
+  <div class="hier">
+    <div class="tiers">
+      <div class="tier t3">
+        <span class="label">DEVICE</span>
+        <span class="desc">Applies only to one named device — the top of the hierarchy.</span>
+        <span class="ex">config-device-core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
+      </div>
+      <div class="tier t2">
+        <span class="label">DEVICE GROUP</span>
+        <span class="desc">Applies to every device listed in the group.</span>
+        <span class="ex">config-group-access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
+      </div>
+      <div class="tier t1">
+        <span class="label">GLOBAL</span>
+        <span class="desc">Applies to all devices unless overridden above.</span>
+        <span class="ex">config-global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname on every device</span>
+      </div>
+    </div>
+    <div class="prec">
+      <div>MOST<br/>SPECIFIC</div>
+      <svg viewBox="0 0 40 320" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00D17A"/><stop offset="1" stop-color="#0A60FF"/></linearGradient></defs>
+        <line x1="20" y1="10" x2="20" y2="310" stroke="url(#g1)" stroke-width="3"/>
+        <polygon points="20,0 14,14 26,14" fill="#00D17A"/>
+        <polygon points="20,320 14,306 26,306" fill="#0A60FF"/>
+      </svg>
+      <div>LEAST<br/>SPECIFIC</div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 2. VARIABLE SUBSTITUTION -->
+<section class="card" id="variable-substitution-dark">
+  <div>
+    <span class="chip orange">DIAGRAM · 02</span>
+    <h1>Variable substitution <span class="accent">— one template, per-device output</span></h1>
+    <p class="sub">NAC resolves <code style="color:var(--orange)">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
+  </div>
+  <div class="vars">
+    <div class="col">
+      <span class="ttl">Global template</span>
+      <pre><span class="key">banner:</span>
+  <span class="key">login:</span> |
+    Site:   <span class="var">${SITE}</span>
+    Device: <span class="var">${HOSTNAME}</span>
+
+<span class="key">system:</span>
+  <span class="key">hostname:</span> <span class="var">${HOSTNAME}</span>
+<span class="key">variables:</span>
+  <span class="key">SITE:</span> <span class="val">"LTRXAR-2008 Lab"</span></pre>
+    </div>
+    <div class="arrow">→</div>
+    <div class="col">
+      <span class="ttl">Per-device variables</span>
+      <div class="stack">
+        <div class="small"><span class="who">core:</span>      HOSTNAME = "core"</div>
+        <div class="small"><span class="who">border:</span>    HOSTNAME = "border"</div>
+        <div class="small"><span class="who">access01:</span>  HOSTNAME = "access01"</div>
+        <div class="small"><span class="who">access02:</span>  HOSTNAME = "access02"</div>
+      </div>
+      <pre style="margin-top:8px"><span class="key">SITE</span> is inherited
+globally by every device
+(no override defined).</pre>
+    </div>
+    <div class="arrow">→</div>
+    <div class="col">
+      <span class="ttl">Rendered per device</span>
+      <div class="stack">
+        <div class="small"><span class="who">access01:</span><br/>Site: LTRXAR-2008 Lab<br/>Device: access01<br/>hostname access01</div>
+        <div class="small"><span class="who">border:</span><br/>Site: LTRXAR-2008 Lab<br/>Device: border<br/>hostname border</div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 3. TEMPLATES -->
+<section class="card" id="templates-dark">
+  <div>
+    <span class="chip green">DIAGRAM · 03</span>
+    <h1>Template resolution <span class="accent">— define once, apply to many</span></h1>
+    <p class="sub">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
+  </div>
+  <div class="tpl">
+    <div class="node">
+      <span class="ttl">1. Template (YAML model)</span>
+      <pre><span style="color:var(--cyan)">templates:</span>
+  - <span style="color:var(--cyan)">name:</span> access_switch_vlans
+    <span style="color:var(--cyan)">type:</span> model
+    <span style="color:var(--cyan)">configuration:</span>
+      <span style="color:var(--cyan)">vlan:</span>
+        <span style="color:var(--cyan)">vlans:</span>
+          - <span style="color:var(--cyan)">id:</span> 10
+            <span style="color:var(--cyan)">name:</span> DATA
+          - <span style="color:var(--cyan)">id:</span> 20
+            <span style="color:var(--cyan)">name:</span> VOICE
+          - <span style="color:var(--cyan)">id:</span> 99
+            <span style="color:var(--cyan)">name:</span> MGMT</pre>
+    </div>
+    <div class="arrow"><div class="lbl">Referenced<br/>by group</div>→</div>
+    <div class="node group">
+      <span class="ttl" style="color:#7fe8ef">2. Group reference</span>
+      <pre><span style="color:#7fe8ef">device_groups:</span>
+  - <span style="color:#7fe8ef">name:</span> ACCESS_SWITCHES
+    <span style="color:#7fe8ef">devices:</span>
+      - access01
+      - access02
+    <span style="color:#7fe8ef">templates:</span>
+      - <span style="color:var(--orange)">access_switch_vlans</span></pre>
+    </div>
+    <div class="arrow"><div class="lbl">Expanded<br/>per device</div>→</div>
+    <div class="node rendered">
+      <span class="ttl">3. Rendered on each member</span>
+      <div class="device">
+        <div class="nm">access01</div>
+        vlan 10 name DATA<br/>
+        vlan 20 name VOICE<br/>
+        vlan 99 name MGMT
+      </div>
+      <div class="device">
+        <div class="nm">access02</div>
+        vlan 10 name DATA<br/>
+        vlan 20 name VOICE<br/>
+        vlan 99 name MGMT
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 4. MR WORKFLOW -->
+<section class="card" id="mr-workflow-dark">
+  <div>
+    <span class="chip blue">DIAGRAM · 04</span>
+    <h1>Merge request workflow <span class="accent">— MR gets preview, <code>main</code> gets deploy</span></h1>
+    <p class="sub">An MR pipeline runs <em>validate + plan only</em>. Merging to <code>main</code> runs the full pipeline (validate + plan + deploy + test + notify).</p>
+  </div>
+  <div class="mr">
+    <div class="lanes">
+      <div class="hdr">
+        <div class="pad">Actor / stage</div>
+        <div>Commit</div>
+        <div>MR opened</div>
+        <div>CI (MR)</div>
+        <div>Review &amp; Merge</div>
+        <div>CI (main)</div>
+        <div>Result</div>
+      </div>
+      <div class="lane">
+        <div class="label">Developer /<br/>feature branch</div>
+        <div class="cell"><div class="step"><div class="t">git push</div><div class="s">feature/core</div></div></div>
+        <div class="cell"><div class="step"><div class="t">Create MR</div><div class="s">feature/core → main</div></div></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="lane">
+        <div class="label">GitLab CI /<br/>pipeline</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"><div class="step blue"><div class="t">validate + plan</div><div class="s">no deploy on MR</div></div></div>
+        <div class="cell"><div class="step orange"><div class="t">Reviewer approves</div><div class="s">Merge to main</div></div></div>
+        <div class="cell"><div class="step green"><div class="t">validate + plan<br/>deploy + test</div><div class="s">full pipeline</div></div></div>
+        <div class="cell"><div class="step green"><div class="t">🟢 Passed</div><div class="s">config live on devices</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 5. NAC STACK OVERVIEW (new) -->
+<section class="card" id="nac-stack">
+  <div>
+    <span class="chip cyan">DIAGRAM · 05</span>
+    <h1>What NAC actually does <span class="accent">— from YAML to YANG</span></h1>
+    <p class="sub">Your intent is YAML. Under the hood, NAC translates it through a stack that ends as NETCONF/RESTCONF traffic the device understands.</p>
+  </div>
+  <div class="stack-wrap">
+    <div class="stack">
+      <div class="layer l1">
+        <div class="hdr"><span class="nm">1. Intent (what you write)</span><span class="tech">*.nac.yaml</span></div>
+        <span class="desc">Declarative YAML. Human-readable. Under version control.</span>
+      </div>
+      <div class="layer l2">
+        <div class="hdr"><span class="nm">2. NAC IOS XE Terraform module</span><span class="tech">terraform-iosxe-nac-iosxe</span></div>
+        <span class="desc">Merges every YAML in <code>data/</code>, resolves variables/templates, renders the data model.</span>
+      </div>
+      <div class="layer l3">
+        <div class="hdr"><span class="nm">3. Terraform IOS XE provider</span><span class="tech">terraform-provider-iosxe</span></div>
+        <span class="desc">Turns the merged model into resource-level API calls. Knows how to diff and converge.</span>
+      </div>
+      <div class="layer l4">
+        <div class="hdr"><span class="nm">4. Transport</span><span class="tech">NETCONF / RESTCONF</span></div>
+        <span class="desc">NETCONF (TCP 830) is transactional &amp; uses a candidate datastore. RESTCONF (443) is HTTPS-based.</span>
+      </div>
+      <div class="layer l5">
+        <div class="hdr"><span class="nm">5. IOS XE device</span><span class="tech">YANG datastore</span></div>
+        <span class="desc">Running configuration driven by standards-based YANG models.</span>
+      </div>
+    </div>
+    <div class="stack-side">
+      <h3>You write layer 1. NAC owns 2–4.</h3>
+      <p>The value of NAC isn't any single layer — it's that you stop writing layers 2, 3, and 4 yourself. You describe intent; the module handles module composition, Terraform resource wiring, YANG path construction, and transactional rollback.</p>
+      <p><strong>Why NETCONF over RESTCONF in this lab?</strong> Transactional semantics. NETCONF uses a candidate datastore with <code>commit</code>/<code>discard-changes</code>, so a config push is all-or-nothing. A half-applied change can't leave a device in an inconsistent state.</p>
+      <p><strong>Why you'll still see RESTCONF URLs.</strong> <code>nac-test</code> (Task 11) reads operational state via RESTCONF URIs for verification. Config push uses NETCONF; post-check verification uses RESTCONF.</p>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 6. PIPELINE ANATOMY (new) -->
+<section class="card" id="pipeline-anatomy">
+  <div>
+    <span class="chip green">DIAGRAM · 06</span>
+    <h1>CI/CD pipeline anatomy <span class="accent">— what runs, when, and why</span></h1>
+    <p class="sub">Every push or MR triggers a pipeline. The stages that run depend on the branch — guardrails against accidental production deploys.</p>
+  </div>
+  <div class="pipe">
+    <div class="flow">
+      <div class="stage">
+        <div class="nm">validate</div>
+        <div class="tool">nac-validate</div>
+        <div class="act">YAML schema + `terraform fmt`</div>
+      </div>
+      <div class="arrow-h">→</div>
+      <div class="stage plan">
+        <div class="nm">plan</div>
+        <div class="tool">terraform plan</div>
+        <div class="act">Preview; comments on MR</div>
+      </div>
+      <div class="arrow-h">→</div>
+      <div class="stage deploy">
+        <div class="nm">deploy</div>
+        <div class="tool">terraform apply</div>
+        <div class="act">Push to devices over NETCONF</div>
+      </div>
+      <div class="arrow-h">→</div>
+      <div class="stage test">
+        <div class="nm">test</div>
+        <div class="tool">nac-test</div>
+        <div class="act">Integration + idempotency</div>
+      </div>
+      <div class="arrow-h">→</div>
+      <div class="stage notify">
+        <div class="nm">notify</div>
+        <div class="tool">Webex / email</div>
+        <div class="act">Result to the team</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="col">
+        <h4>On a merge request (feature → main)</h4>
+        <ul>
+          <li><strong>Runs:</strong> <code>validate</code> + <code>plan</code></li>
+          <li><strong>Skips:</strong> <code>deploy</code> + <code>test</code></li>
+          <li><strong>Why:</strong> MR pipelines preview the change without touching production. <code>terraform plan</code> output is auto-commented on the MR for reviewers.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>On push/merge to <code>main</code></h4>
+        <ul>
+          <li><strong>Runs:</strong> all five stages</li>
+          <li><strong>State:</strong> stored in GitLab's HTTP backend so every run shares the same Terraform state</li>
+          <li><strong>Notify:</strong> Webex message on success or failure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 7. LAB TOPOLOGY (dCloud) -->
+<section class="card" id="lab-topology">
+  <div>
+    <span class="chip cyan">DIAGRAM · 07</span>
+    <h1>Lab topology <span class="accent">— three zones, one RDP session</span></h1>
+    <p class="sub">Everything you need lives on the Win10 VM. Terraform and GitLab both manage the same CML-hosted IOS XE devices over NETCONF.</p>
+  </div>
+  <div class="labtop">
+    <div class="zone you">
+      <span class="zhdr">Your laptop</span>
+      <div class="avatar">💻</div>
+      <div class="znm" style="text-align:center">RDP client</div>
+      <div class="zip" style="text-align:center">198.18.133.20</div>
+      <div style="font-size:11px;color:var(--dk-text);text-align:center;margin-top:8px">admin / cisco</div>
+    </div>
+    <div class="zone" style="position:relative">
+      <span class="zhdr">Windows 10 VM</span>
+      <div class="znm">All your tools</div>
+      <div class="zip">198.18.133.20</div>
+      <div class="tools">
+        <div class="tool vs">
+          <div class="tn">VS Code</div>
+          <div class="td">Edit NAC YAML</div>
+        </div>
+        <div class="tool ssh">
+          <div class="tn">Solar-PuTTY</div>
+          <div class="td">SSH to devices</div>
+        </div>
+        <div class="tool wsl">
+          <div class="tn">WSL Ubuntu</div>
+          <div class="td">Terraform CLI</div>
+        </div>
+        <div class="tool br">
+          <div class="tn">Chrome</div>
+          <div class="td">Lab guide + GitLab</div>
+        </div>
+      </div>
+      <div style="margin-top:auto;font-size:11px;color:var(--dk-text);padding-top:10px;border-top:1px dashed var(--muted-line)">Outbound: NETCONF (tcp/830) · HTTPS · SSH</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="zone cml" style="flex:1">
+        <span class="zhdr" style="color:#6d9bff">Cisco Modeling Labs</span>
+        <div class="znm">CML — virtualized IOS XE</div>
+        <div class="zip">198.18.130.34 · guest / CiscoLive</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">
+          <div class="mini"><span class="nm">core</span><span class="ip">.130.10</span></div>
+          <div class="mini"><span class="nm">border</span><span class="ip">.130.20</span></div>
+          <div class="mini"><span class="nm">access01</span><span class="ip">.130.11</span></div>
+          <div class="mini"><span class="nm">access02</span><span class="ip">.130.12</span></div>
+          <div class="mini"><span class="nm">isp</span><span class="ip">.100.1</span></div>
+          <div class="mini"><span class="nm">host01/02</span><span class="ip">192.168.100.x</span></div>
+        </div>
+      </div>
+      <div class="zone gitlab">
+        <span class="zhdr" style="color:#ff9b9b">GitLab VM (Ubuntu)</span>
+        <div class="znm">Git repo + CI/CD runner</div>
+        <div class="zip">198.18.133.101 · root / C1sco12345</div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <div class="mini" style="flex:1"><span class="nm">nac-iosxe-terraform</span><span class="ip">pipeline</span></div>
+          <div class="mini" style="flex:0 0 auto"><span class="nm">State</span><span class="ip">HTTP backend</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 8. CML TOPOLOGY -->
+<section class="card" id="cml-topology">
+  <div>
+    <span class="chip blue">DIAGRAM · 08</span>
+    <h1>CML topology <span class="accent">— the four devices you'll manage</span></h1>
+    <p class="sub">NAC manages <strong style="color:var(--green)">core</strong>, <strong style="color:var(--green)">border</strong>, <strong style="color:var(--green)">access01</strong>, and <strong style="color:var(--green)">access02</strong>. The ISP, hosts, and management servers are pre-configured and used for verification.</p>
+  </div>
+  <div class="cmltop">
+    <svg viewBox="0 0 1300 560" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="bgpgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF9000"/><stop offset="1" stop-color="#FF6B6B"/></linearGradient>
+      </defs>
+      <!-- isp ↔ border (BGP eBGP) -->
+      <line x1="650" y1="85" x2="650" y2="175" stroke="url(#bgpgrad)" stroke-width="3"/>
+      <!-- border ↔ core -->
+      <line x1="650" y1="235" x2="650" y2="305" stroke="#02C8FF" stroke-width="2.5"/>
+      <!-- core ↔ access01 (trunk) -->
+      <line x1="570" y1="365" x2="330" y2="445" stroke="#02C8FF" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <!-- core ↔ access02 (trunk) -->
+      <line x1="730" y1="365" x2="970" y2="445" stroke="#02C8FF" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <!-- border → host subnet -->
+      <line x1="740" y1="205" x2="1115" y2="205" stroke="#7B61FF" stroke-width="2.5"/>
+      <line x1="1115" y1="205" x2="1115" y2="435" stroke="#7B61FF" stroke-width="2.5"/>
+      <!-- mgmt services (dotted backbone to core) -->
+      <line x1="150" y1="205" x2="560" y2="335" stroke="#009EA6" stroke-width="1.5" stroke-dasharray="2 3"/>
+    </svg>
+
+    <!-- ISP -->
+    <div class="dev router" style="top:20px; left:560px; width:200px;">
+      <div class="nm">isp</div>
+      <div class="role">ISP · AS 65001</div>
+      <div class="ip">198.18.100.1 · Lo0 8.8.8.8/24</div>
+    </div>
+    <div class="link-lbl" style="top:115px; left:665px;">eBGP AS 65000 ↔ 65001</div>
+
+    <!-- Border -->
+    <div class="dev router" style="top:175px; left:575px; width:170px;">
+      <div class="nm">border</div>
+      <div class="role">Border · AS 65000</div>
+      <div class="ip">198.18.130.20</div>
+    </div>
+    <div class="link-lbl" style="top:265px; left:660px;">Gig1 · 198.18.100.2/30</div>
+
+    <!-- Core -->
+    <div class="dev core" style="top:305px; left:580px; width:160px;">
+      <div class="nm">core</div>
+      <div class="role">Core C9000v</div>
+      <div class="ip">198.18.130.10 · Lo0 198.51.100.10</div>
+    </div>
+
+    <!-- access01 -->
+    <div class="dev access" style="top:445px; left:180px; width:170px;">
+      <div class="nm">access01</div>
+      <div class="role">Access C9000v</div>
+      <div class="ip">198.18.130.11</div>
+    </div>
+
+    <!-- access02 -->
+    <div class="dev access" style="top:445px; left:950px; width:170px;">
+      <div class="nm">access02</div>
+      <div class="role">Access C9000v</div>
+      <div class="ip">198.18.130.12</div>
+    </div>
+
+    <!-- Hosts -->
+    <div class="dev host" style="top:420px; left:1050px; width:150px;">
+      <div class="nm">host01 / host02</div>
+      <div class="role">End-hosts</div>
+      <div class="ip">192.168.100.100/24<br/>192.168.100.200/24</div>
+    </div>
+    <div class="link-lbl" style="top:195px; left:900px;">Gig3 · 192.168.100.1/24 (Task 08)</div>
+
+    <!-- mgmt services island -->
+    <div class="dev svc" style="top:175px; left:40px; width:230px;">
+      <div class="nm">ntp-server · syslog-server</div>
+      <div class="role">Management services</div>
+      <div class="ip">198.18.129.11/.12 · reachable from all devices</div>
+    </div>
+
+    <div class="legend">
+      <div class="li"><span class="sw" style="background:#FF9000"></span>ISP</div>
+      <div class="li"><span class="sw" style="background:#0A60FF"></span>Core</div>
+      <div class="li"><span class="sw" style="background:#00D17A"></span>Access</div>
+      <div class="li"><span class="sw" style="background:#7B61FF"></span>Hosts</div>
+      <div class="li"><span class="sw" style="background:#009EA6"></span>Management</div>
+      <div class="li" style="padding-left:10px;border-left:1px solid var(--muted-line)"><span style="color:#02C8FF">━</span> routed/L3</div>
+      <div class="li"><span style="color:#02C8FF">┅</span> trunk</div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 9. FILE LAYOUT -->
+<section class="card" id="file-layout">
+  <div>
+    <span class="chip cyan">DIAGRAM · 09</span>
+    <h1>Project file layout <span class="accent">— one file per concern</span></h1>
+    <p class="sub">The whole lab lives in <code style="color:var(--cyan)">~/nac-iosxe/</code>. Each file owns one responsibility. NAC merges them into a single data model at load time.</p>
+  </div>
+  <div class="flay">
+    <div class="folder">
+      <div class="fhdr">
+        <span class="fico">📁</span>
+        <span class="fnm">data/</span>
+        <span class="fsub">your intent</span>
+      </div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-core.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-border.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-access01.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-access02.nac.yaml</span></div>
+      <div class="row"><span class="tag global">GLOBAL</span><span class="fn">config-global.nac.yaml</span></div>
+      <div class="row"><span class="tag group">GROUP</span><span class="fn">config-group-access.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-vlan.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-bgp.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-logging.nac.yaml</span></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:20px">
+      <div class="folder">
+        <div class="fhdr">
+          <span class="fico">📁</span>
+          <span class="fnm">tftpl/</span>
+          <span class="fsub">Jinja/.tftpl</span>
+        </div>
+        <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">bgp.yaml.tftpl</span></div>
+      </div>
+      <div class="folder">
+        <div class="fhdr">
+          <span class="fico">📁</span>
+          <span class="fnm">tests/</span>
+          <span class="fsub">nac-test</span>
+        </div>
+        <div class="row"><span class="tag test">ROBOT</span><span class="fn">templates/config/access_lists.robot</span></div>
+        <div class="row"><span class="tag test">RESOURCE</span><span class="fn">templates/iosxe_common.resource</span></div>
+        <div class="row"><span class="tag test">FILTER</span><span class="fn">filters/url_encode.py</span></div>
+      </div>
+    </div>
+    <div class="folder">
+      <div class="fhdr">
+        <span class="fico">📄</span>
+        <span class="fnm">root</span>
+        <span class="fsub">Terraform + env</span>
+      </div>
+      <div class="row"><span class="tag env">ENV</span><span class="fn">.env</span></div>
+      <div class="row"><span class="tag tf">TERRAFORM</span><span class="fn">main.tf</span></div>
+      <div class="row"><span class="tag gen">GENERATED</span><span class="fn">model.yaml</span></div>
+      <div class="row"><span class="tag gen">GENERATED</span><span class="fn">defaults.yaml</span></div>
+      <div class="row"><span class="tag gen">GENERATED</span><span class="fn">terraform.tfstate</span></div>
+      <div class="row"><span class="tag tf">SCHEMA</span><span class="fn">.schema.yaml</span></div>
+      <div style="margin-top:auto; padding-top:10px; border-top:1px dashed var(--muted-line); font-size:11px; color:var(--dk-text)">
+        <strong style="color:var(--white)">You write:</strong> DEVICE, GROUP, GLOBAL, TEMPLATE, ENV, TERRAFORM<br/>
+        <strong style="color:var(--white)">Terraform writes:</strong> GENERATED
+      </div>
+    </div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 1L. CONFIG HIERARCHY — LIGHT -->
+<section class="card light" id="config-hierarchy-light">
+  <div>
+    <span class="chip cyan">DIAGRAM · 01</span>
+    <h1 style="color:#0b172c">Configuration hierarchy <span style="color:#0A60FF">— precedence flows top-to-bottom</span></h1>
+    <p class="sub" style="color:#13344E">More specific wins. A device-level override trumps its group; a group setting trumps the global default. You'll practice this in Tasks 03–05.</p>
+  </div>
+  <div class="hier">
+    <div class="tiers">
+      <div class="tier t3" style="background:linear-gradient(120deg,#d5f4e1,#b4ecd1);border-color:#00A55E;color:#0b3a2a;">
+        <span class="label" style="color:#0b3a2a">DEVICE</span>
+        <span class="desc" style="color:#13344E">Applies only to one named device.</span>
+        <span class="ex" style="color:#0A60FF">config-device-core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
+      </div>
+      <div class="tier t2" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#009EA6;color:#0b3239;">
+        <span class="label" style="color:#0b3239">DEVICE GROUP</span>
+        <span class="desc" style="color:#13344E">Applies to every device listed in the group.</span>
+        <span class="ex" style="color:#0A60FF">config-group-access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
+      </div>
+      <div class="tier t1" style="background:linear-gradient(120deg,#cfe0ff,#a9c4ff);border-color:#0A60FF;color:#0b172c;">
+        <span class="label" style="color:#0b172c">GLOBAL</span>
+        <span class="desc" style="color:#13344E">Applies to all devices unless overridden above.</span>
+        <span class="ex" style="color:#0A60FF">config-global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname</span>
+      </div>
+    </div>
+    <div class="prec" style="color:#13344E">
+      <div>MOST<br/>SPECIFIC</div>
+      <svg viewBox="0 0 40 320" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00A55E"/><stop offset="1" stop-color="#0A60FF"/></linearGradient></defs>
+        <line x1="20" y1="10" x2="20" y2="310" stroke="url(#gl1)" stroke-width="3"/>
+        <polygon points="20,0 14,14 26,14" fill="#00A55E"/>
+        <polygon points="20,320 14,306 26,306" fill="#0A60FF"/>
+      </svg>
+      <div>LEAST<br/>SPECIFIC</div>
+    </div>
+  </div>
+  <div class="watermark" style="color:#13344E">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 2L. VARIABLE SUBSTITUTION — LIGHT -->
+<section class="card light" id="variable-substitution-light">
+  <div>
+    <span class="chip orange">DIAGRAM · 02</span>
+    <h1 style="color:#0b172c">Variable substitution <span style="color:#0A60FF">— one template, per-device output</span></h1>
+    <p class="sub" style="color:#13344E">NAC resolves <code style="color:#FF9000">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
+  </div>
+  <div class="vars">
+    <div class="col" style="background:#FFFFFF;border-color:#CBD5E0">
+      <span class="ttl" style="color:#0A60FF">Global template</span>
+      <pre style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF">banner:</span>
+  <span style="color:#0A60FF">login:</span> |
+    Site:   <span style="color:#FF9000">${SITE}</span>
+    Device: <span style="color:#FF9000">${HOSTNAME}</span>
+
+<span style="color:#0A60FF">system:</span>
+  <span style="color:#0A60FF">hostname:</span> <span style="color:#FF9000">${HOSTNAME}</span>
+<span style="color:#0A60FF">variables:</span>
+  <span style="color:#0A60FF">SITE:</span> <span style="color:#00A55E">"LTRXAR-2008 Lab"</span></pre>
+    </div>
+    <div class="arrow" style="color:#13344E">→</div>
+    <div class="col" style="background:#FFFFFF;border-color:#CBD5E0">
+      <span class="ttl" style="color:#0A60FF">Per-device variables</span>
+      <div class="stack">
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">core:</span>      HOSTNAME = "core"</div>
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">border:</span>    HOSTNAME = "border"</div>
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">access01:</span>  HOSTNAME = "access01"</div>
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">access02:</span>  HOSTNAME = "access02"</div>
+      </div>
+      <pre style="margin-top:8px;background:#EEF2F6;color:#13344E"><span style="color:#0A60FF">SITE</span> inherited globally</pre>
+    </div>
+    <div class="arrow" style="color:#13344E">→</div>
+    <div class="col" style="background:#FFFFFF;border-color:#CBD5E0">
+      <span class="ttl" style="color:#0A60FF">Rendered per device</span>
+      <div class="stack">
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">access01:</span><br/>Site: LTRXAR-2008 Lab<br/>Device: access01<br/>hostname access01</div>
+        <div class="small" style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF;font-weight:700">border:</span><br/>Site: LTRXAR-2008 Lab<br/>Device: border<br/>hostname border</div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark" style="color:#13344E">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 3L. TEMPLATES — LIGHT -->
+<section class="card light" id="templates-light">
+  <div>
+    <span class="chip green">DIAGRAM · 03</span>
+    <h1 style="color:#0b172c">Template resolution <span style="color:#0A60FF">— define once, apply to many</span></h1>
+    <p class="sub" style="color:#13344E">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
+  </div>
+  <div class="tpl">
+    <div class="node" style="background:#FFFFFF;border-color:#CBD5E0">
+      <span class="ttl" style="color:#0A60FF">1. Template (YAML model)</span>
+      <pre style="background:#EEF2F6;color:#13344E"><span style="color:#0A60FF">templates:</span>
+  - <span style="color:#0A60FF">name:</span> access_switch_vlans
+    <span style="color:#0A60FF">type:</span> model
+    <span style="color:#0A60FF">configuration:</span>
+      <span style="color:#0A60FF">vlan:</span>
+        <span style="color:#0A60FF">vlans:</span>
+          - <span style="color:#0A60FF">id:</span> 10
+            <span style="color:#0A60FF">name:</span> DATA
+          - <span style="color:#0A60FF">id:</span> 20
+            <span style="color:#0A60FF">name:</span> VOICE
+          - <span style="color:#0A60FF">id:</span> 99
+            <span style="color:#0A60FF">name:</span> MGMT</pre>
+    </div>
+    <div class="arrow" style="color:#13344E"><div class="lbl" style="color:#0A60FF">Referenced<br/>by group</div>→</div>
+    <div class="node group" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#009EA6">
+      <span class="ttl" style="color:#0b3239">2. Group reference</span>
+      <pre style="background:rgba(255,255,255,.6);color:#0b3239"><span style="color:#007983">device_groups:</span>
+  - <span style="color:#007983">name:</span> ACCESS_SWITCHES
+    <span style="color:#007983">devices:</span>
+      - access01
+      - access02
+    <span style="color:#007983">templates:</span>
+      - <span style="color:#B86000">access_switch_vlans</span></pre>
+    </div>
+    <div class="arrow" style="color:#13344E"><div class="lbl" style="color:#0A60FF">Expanded<br/>per device</div>→</div>
+    <div class="node rendered" style="background:#FFFFFF;border-color:#CBD5E0">
+      <span class="ttl" style="color:#0A60FF">3. Rendered on each member</span>
+      <div class="device" style="background:#EEF2F6;color:#13344E;border-left-color:#00A55E">
+        <div class="nm" style="color:#00A55E">access01</div>
+        vlan 10 name DATA<br/>vlan 20 name VOICE<br/>vlan 99 name MGMT
+      </div>
+      <div class="device" style="background:#EEF2F6;color:#13344E;border-left-color:#00A55E">
+        <div class="nm" style="color:#00A55E">access02</div>
+        vlan 10 name DATA<br/>vlan 20 name VOICE<br/>vlan 99 name MGMT
+      </div>
+    </div>
+  </div>
+  <div class="watermark" style="color:#13344E">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== 4L. MR WORKFLOW — LIGHT -->
+<section class="card light" id="mr-workflow-light">
+  <div>
+    <span class="chip blue">DIAGRAM · 04</span>
+    <h1 style="color:#0b172c">Merge request workflow <span style="color:#0A60FF">— MR gets preview, <code>main</code> gets deploy</span></h1>
+    <p class="sub" style="color:#13344E">An MR pipeline runs <em>validate + plan only</em>. Merging to <code>main</code> runs the full pipeline (validate + plan + deploy + test + notify).</p>
+  </div>
+  <div class="mr">
+    <div class="lanes" style="background:#FFFFFF;border-color:#CBD5E0">
+      <div class="hdr" style="border-bottom-color:#CBD5E0">
+        <div class="pad" style="color:#13344E">Actor / stage</div>
+        <div style="color:#0A60FF">Commit</div>
+        <div style="color:#0A60FF">MR opened</div>
+        <div style="color:#0A60FF">CI (MR)</div>
+        <div style="color:#0A60FF">Review &amp; Merge</div>
+        <div style="color:#0A60FF">CI (main)</div>
+        <div style="color:#0A60FF">Result</div>
+      </div>
+      <div class="lane" style="border-bottom-color:#CBD5E0">
+        <div class="label" style="background:#EEF2F6;color:#0b172c;border-right-color:#CBD5E0">Developer /<br/>feature branch</div>
+        <div class="cell"><div class="step" style="background:#FFFFFF;border-color:#02C8FF;color:#0b172c"><div class="t">git push</div><div class="s" style="color:#13344E">feature/core</div></div></div>
+        <div class="cell"><div class="step" style="background:#FFFFFF;border-color:#02C8FF;color:#0b172c"><div class="t">Create MR</div><div class="s" style="color:#13344E">feature/core → main</div></div></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="lane">
+        <div class="label" style="background:#EEF2F6;color:#0b172c;border-right-color:#CBD5E0">GitLab CI /<br/>pipeline</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"><div class="step blue" style="background:#FFFFFF;border-color:#0A60FF;color:#0b172c"><div class="t">validate + plan</div><div class="s" style="color:#13344E">no deploy on MR</div></div></div>
+        <div class="cell"><div class="step orange" style="background:#FFFFFF;border-color:#FF9000;color:#0b172c"><div class="t">Reviewer approves</div><div class="s" style="color:#13344E">Merge to main</div></div></div>
+        <div class="cell"><div class="step green" style="background:#FFFFFF;border-color:#00A55E;color:#0b172c"><div class="t">validate + plan<br/>deploy + test</div><div class="s" style="color:#13344E">full pipeline</div></div></div>
+        <div class="cell"><div class="step green" style="background:#FFFFFF;border-color:#00A55E;color:#0b172c"><div class="t">🟢 Passed</div><div class="s" style="color:#13344E">config live on devices</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark" style="color:#13344E">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+</body>
+</html>
