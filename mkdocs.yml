@@ -1,7 +1,7 @@
 ---
-site_name: "LTROPS-2323: Master IOS XE Automation in Just 4 Hours"
+site_name: "LTRXAR-2008: Accelerate Your Network Operations"
 #site_description: {site_name} # This parameter will be auto-set to site_name, unless explicitly defined. Used for HTML meta tags
-site_author: "Asier Arlegui Lacunza, Balu Novak-Bohak"
+site_author: "Andrea Testino, Christopher Hart"
 copyright: Copyright &copy; {year} Cisco # This parameter will auto-update the year in HTML pages based on the build date
 theme:
   name: material
