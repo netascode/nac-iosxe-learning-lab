@@ -314,8 +314,9 @@ Type `yes` and press Enter to proceed.
 
 **What happens during apply:**
 
-- Terraform connects to each device via HTTPS
-- Uses the Network as Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and send it over NETCONF
+- Terraform opens a NETCONF session to each device over SSH (TCP/830)
+- Uses the Network as Code modules and Terraform IOS XE provider to translate your YAML configuration into YANG data and writes it to the device's `candidate` datastore over NETCONF
+- Issues `<commit>` so the candidate config is atomically swapped into `running`
 - Applies the commands to the devices
 - Tracks the applied state in `terraform.tfstate` file
 
