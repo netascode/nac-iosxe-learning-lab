@@ -127,11 +127,14 @@ The lab devices are already configured with NETCONF enabled. **You do not need t
     configure terminal
      username nac_admin privilege 15 secret cisco
      netconf-yang
+     netconf-yang feature candidate-datastore
     end
     write memory
     ```
 
     After enabling `netconf-yang`, give the subsystem ~60 seconds to initialize before pointing Terraform at the device.
+
+    The `netconf-yang feature candidate-datastore` command is the one that activates the candidate/commit/discard-changes flow shown in the datastore diagram above. Without it, NETCONF on IOS XE falls back to a simpler mode that writes directly to running — which works for single-RPC changes but loses the "all-or-nothing across many RPCs" guarantee. Enabling the candidate datastore is what makes `device_transaction = true` on the module useful (see [Task 03](Task03_Global_configuration.md)).
 
 You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830.
 
