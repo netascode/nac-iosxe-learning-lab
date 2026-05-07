@@ -1,13 +1,22 @@
-Before diving into Network-as-Code automation, it's important to establish baseline connectivity to your IOS-XE devices and understand their current state. In this task, you'll use Solar-PuTTY to connect to the lab devices and verify their configuration.
+# Task 01 — SSH to the lab devices
+
+**⏱ ~10 minutes**
+
+Before we deploy any Network-as-Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
 
 ## What You'll Learn
 
 - How to connect to IOS XE devices using Solar-PuTTY
-- How to verify device information with basic show commands
-- What minimal configuration is required for Network-as-Code/RESTCONF automation
+- How to verify device information with basic `show` commands
+- What minimal configuration is required to enable NETCONF automation
 
-!!! note "RESTCONF and NETCONF"
-    IOSXE-as-Code can use either RESTCONF or NETCONF protocols to communicate with network devices. This version of the lab guide focuses on using RESTCONF. Further details are provided later in this chapter.
+!!! info "This lab uses NETCONF for config, RESTCONF for verification"
+    NAC IOS XE supports both **NETCONF** and **RESTCONF**. In this lab:
+
+    - **Terraform pushes configuration over NETCONF** — it's transactional (all-or-nothing), uses a candidate datastore, and produces much richer error reporting than RESTCONF.
+    - **`nac-test` (Optional Task 11) queries the device over RESTCONF** — the generated Robot tests read operational state via RESTCONF URLs for post-deployment verification.
+
+    That's why the lab devices have **both** protocols enabled. In production you can run NAC IOS XE over NETCONF only if you prefer; `nac-test` can be configured to use NETCONF as well.
 
 ## Open Solar-PuTTY
 
@@ -110,9 +119,6 @@ restconf
     It is good practice to have a dedicated administrative user configured for automation tasks, as shown above with the `nac_admin` user. This helps separate human and automated access for better security and auditing.
 
     With the Network-as-Code framework, this user needs to be configured on all devices that Terraform will manage.
-
-!!! info "RESTCONF and NETCONF"
-    This version of the lab guide focuses on using RESTCONF for device configuration only. Very recently, NETCONF support has also been added to the ciscodevnet/iosxe Terraform provider as the default protocol. Future versions of this lab may include NETCONF examples as well. Currently the lab devices are not configured to support NETCONF. For more information, refer to the IOSXE Terraform provider documentation [here](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs#protocol-3).
 
 ## Enabling RESTCONF Manually
 
