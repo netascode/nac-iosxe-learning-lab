@@ -1,6 +1,6 @@
 # Task 12 - Cleanup
 
-**⏱ ~5 minutes**
+**Estimated Time to Complete:** ~5 minutes
 
 Before moving to CI/CD automation, clean up the manual work you've done so far. This ensures a clean starting point for the GitLab-based workflow.
 

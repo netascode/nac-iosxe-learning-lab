@@ -1,6 +1,6 @@
 # Task 09 - Templates type `cli` (Optional)
 
-**⏱ ~10 minutes**
+**Estimated Time to Complete:** ~10 minutes
 
 In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the IOS XE as Code data model - reach for them rarely, but they're genuinely useful when you need them.
 

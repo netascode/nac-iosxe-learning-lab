@@ -1,6 +1,6 @@
 # Task 03 - Global configuration
 
-**⏱ ~20 minutes**
+**Estimated Time to Complete:** ~25 minutes
 
 In this task you'll use IOS XE as Code **global configuration** to apply settings across all devices at once. A login banner is the example - you'll see how global settings eliminate the need to repeat the same configuration on each device individually.
 
@@ -100,11 +100,22 @@ Terraform uses a declarative approach where you define the desired state (in you
 Of the three commands, only `apply` (and its counterpart `destroy`) change anything on the wire. `plan` is a read-only diff and can be run freely.
 
 !!! info "Why state matters - Terraform vs. stateless tools"
-    Because Terraform maintains a local state file that records exactly what it has configured on each device, it can compute a precise diff between your desired YAML and the actual device state - then push **only the changes**. If nothing changed in your YAML, `terraform plan` reports "No changes" without touching the network at all.
+    Terraform maintains a local state file that records what it has
+    configured on each device. That changes the math for every operation:
 
-    This also gives you `terraform plan` - a fast, guaranteed-safe preview of exactly what would change on every device before you commit. Terraform's plan/apply separation is enforced at the framework level: providers cannot make write calls during plan, so it's architecturally read-only. By contrast, Ansible's check mode (`--check`) is opt-in per module - each module developer must explicitly implement dry-run support, and many modules don't, leaving you without a reliable preview for parts of your playbook.
+    | Capability              | Terraform (stateful)                                       | Stateless tools (e.g. Ansible)                                         |
+    | ----------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+    | **Detecting drift**     | Diffs state vs. YAML - instant, no device calls            | Must connect to every device and read config before comparing          |
+    | **Idempotency**         | Native - pushes only what changed                          | Per-module; depends on each module being written correctly             |
+    | **Dry-run (preview)**   | `terraform plan`, architecturally read-only                | `--check` mode, opt-in per module; coverage varies                     |
+    | **Audit trail**         | State file + plan output record exactly what changed when  | Run logs only; no authoritative record of current state                |
+    | **Network traffic**     | Low - no reads when nothing changed                        | Full read on every run regardless of whether anything needs to change  |
+    | **Rollback primitive**  | Revert YAML, re-run `apply`, state tracks the revert       | Re-run a previous playbook, hope it's still idempotent                 |
 
-    This is a fundamental advantage over stateless automation tools (such as Ansible), which have no local record of what's on the device. Those tools must connect to the device and gather its current configuration on every run before they can determine whether a change is needed. Terraform's state-based approach means faster runs, less network traffic, and a clear audit trail of what was deployed and when.
+    Practical effect: when nothing in your YAML changed, `terraform plan`
+    reports "No changes" in seconds without touching the network. Ansible
+    in the same scenario still SSHs every device to re-read config before
+    it can reach the same conclusion.
 
 ### Step 1: In WSL (Ubuntu) and Navigate to Your Project
 

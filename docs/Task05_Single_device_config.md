@@ -1,6 +1,6 @@
 # Task 05 - Single-device configuration
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In this task, you'll apply configuration to a **single specific device** rather than globally or to a group. This is the top of the precedence hierarchy - device-specific settings override anything a device might have inherited from its group or from the global defaults.
 

@@ -1,6 +1,6 @@
 # Task 04 - Device group configuration
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In this task you'll apply configuration to a **group of devices** at once using device groups. An Access Control List (ACL) is the example - device groups let you apply the same configuration to every device that shares a role or location, without duplicating the YAML.
 

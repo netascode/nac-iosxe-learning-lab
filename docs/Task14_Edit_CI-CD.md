@@ -1,6 +1,6 @@
 # Task 14 - Extend the pipeline with automated tests (Optional)
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In Task 13 you ran a CI/CD pipeline with validate, plan, and deploy stages. In this task you'll extend it with a **test stage** that automatically validates deployments after they're applied - the same thing you ran manually in [Task 11](Task11_Post-checks.md), now on every merge.
 

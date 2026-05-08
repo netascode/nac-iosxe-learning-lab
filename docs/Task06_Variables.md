@@ -1,6 +1,6 @@
 # Task 06 - Variables
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In this task you'll use **variables** in your Network as Code configurations. Variables let you define a value once (at the global, group, or device level) and reference it everywhere it's needed, so you can keep shared settings in one place while letting each device override only what's unique to it.
 

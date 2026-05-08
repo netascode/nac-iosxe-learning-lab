@@ -1,6 +1,6 @@
 # Task 10 - Pre-checks with schema validation
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 You've been creating Network as Code YAML files and deploying them with Terraform. How do you ensure your YAML is correctly structured and contains valid data **before** hitting a device?
 
@@ -352,13 +352,3 @@ You can explore the **optional** post-checks task or continue with the **recomme
 
 - **Optional:** [Task 11 - Post-checks with nac-test](Task11_Post-checks.md) - automate post-change validation
 - **Recommended:** [Task 12 - Cleanup](Task12_Cleanup.md) - skip Robot Framework and proceed to cleanup before CI/CD
-
-!!! warning "If you plan to do Task 11, do it BEFORE Task 12"
-    Task 12 runs `terraform destroy`, which removes every config Task 11's
-    nac-test suite expects to verify (the AccessLayerACL, the Loopback0 on
-    `core`, the banner, etc.). Once Task 12 has wiped the devices, Task 11
-    will report empty or failing tests through no fault of your setup.
-
-    **Order matters:** if you want both, run Task 11 first, then Task 12.
-    If you're short on time, skip straight to Task 12; you can come back
-    to Task 11 from a fresh `apply` in a future session.

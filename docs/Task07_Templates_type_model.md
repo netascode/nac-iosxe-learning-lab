@@ -1,6 +1,6 @@
 # Task 07 - Templates type `model` (Optional)
 
-**⏱ ~10 minutes**
+**Estimated Time to Complete:** ~10 minutes
 
 In this task you'll use **templates of type `model`** to define reusable YAML-based configuration blocks that can be applied to multiple devices. Templates promote reuse, reduce duplication, and keep configuration consistent across the network.
 

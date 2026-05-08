@@ -1,6 +1,6 @@
 # Task 01 - SSH to the lab devices
 
-**⏱ ~10 minutes**
+**Estimated Time to Complete:** ~10 minutes
 
 Before we deploy any Network as Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
 

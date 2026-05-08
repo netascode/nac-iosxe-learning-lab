@@ -1,6 +1,6 @@
 # Task 08 - Templates type `file` (Optional)
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In this task you'll use **templates of type `file`** to reference external template files that use Terraform templating syntax (`.tftpl`). File templates are the right tool when you need loops, conditionals, or complex structures that plain YAML can't express cleanly.
 

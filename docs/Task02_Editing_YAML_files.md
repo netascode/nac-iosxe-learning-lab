@@ -1,6 +1,6 @@
 # Task 02 - Editing YAML files in VS Code
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 In this task you'll set up the project directory and use VS Code to edit Network as Code IOS XE intent configuration YAML files.
 

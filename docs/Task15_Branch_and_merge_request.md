@@ -1,6 +1,6 @@
 # Task 15 - Branch and merge-request workflow (Optional)
 
-**⏱ ~20 minutes**
+**Estimated Time to Complete:** ~20 minutes
 
 !!! info "Prerequisite"
     Basic familiarity with **Git** (branches, commits) and **GitLab** (merge requests, protected branches). If you're new to these, skim Git's [Basic Branching guide](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) first.

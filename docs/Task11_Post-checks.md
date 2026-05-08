@@ -1,9 +1,14 @@
 # Task 11 - Post-checks with `nac-test` (Optional)
 
-**⏱ ~15 minutes**
+**Estimated Time to Complete:** ~15 minutes
 
 !!! info "Before you start"
-    This task depends on `.schema.yaml` from [Task 10 - Schema Validation](Task10_Schema_validation.md). Make sure Task 10 is done before continuing.
+    This task depends on configs applied in Tasks 03-06 (banner, ACL,
+    Loopback0) plus `.schema.yaml` from [Task 10 - Schema Validation](Task10_Schema_validation.md)
+    and a recent `terraform apply` so `model.yaml` reflects your current
+    intent. **Do not run this task after Task 12** - `terraform destroy`
+    wipes every config Task 11 expects to verify, and the tests will
+    return empty/failing results through no fault of your setup.
 
 After Terraform applies a change, how do you confirm the configuration actually landed correctly on the devices? For one device, `show running-config` works. For a fleet, manual spot-checks don't scale - and running-config can't even tell you about operational state (BGP neighbor established, interface line-protocol up, VLAN database populated, etc.).
 

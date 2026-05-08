@@ -1,6 +1,6 @@
 # Task 13 - Run a CI/CD pipeline
 
-**⏱ ~20 minutes**
+**Estimated Time to Complete:** ~20 minutes
 
 !!! warning "You must finish Task 12 before starting Task 13"
     The GitLab pipeline you're about to trigger manages the same lab devices
