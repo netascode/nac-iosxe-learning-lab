@@ -377,4 +377,4 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)  ·  **Next:** [Lab Conclusion](Workend01_conclusion.md)
+**← Previous:** [Task 14 - Extend CI/CD pipeline](Task14_Edit_CI-CD.md)  ·  **Next:** [Conclusion](Workend01_conclusion.md)

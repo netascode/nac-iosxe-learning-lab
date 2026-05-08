@@ -140,20 +140,24 @@
     position: relative;
 }
 
-.md-typeset hr + p:last-child a:first-of-type {
-    /* Previous */
+.md-typeset hr + p:last-child a:nth-of-type(1) {
+    /* Previous - always the first link, always left-aligned with a blue rail */
     border-left: 4px solid var(--clus-blue);
     padding-left: 1.1rem;
 }
 
-.md-typeset hr + p:last-child a:first-of-type::before {
+.md-typeset hr + p:last-child a:nth-of-type(1)::before {
     content: "◀";
     color: var(--clus-blue);
     font-size: 0.85em;
     margin-right: 0.35rem;
 }
 
-.md-typeset hr + p:last-child a:last-of-type {
+/* Next styling only applies when there are TWO links in the paragraph.
+   Using :nth-of-type(2) (not :last-of-type) means a single-link footer
+   (e.g. Conclusion's "Previous only") doesn't accidentally render as a
+   Next pill stuck to the right edge. */
+.md-typeset hr + p:last-child a:nth-of-type(2) {
     /* Next */
     border-right: 4px solid var(--clus-pink);
     padding-right: 1.1rem;
@@ -161,11 +165,21 @@
     justify-content: flex-end;
 }
 
-.md-typeset hr + p:last-child a:last-of-type::after {
+.md-typeset hr + p:last-child a:nth-of-type(2)::after {
     content: "▶";
     color: var(--clus-pink);
     font-size: 0.85em;
     margin-left: 0.35rem;
+}
+
+/* When there's only one link (terminal pages like Conclusion), keep
+   it at its natural flex width instead of stretching to fill the row. */
+.md-typeset hr + p:last-child:has(a:only-of-type) {
+    justify-content: flex-start;
+}
+.md-typeset hr + p:last-child a:only-of-type {
+    flex: 0 1 auto;
+    max-width: 50%;
 }
 
 .md-typeset hr + p:last-child a:hover {

@@ -94,4 +94,4 @@ Original lab design by Asier Arlegui and Balu Novak-Bohak - thank you for laying
 
 ---
 
-**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+**← Previous:** [Task 15 - Merge request workflow](Task15_Branch_and_merge_request.md)
