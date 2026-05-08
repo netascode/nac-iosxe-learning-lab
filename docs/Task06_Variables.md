@@ -191,7 +191,7 @@ When Terraform processes your configuration, it performs variable substitution a
     replaced with the literal string - no variable markers remain in the
     final model:
 
-    ```yaml { title="model.yaml (excerpt — access01 after resolution)" .no-copy }
+    ```yaml { title="model.yaml (excerpt - access01 after resolution)" .no-copy }
     iosxe:
       devices:
         - name: access01
