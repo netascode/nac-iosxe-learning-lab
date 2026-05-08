@@ -351,7 +351,27 @@ When all stages complete successfully, the pipeline shows a green **passed** sta
   ![Pipeline Passed](./assets/gitlab-pipeline-passed.png){ width="100%" }
 </figure>
 
-You can verify the configuration was applied to the devices using **Solar-PuTTY**:
+### Verify the deploy job actually changed the devices
+
+A green pipeline only tells you the stages *finished without error* - it
+doesn't by itself prove the devices changed. A no-op deploy (running on a
+state that already matches intent) also shows green. To confirm Terraform
+actually pushed something, click into the **deploy** job and scroll to the
+end of the log. You're looking for a line like:
+
+```text { .no-copy }
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+```
+
+- **Resources > 0** in `added` or `changed` - the devices were modified.
+- **All zeros** - the pipeline ran against a state that already matched;
+  nothing was pushed. That's fine, but if you expected a change, verify
+  your commit made it into `main` and re-trigger the pipeline.
+
+This log-based check is more reliable than looking at device output
+because it comes straight from the Terraform engine's own accounting.
+
+### Spot-check a device (optional but satisfying)
 
 1. Open **Solar-PuTTY** from your desktop
 2. Connect to one of the devices (e.g., **core** switch)

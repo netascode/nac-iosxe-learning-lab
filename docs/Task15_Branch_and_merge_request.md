@@ -275,7 +275,39 @@ The main branch pipeline runs ALL stages:
 
 Total: about **3-4 minutes** end-to-end. If it stalls in `deploy` or `test` past 4 minutes, click into the job logs - it's usually a device that went unreachable or a test that timed out on operational state (see the troubleshooting section below).
 
-After the pipeline completes successfully, you can verify the changes on the network devices.
+After the pipeline completes successfully, verify the changes landed on the devices:
+
+### Confirm the IP host entries on `core`
+
+Open **Solar-PuTTY** and connect to `core` (198.18.130.10). Run:
+
+```text
+show run | include ip host
+```
+
+Expected output:
+
+```text { .no-copy }
+core#show run | include ip host
+ip host host01 192.168.100.100
+ip host host02 192.168.100.200
+```
+
+Two `ip host` lines, one for each host. If you see fewer (or none),
+scroll to the Troubleshooting section below.
+
+### Confirm the deploy log, too
+
+As in Task 13, click into the **deploy** job on the merge pipeline and
+look for:
+
+```text { .no-copy }
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+```
+
+The `Resources: N added/changed` line is the authoritative record of
+what Terraform actually pushed - useful for audit purposes once you
+take this pattern to production.
 
 
 ## Troubleshooting - Common Issues

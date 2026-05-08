@@ -482,6 +482,28 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
 - ✅ The banner appears on the **access01** switch (198.18.130.11)
 - ✅ The banner appears on the **access02** switch (198.18.130.12)
 
+??? tip "Check all four in one shot (WSL one-liner)"
+    If you don't want to open Solar-PuTTY four times, this loop hits
+    every managed device and prints the banner line from each running
+    config. Paste it into your WSL terminal:
+
+    ```bash
+    for ip in 198.18.130.10 198.18.130.20 198.18.130.11 198.18.130.12; do
+      echo "--- $ip ---"
+      sshpass -p cisco ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        nac_admin@$ip "show run | include banner" 2>/dev/null
+    done
+    ```
+
+    You should see `banner login ^CWelcome to Network as Code Lab^C` four
+    times - one per device. If any device prints no banner line, that
+    apply didn't land; check its entry in `terraform.tfstate` and re-run
+    `terraform apply` for just that device with
+    `terraform apply -target=module.iosxe.iosxe_banner.core_banner`
+    (substitute the device name) to retry.
+
+    `sshpass` is already pre-installed on the lab VM; no extra setup.
+
 !!! Success "You've just deployed your first Network as Code configuration using Terraform!"
     Notice how you defined the banner once in the global section, and it was automatically applied to all four devices. This is the power of Network as Code!
 
