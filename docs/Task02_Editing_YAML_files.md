@@ -202,7 +202,7 @@ This extension provides:
 VS Code will now open with your project folder, and you'll see the file explorer on the left showing your three configuration files.
 
 <figure markdown>
-  ![alt text](./assets/vscode-list-of-files.png){ width="100%" }
+  ![VS Code Explorer showing the four per-device config files under data/](./assets/vscode-list-of-files.png){ width="100%" }
 </figure>
 
 ## Edit .env file

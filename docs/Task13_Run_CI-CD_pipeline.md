@@ -2,8 +2,24 @@
 
 **⏱ ~20 minutes**
 
-!!! info "Before you start"
-    Finish [Task 12 - Cleanup](./Task12_Cleanup.md) first. The GitLab pipeline you're about to trigger manages the same lab devices Terraform has been managing locally - if both environments hold state for those devices at the same time, every pipeline run fights your local `terraform apply` (and vice versa), producing unpredictable results. `terraform destroy` in Task 12 removes the local state so GitLab becomes the single source of truth from here on.
+!!! warning "You must finish Task 12 before starting Task 13"
+    The GitLab pipeline you're about to trigger manages the same lab devices
+    Terraform has been managing locally. If both environments hold state for
+    those devices at the same time, every pipeline run fights your local
+    `terraform apply` (and vice versa), producing symptoms like "I deployed
+    a banner but it reverted 30 seconds later." `terraform destroy` in Task
+    12 removes the local state so GitLab becomes the single source of truth
+    from here on.
+
+    **Self-check** - run this in your WSL terminal from `~/nac-iosxe/`:
+
+    ```bash
+    terraform state list
+    ```
+
+    - **No output** - perfect, local state is empty, proceed.
+    - **Any output at all** - Task 12 hasn't been run (or didn't finish).
+      Run `terraform destroy` and answer `yes` before you continue.
 
 Up until now you've been driving Terraform manually: `init`, `plan`, `apply`. That's fine for learning, but production teams run the same workflow through CI/CD so every change is validated, previewed, applied, and tested the same way - without a human typing commands. In this task you'll do exactly that using a pre-configured **GitLab pipeline**.
 
