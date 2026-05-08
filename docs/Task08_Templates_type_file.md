@@ -1,4 +1,4 @@
-# Task 08 — Templates type `file` (Optional)
+# Task 08 - Templates type `file` (Optional)
 
 **⏱ ~15 minutes**
 
@@ -10,7 +10,7 @@ For detailed documentation, see: [IOS XE as Code Template Documentation](https:/
 
 By the end of this task you will have:
 
-- Authored a `.tftpl` template file using Terraform templating syntax — loops (`%{ for }`), variable interpolation (`${ }`), whitespace stripping
+- Authored a `.tftpl` template file using Terraform templating syntax - loops (`%{ for }`), variable interpolation (`${ }`), whitespace stripping
 - Referenced the file template from a device-level configuration on `border`
 - Deployed an eBGP session to the pre-configured `isp` peer (AS 65001) and seen the route to `8.8.8.0/24` appear
 
@@ -207,8 +207,8 @@ When prompted, type `yes` to confirm the deployment.
 
 Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
 
-!!! tip "BGP convergence takes 30–60 seconds"
-    BGP sessions don't come up instantly. After `terraform apply` finishes, expect a 30–60 second window before the neighbor state transitions from `Idle` → `Active` → `OpenSent` → `Established`. If your first `show ip bgp summary` looks like everything is idle, wait a minute and run it again.
+!!! tip "BGP convergence takes 30-60 seconds"
+    BGP sessions don't come up instantly. After `terraform apply` finishes, expect a 30-60 second window before the neighbor state transitions from `Idle` → `Active` → `OpenSent` → `Established`. If your first `show ip bgp summary` looks like everything is idle, wait a minute and run it again.
 
 ```text
 show ip bgp summary
@@ -242,7 +242,7 @@ The **isp** neighbor shows as **Established** with 1 prefix received, while **is
 
 The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a loopback address configured on the **isp** device.
 
-You can verify the received route with (same 30–60 second convergence window applies):
+You can verify the received route with (same 30-60 second convergence window applies):
 
 ```text
 show ip route
@@ -267,7 +267,7 @@ L        198.18.130.20 is directly connected, GigabitEthernet2
 border#
 ```
 
-## Advanced challenge — for learners who finish early
+## Advanced challenge - for learners who finish early
 
 !!! tip "Skip this if you're running short on time"
     This is an optional extension inside an already-optional task. Come back to it if you've completed the recommended path and still have time left. If not, the same challenge is repeated in the **Conclusion** as something to try at home.
@@ -285,7 +285,7 @@ Your job: add an interface configuration on `border` so that `GigabitEthernet3` 
   ![CML topology showing the host subnet](./assets/cml-topology.png){ width="100%" }
 </figure>
 
-**Primary verification** (easy path — just SSH into `border`):
+**Primary verification** (easy path - just SSH into `border`):
 
 ```bash
 show ip interface brief | include GigabitEthernet3
@@ -307,7 +307,7 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
     This takes a minute to set up but is the only way to confirm the full end-to-end path from host → gateway → BGP → ISP loopback.
 
-**Try it yourself first.** You've seen every Network as Code concept you need to solve this — per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
+**Try it yourself first.** You've seen every Network as Code concept you need to solve this - per-device config, interface definitions, and the same `ethernets` list you just used for GigabitEthernet1. Browse the [Ethernet data model docs](https://netascode.cisco.com/docs/data_models/iosxe/interface/ethernet/#examples) if you get stuck.
 
 ??? tip "Solution"
     Open `data/devices/border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
@@ -363,12 +363,12 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
 ---
 
-**← Previous:** [Task 07 — Templates type `model`](Task07_Templates_type_model.md)
+**← Previous:** [Task 07 - Templates type `model`](Task07_Templates_type_model.md)
 
 **Next Steps:**
 
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:
 
-- **Optional:** [Task 09 — Templates type `cli`](Task09_Templates_type_cli.md) — raw CLI commands for unsupported features
-- **Recommended:** [Task 10 — Schema validation](Task10_Schema_validation.md) — skip remaining templates and continue with pre-change validation
+- **Optional:** [Task 09 - Templates type `cli`](Task09_Templates_type_cli.md) - raw CLI commands for unsupported features
+- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip remaining templates and continue with pre-change validation
 

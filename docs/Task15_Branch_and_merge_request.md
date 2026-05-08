@@ -1,4 +1,4 @@
-# Task 15 — Branch and merge-request workflow (Optional)
+# Task 15 - Branch and merge-request workflow (Optional)
 
 **⏱ ~20 minutes**
 
@@ -11,7 +11,7 @@ By the end of this task you will have:
 
 - Enabled protected-branch rules on `main` so direct commits are blocked
 - Created a feature branch, committed to it, and opened a merge request
-- Observed two pipelines — the MR preview (validate + plan only) and the post-merge deploy (all five stages)
+- Observed two pipelines - the MR preview (validate + plan only) and the post-merge deploy (all five stages)
 - Approved and merged a change, seeing GitOps end-to-end: code review → plan preview → deploy
 
 ## Why this matters
@@ -87,12 +87,12 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 | **Allowed to push and merge** | No one       | Prevents direct commits to main             |
 
 !!! info "Why two separate knobs?"
-    GitLab protects a branch along **two dimensions** — who can *merge an approved MR* and who can *push directly*. Those are different capabilities:
+    GitLab protects a branch along **two dimensions** - who can *merge an approved MR* and who can *push directly*. Those are different capabilities:
 
     - **Merge** is the gated, reviewed path: an MR has to exist, pipelines have to pass, reviewers have to approve.
     - **Push** is the ungated path: `git push origin main` bypasses the MR flow entirely.
 
-    A role can have one without the other. For a production repo you typically want **Maintainers: allowed to merge, No one: allowed to push** — maintainers can approve and click the button, but nobody (not even maintainers) can force-push around the review process. That's the configuration this task sets up. You'll see the effect in Step 2 when GitLab rejects your direct commit to main.
+    A role can have one without the other. For a production repo you typically want **Maintainers: allowed to merge, No one: allowed to push** - maintainers can approve and click the button, but nobody (not even maintainers) can force-push around the review process. That's the configuration this task sets up. You'll see the effect in Step 2 when GitLab rejects your direct commit to main.
 
 <figure markdown>
   ![Protected branches settings](./assets/gitlab-protected-branch.png){ width="100%" }
@@ -192,7 +192,7 @@ The merge request is now created! You should see the merge request page with det
 
 ## Step 4: Observe the First Pipeline (Validate + Plan)
 
-When you create the merge request, GitLab automatically triggers the same pipeline used in the previous tasks. However, since this is a merge request, the pipeline only runs the **validate** and **plan** stages – it does NOT deploy anything yet.
+When you create the merge request, GitLab automatically triggers the same pipeline used in the previous tasks. However, since this is a merge request, the pipeline only runs the **validate** and **plan** stages - it does NOT deploy anything yet.
 
 **View the Pipeline Details**
 
@@ -204,12 +204,12 @@ The pipeline uses the config from your feature branch (`feature/core`) and runs 
 | Stage        | Job                             | Purpose                                               | Typical duration |
 |--------------|---------------------------------|-------------------------------------------------------|------------------|
 | **validate** | `terraform fmt`, `nac-validate` | Check YAML syntax and schema compliance (See Task 10) | <10s |
-| **plan**     | `terraform plan`                | Show what changes will be made to the network         | ~30–60s |
+| **plan**     | `terraform plan`                | Show what changes will be made to the network         | ~30-60s |
 
-End-to-end the MR pipeline completes in about **90 seconds**. If it's still running at 3+ minutes, something's stuck — click into the running job to see where.
+End-to-end the MR pipeline completes in about **90 seconds**. If it's still running at 3+ minutes, something's stuck - click into the running job to see where.
 
 !!! note "No Deploy Stage!"
-    Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional – you want to see what will change without actually changing anything yet.
+    Notice that the **deploy** stage does NOT run on merge request pipelines. This is intentional - you want to see what will change without actually changing anything yet.
 
 The **plan** stage also adds the terraform plan output as a comment to the merge request for easy review. Once the pipeline completes, you can expand the **Terraform plan** section in the comment under **Activity**.
 
@@ -241,9 +241,9 @@ You can now merge the changes into `main`.
 
 1. On the merge request page, review the final diff one more time.
 2. Review the merge options below the **Merge** button:
-    - **Delete source branch** — removes the feature branch after merging. Leave **checked** to keep the repository tidy.
-    - **Squash commits** — combines all commits from the feature branch into one before merging. Useful for noisy feature branches.
-    - **Edit commit message** — lets you rewrite the merge commit message.
+    - **Delete source branch** - removes the feature branch after merging. Leave **checked** to keep the repository tidy.
+    - **Squash commits** - combines all commits from the feature branch into one before merging. Useful for noisy feature branches.
+    - **Edit commit message** - lets you rewrite the merge commit message.
 3. Click **Merge**.
 
 !!! success "Merged!"
@@ -252,7 +252,7 @@ You can now merge the changes into `main`.
 
 ## Step 7: Observe the Deployment Pipeline
 
-Merging to main triggers a new pipeline – this time including the deployment and test stages. This pipeline is identical to the one run in Tasks 13 and 14.
+Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to the one run in Tasks 13 and 14.
 
 
 **View the Deployment Pipeline**
@@ -267,18 +267,18 @@ Merging to main triggers a new pipeline – this time including the deployment a
 
 The main branch pipeline runs ALL stages:
 
-- **validate** — <10s
-- **plan** — ~30–60s
-- **deploy** — ~60–90s
-- **test** — ~45–60s
-- **notify** — <5s
+- **validate** - <10s
+- **plan** - ~30-60s
+- **deploy** - ~60-90s
+- **test** - ~45-60s
+- **notify** - <5s
 
-Total: about **3–4 minutes** end-to-end. If it stalls in `deploy` or `test` past 4 minutes, click into the job logs — it's usually a device that went unreachable or a test that timed out on operational state (see the troubleshooting section below).
+Total: about **3-4 minutes** end-to-end. If it stalls in `deploy` or `test` past 4 minutes, click into the job logs - it's usually a device that went unreachable or a test that timed out on operational state (see the troubleshooting section below).
 
 After the pipeline completes successfully, you can verify the changes on the network devices.
 
 
-## Troubleshooting – Common Issues
+## Troubleshooting - Common Issues
 
 ??? failure "You cannot push to this branch"
     This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
@@ -310,7 +310,7 @@ After the pipeline completes successfully, you can verify the changes on the net
 
     1. Check the job logs for specific errors
     2. Fix the issues in your feature branch
-    3. Commit and push again to your feature branch – the MR pipeline will re-run automatically
+    3. Commit and push again to your feature branch - the MR pipeline will re-run automatically
 
 If you need help, feel free to ask your instructors!
 
@@ -332,4 +332,4 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)  ·  **Next:** [Lab Conclusion](Workend01_conclusion.md)
+**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)  ·  **Next:** [Lab Conclusion](Workend01_conclusion.md)

@@ -1,8 +1,8 @@
-# Task 14 — Extend the pipeline with automated tests (Optional)
+# Task 14 - Extend the pipeline with automated tests (Optional)
 
 **⏱ ~15 minutes**
 
-In Task 13 you ran a CI/CD pipeline with validate, plan, and deploy stages. In this task you'll extend it with a **test stage** that automatically validates deployments after they're applied — the same thing you ran manually in [Task 11](Task11_Post-checks.md), now on every merge.
+In Task 13 you ran a CI/CD pipeline with validate, plan, and deploy stages. In this task you'll extend it with a **test stage** that automatically validates deployments after they're applied - the same thing you ran manually in [Task 11](Task11_Post-checks.md), now on every merge.
 
 ## What you'll learn
 
@@ -107,7 +107,7 @@ test-integration:
 
 ## Step 4: Add the Test-Idempotency Job
 
-Add another test job that verifies idempotency – running Terraform again should show no changes if the deployment was successful.
+Add another test job that verifies idempotency - running Terraform again should show no changes if the deployment was successful.
 
 **Add this job right after the `test-integration:` job block:**
 
@@ -148,7 +148,7 @@ In the end, your test stage section should look like this:
 Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL configuration to test the pipeline.
 
 1. In the Web IDE file explorer, navigate to `data/` and rename `groups/access.nac.yaml_` to `groups/access.nac.yaml` (remove the trailing underscore).
-2. You may review the ACL configuration by opening the file – it defines the standard ACL named `AccessLayerACL` that you configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that additional entries have been added to the Access List.
+2. You may review the ACL configuration by opening the file - it defines the standard ACL named `AccessLayerACL` that you configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that additional entries have been added to the Access List.
 
 
 ## Step 6: Commit Your Changes
@@ -174,13 +174,13 @@ After committing, a new pipeline will automatically start. Navigate to **Build**
 
 You should now see **5 stages** in the pipeline:
 
-1. **validate** — schema and format validation. *Usually <10s.*
-2. **plan** — Terraform planning. *~30–60s.*
-3. **deploy** — apply configuration. *~60–90s.*
-4. **test** — integration (`nac-test`) + idempotency (`terraform plan -detailed-exitcode`). *~45–60s — nac-test does the heaviest work here.*
-5. **notify** — success/failure notifications. *<5s.*
+1. **validate** - schema and format validation. *Usually <10s.*
+2. **plan** - Terraform planning. *~30-60s.*
+3. **deploy** - apply configuration. *~60-90s.*
+4. **test** - integration (`nac-test`) + idempotency (`terraform plan -detailed-exitcode`). *~45-60s - nac-test does the heaviest work here.*
+5. **notify** - success/failure notifications. *<5s.*
 
-End-to-end with the test stage, expect about **3–4 minutes** total. If `test` sits on running for more than 3 minutes, it's probably waiting on a device that didn't respond — click into the job to see which assertion timed out.
+End-to-end with the test stage, expect about **3-4 minutes** total. If `test` sits on running for more than 3 minutes, it's probably waiting on a device that didn't respond - click into the job to see which assertion timed out.
 
 <figure markdown>
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }
@@ -230,11 +230,11 @@ This is where GitLab displays the test results from the JUnit report. You should
 
 ---
 
-**← Previous:** [Task 13 — Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
 
 **Next Steps:**
 
 You can explore the **optional** merge request workflow or proceed to the **conclusion**:
 
-- **Optional:** [Task 15 — Branch and merge-request workflow](Task15_Branch_and_merge_request.md) — change-approval workflows with protected branches and MRs
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) — wrap up and review what you've learned
+- **Optional:** [Task 15 - Branch and merge-request workflow](Task15_Branch_and_merge_request.md) - change-approval workflows with protected branches and MRs
+- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - wrap up and review what you've learned

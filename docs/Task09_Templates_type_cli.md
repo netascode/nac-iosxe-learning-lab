@@ -1,8 +1,8 @@
-# Task 09 — Templates type `cli` (Optional)
+# Task 09 - Templates type `cli` (Optional)
 
 **⏱ ~10 minutes**
 
-In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the IOS XE as Code data model — reach for them rarely, but they're genuinely useful when you need them.
+In this task you'll use **templates of type `cli`** to inject raw IOS XE CLI commands into your configuration. CLI templates are the escape hatch for features not yet modeled in the IOS XE as Code data model - reach for them rarely, but they're genuinely useful when you need them.
 
 ## What you'll learn
 
@@ -11,7 +11,7 @@ By the end of this task you will have:
 - Created a `cli`-type template containing a raw IOS XE command (`alias exec logs show logging`)
 - Applied the template globally via `global.nac.yaml`
 - Verified the alias appears on every device using `show alias`
-- Understood **when** to reach for `cli` templates vs `model` / `file` (rarely — only for features outside the data model)
+- Understood **when** to reach for `cli` templates vs `model` / `file` (rarely - only for features outside the data model)
 
 ## CLI Templates
 
@@ -158,7 +158,7 @@ You can also test the alias by running `logs` from exec mode.
 
 ---
 
-**← Previous:** [Task 08 — Templates type `file`](Task08_Templates_type_file.md)  ·  **Next:** [Task 10 — Schema validation](Task10_Schema_validation.md)
+**← Previous:** [Task 08 - Templates type `file`](Task08_Templates_type_file.md)  ·  **Next:** [Task 10 - Schema validation](Task10_Schema_validation.md)
 
 
 

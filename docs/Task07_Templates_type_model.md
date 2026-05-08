@@ -1,4 +1,4 @@
-# Task 07 — Templates type `model` (Optional)
+# Task 07 - Templates type `model` (Optional)
 
 **⏱ ~10 minutes**
 
@@ -37,7 +37,7 @@ In this task, you'll use the *model* type to create a VLAN template as a practic
 
 ## Use Case: Standard VLANs for Access Switches
 
-Access switches typically share the same VLAN configuration – they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for **access01** and **access02**, you'll create a single template and apply it to both devices.
+Access switches typically share the same VLAN configuration - they need identical VLANs for user traffic, voice, and management. Instead of defining VLANs separately for **access01** and **access02**, you'll create a single template and apply it to both devices.
 
 **VLANs to configure:**
 
@@ -296,7 +296,7 @@ Using device groups (as shown in this task), you can apply multiple templates to
 
 1. **Single Source of Truth**: VLAN definitions exist in one place
 2. **Easy Updates**: Need to add `VLAN 30`? Update the template once, all devices get it
-3. **Selective Application**: Not all devices need the same VLANs – only reference the template where needed
+3. **Selective Application**: Not all devices need the same VLANs - only reference the template where needed
 4. **Combine Multiple Templates**: A device can reference multiple templates for different configuration aspects
 5. **Separation of concerns**: With multiple templates, each can handle one configuration domain
 
@@ -313,11 +313,11 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 06 — Variables](Task06_Variables.md)
+**← Previous:** [Task 06 - Variables](Task06_Variables.md)
 
 **Next Steps:**
 
 You can continue exploring **optional** template tasks or proceed to the **recommended** path:
 
-- **Optional:** [Task 08 — Templates type `file`](Task08_Templates_type_file.md) — external template files with dynamic content
-- **Recommended:** [Task 10 — Schema validation](Task10_Schema_validation.md) — skip remaining templates and continue with pre-change validation
+- **Optional:** [Task 08 - Templates type `file`](Task08_Templates_type_file.md) - external template files with dynamic content
+- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip remaining templates and continue with pre-change validation
