@@ -1,42 +1,48 @@
 #!/usr/bin/env python3
 """Screenshot each diagram section from diagrams.html into docs/assets/.
 
-Approach: capture a single full-page screenshot, then crop per-section
-using PIL based on each element's bounding box. Avoids scroll issues
-with element-level and clip-based capture.
+Approach: for each section, hide every other card via JS, then take an
+element screenshot of the lone visible card. This avoids two bugs we hit:
+
+  1. element.screenshot() with scroll-into-view on a 19-card page gives
+     Chromium inconsistent paint state between sections.
+  2. full_page=True + PIL crop mis-aligns vs. bounding_box() once the
+     document is larger than the max tiled screenshot height.
+
+Hiding siblings collapses the page to a single viewport-sized card at
+y=0, which both browsers and humans can screenshot reliably.
 
 Requires: playwright + Pillow (Python 3.12)
   pip install playwright Pillow && playwright install chromium
 """
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-from PIL import Image
-from io import BytesIO
 
 ROOT = Path(__file__).resolve().parents[2]
 HTML = ROOT / "scripts" / "diagrams" / "diagrams.html"
 OUT = ROOT / "docs" / "assets"
 
 DIAGRAMS = [
-    ("config-hierarchy-dark", "config-hierarchy-dark.png"),
-    ("config-hierarchy-light", "config-hierarchy-light.png"),
-    ("variable-substitution-dark", "variable-substitution-dark.png"),
-    ("variable-substitution-light", "variable-substitution-light.png"),
-    ("templates-dark", "templates-dark.png"),
-    ("templates-light", "templates-light.png"),
-    ("mr-workflow-dark", "mr-workflow-dark.png"),
-    ("mr-workflow-light", "mr-workflow-light.png"),
-    ("nac-stack", "nac-stack.png"),
-    ("pipeline-anatomy", "pipeline-anatomy.png"),
-    ("lab-topology", "lab-topology.png"),
-    ("cml-topology", "cml-topology.png"),
-    ("file-layout", "file-layout.png"),
-    ("terraform-workflow", "terraform-workflow.png"),
-    ("netconf-datastores", "netconf-datastores.png"),
-    ("config-merge", "config-merge.png"),
-    ("merge-semantics", "merge-semantics.png"),
-    ("module-inputs", "module-inputs.png"),
-    ("selective-deployment", "selective-deployment.png"),
+    "config-hierarchy-dark",
+    "config-hierarchy-light",
+    "variable-substitution-dark",
+    "variable-substitution-light",
+    "templates-dark",
+    "templates-light",
+    "mr-workflow-dark",
+    "mr-workflow-light",
+    "nac-stack",
+    "pipeline-anatomy",
+    "lab-topology",
+    "cml-topology",
+    "file-layout",
+    "template-decision",
+    "terraform-workflow",
+    "netconf-datastores",
+    "config-merge",
+    "merge-semantics",
+    "module-inputs",
+    "selective-deployment",
 ]
 
 SCALE = 2
@@ -50,37 +56,27 @@ def main() -> None:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         ctx = browser.new_context(
-            viewport={"width": 1700, "height": 820},
+            viewport={"width": 1700, "height": 770},
             device_scale_factor=SCALE,
         )
-        page = ctx.new_page()
-        page.goto(HTML.as_uri())
-        page.wait_for_load_state("networkidle")
-
-        # Gather bounding boxes BEFORE any scroll happens.
-        boxes = {}
-        for section_id, _ in DIAGRAMS:
-            box = page.locator(f"section#{section_id}").bounding_box()
-            if box is None:
-                raise SystemExit(f"no bounding box for {section_id}")
-            boxes[section_id] = box
-
-        # Capture the whole document as one image, then crop.
-        png_bytes = page.screenshot(full_page=True)
-        full = Image.open(BytesIO(png_bytes))
+        for sid in DIAGRAMS:
+            page = ctx.new_page()
+            page.goto(HTML.as_uri())
+            page.wait_for_load_state("networkidle")
+            page.evaluate(
+                """(sid) => {
+                    document.querySelectorAll('section.card').forEach(s => {
+                        if (s.id !== sid) s.style.display = 'none';
+                    });
+                    window.scrollTo(0, 0);
+                }""",
+                sid,
+            )
+            target = OUT / f"{sid}.png"
+            page.locator(f"section#{sid}").screenshot(path=str(target))
+            print(f"✓ {target.relative_to(ROOT)}")
+            page.close()
         browser.close()
-
-    for section_id, filename in DIAGRAMS:
-        b = boxes[section_id]
-        # Scale to device pixels.
-        left = int(b["x"] * SCALE)
-        top = int(b["y"] * SCALE)
-        right = int((b["x"] + b["width"]) * SCALE)
-        bottom = int((b["y"] + b["height"]) * SCALE)
-        crop = full.crop((left, top, right, bottom))
-        target = OUT / filename
-        crop.save(target)
-        print(f"✓ {target.relative_to(ROOT)}  ({crop.size[0]}x{crop.size[1]})")
 
 
 if __name__ == "__main__":

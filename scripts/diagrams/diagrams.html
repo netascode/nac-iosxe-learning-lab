@@ -244,6 +244,35 @@
   .labtop .zonearrow { position: absolute; top: 50%; right: -18px; width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border-right: 2px solid var(--cyan); border-top: 2px solid var(--cyan); }
   .labtop .arrow-label { position: absolute; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; }
 
+  /* ======================================================== TEMPLATE DECISION TREE
+     Three-column flow: question → sub-question → answer. Grid for layout,
+     pseudo-elements for the connector lines between columns. */
+  .tdec { flex: 1; display: grid; grid-template-columns: 1.1fr 1.2fr 1.4fr; gap: 20px; align-items: stretch; }
+  .tdec-col { display: flex; flex-direction: column; justify-content: center; gap: 14px; position: relative; }
+  .tdec-question { background: var(--card-bg); border: 1.5px solid rgba(2,200,255,.5); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+  .tdec-qlbl { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); }
+  .tdec-qtxt { font-size: 17px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .tdec-hint { font-size: 13.5px; color: var(--dk-text); font-family: "JetBrains Mono", monospace; }
+  .tdec-branch { display: flex; align-items: center; gap: 10px; position: relative; }
+  .tdec-branch .tdec-edge { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--cyan); padding: 3px 9px; border: 1px solid var(--cyan); border-radius: 4px; background: rgba(2,200,255,.08); min-width: 44px; text-align: center; }
+  .tdec-branch.no .tdec-edge { color: var(--pink); border-color: var(--pink); background: rgba(255,0,127,.08); }
+  .tdec-branch.yes .tdec-edge { color: var(--cyan); border-color: var(--cyan); background: rgba(2,200,255,.08); }
+  .tdec-branch .tdec-question { flex: 1; }
+  .tdec-answer { background: var(--card-bg); border-left: 4px solid var(--cyan); border-radius: 8px; padding: 14px 18px; display: flex; flex-direction: column; gap: 5px; position: relative; }
+  .tdec-answer .tdec-aedge { position: absolute; top: -10px; right: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: 1.5px; color: var(--cyan); padding: 2px 7px; border: 1px solid rgba(2,200,255,.6); border-radius: 3px; background: var(--deep-bg); }
+  .tdec-answer .tdec-atype { font-family: "JetBrains Mono", monospace; font-size: 18px; font-weight: 700; color: var(--cyan); }
+  .tdec-answer .tdec-atxt { font-size: 14.5px; color: var(--white); }
+  .tdec-answer .tdec-ex { font-size: 13px; color: var(--dk-text); font-style: italic; }
+  .tdec-answer .tdec-cost { font-size: 12.5px; color: var(--cyan); letter-spacing: .3px; margin-top: 2px; }
+  .tdec-answer.model { border-left-color: var(--cyan); }
+  .tdec-answer.model .tdec-atype { color: var(--cyan); }
+  .tdec-answer.file { border-left-color: var(--blue); }
+  .tdec-answer.file .tdec-atype { color: #6d9bff; }
+  .tdec-answer.file .tdec-aedge { color: var(--cyan); border-color: rgba(2,200,255,.6); }
+  .tdec-answer.cli { border-left-color: var(--orange); background: rgba(255,144,0,.05); margin-top: 8px; }
+  .tdec-answer.cli .tdec-atype { color: var(--orange); }
+  .tdec-answer.cli .tdec-cost { color: var(--pink); }
+
   /* ======================================================== CML TOPOLOGY
      Rebuilt as a 4-row × 3-col CSS grid with an absolute SVG overlay.
      Grid lives in layer 1 (cells are responsible for device placement); SVG
@@ -1128,6 +1157,63 @@ globally by every device
     <div class="lnk-lbl" style="top:35%; left:72%;">Gig3 · 192.168.100.1/24</div>
     <div class="lnk-lbl" style="top:78%; left:30%;">trunk</div>
     <div class="lnk-lbl" style="top:78%; left:70%;">trunk</div>
+  </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== TEMPLATE DECISION TREE -->
+<section class="card" id="template-decision">
+  <div>
+    <h1>Which template type? <span class="accent">- one decision, three answers</span></h1>
+    <p class="sub">Network as Code supports three template types (<code style="color:var(--cyan)">model</code>, <code style="color:var(--cyan)">file</code>, <code style="color:var(--cyan)">cli</code>). Pick by answering two questions about what you're trying to configure.</p>
+  </div>
+  <div class="tdec">
+    <!-- Starting question on the left -->
+    <div class="tdec-col tdec-q1">
+      <div class="tdec-question">
+        <span class="tdec-qlbl">Q1</span>
+        <span class="tdec-qtxt">Is this feature in the NaC data model?</span>
+        <span class="tdec-hint">Check <a style="color:var(--cyan);text-decoration:none" href="https://netascode.cisco.com/docs/data_models/iosxe/overview/">netascode.cisco.com</a></span>
+      </div>
+    </div>
+
+    <!-- Branches -->
+    <div class="tdec-col tdec-q2">
+      <div class="tdec-branch yes">
+        <span class="tdec-edge">YES</span>
+        <div class="tdec-question">
+          <span class="tdec-qlbl">Q2</span>
+          <span class="tdec-qtxt">Does it need loops, conditionals, or per-device math?</span>
+        </div>
+      </div>
+      <div class="tdec-branch no">
+        <span class="tdec-edge">NO</span>
+        <div class="tdec-answer cli">
+          <span class="tdec-atype">cli</span>
+          <span class="tdec-atxt">Raw CLI lines, applied verbatim</span>
+          <span class="tdec-ex">Custom logging alias, vendor-specific debug command</span>
+          <span class="tdec-cost">Last resort - lose idempotency & validation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final answers on the right -->
+    <div class="tdec-col tdec-ans">
+      <div class="tdec-answer model">
+        <span class="tdec-aedge">NO</span>
+        <span class="tdec-atype">model</span>
+        <span class="tdec-atxt">Pure YAML, reference by name</span>
+        <span class="tdec-ex">VLAN set, ACL entries, OSPF areas</span>
+        <span class="tdec-cost">Fastest, safest, most validated</span>
+      </div>
+      <div class="tdec-answer file">
+        <span class="tdec-aedge">YES</span>
+        <span class="tdec-atype">file</span>
+        <span class="tdec-atxt">Jinja/.tftpl file with loops + vars</span>
+        <span class="tdec-ex">BGP with N neighbors, conditional features</span>
+        <span class="tdec-cost">More powerful, slightly more setup</span>
+      </div>
+    </div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>

@@ -25,13 +25,35 @@ As described in the [IOS XE Template documentation](https://netascode.cisco.com/
 - **Maintainability**: Update template in one place, changes propagate everywhere
 - **Modularity**: Keep configuration organized in separate, purpose-specific files
 
-**Template Types:**
+**Template types:**
 
 | Type    | Description                       | Use Case                                                        |
 |---------|-----------------------------------|-----------------------------------------------------------------|
 | *model* | YAML-based configuration template | Standard configurations (VLANs, ACLs, etc.) ← *This chapter*    |
-| *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task08*               |
-| *cli*   | Raw CLI commands                  | IOS XE features not supported in the IOS XE as Code data model ← *Task09*  |
+| *file*  | External `.tftpl` template files  | Large configurations stored separately ← *Task 08*              |
+| *cli*   | Raw CLI commands                  | IOS XE features not supported in the IOS XE as Code data model ← *Task 09*  |
+
+### Which template type should you pick?
+
+Two questions answer it. Is the feature you're configuring already in
+the Network as Code data model? And does your configuration need loops,
+conditionals, or per-device math? Walk the tree:
+
+<figure markdown>
+  ![Template type decision tree - Q1 is the feature in the data model, Q2 does it need loops/conditionals, terminating in model/file/cli answers](./assets/template-decision.png){ width="100%" }
+</figure>
+
+Rules of thumb from the tree:
+
+- **Default to `model`** when the feature is in the data model and your
+  config is straightforward. Fastest to write, gets free schema
+  validation, reads as pure YAML.
+- **Escalate to `file`** when you need Jinja-style loops or conditionals
+  (e.g. "one BGP neighbor per item in this list") or when the config is
+  long enough that a standalone `.tftpl` file is cleaner than inline YAML.
+- **Reach for `cli` last** when the feature genuinely isn't in the data
+  model yet. You lose schema validation and fine-grained idempotency in
+  exchange for coverage of edge-case features.
 
 In this task, you'll use the *model* type to create a VLAN template as a practical example.
 
