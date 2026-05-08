@@ -32,8 +32,10 @@
     --md-accent-fg-color: var(--clus-cyan);
 }
 
-/* ---------- layout ---------- */
-.md-grid { max-width: 1440px; }
+/* ---------- layout ----------
+   Wider grid so the 1600x720 HTML diagrams (and their text) stop getting
+   downsized into an unreadable band when the right-rail TOC is off. */
+.md-grid { max-width: 1680px; }
 .md-typeset__table { min-width: 100%; }
 .md-typeset table:not([class]) { display: table; }
 .max-code-height > pre > code { max-height: 500px; overflow-y: auto; }
@@ -69,7 +71,7 @@
 }
 
 .md-typeset h3 {
-    color: var(--clus-pink);
+    color: var(--clus-blue);
     font-weight: 700;
     margin-top: 1.8rem;
     position: relative;
@@ -80,7 +82,7 @@
     display: inline-block;
     width: 8px;
     height: 8px;
-    background: var(--clus-pink);
+    background: var(--clus-blue);
     border-radius: 2px;
     margin-right: 0.55rem;
     transform: translateY(-2px);
@@ -96,7 +98,7 @@
 }
 
 /* Dark-mode slate pulls the foreground to white; keep the accents the same. */
-[data-md-color-scheme="slate"] .md-typeset h3 { color: var(--clus-pink); }
+[data-md-color-scheme="slate"] .md-typeset h3 { color: var(--clus-blue); }
 [data-md-color-scheme="slate"] .md-typeset h4 { color: var(--clus-orange); }
 
 
@@ -220,15 +222,337 @@
 
 
 /* ============================================================================
-   Top tabs nav — bump the primary-tab underline to CLUS cyan so the active
-   section is instantly visible (Material default is a muted indigo).
+   Tables — striped rows + hover highlight. The Appendix-V cheat sheet and
+   Task 10 error catalog both rely on scan-reading; striping gives the eye
+   a rail to follow. Plus a cyan left border for the whole table so it feels
+   like it belongs with the rest of the CLUS-accented chrome.
    ========================================================================= */
 
-.md-tabs__link--active {
+.md-typeset table:not([class]) {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border-left: 3px solid var(--clus-cyan);
+}
+
+.md-typeset table:not([class]) thead th {
+    background: rgba(2, 200, 255, 0.12);
+    color: var(--md-default-fg-color);
+    font-weight: 700;
+    border-bottom: 2px solid var(--clus-cyan);
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background: rgba(2, 200, 255, 0.04);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+    background: rgba(255, 0, 127, 0.06);
+    transition: background 120ms ease;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead th {
+    background: rgba(2, 200, 255, 0.18);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background: rgba(2, 200, 255, 0.06);
+}
+
+
+/* ============================================================================
+   Task lists — pymdownx.tasklist with custom_checkbox renders - [ ] / - [x]
+   as real checkboxes. Restyle them to the CLUS palette so they read as
+   progress markers rather than form controls.
+   ========================================================================= */
+
+.md-typeset .task-list-item { list-style-type: none; }
+.md-typeset .task-list-item [type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--clus-cyan);
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    margin-left: -1.4rem;
+    position: relative;
+    top: 2px;
+}
+.md-typeset .task-list-item [type="checkbox"]:checked {
+    background: var(--clus-cyan);
+    border-color: var(--clus-cyan);
+}
+.md-typeset .task-list-item [type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    color: white;
+    font-weight: 900;
+    font-size: 11px;
+}
+
+
+/* ============================================================================
+   Scroll progress bar — a 2px cyan bar pinned to the very top of the page
+   that fills left-to-right as the learner scrolls. Pure CSS via a fixed
+   element driven by a CSS variable that JS updates on scroll. If JS is
+   disabled the bar simply doesn't render — zero degraded behavior.
+   Material's own instant.progress handles the loading-bar case; this adds
+   the reading-progress case.
+   ========================================================================= */
+
+.clus-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    transform-origin: 0 0;
+    transform: scaleX(var(--clus-scroll, 0));
+    transition: transform 60ms linear;
+}
+
+
+/* ============================================================================
+   Footer — denser and more useful than the bare `Copyright © 2026 Cisco`.
+   Use display:flex so author block + revision time align horizontally.
+   ========================================================================= */
+
+.md-footer-meta__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+}
+
+.md-footer-meta a { color: var(--clus-cyan); }
+.md-footer-meta a:hover { color: var(--clus-pink); }
+
+
+/* ============================================================================
+   Breadcrumbs (navigation.path) — subtle row above each H1. Material's
+   default is mid-gray chevrons; make the active (last) segment cyan so the
+   current page is obvious at a glance.
+   ========================================================================= */
+
+.md-path__list {
+    font-size: 0.72rem;
+    opacity: 0.85;
+}
+.md-path__item:last-child .md-path__link {
     color: var(--clus-cyan);
+    font-weight: 600;
+}
+
+
+/* ============================================================================
+   Code annotations (content.code.annotate) — numbered markers inside code
+   blocks are rendered as small circles. Tint them cyan to match.
+   ========================================================================= */
+
+.md-typeset .md-annotation__index {
+    background: var(--clus-cyan);
+    color: var(--clus-navy);
     font-weight: 700;
 }
-.md-tabs__link:hover { color: var(--clus-cyan); }
+
+
+/* ============================================================================
+   Header — gradient background (navy → slightly lifted blue) with a 2px
+   cyan→pink glow line underneath. The diagonal gradient gives the bar
+   depth without fighting the content for attention; the glow line ties
+   the whole page to the CLUS palette signature (cyan/pink accents
+   repeated from H1/H3 styles) and visually anchors the tab band above
+   the content area.
+   Also contains the small session-code chip injected by main.html.
+   ========================================================================= */
+
+.md-header {
+    background: linear-gradient(135deg, #07182D 0%, #0a2340 60%, #112a58 100%) !important;
+    box-shadow: 0 2px 0 0 transparent;  /* shadow replaced by ::after glow line */
+    position: relative;
+}
+
+.md-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        rgba(2, 200, 255, 0.1) 0%,
+        var(--clus-cyan) 18%,
+        var(--clus-pink) 82%,
+        rgba(255, 0, 127, 0.1) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Session-code chip — rendered by main.html's header injection. Styled as
+   a cyan-outlined pill so it reads as metadata/branding, not a button.
+   On narrow viewports (< 960px) it's hidden so the header stays clean. */
+.clus-session-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0.6rem;
+    padding: 0.22rem 0.75rem;
+    border: 1px solid rgba(2, 200, 255, 0.55);
+    border-radius: 999px;
+    color: var(--clus-cyan);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(2, 200, 255, 0.08);
+    text-decoration: none;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.clus-session-chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--clus-cyan);
+    box-shadow: 0 0 6px var(--clus-cyan);
+    animation: clus-pulse 2.4s ease-in-out infinite;
+}
+
+.clus-session-chip:hover {
+    background: rgba(255, 0, 127, 0.12);
+    border-color: var(--clus-pink);
+    color: var(--clus-pink);
+}
+.clus-session-chip:hover::before {
+    background: var(--clus-pink);
+    box-shadow: 0 0 6px var(--clus-pink);
+}
+
+@keyframes clus-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+}
+
+@media screen and (max-width: 960px) {
+    .clus-session-chip { display: none; }
+}
+
+
+/* ============================================================================
+   Screenshots & figures — every raw <img> in the article (GitLab,
+   Solar-PuTTY, VS Code, CML, etc.) gets the same treatment so the content
+   area reads as a curated set of visuals rather than dropped-in captures.
+   Soft shadow for depth, thin cyan border so they belong to the CLUS
+   visual language, rounded corners, and a gentle hover lift (they're
+   already clickable via glightbox — the lift makes that affordance
+   explicit).
+   Scoped to article content only; logo, nav icons, and chip swatches are
+   excluded by selector specificity.
+   ========================================================================= */
+
+.md-typeset figure img,
+.md-typeset > p > img,
+.md-typeset > p > a > img {
+    border-radius: 8px;
+    border: 1px solid rgba(2, 200, 255, 0.35);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18),
+                0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    background: var(--md-default-bg-color);
+}
+
+.md-typeset figure img:hover,
+.md-typeset > p > img:hover,
+.md-typeset > p > a > img:hover {
+    transform: translateY(-2px);
+    border-color: var(--clus-cyan);
+    box-shadow: 0 10px 28px rgba(2, 200, 255, 0.18),
+                0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: zoom-in;
+}
+
+/* Figures already have caption styling from the glightbox plugin; tighten
+   their top margin so the image + caption read as one unit. */
+.md-typeset figure { margin: 1.4rem 0 1.6rem; }
+.md-typeset figcaption {
+    font-size: 0.72rem;
+    color: var(--md-default-fg-color--light);
+    margin-top: 0.35rem;
+    font-style: italic;
+}
+
+
+/* ============================================================================
+   Top tabs nav — transform the flat default into a visually alive row:
+     • Labels go a half-weight bolder with slightly more letter-spacing so
+       they read as section titles, not inline text.
+     • Each tab grows a cyan→pink gradient underline that slides in from
+       the left on hover. Pure CSS transform, no layout shift.
+     • The active tab's underline is solid (always visible) and its label
+       is 800-weight + white. No icon noise — typography + motion carry
+       the identity.
+     • The tabs row itself inherits the header's navy so it extends the
+       gradient bar above it instead of sitting on a visible seam.
+   ========================================================================= */
+
+.md-tabs {
+    background: transparent;  /* let the header gradient show through */
+    border-bottom: 1px solid rgba(2, 200, 255, 0.12);
+}
+
+.md-tabs__link {
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    margin: 0 0.2rem;
+    padding: 0.65rem 0.85rem 0.75rem;
+    position: relative;
+    transition: color 160ms ease, transform 160ms ease;
+}
+
+.md-tabs__link::after {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.35rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.md-tabs__link:hover {
+    color: #FFFFFF;
+}
+.md-tabs__link:hover::after {
+    transform: scaleX(1);
+}
+
+.md-tabs__link--active {
+    color: #FFFFFF !important;
+    font-weight: 800;
+}
+.md-tabs__link--active::after {
+    transform: scaleX(1);
+    /* active state: glow slightly to distinguish from hover */
+    background: linear-gradient(90deg, var(--clus-cyan), var(--clus-pink));
+    box-shadow: 0 0 8px rgba(2, 200, 255, 0.5);
+    height: 2.5px;
+}
 
 
 /* ============================================================================

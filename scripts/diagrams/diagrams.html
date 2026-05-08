@@ -117,7 +117,7 @@
   .mr .step .s { font-size: 14px; color: var(--dk-text); }
   .mr svg.arrows { position: absolute; top: 0; left: 150px; width: calc(100% - 150px); height: 100%; pointer-events: none; }
 
-  /* ======================================================== NAC STACK */
+  /* ======================================================== NaC STACK */
   .stack-wrap { flex: 1; display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
   .stack { display: flex; flex-direction: column; gap: 10px; }
   .stack .layer { border-radius: 8px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; position: relative; }
@@ -333,9 +333,12 @@
   .ms-rule .ttl { font-size: 16px; font-weight: 700; color: var(--white); line-height: 1.3; }
   .ms-rule .rule-desc { font-size: 14px; color: var(--dk-text); line-height: 1.5; }
   .ms-pair { display: grid; grid-template-columns: 1fr 30px 1fr; gap: 8px; align-items: center; font-size: 12px; }
-  .ms-pair .src { background: var(--code-bg); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  /* white-space: pre preserves the leading spaces that indent the nested
+     YAML keys. Without it, HTML whitespace collapse flattens `  system:`
+     to `system:` and the merge-semantics demo loses its whole point. */
+  .ms-pair .src { background: var(--code-bg); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; white-space: pre; }
   .ms-pair .arrow { text-align: center; color: var(--cyan); font-size: 20px; }
-  .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; }
+  .ms-pair .result { background: linear-gradient(120deg, rgba(2,200,255,.1), rgba(2,200,255,.04)); border-left: 3px solid var(--cyan); border-radius: 5px; padding: 8px 10px; font-family: "JetBrains Mono", monospace; color: var(--white); line-height: 1.5; white-space: pre; }
   .ms-rule.dict  .result { border-left-color: var(--blue); background: linear-gradient(120deg, rgba(10,96,255,.12), rgba(10,96,255,.04)); }
   .ms-rule.prim  .result { border-left-color: var(--green); background: linear-gradient(120deg, rgba(255,0,127,.12), rgba(255,0,127,.04)); }
   .ms-rule.dictl .result { border-left-color: var(--orange); background: linear-gradient(120deg, rgba(255,144,0,.12), rgba(255,144,0,.04)); }
@@ -429,7 +432,7 @@
 <section class="card" id="variable-substitution-dark">
   <div>
     <h1>Variable substitution <span class="accent">— one template, per-device output</span></h1>
-    <p class="sub">NAC resolves <code style="color:var(--orange)">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
+    <p class="sub">NaC resolves <code style="color:var(--orange)">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
   </div>
   <div class="vars">
     <div class="col">
@@ -473,7 +476,7 @@ globally by every device
 <section class="card" id="templates-dark">
   <div>
     <h1>Template resolution <span class="accent">— define once, apply to many</span></h1>
-    <p class="sub">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
+    <p class="sub">A template packages reusable configuration. You reference it from a device or a device-group, and NaC expands it when it merges the model.</p>
   </div>
   <div class="tpl">
     <div class="node">
@@ -562,11 +565,11 @@ globally by every device
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>
 
-<!-- ============================================================== 5. NAC STACK OVERVIEW (new) -->
+<!-- ============================================================== 5. NaC STACK OVERVIEW (new) -->
 <section class="card" id="nac-stack">
   <div>
-    <h1>What NAC actually does <span class="accent">— from YAML to YANG</span></h1>
-    <p class="sub">Your intent is YAML. Under the hood, NAC translates it through a stack that ends as NETCONF/RESTCONF traffic the device understands.</p>
+    <h1>What NaC actually does <span class="accent">— from YAML to YANG</span></h1>
+    <p class="sub">Your intent is YAML. Under the hood, NaC translates it through a stack that ends as NETCONF/RESTCONF traffic the device understands.</p>
   </div>
   <div class="stack-wrap">
     <div class="stack">
@@ -575,7 +578,7 @@ globally by every device
         <span class="desc">Declarative YAML. Human-readable. Under version control.</span>
       </div>
       <div class="layer l2">
-        <div class="hdr"><span class="nm">2. NAC IOS XE Terraform module</span><span class="tech">terraform-iosxe-nac-iosxe</span></div>
+        <div class="hdr"><span class="nm">2. NaC IOS XE Terraform module</span><span class="tech">terraform-iosxe-nac-iosxe</span></div>
         <span class="desc">Merges every YAML in <code>data/</code>, resolves variables/templates, renders the data model.</span>
       </div>
       <div class="layer l3">
@@ -592,8 +595,8 @@ globally by every device
       </div>
     </div>
     <div class="stack-side">
-      <h3>You write layer 1. NAC owns 2–4.</h3>
-      <p>The value of NAC isn't any single layer — it's that you stop writing layers 2, 3, and 4 yourself. You describe intent; the module handles module composition, Terraform resource wiring, YANG path construction, and transactional rollback.</p>
+      <h3>You write layer 1. NaC owns 2–4.</h3>
+      <p>The value of NaC isn't any single layer — it's that you stop writing layers 2, 3, and 4 yourself. You describe intent; the module handles module composition, Terraform resource wiring, YANG path construction, and transactional rollback.</p>
       <p><strong>Why NETCONF over RESTCONF in this lab?</strong> Transactional semantics. NETCONF uses a candidate datastore with <code>commit</code>/<code>discard-changes</code>, so a config push is all-or-nothing. A half-applied change can't leave a device in an inconsistent state.</p>
       <p><strong>Why you'll still see RESTCONF URLs.</strong> <code>nac-test</code> (Task 11) reads operational state via RESTCONF URIs for verification. Config push uses NETCONF; post-check verification uses RESTCONF.</p>
     </div>
@@ -706,7 +709,7 @@ globally by every device
 <!-- ============================================================== 11. NETCONF DATASTORES (new) -->
 <section class="card" id="netconf-datastores">
   <div>
-    <h1>NETCONF datastores <span class="accent">— why NAC uses it instead of RESTCONF</span></h1>
+    <h1>NETCONF datastores <span class="accent">— why NaC uses it instead of RESTCONF</span></h1>
     <p class="sub">NETCONF separates "the change you're describing" from "the config actually on the device" — so a half-applied change can't leave a device broken.</p>
   </div>
   <div class="nc">
@@ -734,7 +737,7 @@ globally by every device
       <p>That means if Terraform is pushing a 40-line configuration change and line 37 is invalid, the device's running config stays exactly as it was — not in a half-applied broken state.</p>
       <h3 class="coral">RESTCONF doesn't work this way</h3>
       <p>RESTCONF writes directly to the running datastore, one HTTP call per resource. No candidate, no commit, no rollback primitive. A mid-batch failure leaves the device in whatever partial state the successful calls produced.</p>
-      <p>For a lab this rarely matters. For a production push across 100 devices? It matters a lot — which is why NAC defaults to NETCONF when it's available, and why this lab does too.</p>
+      <p>For a lab this rarely matters. For a production push across 100 devices? It matters a lot — which is why NaC defaults to NETCONF when it's available, and why this lab does too.</p>
     </div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
@@ -743,8 +746,8 @@ globally by every device
 <!-- ============================================================== 12. CONFIG MERGE (new) -->
 <section class="card" id="config-merge">
   <div>
-    <h1>How NAC merges your YAML <span class="accent">— three files, one model, one device</span></h1>
-    <p class="sub">Every <code style="color:var(--cyan)">*.nac.yaml</code> file in <code style="color:var(--cyan)">data/</code> contributes a slice. NAC merges them in precedence order (Global → Group → Device) and writes <code style="color:var(--cyan)">model.yaml</code> — the fully-resolved per-device config Terraform actually pushes.</p>
+    <h1>How NaC merges your YAML <span class="accent">— three files, one model, one device</span></h1>
+    <p class="sub">Every <code style="color:var(--cyan)">*.nac.yaml</code> file in <code style="color:var(--cyan)">data/</code> contributes a slice. NaC merges them in precedence order (Global → Group → Device) and writes <code style="color:var(--cyan)">model.yaml</code> — the fully-resolved per-device config Terraform actually pushes.</p>
   </div>
   <div class="merge">
     <div class="inputs">
@@ -788,7 +791,7 @@ globally by every device
     </div>
     <div class="merge-arrow">
       <div class="sym">⇒</div>
-      <div class="lbl">NAC<br/>merge</div>
+      <div class="lbl">NaC<br/>merge</div>
       <div class="sym">⇒</div>
     </div>
     <div class="output">
@@ -818,7 +821,7 @@ globally by every device
 <section class="card" id="merge-semantics">
   <div>
     <h1>YAML merge semantics <span class="accent">— three rules, one outcome</span></h1>
-    <p class="sub">NAC merges every <code style="color:var(--cyan)">data/*.nac.yaml</code> file using three deterministic rules. Understanding them is the difference between "my config deployed" and "why is there a duplicate device entry?"</p>
+    <p class="sub">NaC merges every <code style="color:var(--cyan)">data/*.nac.yaml</code> file using three deterministic rules. Understanding them is the difference between "my config deployed" and "why is there a duplicate device entry?"</p>
   </div>
   <div class="ms">
     <div class="ms-rule dict">
@@ -859,7 +862,7 @@ globally by every device
       <div class="ms-pair" style="grid-template-columns:1fr;margin-top:-4px">
         <div class="result">devices:<br/>  - name: core<br/>    host: 10.0.0.10<br/>    variables:<br/>      site: eu</div>
       </div>
-      <div class="warn"><strong>Watch out:</strong> typo the <code style="color:var(--white);background:rgba(0,0,0,.25);padding:1px 4px;border-radius:3px;font-size:12px">name</code> in one file and you get <strong>two</strong> device entries instead of one merged one — and NAC won't warn you.</div>
+      <div class="warn"><strong>Watch out:</strong> typo the <code style="color:var(--white);background:rgba(0,0,0,.25);padding:1px 4px;border-radius:3px;font-size:12px">name</code> in one file and you get <strong>two</strong> device entries instead of one merged one — and NaC won't warn you.</div>
     </div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
@@ -868,7 +871,7 @@ globally by every device
 <!-- ============================================================== 14. MODULE INPUTS (new) -->
 <section class="card" id="module-inputs">
   <div>
-    <h1>NAC IOS XE module inputs <span class="accent">— everything <code>module "iosxe"</code> accepts</span></h1>
+    <h1>NaC IOS XE module inputs <span class="accent">— everything <code>module "iosxe"</code> accepts</span></h1>
     <p class="sub">The lab's <code style="color:var(--cyan)">main.tf</code> uses three of these. The module actually exposes nine. Here they are, grouped by what they control.</p>
   </div>
   <div class="mi">
@@ -992,7 +995,7 @@ globally by every device
       <div class="tools">
         <div class="tool vs">
           <div class="tn">VS Code</div>
-          <div class="td">Edit NAC YAML</div>
+          <div class="td">Edit NaC YAML</div>
         </div>
         <div class="tool ssh">
           <div class="tn">Solar-PuTTY</div>
@@ -1041,7 +1044,7 @@ globally by every device
 <section class="card" id="cml-topology">
   <div>
     <h1>CML topology <span class="accent">— the four devices you'll manage</span></h1>
-    <p class="sub">NAC manages <strong style="color:var(--green)">core</strong>, <strong style="color:var(--green)">border</strong>, <strong style="color:var(--green)">access01</strong>, and <strong style="color:var(--green)">access02</strong>. The ISP, hosts, and management servers are pre-configured and used for verification.</p>
+    <p class="sub">NaC manages <strong style="color:var(--green)">core</strong>, <strong style="color:var(--green)">border</strong>, <strong style="color:var(--green)">access01</strong>, and <strong style="color:var(--green)">access02</strong>. The ISP, hosts, and management servers are pre-configured and used for verification.</p>
   </div>
   <div class="cmltop">
     <!-- SVG overlay uses percentage coordinates so it auto-scales with the
@@ -1133,7 +1136,7 @@ globally by every device
 <section class="card" id="file-layout">
   <div>
     <h1>Project file layout <span class="accent">— one file per concern</span></h1>
-    <p class="sub">The whole lab lives in <code style="color:var(--cyan)">~/nac-iosxe/</code>. Each file owns one responsibility. NAC merges them into a single data model at load time.</p>
+    <p class="sub">The whole lab lives in <code style="color:var(--cyan)">~/nac-iosxe/</code>. Each file owns one responsibility. NaC merges them into a single data model at load time.</p>
   </div>
   <div class="flay">
     <div class="folder">
@@ -1235,7 +1238,7 @@ globally by every device
 <section class="card light" id="variable-substitution-light">
   <div>
     <h1 style="color:#0b172c">Variable substitution <span style="color:#0A60FF">— one template, per-device output</span></h1>
-    <p class="sub" style="color:#13344E">NAC resolves <code style="color:#FF9000">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
+    <p class="sub" style="color:#13344E">NaC resolves <code style="color:#FF9000">${VARIABLES}</code> at render time. Global defaults supply shared values; each device overrides what's unique to it.</p>
   </div>
   <div class="vars">
     <div class="col" style="background:#FFFFFF;border-color:#CBD5E0">
@@ -1277,7 +1280,7 @@ globally by every device
 <section class="card light" id="templates-light">
   <div>
     <h1 style="color:#0b172c">Template resolution <span style="color:#0A60FF">— define once, apply to many</span></h1>
-    <p class="sub" style="color:#13344E">A template packages reusable configuration. You reference it from a device or a device-group, and NAC expands it when it merges the model.</p>
+    <p class="sub" style="color:#13344E">A template packages reusable configuration. You reference it from a device or a device-group, and NaC expands it when it merges the model.</p>
   </div>
   <div class="tpl">
     <div class="node" style="background:#FFFFFF;border-color:#CBD5E0">

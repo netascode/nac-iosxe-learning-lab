@@ -85,6 +85,6 @@ Most of the Cisco-maintained `nac-test` template set (interfaces, routing protoc
 3. Emit one `*** Test Cases ***` block per device/resource.
 4. Re-run `nac-test` - the new suite is rendered and executed automatically.
 
-The Jinja2 context `nac-test` exposes is the full merged data model (the same `model.yaml` you inspected in earlier tasks) plus a `defaults` variable containing the NAC module's default values. Anything you can put in YAML, you can assert against from a template.
+The Jinja2 context `nac-test` exposes is the full merged data model (the same `model.yaml` you inspected in earlier tasks) plus a `defaults` variable containing the NaC module's default values. Anything you can put in YAML, you can assert against from a template.
 
 {% endraw %}

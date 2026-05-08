@@ -159,8 +159,8 @@ At this point, your `data/` folder should contain these files:
 
 When Network as Code processes your configuration:
 
-1. **Template Resolution**: NAC reads the `templates/vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
-2. **Device Group Processing**: NAC reads `groups/access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
+1. **Template Resolution**: NaC reads the `templates/vlan.nac.yaml` file and loads the `access_switch_vlans` template, defined under `iosxe: templates`
+2. **Device Group Processing**: NaC reads `groups/access.nac.yaml` and finds the `access_switch_vlans` template applied to the `ACCESS_SWITCHES` group
 3. **Configuration Merge**: For **access01** and **access02** (members of the `ACCESS_SWITCHES` group), the template's configuration is merged with their settings
 4. **Deployment**: VLANs are created on both **access01** and **access02** (but not on **core** or **border**)
 
@@ -221,7 +221,7 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 
 Use the following command on both **access01** and **access02** switches to verify the VLANs:
 
-```
+```text
 show vlan brief
 ```
 

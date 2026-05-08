@@ -102,7 +102,7 @@ Your `data/` folder now contains one file per configuration concern:
 ```
 
 !!! tip "One concern per file"
-    This is how the lab guide organizes things. In your own projects, organize however makes sense for your team - `nac-validate` and the NAC module don't care about file boundaries, only about the merged data model.
+    This is how the lab guide organizes things. In your own projects, organize however makes sense for your team - `nac-validate` and the NaC module don't care about file boundaries, only about the merged data model.
 
 
 ## Step 2: Apply Device-Specific Configuration

@@ -42,7 +42,7 @@ A few small extensions make great follow-ups once you're back at your own enviro
 - **More variables, more precedence** - introduce a `${DNS_DOMAIN}` or `${MGMT_VLAN}` variable at the global level and override it on one device to see precedence in action.
 - **Your own validation rules** - `nac-validate` is extensible. Write a rule that enforces a naming convention or flags a forbidden configuration (for example, any ACL entry with `action: permit` on `any`).
 - **Verify via data sources, not SSH** - the `terraform-provider-iosxe` ships [~120 data sources](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs) that read operational state. Instead of SSHing in and running `show ip bgp summary`, define a `data "iosxe_bgp_neighbor"` resource and assert the state in a Terraform `check` or `output`. Same answer, fully programmatic - useful for letting another part of your IaC codebase condition on device state.
-- **Brownfield import with `nac-tool`** - point [`nac-tool`](https://netascode.cisco.com/docs/tools/nac-tool/overview/) at one of your existing IOS XE devices at home and let it generate the equivalent NAC YAML. This is the fastest way to see how much of your current running-config maps cleanly to NAC's data model (and where you'd need to fall back to `cli` templates).
+- **Brownfield import with `nac-tool`** - point [`nac-tool`](https://netascode.cisco.com/docs/tools/nac-tool/overview/) at one of your existing IOS XE devices at home and let it generate the equivalent NaC YAML. This is the fastest way to see how much of your current running-config maps cleanly to NaC's data model (and where you'd need to fall back to `cli` templates).
 
 ## Continue your journey
 
@@ -55,10 +55,10 @@ A few small extensions make great follow-ups once you're back at your own enviro
 
 **Sibling tools worth knowing about**
 
-This lab uses `nac-validate` (Task 10) and `nac-test` (Task 11). The NAC toolchain ships a few more:
+This lab uses `nac-validate` (Task 10) and `nac-test` (Task 11). The NaC toolchain ships a few more:
 
-- [**`nac-tool`**](https://netascode.cisco.com/docs/tools/nac-tool/overview/) - **brownfield import.** Point it at a running device and it writes out the equivalent NAC YAML. This is the bridge between "existing network" and "Network as Code adoption" - no need to start from scratch.
-- [**`nac-api`**](https://netascode.cisco.com/docs/tools/nac-api/overview/) - REST API over NAC configs. Useful for custom integrations.
+- [**`nac-tool`**](https://netascode.cisco.com/docs/tools/nac-tool/overview/) - **brownfield import.** Point it at a running device and it writes out the equivalent NaC YAML. This is the bridge between "existing network" and "Network as Code adoption" - no need to start from scratch.
+- [**`nac-api`**](https://netascode.cisco.com/docs/tools/nac-api/overview/) - REST API over NaC configs. Useful for custom integrations.
 - [**`nac-collector`**](https://netascode.cisco.com/docs/tools/nac-collector/overview/) - gather deployed configs from the field into a central store.
 
 **Related Cisco Live sessions**

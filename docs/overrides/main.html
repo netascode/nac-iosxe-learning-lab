@@ -1,13 +1,63 @@
 {% extends "base.html" %}
 
-{# This footer override adds a line in the footer with the document build date #}
-{# To enable this feature, set in mkdocs.yml: extra: footer_revision_datetime: true #}
-{# The build date is in UTC timezone. #}
+{# Footer override: build-date stamp (opt-in via extra.footer_revision_datetime). #}
+{# Header override: inject a session-code chip + a reading-progress bar that fills as you scroll. #}
+
+{% block header %}
+  {{ super() }}
+  <script>
+    // Inject the session-code chip into the header option area (right side, next to PDF+toggle).
+    // Done here rather than in a Jinja block so it survives instant-navigation reloads.
+    (function () {
+      function addChip() {
+        if (document.querySelector(".clus-session-chip")) return;
+        var options = document.querySelector(".md-header__option");
+        if (!options) return;
+        var chip = document.createElement("a");
+        chip.className = "clus-session-chip";
+        chip.href = "https://www.ciscolive.com/global/learn/sessions/session-catalog.html#/session/";
+        chip.target = "_blank";
+        chip.rel = "noopener";
+        chip.title = "Session catalog on ciscolive.com";
+        chip.textContent = "LTRXAR-2008";
+        options.parentNode.insertBefore(chip, options);
+      }
+      document.addEventListener("DOMContentLoaded", addChip);
+      // Material's instant-navigation swaps the DOM without a full reload — re-inject.
+      if (typeof document$ !== "undefined" && document$.subscribe) document$.subscribe(addChip);
+      addChip();
+    })();
+  </script>
+{% endblock %}
+
+{% block announce %}
+  {{ super() }}
+  <div class="clus-scroll-progress" aria-hidden="true"></div>
+  <script>
+    // Reading-progress bar — updates --clus-scroll on scroll. 60ms CSS transition
+    // smooths the jitter. Runs once per frame via requestAnimationFrame so it
+    // doesn't starve the scroll handler even on long pages.
+    (function () {
+      var bar = document.querySelector(".clus-scroll-progress");
+      if (!bar) return;
+      var ticking = false;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight) || 1;
+        var ratio = Math.min(1, Math.max(0, doc.scrollTop / max));
+        bar.style.setProperty("--clus-scroll", ratio);
+        ticking = false;
+      }
+      window.addEventListener("scroll", function () {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
+  </script>
+{% endblock %}
 
 {% block footer %}
-  <!-- Required to keep template footer elements without overriding -->
   {{ super() }}
-  <!-- Add a line with document build date -->
   {% if config.extra.footer_revision_datetime %}
     <div class="md-footer-meta">
       <center> Updated at {{ build_date_utc.strftime('%Y-%m-%d %H:%M:%S') }} </center>

@@ -12,7 +12,7 @@ After Terraform applies a change, how do you confirm the configuration actually 
 - **Robot Framework** - a keyword-driven test framework; test cases are readable and easy to extend.
 - **Pabot** - a parallel executor for Robot that runs suites simultaneously. Fast enough to run against many devices during a CI pipeline.
 
-**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NAC already produces - so the tests always match the intent.
+**The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NaC already produces - so the tests always match the intent.
 
 ## What you'll learn
 
@@ -258,12 +258,109 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
     The `log.html` file contains detailed step-by-step execution information, including request and response data for each test case. This is useful for troubleshooting any test failures or understanding the test flow in depth.
 
 
+## Step 7: See a test fail (then fix it)
+
+The previous run passed because the device state matched the intent. To see the real value of post-checks, let's create a situation where they DON'T match.
+
+!!! warning "Artificial scenario"
+    In a real deployment, tests fail when Terraform silently fails to push configuration to a device (e.g. a NETCONF timeout, a device rejecting a commit, or a partial apply). Here, we'll simulate that by adding new intent to the data model and regenerating `model.yaml` without pushing the config to the devices first. This is unrealistic - normally `terraform apply` updates the model AND the devices in one step - but it clearly demonstrates what a failing test looks like.
+
+**Add a new ACL entry to your intent:**
+
+Open `data/groups/access.nac.yaml` in VS Code and add a third entry (sequence 30):
+
+```yaml title="data/groups/access.nac.yaml" hl_lines="13-16"
+---
+iosxe:
+  device_groups:
+    - name: ACCESS_SWITCHES
+      devices:
+        - access01
+        - access02
+      configuration:
+        access_lists:
+          standard:
+            - name: AccessLayerACL
+              entries:
+                - sequence: 10
+                  action: permit
+                  prefix: 10.0.0.0
+                  prefix_mask: 0.0.0.255
+                - sequence: 20
+                  action: permit
+                  prefix: 20.0.0.0
+                  prefix_mask: 0.0.0.255
+                - sequence: 30
+                  action: permit
+                  prefix: 30.0.0.0
+                  prefix_mask: 0.0.0.255
+```
+
+**Regenerate model.yaml without pushing to devices:**
+
+Run `terraform plan` to update the model file (this does NOT push config to devices):
+
+```bash
+terraform plan
+```
+
+This updates `model.yaml` to include the new sequence 30 entry. The devices still only have sequences 10 and 20.
+
+**Run nac-test again:**
+
+```bash
+nac-test \
+  --data ./model.yaml \
+  --data ./defaults.yaml \
+  --templates ./tests/templates \
+  --filters ./tests/filters \
+  --output /mnt/c/Users/admin/Desktop/TestResults
+```
+
+This time, the tests **fail**:
+
+```text { .no-copy hl_lines="4" }
+...
+2 tests, 0 passed, 2 failed, 0 skipped.
+===================================================
+```
+
+The test expected sequence 30 (`prefix: 30.0.0.0`) to exist on the device because it's in the intent - but it's not there yet. This is exactly what nac-test catches: a mismatch between what you WANT on the device and what's ACTUALLY there.
+
+**Now push the config and re-run:**
+
+```bash
+terraform apply -auto-approve
+```
+
+```bash
+nac-test \
+  --data ./model.yaml \
+  --data ./defaults.yaml \
+  --templates ./tests/templates \
+  --filters ./tests/filters \
+  --output /mnt/c/Users/admin/Desktop/TestResults
+```
+
+```text { .no-copy hl_lines="2" }
+...
+2 tests, 2 passed, 0 failed, 0 skipped.
+===================================================
+```
+
+Tests pass again - the device state now matches the intent.
+
+!!! tip "The real-world takeaway"
+    In production, you wouldn't deliberately skip `terraform apply`. The value of `nac-test` is catching cases where `apply` reports success but the device didn't fully accept the configuration - network devices can ACK a NETCONF commit while silently ignoring certain leaves, or a device might reboot mid-apply. Post-checks verify what's actually running, not just what Terraform thinks it pushed.
+
+
 ## What you've accomplished
 
 - ✅ Copied the pre-built `tests/` directory into your project
 - ✅ Ran `nac-test` to render and execute Robot Framework tests from your intent YAML
 - ✅ Reviewed the auto-generated `access_lists.robot` suite
 - ✅ Interpreted the HTML report and JUnit results
+- ✅ Observed a test failure when device state didn't match intent, then resolved it
 
 !!! tip "CI/CD integration"
     In [Task 14](Task14_Edit_CI-CD.md) you'll wire `nac-test` into the GitLab pipeline so every deployment auto-verifies itself - no manual step.

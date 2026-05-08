@@ -19,7 +19,7 @@ Below is the BGP and interface configuration on the **isp** router. Use this as 
 
 {% raw %}
 
-```
+```cisco
 isp#show run | sec bgp
 router bgp 65001
  bgp log-neighbor-changes

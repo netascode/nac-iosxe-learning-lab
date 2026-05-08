@@ -2,7 +2,7 @@ This step-by-step guide walks you through the **Network as Code for IOS XE** lab
 
 ## What is Network as Code?
 
-**Network as Code (NAC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The Network as Code toolchain - built on Terraform - handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
+**Network as Code (NaC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The Network as Code toolchain - built on Terraform - handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
 
 Network as Code is an umbrella that spans multiple Cisco platforms and architectures. Each platform has its own Terraform module and provider, but they all share the same methodology: YAML intent files → Terraform module → platform provider → device. The [supported platforms](https://netascode.cisco.com/resources/supported_products) include ACI, Catalyst SD-WAN, Meraki, Catalyst Center, ISE, NX-OS, IOS XR, and - the focus of this lab - **IOS XE**.
 
@@ -61,7 +61,7 @@ The guide uses a handful of acronyms that may be new depending on your backgroun
 ??? abstract "Acronyms and terms used throughout the lab"
     | Term | What it means |
     |------|---------------|
-    | **NAC** | Network as Code - Cisco's Terraform-based declarative automation framework. This lab is one flavor of it (IOS XE); sibling labs cover SD-WAN, ACI, Catalyst Center, Nexus Dashboard, etc. |
+    | **NaC** | Network as Code - Cisco's Terraform-based declarative automation framework. This lab is one flavor of it (IOS XE); sibling labs cover SD-WAN, ACI, Catalyst Center, Nexus Dashboard, etc. |
     | **IaC** | Infrastructure as Code - the broader category of "manage infrastructure by editing files, not clicking buttons". Network as Code is IaC for networking. |
     | **YAML** | A human-readable data format (indentation-based). All your Network as Code "intent" files are YAML. |
     | **YANG** | A standardized modelling language for network device configuration and state. IOS XE's configuration surface is described in YANG modules; Network as Code ultimately produces YANG data to push to devices. |
