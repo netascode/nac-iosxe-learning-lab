@@ -459,13 +459,13 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 ---
 
-**← Previous:** [Task 12 - Cleanup](Task12_Cleanup.md)
+## What's next
 
-## Next steps
+Tasks 14 and 15 are **optional** - Task 14 extends the pipeline with
+integration and idempotency tests; Task 15 introduces merge-request
+workflows with protected branches. If you're at the end of your time
+box, skip straight to the [Conclusion](Workend01_conclusion.md).
 
+---
 
-You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:
-
-- **Optional:** [Task 14 - Extend the pipeline with automated tests](Task14_Edit_CI-CD.md) - add integration + idempotency tests to the pipeline
-- **Optional:** [Task 15 - Branch and merge-request workflow](Task15_Branch_and_merge_request.md) - change-approval workflows with protected branches and MRs
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - wrap up and review what you've learned
+**← Previous:** [Task 12 - Cleanup](Task12_Cleanup.md)  ·  **Next:** [Task 14 - Extend CI/CD pipeline](Task14_Edit_CI-CD.md)

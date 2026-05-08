@@ -240,11 +240,13 @@ This is where GitLab displays the test results from the JUnit report. You should
 
 ---
 
-**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)
+## What's next
 
-**Next Steps:**
+Task 15 is the last **optional** task - it introduces the merge request
+workflow with protected branches, so changes land on `main` only after
+review. If you're at the end of your time box, jump to the
+[Conclusion](Workend01_conclusion.md).
 
-You can explore the **optional** merge request workflow or proceed to the **conclusion**:
+---
 
-- **Optional:** [Task 15 - Branch and merge-request workflow](Task15_Branch_and_merge_request.md) - change-approval workflows with protected branches and MRs
-- **Conclusion:** [Lab Conclusion](Workend01_conclusion.md) - wrap up and review what you've learned
+**← Previous:** [Task 13 - Run a CI/CD pipeline](Task13_Run_CI-CD_pipeline.md)  ·  **Next:** [Task 15 - Merge request workflow](Task15_Branch_and_merge_request.md)

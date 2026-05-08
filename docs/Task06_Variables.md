@@ -376,11 +376,14 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 05 - Single-device configuration](Task05_Single_device_config.md)
+## What's next
 
-**Next Steps:**
+Tasks 07-09 cover the three template types (`model`, `file`, `cli`) and
+are **optional** - they demonstrate advanced patterns but aren't
+prerequisites for any later task. If you're short on time, jump straight
+to [Task 10 - Schema validation](Task10_Schema_validation.md). Otherwise,
+continue with Task 07.
 
-You can either explore **optional** template tasks or continue with the **recommended** path:
+---
 
-- **Optional:** [Task 07 - Templates type `model`](Task07_Templates_type_model.md) - reusable YAML-based configuration templates
-- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip templates and continue with pre-change validation
+**← Previous:** [Task 05 - Single device config](Task05_Single_device_config.md)  ·  **Next:** [Task 07 - Templates 'model'](Task07_Templates_type_model.md)

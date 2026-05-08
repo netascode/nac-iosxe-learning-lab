@@ -347,11 +347,14 @@ In this task, you have:
 
 ---
 
-**← Previous:** [Task 06 - Variables](Task06_Variables.md)
+## What's next
 
-**Next Steps:**
+Task 08 introduces the `file` template type (external `.tftpl` files
+with Jinja-style loops and conditionals - the template you'd reach for
+when `model` templates aren't expressive enough). If you're only
+sampling one template type, skipping ahead to
+[Task 10 - Schema validation](Task10_Schema_validation.md) is fine.
 
-You can continue exploring **optional** template tasks or proceed to the **recommended** path:
+---
 
-- **Optional:** [Task 08 - Templates type `file`](Task08_Templates_type_file.md) - external template files with dynamic content
-- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip remaining templates and continue with pre-change validation
+**← Previous:** [Task 06 - Variables](Task06_Variables.md)  ·  **Next:** [Task 08 - Templates 'file'](Task08_Templates_type_file.md)

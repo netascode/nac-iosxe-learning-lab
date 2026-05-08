@@ -357,11 +357,14 @@ You now have a safety check in place to catch configuration errors before they r
 
 ---
 
-**← Previous:** [Task 06 - Variables](Task06_Variables.md)
+## What's next
 
-**Next Steps:**
+Task 11 is **optional** - it automates post-change verification with
+Robot Framework tests rendered from your intent. If you do Task 11, run
+it **before** Task 12 (Task 12's `terraform destroy` wipes the configs
+Task 11 checks). If you're skipping the post-checks demo, go straight to
+[Task 12 - Cleanup](Task12_Cleanup.md).
 
-You can explore the **optional** post-checks task or continue with the **recommended** cleanup:
+---
 
-- **Optional:** [Task 11 - Post-checks with nac-test](Task11_Post-checks.md) - automate post-change validation
-- **Recommended:** [Task 12 - Cleanup](Task12_Cleanup.md) - skip Robot Framework and proceed to cleanup before CI/CD
+**← Previous:** [Task 06 - Variables](Task06_Variables.md)  ·  **Next:** [Task 11 - Post-checks](Task11_Post-checks.md)

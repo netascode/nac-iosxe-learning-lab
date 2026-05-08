@@ -375,12 +375,14 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 
 ---
 
-**← Previous:** [Task 07 - Templates type `model`](Task07_Templates_type_model.md)
+## What's next
 
-**Next Steps:**
+Task 09 covers the `cli` template type (raw CLI lines, last-resort for
+features not yet in the data model). If you've seen enough of the
+template story, skip ahead to
+[Task 10 - Schema validation](Task10_Schema_validation.md).
 
-You can continue exploring **optional** template tasks or proceed to the **recommended** path:
+---
 
-- **Optional:** [Task 09 - Templates type `cli`](Task09_Templates_type_cli.md) - raw CLI commands for unsupported features
-- **Recommended:** [Task 10 - Schema validation](Task10_Schema_validation.md) - skip remaining templates and continue with pre-change validation
+**← Previous:** [Task 07 - Templates 'model'](Task07_Templates_type_model.md)  ·  **Next:** [Task 09 - Templates 'cli'](Task09_Templates_type_cli.md)
 
