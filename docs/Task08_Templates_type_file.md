@@ -14,7 +14,8 @@ By the end of this task you will have:
 - Referenced the file template from a device-level configuration on `border`
 - Deployed an eBGP session to the pre-configured `isp` peer (AS 65001) and seen the route to `8.8.8.0/24` appear
 
-## File Templates
+## File templates
+
 
 File templates reference external `.tftpl` files that use **Terraform templating syntax**. This is ideal for:
 
@@ -39,7 +40,8 @@ File templates reference external `.tftpl` files that use **Terraform templating
 | *file*  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
 | *cli*   | Raw CLI commands                  | IOS XE features not in the IOS XE as Code data model ← *Task09*       |
 
-## Use Case: BGP Configuration on border Switch
+## Use case: BGP configuration on border switch
+
 
 In this example, you'll configure BGP on the **border** switch for peering with ISP providers. The template will use variables to define BGP neighbors dynamically.
 
@@ -51,7 +53,8 @@ In this example, you'll configure BGP on the **border** switch for peering with 
 
     When you verify the BGP configuration, the **isp neighbor will show as Established**, while **isp-x will show as Idle** (since the remote end is not yet configured).
 
-## Step 1: Create the Template File
+## Step 1: Create the template file
+
 
 First, create the `tftpl` directory and the template file using your **WSL Ubuntu terminal**:
 
@@ -101,7 +104,8 @@ This template uses:
     The file `bgp.yaml.tftpl` is located in the `tftpl/` folder, outside of the main `data/` folder. Even though the `tftpl/` folder is not included in the module configuration in `main.tf`, the template's content is still accessible because it is referenced in the template definition file that you'll create next.
 
 
-## Step 2: Create the Template Definition File
+## Step 2: Create the template definition file
+
 
 Create a new file `data/templates/bgp.nac.yaml` that defines the template:
 
@@ -122,7 +126,8 @@ iosxe:
 
 This separates the template definition from the device configuration, making it easier to manage and reuse.
 
-## Step 3: Apply the Template to Border Device
+## Step 3: Apply the template to border device
+
 
 Now open the existing `data/devices/border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
@@ -175,7 +180,8 @@ iosxe:
 !!! note "Device-Level Templates"
     Templates can be applied directly to individual devices, as shown here. This is ideal when a template is specific to a single device. For templates shared across multiple devices, you can use device groups (as shown with VLANs in Task07).
 
-## Step 4: Deploy the Configuration
+## Step 4: Deploy the configuration
+
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -203,7 +209,8 @@ When prompted, type `yes` to confirm the deployment.
     After running `terraform apply`, open the `model.yaml` file in VS Code to see how the BGP template file is rendered with your variables and merged into the complete data model. This shows exactly what configuration will be applied to the device.
 
 
-## Step 5: Verify BGP Configuration
+## Step 5: Verify BGP configuration
+
 
 !!! note "Expected: Idle for 30-60 seconds, then Established"
     BGP sessions do not come up instantly. After `terraform apply` finishes,
@@ -242,7 +249,8 @@ The **isp** neighbor shows as **Established** with 1 prefix received, while **is
     You can find the pre-configured BGP settings on the **isp** device in [Appendix IV](Appendix-IV.md) of this lab guide.
 
 
-### Advertised Network
+### Advertised network
+
 
 The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.8.0/24` to the **border** switch, to simulate internet connectivity. `8.8.8.8` is a loopback address configured on the **isp** device.
 

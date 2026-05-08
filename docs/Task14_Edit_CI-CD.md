@@ -13,7 +13,8 @@ By the end of this task you will have:
 - Added a `test-idempotency` job that runs `terraform plan -detailed-exitcode` to catch configuration drift
 - Read the test results as JUnit reports attached to the pipeline
 
-## Test Stage
+## Test stage
+
 
 Adding automated testing to your CI/CD pipeline ensures that:
 
@@ -26,7 +27,8 @@ You'll add two test jobs:
 - **`test-integration`** - Runs `nac-test` to verify configurations match expected state
 - **`test-idempotency`** - Runs `terraform plan` again to confirm no drift
 
-## Step 1: Open Pipeline Definition File
+## Step 1: Open pipeline definition file
+
 
 ??? info "How to Open Web IDE"
     1. Open GitLab in a new tab: [https://198.18.133.101](https://198.18.133.101)
@@ -45,7 +47,8 @@ In the Web IDE, click on `.gitlab-ci.yml` in the Explorer panel to open it for e
 </figure>
 
 
-## Step 2: Add the Test Stage
+## Step 2: Add the test stage
+
 
 Find the `stages` section at the top of the file. You need to add `test` between `deploy` and `notify`.
 
@@ -70,7 +73,8 @@ stages:
   - notify
 ```
 
-## Step 3: Add the Test-Integration Job
+## Step 3: Add the test-integration job
+
 
 After the `deploy` job section (around line 115), add the `test-integration` job. This job runs `nac-test` to verify your configurations.
 
@@ -105,7 +109,8 @@ test-integration:
 - `dependencies` and `needs`: Ensure this job runs after `deploy` completes
 - `only: main`: Only runs on the main branch (not merge requests)
 
-## Step 4: Add the Test-Idempotency Job
+## Step 4: Add the test-idempotency job
+
 
 Add another test job that verifies idempotency - running Terraform again should show no changes if the deployment was successful.
 
@@ -143,7 +148,8 @@ In the end, your test stage section should look like this:
     You can refer to [Appendix I](Appendix-I.md) for the complete `.gitlab-ci.yml` file with all changes included.
 
 
-## Step 5: Add ACL Configuration
+## Step 5: Add ACL configuration
+
 
 Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL configuration to test the pipeline.
 
@@ -151,7 +157,8 @@ Just as in [Task 11 - Post-checks](Task11_Post-checks.md), you will add the ACL 
 2. You may review the ACL configuration by opening the file - it defines the standard ACL named `AccessLayerACL` that you configured in [Task 4 - Device group configuration](Task04_Device_group_config.md). You will notice that additional entries have been added to the Access List.
 
 
-## Step 6: Commit Your Changes
+## Step 6: Commit your changes
+
 
 After making all the changes:
 
@@ -164,7 +171,8 @@ After making all the changes:
 4. Click **Commit and push to 'main'**
 
 
-## Step 7: Verify the Pipeline
+## Step 7: Verify the pipeline
+
 
 After committing, a new pipeline will automatically start. Navigate to **Build** → **Pipelines** and click on the pipeline showing **running** status to watch its progress.
 
@@ -186,7 +194,8 @@ End-to-end with the test stage, expect about **3-4 minutes** total. If `test` si
   ![Pipeline with Test Stage](./assets/gitlab-pipeline-with-tests.png){ width="100%" }
 </figure>
 
-## Step 8: Review Test Results
+## Step 8: Review test results
+
 
 - After the pipeline completes, click on the `test-integration` job to view the test results.
 - Review the logs to see the output of `nac-test`. You should see that all tests have passed successfully: `2 tests, 2 passed, 0 failed, 0 skipped.`
@@ -220,7 +229,8 @@ This is where GitLab displays the test results from the JUnit report. You should
 </figure>
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 - ✅ Added a test stage to the CI/CD pipeline
 - ✅ Configured integration tests with `nac-test`

@@ -27,6 +27,7 @@ For the full topology diagram and device inventory, see **[Topologies](Intro05_t
 
 ## Readiness check (2 minutes, before Task 01)
 
+
 Before sinking time into the first task, confirm the lab's three moving
 pieces are actually reachable. Run these from your **WSL Ubuntu**
 terminal inside the Win10 VM:

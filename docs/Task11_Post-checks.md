@@ -61,6 +61,7 @@ iosxe:
 
 ## Step 1: Copy the test files into your project
 
+
 The lab WSL image ships with a pre-built `tests/` directory under `~/tests/`. Copy it into your project:
 
 ```bash
@@ -87,7 +88,8 @@ Your project now has:
 
 The contents of `access_lists.robot` are shown in [Appendix III](Appendix-III.md) for reference.
 
-## Step 2: Have the Model File Ready
+## Step 2: Have the model file ready
+
 
 You will use the `model.yaml` file generated in the previous tasks as input to `nac-test`.
 
@@ -116,6 +118,7 @@ You will use the `model.yaml` file generated in the previous tasks as input to `
 
 ## Step 3: Install nac-test
 
+
 Install the **nac-test** tool using pip in your **WSL Ubuntu terminal**:
 
 ```bash
@@ -123,6 +126,7 @@ pip install nac-test
 ```
 
 ## Step 4: Run nac-test
+
 
 Once you have the model files and test templates in place, run the `nac-test` command in your **WSL Ubuntu terminal**:
 
@@ -155,7 +159,8 @@ nac-test \
 
     The tool itself doesn't care - `--output` just needs a writable directory.
 
-## Step 5: Review the Generated Robot Test
+## Step 5: Review the generated Robot test
+
 
 After running `nac-test`, check the generated test file:
 
@@ -215,7 +220,8 @@ Verify Standard Access List AccessLayerACL Device access02
 !!! note "Lines with no expected value"
     Assertions where the expected value is blank (e.g. `remark`, `host-address`) are no-ops - the keyword returns immediately when the value is empty. They appear because the Jinja2 template renders every possible field; only the fields you defined in YAML actually perform a check.
 
-## Step 6: Review the Test Results
+## Step 6: Review the test results
+
 
 The terminal output from `nac-test`, that you ran earlier in Step 4, shows the test execution:
 
@@ -265,10 +271,11 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
 
 ## Step 7: See a test fail (then fix it)
 
-The previous run passed because the device state matched the intent. To see the real value of post-checks, let's create a situation where they DON'T match.
+
+The previous run passed because the device state matched the intent. To see the real value of post-checks, you'll create a situation where they DON'T match.
 
 !!! warning "Artificial scenario"
-    In a real deployment, tests fail when Terraform silently fails to push configuration to a device (e.g. a NETCONF timeout, a device rejecting a commit, or a partial apply). Here, we'll simulate that by adding new intent to the data model and regenerating `model.yaml` without pushing the config to the devices first. This is unrealistic - normally `terraform apply` updates the model AND the devices in one step - but it clearly demonstrates what a failing test looks like.
+    In a real deployment, tests fail when Terraform silently fails to push configuration to a device (e.g. a NETCONF timeout, a device rejecting a commit, or a partial apply). Here, you'll simulate that by adding new intent to the data model and regenerating `model.yaml` without pushing the config to the devices first. This is unrealistic - normally `terraform apply` updates the model AND the devices in one step - but it clearly demonstrates what a failing test looks like.
 
 **Add a new ACL entry to your intent:**
 

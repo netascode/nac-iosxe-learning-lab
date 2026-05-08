@@ -16,6 +16,7 @@ By the end of this task you will have:
 
 ## First, what is Network as Code actually validating?
 
+
 Before `nac-validate` runs, it's useful to see what it's validating *against*. Network as Code doesn't look at your individual YAML files in isolation - it builds a **merged data model** by combining every YAML in `data/` according to precedence (Global → Group → Device), resolving variables and template references, then producing one entry per device:
 
 <figure markdown>
@@ -37,14 +38,16 @@ Schema validation verifies that your YAML configuration files:
 This is similar to how a compiler checks code before running it, catching errors at "build time" rather than "run time".
 
 
-## The nac-validate Tool
+## The nac-validate tool
+
 
 The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation.
 
 The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). However, this lab focuses only on the schema-based syntactic validation.
 
 
-## The Schema File
+## The schema file
+
 
 The complete schema for IOS XE Network as Code is documented on the [Cisco NetAsCode website](https://netascode.cisco.com/docs/data_models/iosxe/overview/). For this lab, [Appendix II](Appendix-II.md) contains only a subset of the schema relevant to the configurations you have deployed, including: global settings, devices, device groups, templates, banner, access lists, IP hosts, VLANs, BGP routing, and system settings. You can also find a copy of the schema in the WSL filesystem in the `~/schema/` directory.
 
@@ -106,7 +109,8 @@ Your project structure should now include:
     The formal rule is documented at [netascode.cisco.com/docs/guides/concepts/default_values/](https://netascode.cisco.com/docs/guides/concepts/default_values/). Practical implication: if something in `model.yaml` isn't what you expected, `defaults.yaml` is the first place to look - a module built-in may be setting the value you thought was empty.
 
 
-## Install the nac-validate Tool
+## Install the nac-validate tool
+
 
 First, install the **nac-validate** tool using pip in your **WSL Ubuntu terminal**:
 
@@ -120,7 +124,8 @@ Then add the local bin directory to your PATH:
 export PATH=$PATH:~/.local/bin
 ```
 
-## Run Schema Validation
+## Run schema validation
+
 
 Navigate to your project directory:
 
@@ -140,7 +145,8 @@ nac-validate -s .schema.yaml data/
 - **`-s .schema.yaml`** - Specifies the schema file to validate against
 - **`data/`** - The directory containing your YAML configuration files
 
-## Successful Validation
+## Successful validation
+
 
 If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
@@ -174,11 +180,13 @@ Each file in `data/` was loaded, parsed, and validated against the schema. This 
 - ✅ Data types are correct
 - ✅ Values are valid (e.g., IP addresses are properly formatted)
 
-## Validation Error Examples
+## Validation error examples
+
 
 Let's intentionally introduce errors to see how validation catches them.
 
-### Example 1: Invalid IP address
+### Example 1: invalid IP address
+
 
 If you accidentally typed an invalid IP like `198.51.100.1010` in `data/devices/core.nac.yaml` (the Loopback0 address from Task 05):
 
@@ -200,7 +208,8 @@ ERROR - Syntax error 'data/devices/core.nac.yaml':
 iosxe.devices.[name=core].configuration.interfaces.loopbacks.[id=0].ipv4.address: '198.51.100.1010' is not a ip.
 ```
 
-### Example 2: Wrong attribute name
+### Example 2: wrong attribute name
+
 
 If you misspelled an attribute like `banner` as `banners` in `data/global.nac.yaml`:
 
@@ -220,7 +229,8 @@ ERROR - Syntax error 'data/global.nac.yaml':
 iosxe.global.configuration.banners: Unexpected element
 ```
 
-### Example 3: Invalid enum value
+### Example 3: invalid enum value
+
 
 If you used an invalid action in an ACL in `data/groups/access.nac.yaml`:
 
@@ -251,7 +261,8 @@ If everything is correct, you'll get your prompt back with no output. If there a
     Correct the introduced typos in your YAML files and run `nac-validate -s .schema.yaml data/` again to confirm that all files are now correct. Don't continue until you have fixed the typos.
 
 
-## Common Validation Errors and Fixes
+## Common validation errors and fixes
+
 
 | Error Message                         | Cause                                         | Fix                                                  |
 |---------------------------------------|-----------------------------------------------|------------------------------------------------------|
@@ -263,7 +274,8 @@ If everything is correct, you'll get your prompt back with no output. If there a
 | `... is not a int`                    | Value is not an integer                       | Change value to an integer                           |
 | `... is not a list`                   | Expected a list but got something else        | Use YAML list format (`[]` or `-` before each item)  |
 
-## Integrating Validation into Your Workflow
+## Integrating validation into your workflow
+
 
 **Best practice workflow:**
 
@@ -329,7 +341,8 @@ The lab's `.schema.yaml` is a curated subset covering just the data-model paths 
 For more details on the `nac-validate` tool, see the official documentation [here](https://netascode.cisco.com/docs/tools/nac-validate/overview/).
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 In this task, you have:
 

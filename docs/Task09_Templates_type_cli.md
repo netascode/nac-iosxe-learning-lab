@@ -34,11 +34,13 @@ The CLI template type allows you to include raw IOS XE CLI commands that are app
 !!! warning "Use with Caution"
     Always prefer *model* and *file*  templates when possible. They provide dependency handling, better validation, consistency, and they are easier to maintain.
 
-## Use Case: Custom Alias for the `show logging` Command
+## Use case: custom alias for the `show logging` command
+
 
 In this example, you'll configure a custom alias command `logs` that maps to the `show logging` command. This is a simple yet practical use case demonstrating how to use *cli* templates to add commands not directly supported by the IOS XE as Code data model.
 
-## Step 1: Create the CLI Template
+## Step 1: Create the CLI template
+
 
 First, create the file using your **WSL Ubuntu terminal**:
 
@@ -62,7 +64,8 @@ This template:
 - `type: cli`: Specifies raw CLI commands
 - `content`: Contains the actual CLI command to create the alias
 
-## Step 2: Apply the Template to the global configuration
+## Step 2: Apply the template to the global configuration
+
 
 Now add the alias template to your existing global configuration so that it applies to all devices.
 
@@ -88,7 +91,8 @@ iosxe:
 ```
 
 
-## Step 3: Deploy the Configuration
+## Step 3: Deploy the configuration
+
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -115,7 +119,8 @@ When prompted, type `yes` to confirm the deployment.
 !!! tip "View the Merged Model"
     After running `terraform apply`, open the `model.yaml` file in VS Code to see how the alias_logs CLI template is merged with other configurations.
 
-## Step 4: Verify the Configuration
+## Step 4: Verify the configuration
+
 
 Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` switch) and verify that the alias command was successfully added.
 
@@ -139,7 +144,8 @@ core#
 
 You can also test the alias by running `logs` from exec mode.
 
-## When to Use Each Template Type
+## When to use each template type
+
 
 
 | Scenario                                                                    | Recommended Type |
@@ -149,7 +155,8 @@ You can also test the alias by running `logs` from exec mode.
 | Last resort for features not yet supported in the data model                | `cli`            |
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 - ✅ Created a `cli` type template with a raw CLI command
 - ✅ Applied the template to all devices via global configuration

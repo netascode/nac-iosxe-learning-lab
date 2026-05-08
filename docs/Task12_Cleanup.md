@@ -17,7 +17,8 @@ By the end of this task you will have:
 
     Please take a moment and check your remaining time to decide whether to proceed to the CI/CD section or spend more time on the optional tasks.
 
-## Why Clean Up?
+## Why clean up?
+
 
 In the previous tasks, you:
 
@@ -30,7 +31,8 @@ Starting from the next task, you'll use **GitLab CI/CD pipelines** to automate a
 1. **Remove configurations from devices** - Undo the changes made during manual tasks
 2. **(Optionally) Delete local files** - You may clean up the manually created project folder as it's no longer needed
 
-## Step 1: Destroy Terraform Resources
+## Step 1: Destroy Terraform resources
+
 
 First, remove all configurations that Terraform deployed to the IOS XE devices. Open your WSL Ubuntu terminal.
 
@@ -81,7 +83,8 @@ When prompted, type `yes` to confirm. Terraform will:
 
     `managed_devices = []` (the default, or omitting the variable) means "all registered devices" - which is the behavior you're using in this lab.
 
-## Step 2: Verify Network as Code Configurations Are Removed (Optional)
+## Step 2: Verify Network as Code configurations are removed (optional)
+
 
 You can use **Solar-PuTTY** to connect to one of the devices and verify the configurations have been removed. As you did in Task 01, double-click on the **core** switch to connect.
 
@@ -95,7 +98,8 @@ show running-config
     If you completed [Task 06 - Variables](Task06_Variables.md), the hostnames revert to default (for example, `Switch` or `Router`). Running `terraform destroy` removes all changes made during the lab, reverting to defaults even if they were pre-configured manually before Terraform. Don't worry, the hostnames will be re-applied in the next task.
 
 
-## Step 3: Delete the Local Project Folder (Optional)
+## Step 3: Delete the local project folder (optional)
+
 
 If you wish, you may also remove the manually created project folder, `nac-iosxe`, as it's no longer needed.
 
@@ -128,18 +132,21 @@ If you wish, you may also remove the manually created project folder, `nac-iosxe
     You should no longer see the `nac-iosxe` folder listed.
 
 
-## Step 4: Close VS Code and WSL Terminal
+## Step 4: Close VS Code and WSL terminal
+
 
 In the next tasks, you will no longer need VS Code and the WSL Ubuntu terminal. You can close both applications now.
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 - ✅ Removed all Terraform-deployed configurations from IOS XE devices
 - ✅ (Optionally) deleted the manually created project folder
 - ✅ Prepared a clean environment for CI/CD automation
 
-## Next Steps
+## Next steps
+
 
 In the next task, you'll work with **GitLab** to:
 

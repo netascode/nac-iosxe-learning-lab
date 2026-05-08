@@ -2,7 +2,7 @@
 
 **Estimated Time to Complete:** ~10 minutes
 
-Before we deploy any Network as Code configuration, let's confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
+Before you deploy any Network as Code configuration, you'll confirm baseline connectivity to the IOS XE lab devices and see what's already on them. You'll use Solar-PuTTY to SSH into each device, verify the running configuration, and identify the minimal "seed" config that makes Terraform-driven automation possible.
 
 ## What you'll learn
 
@@ -30,6 +30,7 @@ NETCONF separates the change you're describing (candidate datastore) from the co
 That's the whole "transactional" story in one picture: a broken `apply` can't leave a device half-configured, because "half-configured" isn't a state NETCONF allows. RESTCONF has no equivalent - it writes directly to `running`, one HTTP call per resource. A mid-batch failure leaves whatever the successful calls produced.
 
 ## Open Solar-PuTTY
+
 
 Solar-PuTTY is an enhanced SSH client with a tabbed interface for managing multiple device connections. It's pre-installed on the Win10 VM.
 

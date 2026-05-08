@@ -19,6 +19,7 @@ Network as Code manages the top four. The rest are pre-configured and used for v
 
 ## Lab VMs
 
+
 | VM | Address | User | Pass | Access |
 |----|---------|------|------|--------|
 | Windows 10 | `198.18.133.20`  | admin  | cisco       | RDP |
@@ -29,6 +30,7 @@ Network as Code manages the top four. The rest are pre-configured and used for v
 GitLab and Ubuntu share the host (same `198.18.133.101`), different services.
 
 ## Automation seed config (on each Network as Code-managed device)
+
 
 ```text
 username nac_admin privilege 15 secret cisco

@@ -12,7 +12,8 @@ By the end of this task you will have:
 - Applied a standard ACL to the group via a single YAML file
 - Confirmed the ACL landed on `access01` + `access02` only (not `core` or `border`)
 
-## Device Groups
+## Device groups
+
 
 Device groups provide a mechanism for applying configurations to multiple devices without repeating the same settings for each device.
 
@@ -23,14 +24,16 @@ Device groups are particularly effective for:
 - **Service deployment**: Rolling out consistent service configurations across multiple devices
 - **Security policies**: Applying common ACLs or security settings to device groups
 
-## Use Case: Standard ACL for Access Switches
+## Use case: standard ACL for access switches
+
 
 In this example, you'll create a device group called **ACCESS_SWITCHES** that includes the **access01** and **access02** switches. These switches need a standard ACL to permit traffic from specific network ranges (`10.0.0.0/24` and `20.0.0.0/24`) - a typical requirement for access layer devices controlling traffic from known networks.
 
 !!! note "The power of Device Groups: Scalability"
     Using device groups may appear unnecessary for just two access switches - in this example. However, consider a large network with more than 1,000 access switches. Utilizing device groups helps keep the configuration organized and scalable.
 
-## Step 1: Create the Device Group Configuration File
+## Step 1: Create the device group configuration file
+
 
 First, create the file using your **WSL Ubuntu terminal**:
 
@@ -69,7 +72,8 @@ The image below illustrates the ACL configuration in VS Code:
   ![VS Code ACL Configuration](./assets/vscode-acl.png){ width="100%" }
 </figure>
 
-### Configuration Breakdown
+### Configuration breakdown
+
 
 Let's break down the key elements:
 
@@ -125,7 +129,8 @@ Let's break down the key elements:
     Standard ACLs filter traffic based on source IP address only. There's an implicit deny at the end of every ACL, so traffic from any other networks will be denied.
 
 
-## How Device Groups Work
+## How device groups work
+
 
 When Terraform processes this configuration:
 
@@ -140,7 +145,8 @@ This hierarchical approach ensures:
 - Scalability (add more switches by just adding them to the group's device list)
 
 
-## Step 2: Apply Access-list Configuration
+## Step 2: Apply access-list configuration
+
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the ACL configuration to the device group:
 
@@ -170,7 +176,8 @@ When prompted, type `yes` to confirm the deployment. Terraform will create the s
   ![Terraform ACL Apply](./assets/terraform-acl-apply.png){ width="80%" }
 </figure>
 
-## Step 3: Verify Device Group Configuration
+## Step 3: Verify device group configuration
+
 
 After successfully running `terraform apply`, verify that the ACL was deployed only to the switches in the **ACCESS_SWITCHES** group.
 
@@ -213,7 +220,8 @@ This confirms the standard ACL was successfully deployed to both **access01** an
     The ACL only appears on devices that are members of the **ACCESS_SWITCHES** group. If you check border or core switches (not in the group), they won't have this ACL, demonstrating the selective deployment capability of device groups.
 
 
-## Generated Model File
+## Generated model file
+
 
 When Terraform applies your configuration, the Network as Code module performs a deep merge of all your YAML files - global configuration, device group configuration, and device-specific configuration - into a single per-device view. The result is written to `model.yaml` (because you set `write_model_file = "model.yaml"` in `main.tf`).
 
@@ -236,7 +244,8 @@ Open `model.yaml` in VS Code to see the result. Notice how the ACL from the **AC
 - **Transparency** - rather than trusting the module as a black box, you can inspect the fully resolved intent for every device in one file.
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 In this task, you have:
 

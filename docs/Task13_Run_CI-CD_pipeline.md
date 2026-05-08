@@ -48,6 +48,7 @@ Same pipeline definition, different behavior per branch - a simple pattern that 
 
 ## Step 1: Access GitLab
 
+
 In **Chrome**, navigate to GitLab - open the following link in a new tab:
 
 [https://198.18.133.101](https://198.18.133.101)
@@ -67,7 +68,8 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
     The screenshots in Tasks 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
 
 
-## Step 2: Navigate to the NaC-IOSXE Project
+## Step 2: Navigate to the NaC-IOSXE project
+
 
 After logging in, you'll see the GitLab dashboard. Click on the **netascode/nac-iosxe-terraform** project to open it.
 
@@ -88,9 +90,10 @@ The project page shows your repository files, including:
   ![Project Files](./assets/gitlab-project-files.png){ width="100%" }
 </figure>
 
-## CI/CD Pipeline Configuration
+## CI/CD pipeline configuration
 
-Before running the pipeline, let's understand how it's configured. Click on `.gitlab-ci.yml` to view the pipeline definition:
+
+Before running the pipeline, understand how it's configured first. Click on `.gitlab-ci.yml` to view the pipeline definition:
 
 <figure markdown>
   ![Pipeline YAML](./assets/gitlab-ci-yml.png){ width="100%" }
@@ -180,7 +183,8 @@ success:
     If you're interested in implementing notifications, reach out to your instructors for guidance.
 
 
-## View Existing Pipelines
+## View existing pipelines
+
 
 To see the pipeline history, navigate to **Build** → **Pipelines** in the left sidebar.
 
@@ -196,7 +200,8 @@ You'll see a list of past pipeline runs with their status (passed, failed, runni
 
 
 
-## State File Management
+## State file management
+
 
 Navigate to Home (GitLab icon in the top left), select **netascode/nac-iosxe-terraform**, then open the `main.tf` file.
 
@@ -218,7 +223,8 @@ For more details on how this is set up, refer to the [GitLab Docs](https://docs.
 
 
 
-## Step 3: Make a Change
+## Step 3: Make a change
+
 
 !!! danger "This step deploys real configuration to the lab devices"
     The moment you commit to `main`, the pipeline's **deploy** stage runs `terraform apply` against the CML devices over NETCONF - exactly like you did by hand in Task 03. The first pipeline run after Task 12 will re-push global + per-device config to all four switches. That's expected here (the whole point of Task 13) but worth naming explicitly: **you are about to trigger a real device change from a web UI**. In production, this is exactly the power commit-to-main protected branches are meant to gate (Task 15 covers that).
@@ -227,7 +233,8 @@ The best way to see the CI/CD pipeline in action is to make a configuration chan
 You'll add the global configuration (from [Task 03 - Global Configuration](Task03_Global_configuration.md) and [Task 06 - Variables](Task06_Variables.md)). This includes the login banner and hostnames.
 To edit the configuration files, you'll use GitLab's built-in **Web IDE** - an editor similar to VS Code that runs directly in your browser.
 
-### Open the Web IDE
+### Open the web IDE
+
 
 1. From the project page, click the **Edit** dropdown button (with a pencil icon)
 2. Select **Web IDE**
@@ -254,7 +261,8 @@ The only files that are currently **not** ignored are the four per-device regist
 For this task, you'll rename one more file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
 
 
-### Add Global Configuration
+### Add global configuration
+
 
 1. In the file explorer (left panel), navigate to the **data** folder
 2. Find the file `global.nac.yaml_` (note the underscore at the end)
@@ -290,7 +298,8 @@ Optionally, you can also change the banner text to something new, if you'd like.
   ![Edit Banner in Web IDE](./assets/gitlab-webide-edit-banner.png){ width="100%" }
 </figure> -->
 
-## Step 4: Commit Change to Trigger Pipeline
+## Step 4: Commit change to trigger pipeline
+
 
 <figure markdown>
   ![Select Source Control](./assets/gitlab-webide-select-source-control.png){ width="100%" }
@@ -313,7 +322,8 @@ Optionally, you can also change the banner text to something new, if you'd like.
 !!! info "Pipeline Auto-Trigger"
     When you commit to the `main` branch, GitLab automatically triggers the CI/CD pipeline. No manual action required!
 
-## Step 5: Monitor Pipeline Execution
+## Step 5: Monitor pipeline execution
+
 
 To view the pipeline progress, navigate to **Build** → **Pipelines** in the left sidebar, then click on the top pipeline showing **running** status.
 
@@ -343,7 +353,8 @@ Click on any stage to view its detailed logs.
   ![Job Logs](./assets/gitlab-job-logs.png){ width="100%" }
 </figure>
 
-## Step 6: Verify Pipeline Success
+## Step 6: Verify pipeline success
+
 
 When all stages complete successfully, the pipeline shows a green **passed** status.
 
@@ -382,7 +393,8 @@ because it comes straight from the Terraform engine's own accounting.
 </figure>
 
 
-## Validation Test (Optional)
+## Validation test (optional)
+
 
 Additionally, you can test the validation stage by introducing an error in the configuration, just like in [Task 10 - Schema Validation](Task10_Schema_validation.md).
 
@@ -437,7 +449,8 @@ If your pipeline shows a red **failed** status, click into the failing job to se
     Locally, the same env vars work in your shell: `TF_LOG=DEBUG terraform plan`. Turn it off (`unset TF_LOG`) once you've found the problem - debug output is verbose.
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 - ✅ Accessed GitLab and navigated to the NaC-IOSXE project
 - ✅ Understood the CI/CD pipeline configuration
@@ -448,7 +461,8 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
 **← Previous:** [Task 12 - Cleanup](Task12_Cleanup.md)
 
-## Next Steps
+## Next steps
+
 
 You can explore **optional** advanced CI/CD tasks or proceed to the **conclusion**:
 

@@ -14,6 +14,7 @@ By the end of this task you will have:
 
 ## Variables in Network as Code
 
+
 Variables in Network as Code work similarly to variables in programming languages. You define a variable with a value at one level (device, device group, or global), and then reference it elsewhere using the `${VARIABLE_NAME}` syntax. When the Network as Code module processes your configuration, it substitutes the variable references with their actual values.
 
 **Benefits of using variables:**
@@ -23,7 +24,8 @@ Variables in Network as Code work similarly to variables in programming language
 - **Reusability**: Same configuration template can be used with different variable values
 - **Device-specific customization**: Each device can have its own variable values while sharing configuration structure
 
-## Use Case: Dynamic Hostname in Banner and System Hostname Config
+## Use case: dynamic hostname in banner and system hostname config
+
 
 In this example, you'll touch two different pieces of configuration on each device: the hostname and the login banner.
 
@@ -41,9 +43,10 @@ In this example, you'll touch two different pieces of configuration on each devi
     One place to define the hostname variable per device, used in multiple configuration sections.
 
 
-## Step 1: Update the Global Configuration File
+## Step 1: Update the global configuration file
 
-First, let's update the global configuration to use a variable in the banner. Open `data/global.nac.yaml` in VS Code and update it with the following content:
+
+First, update the global configuration to use a variable in the banner. Open `data/global.nac.yaml` in VS Code and update it with the following content:
 
 ```yaml title="data/global.nac.yaml" hl_lines="4 5 14 15 17"
 ---
@@ -93,7 +96,8 @@ The image below illustrates the updated global configuration in VS Code:
 
     To learn more about the multi-line string (block scalar) YAML syntax, refer to [yaml-multiline.info](https://yaml-multiline.info/).
 
-## Step 2: Define Variables at Device Level
+## Step 2: Define variables at device level
+
 
 Now you need to define the `HOSTNAME` variable for each device. Open `data/devices/core.nac.yaml` in VS Code and update it with the following content:
 
@@ -126,7 +130,8 @@ The image below illustrates the device configuration with variables in VS Code:
   ![VS Code Device Variables](./assets/vscode-core-config-variables.png){ width="100%" }
 </figure>
 
-## Step 3: Add Variables to Other Devices
+## Step 3: Add variables to other devices
+
 
 Now add the `HOSTNAME` variable to the other device configuration files.
 
@@ -170,7 +175,8 @@ iosxe:
     The `name` attribute under `devices` identifies the device in Network as Code. The `HOSTNAME` variable value you set is what will be used in the system hostname and banner configuration. They can be the same or different, depending on your design.
 
 
-## How Variable Substitution Works
+## How variable substitution works
+
 
 When Terraform processes your configuration, it performs variable substitution at each level, for each device.
 
@@ -213,7 +219,8 @@ When Terraform processes your configuration, it performs variable substitution a
     produces `hostname: access02`, `hostname: core`, and `hostname:
     border` respectively - same template, four different results.
 
-## Variable Precedence
+## Variable precedence
+
 
 Variables can be defined at multiple levels. When the same variable is defined at different levels, the more specific level takes precedence:
 
@@ -240,7 +247,8 @@ This allows you to define default values globally and override them per device o
     ```
 
 
-## Step 4: Apply Configuration
+## Step 4: Apply configuration
+
 
 Open your WSL Ubuntu terminal and navigate to your project directory:
 
@@ -263,7 +271,8 @@ When prompted, type `yes` to confirm the deployment.
 
 
 
-## Step 5: Verify Variable Substitution
+## Step 5: Verify variable substitution
+
 
 After Terraform completes successfully, verify the configuration was applied correctly on each device.
 
@@ -328,7 +337,8 @@ Variables are powerful for many scenarios beyond hostnames (device identity). He
 | **Thresholds**       | `${LOG_LEVEL}`, `${TIMEOUT}`   | Environment-specific tuning       |
 
 
-## Environment Variables
+## Environment variables
+
 
 Environment variables can also be used in Network as Code configurations. They are defined outside of the configuration files and can be referenced using the syntax below:
 
@@ -353,7 +363,8 @@ In the example above, the `ENABLE_SECRET` environment variable is referenced and
     Using environment variables is good practice for sensitive information like passwords.
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 In this task, you have:
 

@@ -25,7 +25,8 @@ In real-world scenarios, many engineers collaborate on the same codebase. To ens
     Committing directly to the `main` branch (as done in earlier tasks) is generally **not recommended** in production environments. This task teaches you the proper way to manage changes using branches and merge requests.
 
 
-## Lab Exercise: Complete Branch and Merge Request Workflow
+## Lab exercise: complete branch and merge request workflow
+
 
 In this exercise, you will:
 
@@ -46,12 +47,14 @@ In this exercise, you will:
     Different version control platforms use different terminology. In GitLab, the term is **Merge Request (MR)**, while in GitHub, it's called a **Pull Request (PR)**. Both serve the same purpose: to propose changes from one branch to another and facilitate code review.
 
 
-## Step 1: Protect the Main Branch
+## Step 1: Protect the main branch
+
 
 First, you'll set up branch protection of the `main` branch. This means that you can no longer push changes directly to `main`; instead, all changes must go through a merge request (MR) process.
 
 
-### What is a Protected Branch?
+### What is a protected branch?
+
 
 A **protected branch** is a branch with restrictions that prevent accidental or unauthorized changes. When you protect the `main` branch:
 
@@ -60,7 +63,8 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
 - **Merge requests are required**: All changes must go through the review/approval process
 
 
-### Configure Main Branch Protection
+### Configure main branch protection
+
 
 **Access GitLab**
 
@@ -102,7 +106,8 @@ A **protected branch** is a branch with restrictions that prevent accidental or 
     By default, GitLab protects the `main` branch, but as you already saw, direct pushes are still allowed from maintainers. In this lab, the user `root` is a maintainer, so you need to explicitly block direct pushes to enforce the MR workflow.
 
 
-### Verify Branch Protection
+### Verify branch protection
+
 
 To confirm that the `main` branch is protected:
 
@@ -123,7 +128,8 @@ To confirm that the `main` branch is protected:
     You should see an error message indicating that pushing to the protected branch is not allowed. This confirms that the `main` branch is successfully protected.
 
 
-## Step 2: Create a Feature Branch and Commit Changes
+## Step 2: Create a feature branch and commit changes
+
 
 In the previous step, the Web IDE already prompted you to create a new branch when you tried to commit to `main`.
 
@@ -156,7 +162,8 @@ In the previous step, the Web IDE already prompted you to create a new branch wh
     This makes it easy to see what each branch contains without looking at the code.
 
 
-## Step 3: Create Merge Request
+## Step 3: Create merge request
+
 
 After committing to your feature branch, you need to create a merge request to propose merging your changes into main. Luckily, the GitLab Web IDE makes this very easy too: after pushing the commit, it shows a prompt to create a merge request.
 
@@ -190,7 +197,8 @@ The merge request is now created! You should see the merge request page with det
 </figure>
 
 
-## Step 4: Observe the First Pipeline (Validate + Plan)
+## Step 4: Observe the first pipeline (validate + plan)
+
 
 When you create the merge request, GitLab automatically triggers the same pipeline used in the previous tasks. However, since this is a merge request, the pipeline only runs the **validate** and **plan** stages - it does NOT deploy anything yet.
 
@@ -218,7 +226,8 @@ The **plan** stage also adds the terraform plan output as a comment to the merge
 </figure>
 
 
-## Step 5: Review and Approve the Merge Request
+## Step 5: Review and approve the merge request
+
 
 This is your opportunity to verify that the changes are correct before approving! In this case, you can see that the IP host entries will be added on the **core** switch.
 
@@ -232,7 +241,8 @@ In this lab, the approval step is not required to merge. In production environme
     You can also set up the project to require successful pipeline completion, and potentially perform other checks before allowing the merge.
 
 
-## Step 6: Merge to Main
+## Step 6: Merge to main
+
 
 !!! warning "Verify Pipeline Passed"
     Before merging, ensure that the pipeline completed successfully, all stages passed, the config and the plan looks good.
@@ -250,7 +260,8 @@ You can now merge the changes into `main`.
     Your changes are now on `main`. Because `main` is the deployed branch, this automatically triggers the full deployment pipeline (validate + plan + deploy + test + notify).
 
 
-## Step 7: Observe the Deployment Pipeline
+## Step 7: Observe the deployment pipeline
+
 
 Merging to main triggers a new pipeline - this time including the deployment and test stages. This pipeline is identical to the one run in Tasks 13 and 14.
 
@@ -310,7 +321,8 @@ what Terraform actually pushed - useful for audit purposes once you
 take this pattern to production.
 
 
-## Troubleshooting - Common Issues
+## Troubleshooting - common issues
+
 
 ??? failure "You cannot push to this branch"
     This means the branch protection is working! Create a feature branch instead of trying to push to main directly.
@@ -349,7 +361,8 @@ If you need help, feel free to ask your instructors!
 
 ---
 
-## What You've Accomplished
+## What you've accomplished
+
 
 In this task, you have:
 

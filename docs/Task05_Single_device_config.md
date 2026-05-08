@@ -38,6 +38,7 @@ Only `core` will receive this. The other three devices (`border`, `access01`, `a
 
 ## Step 1: Add device-specific configuration
 
+
 You already created a per-device file for `core` in [Task 02](Task02_Editing_YAML_files.md) - you'll extend it now by adding a `configuration:` block. The file currently registers `core` with Network as Code; adding `configuration:` tells Network as Code what to actually push to that specific device.
 
 Open `data/devices/core.nac.yaml` in VS Code and replace its contents with:
@@ -105,7 +106,8 @@ Your `data/` folder now contains one file per configuration concern:
     This is how the lab guide organizes things. In your own projects, organize however makes sense for your team - `nac-validate` and the NaC module don't care about file boundaries, only about the merged data model.
 
 
-## Step 2: Apply Device-Specific Configuration
+## Step 2: Apply device-specific configuration
+
 
 Open your WSL Ubuntu terminal and run the following steps:
 
@@ -139,6 +141,7 @@ When prompted, type `yes` to confirm the deployment. Terraform will create `Loop
 </figure>
 
 ## Step 3: Verify the device-specific configuration
+
 
 After `terraform apply` finishes, verify that `Loopback0` exists on `core` and **only** on `core`.
 
@@ -191,7 +194,8 @@ The command should return no output - confirming that `Loopback0` was not config
     `Loopback0` only appears on `core` because you declared it inside that device's per-device file. This is the essence of device-specific configuration: the YAML scope **is** the deployment scope.
 
 
-## Configuration Hierarchy Comparison
+## Configuration hierarchy comparison
+
 
 Now that you've completed Tasks 03, 04, and 05, you've experienced all three levels of the configuration hierarchy. Here's a summary:
 
@@ -208,7 +212,8 @@ In case of conflicting settings, the higher precedence level overrides the lower
   ![Configuration Hierarchy](./assets/config-hierarchy-dark.png#only-dark){ width="100%" }
 </figure>
 
-## When to Use Each Configuration Level
+## When to use each configuration level
+
 
 | Use Case                                                      | Recommended Level |
 |---------------------------------------------------------------|-------------------|

@@ -2,6 +2,7 @@ This step-by-step guide walks you through the **Network as Code for IOS XE** lab
 
 ## What is Network as Code?
 
+
 **Network as Code (NaC)** is a methodology that applies DevOps principles to network management through declarative data models. Rather than writing scripts or clicking through GUIs, network engineers describe their intended network state in human-readable YAML files. The Network as Code toolchain - built on Terraform - handles the how: translating intent into device-specific configuration, tracking state, and pushing only what changed.
 
 Network as Code is an umbrella that spans multiple Cisco platforms and architectures. Each platform has its own Terraform module and provider, but they all share the same methodology: YAML intent files → Terraform module → platform provider → device. The [supported platforms](https://netascode.cisco.com/resources/supported_products) include ACI, Catalyst SD-WAN, Meraki, Catalyst Center, ISE, NX-OS, IOS XR, and - the focus of this lab - **IOS XE**.

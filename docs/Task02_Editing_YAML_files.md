@@ -20,7 +20,8 @@ You'll create a dedicated project directory in your Windows Subsystem for Linux 
 
 Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly on Windows without a virtual machine. WSL is pre-installed in this lab, and you'll use it to run Terraform commands because most DevOps tools are designed for Linux.
 
-### Open WSL Terminal (Ubuntu)
+### Open WSL terminal (Ubuntu)
+
 
 Open Windows Subsystem for Linux (WSL) terminal. You can use the desktop shortcut, the icon on the taskbar, or on the Start menu.
 
@@ -96,12 +97,13 @@ touch data/devices/access01.nac.yaml
 touch data/devices/access02.nac.yaml
 ```
 
-One file per device is the pattern we'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
+One file per device is the pattern you'll use for the whole lab. It keeps each device's configuration self-contained and makes it obvious which YAML file to edit when you need to change something for a specific device.
 
 !!! note "Why one file per device, not a single inventory file?"
     The IOS XE as Code data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time - **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
 
 ### How Network as Code merges YAML: the three rules
+
 
 Network as Code's file-merging behavior is [formally documented](https://netascode.cisco.com/docs/guides/concepts/merging_yaml/). Three rules govern what happens when two YAML files in `data/` touch the same structure:
 
@@ -144,6 +146,7 @@ You're now ready to populate the files. Every subsequent step in this guide assu
 
 ## Open Visual Studio Code
 
+
 Now that the project structure exists, you'll open it in VS Code to edit the files.
 
 ### What is VS Code?
@@ -164,7 +167,8 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 - **Multi-file editing** - Work with multiple configuration files simultaneously
 - **File explorer** - Easy navigation through project folders and files
 
-### YAML Linting with RedHat Extension (pre-installed)
+### YAML linting with RedHat extension (pre-installed)
+
 
 Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files. This extension is already installed in your lab's VS Code - no action required.
 

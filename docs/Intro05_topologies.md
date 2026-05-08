@@ -1,6 +1,7 @@
 # Lab topologies
 
-## Lab Devices
+## Lab devices
+
 
 The following devices are available in the Cisco Modeling Labs (CML) topology.
 
@@ -29,6 +30,7 @@ The following devices are available in the Cisco Modeling Labs (CML) topology.
 ---
 
 ## Lab VMs
+
 
 | Device            | IP Address     | Username | Password   | Interface                     |
 |-------------------|----------------|----------|------------|-------------------------------|

@@ -1,4 +1,5 @@
-## Schema Reference (Lab Features Only)
+## Schema reference (lab features only)
+
 
 !!! info "This is a ~15% slice of the full schema"
     The full IOS XE as Code data model schema covers ~249 top-level configuration keys. This appendix includes only the ~38 keys the lab actually uses (global, devices, device_groups, templates, banner, access_lists, ip_hosts, loopbacks, vlan, bgp, system, aliases). For the complete data model - including MACsec, DMVPN, QoS, HSRP/VRRP, MPLS, IS-IS, EIGRP, multicast, AAA/TACACS/RADIUS, STP, 802.1X, SNMP, EEM, segment routing, EVPN, and more - browse [netascode.cisco.com/docs/data_models/iosxe/overview/](https://netascode.cisco.com/docs/data_models/iosxe/overview/).

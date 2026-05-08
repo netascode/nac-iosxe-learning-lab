@@ -1,4 +1,5 @@
-## GitLab CI/CD Pipeline Definition File
+## GitLab CI/CD pipeline definition file
+
 
 Here is the final `.gitlab-ci.yml` file including the test stage from [Task 14 - Edit CI/CD](Task14_Edit_CI-CD.md):
 

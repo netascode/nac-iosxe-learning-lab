@@ -12,7 +12,8 @@ By the end of this task you will have:
 - Run the full Terraform workflow end-to-end: `init` → `plan` → `apply`
 - Verified the deployed banner by SSH-ing to each device
 
-## Global Configuration
+## Global configuration
+
 
 Global configurations define network-wide settings that apply to all devices unless explicitly overridden at the device group or device level. The configuration precedence hierarchy works as follows:
 
@@ -22,7 +23,8 @@ Global configurations define network-wide settings that apply to all devices unl
 
 By placing the banner in the `global` section, it will automatically apply to all devices listed in your configuration, ensuring consistency without duplication.
 
-## Create the Global Configuration File
+## Create the global configuration file
+
 
 First, create the global configuration file using your **WSL Ubuntu terminal**:
 
@@ -66,7 +68,8 @@ The figure below illustrates how to create the `data/global.nac.yaml` file with 
 </figure>
 
 
-## Documentation Reference
+## Documentation reference
+
 
 But how do you know what configuration options are supported, and what the correct YAML structure is?
 
@@ -80,11 +83,12 @@ Specifically, the banner configuration is described here: [IOS XE Banner Configu
 You can refer to this documentation at any time for more details on available configuration options, data types and guides. The curated configuration examples provide excellent references to help you create your own configurations.
 
 
-## Applying Configuration with Terraform CLI
+## Applying configuration with Terraform CLI
+
 
 Now that you've created your configuration files, it's time to deploy them to your network devices using Terraform. Terraform follows a simple three-step workflow that ensures safe and predictable infrastructure changes.
 
-## Terraform Workflow
+## Terraform workflow
 
 Terraform uses a declarative approach where you define the desired state (in your YAML files), and Terraform figures out how to achieve that state. There are four moving parts:
 
@@ -117,7 +121,8 @@ Of the three commands, only `apply` (and its counterpart `destroy`) change anyth
     in the same scenario still SSHs every device to re-read config before
     it can reach the same conclusion.
 
-### Step 1: In WSL (Ubuntu) and Navigate to Your Project
+### Step 1: In WSL (Ubuntu) and navigate to your project
+
 
 In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
 
@@ -155,7 +160,8 @@ cisco@wkst1:~/nac-iosxe$ tree -a
 cisco@wkst1:~/nac-iosxe$
 ```
 
-### Step 2: Load Environment Variables from .env File
+### Step 2: Load environment variables from .env file
+
 
 Before running Terraform, you need to load the credentials from your `.env` file. Your `.env` file contains simple key-value pairs (e.g. `IOSXE_USERNAME=nac_admin`).
 
@@ -220,6 +226,7 @@ This appends the source command to your `~/.bashrc` file. Now every time you ope
 
 ### Step 3: Verify NETCONF reachability
 
+
 Before running Terraform, confirm the NETCONF subsystem is up on one of the lab devices. NETCONF listens on TCP/830 by default, and the simplest way to check it from WSL is a one-shot SSH handshake against the `netconf` subsystem - the device replies with an XML `<hello>` message containing its supported capabilities.
 
 Test against **access01** (`198.18.130.11`):
@@ -257,6 +264,7 @@ If you see the `<hello>` XML with a capability list, NETCONF is reachable and yo
 
 
 ### Step 4: Initialize Terraform
+
 
 Initialize your Terraform project to download the required Network as Code module:
 
@@ -335,7 +343,8 @@ terraform init
     To upgrade to a newer version of a module or provider in a production environment, you would update the version reference in your `main.tf` (e.g. change `?ref=v0.12.3` to `?ref=v0.13.0`), then run `terraform init -upgrade` to pull the new version. However, in this lab environment, there is no need to change version references or run `terraform init -upgrade`.
 
 
-### Step 5: Preview Changes with Terraform Plan
+### Step 5: Preview changes with Terraform plan
+
 
 Before applying any changes to the lab devices, preview what Terraform will do:
 
@@ -366,7 +375,8 @@ In this case, you will configure the login banner on all four devices. Terraform
     You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations - they're local files the NaC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
 
 
-### Step 6: Apply Configuration to Devices
+### Step 6: Apply configuration to devices
+
 
 If the plan looks good, apply the configuration:
 
@@ -454,7 +464,8 @@ Type `yes` and press Enter to proceed.
     For this lab you can leave it at the default (`false`) - the lab devices don't reboot. For your own devices at home, turn it on before you walk away from the terminal.
 
 
-### Step 7: Verify the Global Configuration
+### Step 7: Verify the global configuration
+
 
 After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four switches automatically.
 
@@ -532,7 +543,7 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
     | `terraform validate`             | Check configuration syntax              |
 
 
-## Terraform State
+## Terraform state
 
 After running `terraform apply`, Terraform creates a `terraform.tfstate` file that tracks:
 
@@ -557,7 +568,8 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
 
 
 
-## Troubleshooting Common Issues
+## Troubleshooting common issues
+
 
 ??? failure "Error: Failed to connect to device"
     **Solution:** Verify your device host address is correct and the device is reachable.
@@ -569,7 +581,8 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
     **Solution:** Run `terraform init` again to download the required modules
 
 
-## What You've Accomplished
+## What you've accomplished
+
 
 Congratulations! You've successfully:
 
@@ -579,7 +592,8 @@ Congratulations! You've successfully:
 - ✅ Applied configuration to your network devices with `terraform apply`
 - ✅ Verified the banner on your devices
 
-## What's Next?
+## What's next?
+
 
 In the next task, you'll learn how to use device groups to apply configurations to multiple devices efficiently.
 
