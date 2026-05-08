@@ -179,6 +179,40 @@ When Terraform processes your configuration, it performs variable substitution a
   ![Variable Substitution](./assets/variable-substitution-dark.png#only-dark){ width="100%" }
 </figure>
 
+??? example "What `access01` actually ends up with after substitution"
+    After you run `terraform apply` in Step 4, open `model.yaml`. The
+    `access01` entry will have every `${HOSTNAME}` reference already
+    replaced with the literal string - no variable markers remain in the
+    final model:
+
+    ```yaml { title="model.yaml (excerpt — access01 after resolution)" .no-copy }
+    iosxe:
+      devices:
+        - name: access01
+          host: 198.18.130.11
+          configuration:
+            banner:
+              login: |
+                ######################################
+                #                                    #
+                #   Welcome to Network as Code Lab!  #
+                #                                    #
+                ######################################
+                Device: access01               # ← ${HOSTNAME} resolved
+            system:
+              hostname: access01               # ← ${HOSTNAME} resolved
+    ```
+
+    Substitution happens **once, at merge time**, before the Terraform
+    provider ever opens a connection to a device. By the time anything
+    hits NETCONF, the payload is fully-resolved concrete YAML - no
+    `${...}` strings ever travel to the device. The `model.yaml` file
+    is the authoritative record of "what was actually sent."
+
+    Running `access02`, `core`, and `border` through the same logic
+    produces `hostname: access02`, `hostname: core`, and `hostname:
+    border` respectively - same template, four different results.
+
 ## Variable Precedence
 
 Variables can be defined at multiple levels. When the same variable is defined at different levels, the more specific level takes precedence:

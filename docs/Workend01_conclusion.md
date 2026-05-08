@@ -69,6 +69,20 @@ This lab uses `nac-validate` (Task 10) and `nac-test` (Task 11). The NaC toolcha
 - **LTRENS-3751** - SD-Access as Code with Catalyst Center and ISE
 - **BRKENT-2115** - Automate Catalyst SD-WAN with Network as Code
 
+## Share your feedback
+
+Your feedback drives next year's version of this lab. Two ways to
+contribute:
+
+- **Cisco Live session survey** - rate LTRXAR-2008 in the Cisco Live
+  app or portal. These ratings directly influence whether the session
+  runs again, and at which events.
+- **Direct feedback** - if you hit something confusing, broken, or
+  wished-for-but-missing, message either presenter (below) or open an
+  issue on the [lab's GitHub repo](https://github.com/ChartinoLabs/LTRXAR-2008-CLUS2026/issues).
+  Specific > general; "the Task 08 BGP verification was unclear
+  because X" is 10x more useful than "Task 08 was confusing."
+
 ## Thank you
 
 Thanks for spending four hours with us. If you have questions or feedback after the session, please reach out:
