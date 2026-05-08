@@ -245,33 +245,51 @@
   .labtop .arrow-label { position: absolute; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; }
 
   /* ======================================================== TEMPLATE DECISION TREE
-     Three-column flow: question → sub-question → answer. Grid for layout,
-     pseudo-elements for the connector lines between columns. */
-  .tdec { flex: 1; display: grid; grid-template-columns: 1.1fr 1.2fr 1.4fr; gap: 20px; align-items: stretch; }
-  .tdec-col { display: flex; flex-direction: column; justify-content: center; gap: 14px; position: relative; }
-  .tdec-question { background: var(--card-bg); border: 1.5px solid rgba(2,200,255,.5); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
-  .tdec-qlbl { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); }
-  .tdec-qtxt { font-size: 17px; font-weight: 700; color: var(--white); line-height: 1.3; }
-  .tdec-hint { font-size: 13.5px; color: var(--dk-text); font-family: "JetBrains Mono", monospace; }
-  .tdec-branch { display: flex; align-items: center; gap: 10px; position: relative; }
-  .tdec-branch .tdec-edge { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--cyan); padding: 3px 9px; border: 1px solid var(--cyan); border-radius: 4px; background: rgba(2,200,255,.08); min-width: 44px; text-align: center; }
-  .tdec-branch.no .tdec-edge { color: var(--pink); border-color: var(--pink); background: rgba(255,0,127,.08); }
-  .tdec-branch.yes .tdec-edge { color: var(--cyan); border-color: var(--cyan); background: rgba(2,200,255,.08); }
-  .tdec-branch .tdec-question { flex: 1; }
-  .tdec-answer { background: var(--card-bg); border-left: 4px solid var(--cyan); border-radius: 8px; padding: 14px 18px; display: flex; flex-direction: column; gap: 5px; position: relative; }
-  .tdec-answer .tdec-aedge { position: absolute; top: -10px; right: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: 1.5px; color: var(--cyan); padding: 2px 7px; border: 1px solid rgba(2,200,255,.6); border-radius: 3px; background: var(--deep-bg); }
-  .tdec-answer .tdec-atype { font-family: "JetBrains Mono", monospace; font-size: 18px; font-weight: 700; color: var(--cyan); }
-  .tdec-answer .tdec-atxt { font-size: 14.5px; color: var(--white); }
-  .tdec-answer .tdec-ex { font-size: 13px; color: var(--dk-text); font-style: italic; }
-  .tdec-answer .tdec-cost { font-size: 12.5px; color: var(--cyan); letter-spacing: .3px; margin-top: 2px; }
-  .tdec-answer.model { border-left-color: var(--cyan); }
-  .tdec-answer.model .tdec-atype { color: var(--cyan); }
-  .tdec-answer.file { border-left-color: var(--blue); }
-  .tdec-answer.file .tdec-atype { color: #6d9bff; }
-  .tdec-answer.file .tdec-aedge { color: var(--cyan); border-color: rgba(2,200,255,.6); }
-  .tdec-answer.cli { border-left-color: var(--orange); background: rgba(255,144,0,.05); margin-top: 8px; }
-  .tdec-answer.cli .tdec-atype { color: var(--orange); }
-  .tdec-answer.cli .tdec-cost { color: var(--pink); }
+     Horizontal tier layout: Q1 -> branches -> Q2 -> branches -> 3 terminators.
+     SVG overlay draws the connecting arrows between cards so the reading
+     order (left to right, branching down) is explicit rather than implied. */
+  .tdec { flex: 1; position: relative; display: block; }
+  .tdec-grid { position: relative; z-index: 2; display: grid;
+               grid-template-columns: 1fr 1fr 1fr;
+               grid-template-rows: 1fr 1fr;
+               column-gap: 60px; row-gap: 28px;
+               height: 100%; align-items: center; }
+  .tdec-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+  .tdec-card { background: var(--card-bg); border-radius: 10px;
+               padding: 16px 20px; display: flex; flex-direction: column; gap: 6px;
+               box-shadow: 0 4px 14px rgba(0,0,0,.35); position: relative; }
+  .tdec-card.q    { border: 1.5px solid rgba(2,200,255,.55); }
+  .tdec-card.a    { border-left: 4px solid var(--cyan); border-top: 1px solid var(--muted-line); border-right: 1px solid var(--muted-line); border-bottom: 1px solid var(--muted-line); }
+  .tdec-card.a.model { border-left-color: var(--cyan); }
+  .tdec-card.a.file  { border-left-color: var(--blue); }
+  .tdec-card.a.cli   { border-left-color: var(--orange); background: rgba(255,144,0,.05); }
+
+  .tdec-lbl  { font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); }
+  .tdec-ttl  { font-size: 16.5px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .tdec-sub  { font-size: 13px; color: var(--dk-text); font-family: "JetBrains Mono", monospace; }
+
+  .tdec-card.a .type  { font-family: "JetBrains Mono", monospace; font-size: 19px; font-weight: 700; color: var(--cyan); }
+  .tdec-card.a.file .type { color: #6d9bff; }
+  .tdec-card.a.cli  .type { color: var(--orange); }
+  .tdec-card.a .desc  { font-size: 14px; color: var(--white); }
+  .tdec-card.a .ex    { font-size: 12.5px; color: var(--dk-text); font-style: italic; }
+  .tdec-card.a .cost  { font-size: 12px; color: var(--cyan); letter-spacing: .3px; margin-top: 2px; }
+  .tdec-card.a.cli .cost { color: var(--pink); }
+
+  /* Grid placement */
+  .tdec-q1   { grid-column: 1; grid-row: 1 / span 2; align-self: center; }
+  .tdec-q2   { grid-column: 2; grid-row: 1; }
+  .tdec-cli  { grid-column: 2; grid-row: 2; }
+  .tdec-file { grid-column: 3; grid-row: 1; }
+  .tdec-model{ grid-column: 3; grid-row: 2; }
+
+  /* Edge labels — sit on top of the SVG connector lines */
+  .tdec-edge { position: absolute; font-size: 12px; font-weight: 700; letter-spacing: 2px;
+               padding: 3px 10px; border-radius: 4px; white-space: nowrap; z-index: 3;
+               transform: translate(-50%, -50%); }
+  .tdec-edge.yes { color: var(--cyan); border: 1px solid var(--cyan); background: rgba(2,200,255,.12); }
+  .tdec-edge.no  { color: var(--pink); border: 1px solid var(--pink); background: rgba(255,0,127,.12); }
 
   /* ======================================================== CML TOPOLOGY
      Rebuilt as a 4-row × 3-col CSS grid with an absolute SVG overlay.
@@ -1168,52 +1186,67 @@ globally by every device
     <p class="sub">Network as Code supports three template types (<code style="color:var(--cyan)">model</code>, <code style="color:var(--cyan)">file</code>, <code style="color:var(--cyan)">cli</code>). Pick by answering two questions about what you're trying to configure.</p>
   </div>
   <div class="tdec">
-    <!-- Starting question on the left -->
-    <div class="tdec-col tdec-q1">
-      <div class="tdec-question">
-        <span class="tdec-qlbl">Q1</span>
-        <span class="tdec-qtxt">Is this feature in the NaC data model?</span>
-        <span class="tdec-hint">Check <a style="color:var(--cyan);text-decoration:none" href="https://netascode.cisco.com/docs/data_models/iosxe/overview/">netascode.cisco.com</a></span>
+    <!-- SVG connector lines, drawn in percentages so they follow the grid layout.
+         Coordinates mapped to the grid: Q1 center ~ (16, 50), Q2 center ~ (50, 26),
+         cli center ~ (50, 74), file center ~ (84, 26), model center ~ (84, 74). -->
+    <svg class="tdec-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <defs>
+        <marker id="tdec-arrow-cy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#02C8FF"/>
+        </marker>
+        <marker id="tdec-arrow-pk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#FF007F"/>
+        </marker>
+      </defs>
+      <!-- Q1 -> Q2 (YES, up-right) -->
+      <path d="M 24 40 L 40 26" stroke="#02C8FF" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-cy)"/>
+      <!-- Q1 -> cli (NO, down-right) -->
+      <path d="M 24 60 L 40 74" stroke="#FF007F" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-pk)"/>
+      <!-- Q2 -> file (YES, right, same row) -->
+      <path d="M 60 26 L 74 26" stroke="#02C8FF" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-cy)"/>
+      <!-- Q2 -> model (NO, down-right) -->
+      <path d="M 60 32 L 74 68" stroke="#FF007F" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-pk)"/>
+    </svg>
+
+    <div class="tdec-grid">
+      <div class="tdec-card q tdec-q1">
+        <span class="tdec-lbl">Q1</span>
+        <span class="tdec-ttl">Is this feature in the NaC data model?</span>
+        <span class="tdec-sub">Check <a style="color:var(--cyan);text-decoration:none" href="https://netascode.cisco.com/docs/data_models/iosxe/overview/">netascode.cisco.com</a></span>
+      </div>
+
+      <div class="tdec-card q tdec-q2">
+        <span class="tdec-lbl">Q2</span>
+        <span class="tdec-ttl">Does it need loops, conditionals, or per-device math?</span>
+      </div>
+
+      <div class="tdec-card a cli tdec-cli">
+        <span class="type">cli</span>
+        <span class="desc">Raw CLI lines, applied verbatim</span>
+        <span class="ex">Custom logging alias, vendor-specific debug command</span>
+        <span class="cost">Last resort - lose idempotency & validation</span>
+      </div>
+
+      <div class="tdec-card a file tdec-file">
+        <span class="type">file</span>
+        <span class="desc">Jinja/.tftpl file with loops + vars</span>
+        <span class="ex">BGP with N neighbors, conditional features</span>
+        <span class="cost">More powerful, slightly more setup</span>
+      </div>
+
+      <div class="tdec-card a model tdec-model">
+        <span class="type">model</span>
+        <span class="desc">Pure YAML, reference by name</span>
+        <span class="ex">VLAN set, ACL entries, OSPF areas</span>
+        <span class="cost">Fastest, safest, most validated</span>
       </div>
     </div>
 
-    <!-- Branches -->
-    <div class="tdec-col tdec-q2">
-      <div class="tdec-branch yes">
-        <span class="tdec-edge">YES</span>
-        <div class="tdec-question">
-          <span class="tdec-qlbl">Q2</span>
-          <span class="tdec-qtxt">Does it need loops, conditionals, or per-device math?</span>
-        </div>
-      </div>
-      <div class="tdec-branch no">
-        <span class="tdec-edge">NO</span>
-        <div class="tdec-answer cli">
-          <span class="tdec-atype">cli</span>
-          <span class="tdec-atxt">Raw CLI lines, applied verbatim</span>
-          <span class="tdec-ex">Custom logging alias, vendor-specific debug command</span>
-          <span class="tdec-cost">Last resort - lose idempotency & validation</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Final answers on the right -->
-    <div class="tdec-col tdec-ans">
-      <div class="tdec-answer model">
-        <span class="tdec-aedge">NO</span>
-        <span class="tdec-atype">model</span>
-        <span class="tdec-atxt">Pure YAML, reference by name</span>
-        <span class="tdec-ex">VLAN set, ACL entries, OSPF areas</span>
-        <span class="tdec-cost">Fastest, safest, most validated</span>
-      </div>
-      <div class="tdec-answer file">
-        <span class="tdec-aedge">YES</span>
-        <span class="tdec-atype">file</span>
-        <span class="tdec-atxt">Jinja/.tftpl file with loops + vars</span>
-        <span class="tdec-ex">BGP with N neighbors, conditional features</span>
-        <span class="tdec-cost">More powerful, slightly more setup</span>
-      </div>
-    </div>
+    <!-- Edge labels, positioned along the SVG arrows via %. -->
+    <div class="tdec-edge yes" style="top: 41%; left: 32%;">YES</div>
+    <div class="tdec-edge no"  style="top: 60%; left: 32%;">NO</div>
+    <div class="tdec-edge yes" style="top: 22%; left: 67%;">YES</div>
+    <div class="tdec-edge no"  style="top: 52%; left: 65%;">NO</div>
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>
