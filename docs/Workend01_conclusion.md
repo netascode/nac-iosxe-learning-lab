@@ -34,6 +34,38 @@ You've reached the end of the **Network as Code for IOS XE** lab - well done.
 4. **Validate before deploy** - `nac-validate` catches syntax and schema errors before they reach a device.
 5. **Test after deploy** - `nac-test` confirms intent actually landed on the wire.
 
+## How this scales from four devices to a hundred (or a thousand)
+
+The patterns you just used were chosen because they scale. A fleet of
+100 branches doesn't change the workflow; it just changes the input:
+
+- **The YAML shape is identical.** One `devices/*.nac.yaml` per device
+  regardless of fleet size. Adding branch 101 is creating one file, not
+  restructuring anything. Shared configuration (a new NTP server, a
+  security policy update) still lives in exactly one file (`global/` or
+  a `groups/` file) and propagates via the same merge precedence.
+- **Exceptions stay local.** If branch 47 needs a one-off setting that
+  differs from every other branch, it goes in `devices/branch-47.nac.yaml`
+  and overrides the global default for that one device. Nothing else in
+  the project moves. The merge model is what makes "the exception that
+  proves the rule" a one-file change instead of a refactor.
+- **Blast radius is controllable.** `managed_devices = ["branch-47"]`
+  (Task 12) or the equivalent `IOSXE_SELECTED_DEVICES` env var scopes a
+  `terraform apply` to a named subset. Combined with CI pipelines
+  gating on code review (Task 15), you can stage rollouts - apply to
+  three canary branches first, observe, then expand. The 4-device lab
+  version of this is running `terraform apply` against all 4; the
+  100-device production version is the same command with a subset filter.
+- **State is the authoritative record.** One `terraform.tfstate` (or
+  one pipeline-managed state backend, for a team) captures what each of
+  the 100 devices currently has. Drift detection, audit trails, and
+  "what did we actually change last Tuesday" answers all come from that
+  state plus git history.
+
+What you wrote for 4 devices is the same YAML you'd write for 400. The
+module, the merge semantics, the CI pipeline shape, and the verification
+loop stay identical; the `data/devices/` directory just gets bigger.
+
 ## Try at home
 
 A few small extensions make great follow-ups once you're back at your own environment:

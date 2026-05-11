@@ -563,6 +563,50 @@ After running `terraform apply`, Terraform creates a `terraform.tfstate` file th
     **Solution:** Run `terraform init` again to download the required modules
 
 
+### How to read a Terraform + IOS XE provider error
+
+Most failures you'll see during `terraform apply` follow the same shape.
+Learning the anatomy once means every future error is readable. Here's a
+real example, annotated:
+
+```text { .no-copy }
+Error: Client Error                                         ← (1) error category
+                                                               (Client/Server/Provider)
+  with module.iosxe.iosxe_banner.banner[0],                 ← (2) Terraform resource
+  on .terraform/modules/iosxe/iosxe/banner.tf line 5,         identifier + source file
+  in resource "iosxe_banner" "banner":
+   5: resource "iosxe_banner" "banner" {
+
+Failed to commit (iosxe_banner.banner[0]),                  ← (3) operation that failed
+  got error: NETCONF RPC error from 198.18.130.10:830:        and which device
+    bad-element: banner                                     ← (4) device-side detail -
+    error-message: 'banner' is not a valid element            this is what the device
+    error-severity: error                                     actually said back
+```
+
+Four parts, always in this order:
+
+1. **Error category** - `Client Error` means your input or config is
+   wrong; `Server Error` means the device rejected something; `Provider
+   Error` means the Terraform provider itself had a bug. Category tells
+   you whose problem it is.
+2. **Terraform resource identifier** - which specific resource Terraform
+   was trying to operate on. Match this to your YAML to find the source.
+3. **Operation and target device** - `Failed to commit` / `Failed to
+   create` / `Failed to delete`, plus the device IP. Tells you exactly
+   which device to investigate.
+4. **Device-side detail** - the actual NETCONF/RESTCONF error payload
+   from the device. This is what the IOS XE box said back when Terraform
+   tried to push the config. 90% of the time this line names the
+   offending element or value explicitly.
+
+Working error messages right-to-left (detail -> device -> resource ->
+category) usually gives you the root cause in under a minute. For very
+noisy errors, re-run with `TF_LOG=DEBUG terraform apply` to see the
+full NETCONF XML payload the provider sent - often the fastest way to
+spot a subtle field mismatch.
+
+
 ## What you've accomplished
 
 

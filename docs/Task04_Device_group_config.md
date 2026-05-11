@@ -256,6 +256,63 @@ Open `model.yaml` in VS Code to see the result. Notice how the ACL from the **AC
 - **Transparency** - rather than trusting the module as a black box, you can inspect the fully resolved intent for every device in one file.
 
 
+??? info "What the module is actually saving you from - a concrete before/after"
+    Your `data/` directory right now is about **40 lines of YAML** across
+    four files: four per-device registration entries, one global banner,
+    one group-level ACL. That's the input.
+
+    If the Network as Code module didn't exist and you were writing
+    equivalent Terraform directly against the `terraform-provider-iosxe`
+    resources, you'd be hand-writing HCL that looks like this:
+
+    ```terraform title="what you'd write without the module"
+    resource "iosxe_banner" "core_banner"     { device = "core"     ; ... }
+    resource "iosxe_banner" "border_banner"   { device = "border"   ; ... }
+    resource "iosxe_banner" "access01_banner" { device = "access01" ; ... }
+    resource "iosxe_banner" "access02_banner" { device = "access02" ; ... }
+
+    resource "iosxe_access_list_standard" "access01_acl" {
+      device = "access01"
+      name   = "AccessLayerACL"
+      entry  = [
+        { sequence = 10, remark = "..." },
+        { sequence = 20, remark = "..." },
+        # ...etc, repeated inline per device
+      ]
+    }
+    resource "iosxe_access_list_standard" "access02_acl" {
+      device = "access02"
+      name   = "AccessLayerACL"
+      entry  = [
+        # ...same entries, repeated verbatim
+      ]
+    }
+
+    # ...plus provider blocks, variables, outputs, locals, for_each
+    # maps, and one resource per (device, feature) pair going forward.
+    ```
+
+    That's roughly **150-200 lines of HCL** for what you wrote in
+    **~40 YAML lines**, and the ratio gets *worse* as you add devices
+    and features. The module is doing four distinct jobs under the
+    hood:
+
+    1. **Deep-merging** your YAML files into one view per device (global
+       -> group -> device precedence).
+    2. **Fanning out** each merged device's config into ~dozens of
+       provider resource calls (one per feature).
+    3. **Rendering** `${variables}` and templates at merge time so your
+       YAML stays declarative.
+    4. **Tracking** which resources apply to which devices so
+       `terraform plan` shows a per-device diff instead of a flat list.
+
+    You can write everything you've written here against raw
+    `terraform-provider-iosxe` resources if you need to - the module
+    IS just convention + code generation on top of that provider. But
+    for any fleet beyond about two devices, the module is what makes
+    the math practical.
+
+
 ## What you've accomplished
 
 
