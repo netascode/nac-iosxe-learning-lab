@@ -19,6 +19,13 @@ After Terraform applies a change, how do you confirm the configuration actually 
 
 **The key insight:** you don't write tests by hand. `nac-test` renders them from the merged `model.yaml` NaC already produces - so the tests always match the intent.
 
+!!! tip "Short on time? The most valuable part of this task is **Step 7**"
+    Steps 1-6 walk through the happy path: render the tests, run them,
+    see them pass. Step 7 is where `nac-test` earns its keep - you'll
+    deliberately desync intent from device state and watch the tests
+    catch it. If you only have 10 minutes, skim Steps 1-4, skip the
+    report walkthrough in Steps 5-6, and make sure you do Step 7.
+
 ## What you'll learn
 
 By the end of this task you will have:

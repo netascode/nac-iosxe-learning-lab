@@ -103,24 +103,6 @@ Terraform uses a declarative approach where you define the desired state (in you
 
 Of the three commands, only `apply` (and its counterpart `destroy`) change anything on the wire. `plan` is a read-only diff and can be run freely.
 
-!!! info "Why state matters - Terraform vs. stateless tools"
-    Terraform maintains a local state file that records what it has
-    configured on each device. That changes the math for every operation:
-
-    | Capability              | Terraform (stateful)                                       | Stateless tools (e.g. Ansible)                                         |
-    | ----------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- |
-    | **Detecting drift**     | Diffs state vs. YAML - instant, no device calls            | Must connect to every device and read config before comparing          |
-    | **Idempotency**         | Native - pushes only what changed                          | Per-module; depends on each module being written correctly             |
-    | **Dry-run (preview)**   | `terraform plan`, architecturally read-only                | `--check` mode, opt-in per module; coverage varies                     |
-    | **Audit trail**         | State file + plan output record exactly what changed when  | Run logs only; no authoritative record of current state                |
-    | **Network traffic**     | Low - no reads when nothing changed                        | Full read on every run regardless of whether anything needs to change  |
-    | **Rollback primitive**  | Revert YAML, re-run `apply`, state tracks the revert       | Re-run a previous playbook, hope it's still idempotent                 |
-
-    Practical effect: when nothing in your YAML changed, `terraform plan`
-    reports "No changes" in seconds without touching the network. Ansible
-    in the same scenario still SSHs every device to re-read config before
-    it can reach the same conclusion.
-
 ### Step 1: In WSL (Ubuntu) and navigate to your project
 
 
@@ -591,6 +573,29 @@ Congratulations! You've successfully:
 - ✅ Previewed changes with `terraform plan`
 - ✅ Applied configuration to your network devices with `terraform apply`
 - ✅ Verified the banner on your devices
+
+??? info "Why that `plan` ran so fast - Terraform vs. stateless tools"
+    Now that you've seen `plan` and `apply` in action, here's *why* the
+    workflow feels different from tools you may have used before:
+    Terraform maintains a local state file (`terraform.tfstate`) that
+    records what it has configured on each device. That changes the
+    math for every operation.
+
+    | Capability              | Terraform (stateful)                                       | Stateless tools (e.g. Ansible)                                         |
+    | ----------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+    | **Detecting drift**     | Diffs state vs. YAML - instant, no device calls            | Must connect to every device and read config before comparing          |
+    | **Idempotency**         | Native - pushes only what changed                          | Per-module; depends on each module being written correctly             |
+    | **Dry-run (preview)**   | `terraform plan`, architecturally read-only                | `--check` mode, opt-in per module; coverage varies                     |
+    | **Audit trail**         | State file + plan output record exactly what changed when  | Run logs only; no authoritative record of current state                |
+    | **Network traffic**     | Low - no reads when nothing changed                        | Full read on every run regardless of whether anything needs to change  |
+    | **Rollback primitive**  | Revert YAML, re-run `apply`, state tracks the revert       | Re-run a previous playbook, hope it's still idempotent                 |
+
+    Practical effect: when nothing in your YAML changed, `terraform plan`
+    reports "No changes" in seconds without touching the network. Ansible
+    in the same scenario still SSHs every device to re-read config before
+    it can reach the same conclusion. Try it: run `terraform plan` again
+    right now - the second run is orders of magnitude faster than the
+    first because state already matches intent.
 
 ## What's next?
 

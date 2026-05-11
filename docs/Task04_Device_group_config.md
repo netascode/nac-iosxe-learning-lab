@@ -231,6 +231,18 @@ The merge follows the same precedence hierarchy you've been working with: **glob
   ![Configuration merge process](./assets/config-merge.png){ width="100%" }
 </figure>
 
+### The three merge rules
+
+The merge behavior is [formally documented](https://netascode.cisco.com/docs/guides/concepts/merging_yaml/), but you've just produced a concrete example of each rule in action. Three rules govern what happens when two YAML files touch the same structure:
+
+<figure markdown>
+  ![YAML merge semantics](./assets/merge-semantics.png){ width="100%" }
+</figure>
+
+- **Rule 1 (dict deep-merge)** - the `configuration:` block under each device is a dict, and the global banner + group ACL + per-device settings all deep-merge into one nested dict for each device.
+- **Rule 2 (lists of scalars append)** - not exercised yet, but the same behavior applies to e.g. `ntp_servers: [...]` lists across files.
+- **Rule 3 (lists of dicts merge by identity key)** - this is why your four `devices:` entries (one per file) produce four device entries, not eight. Network as Code identifies `devices` list members by `name` and deep-merges entries that share the same `name`. Typo a `name` in one file and you silently end up with two device entries instead of one.
+
 Open `model.yaml` in VS Code to see the result. Notice how the ACL from the **ACCESS_SWITCHES** group appears under `access01` and `access02` but not under `core` or `border`:
 
 <figure markdown>

@@ -262,6 +262,8 @@ Optionally, preview the changes Terraform will make:
 terraform plan
 ```
 
+In the plan output, look for **four** separate hostname changes - one per device - even though you only edited **one** banner template in `global.nac.yaml`. That's variable substitution producing four distinct renders from one source, which is the whole point of this task.
+
 Apply the configuration:
 
 ```bash

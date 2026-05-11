@@ -102,16 +102,7 @@ One file per device is the pattern you'll use for the whole lab. It keeps each d
 !!! note "Why one file per device, not a single inventory file?"
     The IOS XE as Code data model exposes a top-level `iosxe.devices` list. YAML allows the same list to be split across multiple files and merged at load time - **but only if every list entry is uniquely identified by its `name` field.** Defining each device in its own file (with its own `name`) keeps that invariant obvious, and it scales cleanly: adding a device later is "create one file," not "edit three."
 
-### How Network as Code merges YAML: the three rules
-
-
-Network as Code's file-merging behavior is [formally documented](https://netascode.cisco.com/docs/guides/concepts/merging_yaml/). Three rules govern what happens when two YAML files in `data/` touch the same structure:
-
-<figure markdown>
-  ![YAML merge semantics](./assets/merge-semantics.png){ width="100%" }
-</figure>
-
-The "one device per file" pattern you just set up relies on **Rule 3** - two files that each declare a `devices:` list with an entry named `core` merge into a single `core` entry with the fields from both. The invariant: if you typo the `name` in one file, you get **two separate entries** instead of one merged one, and Network as Code won't warn you. It's the single most common way a learner's config silently misbehaves.
+The pattern works because Network as Code merges entries across files by the `name` field. If you typo a device's `name` in one file, you'll end up with **two separate entries** instead of one merged one - it's the single most common way a learner's config silently misbehaves. You'll see merge behavior in detail in [Task 04](Task04_Device_group_config.md) once you have three files contributing to one device's config at once.
 
 <figure markdown>
   ![Creating the project files](./assets/wsl-create-files.png){ width="80%" }
