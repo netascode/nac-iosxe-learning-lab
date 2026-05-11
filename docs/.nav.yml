@@ -22,7 +22,9 @@ nav:
       - "[14] Edit CI/CD (optional)": Task14_Edit_CI-CD.md
       - "[15] Merge request (optional)": Task15_Branch_and_merge_request.md
       - "Conclusion": Workend01_conclusion.md
+  - Glossary: Glossary.md
   - Topologies: Intro05_topologies.md
+  - Cheat Sheet: Appendix-V.md
   - Appendices:
       - "APPENDIX I": Appendix-I.md
       - "APPENDIX II": Appendix-II.md
