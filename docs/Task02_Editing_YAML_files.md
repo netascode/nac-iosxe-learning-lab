@@ -207,7 +207,6 @@ Edit `.env` file containing the environment variables required by the Network as
 ```bash title=".env"
 export IOSXE_USERNAME=nac_admin
 export IOSXE_PASSWORD=cisco
-export IOSXE_PROTOCOL=netconf
 ```
 
 The figure below illustrates how to edit the `.env` file using Visual Studio Code:
@@ -215,9 +214,6 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 <figure markdown>
   ![.env file in VS Code](./assets/vscode-env-file.png){ width="100%" }
 </figure>
-
-!!! note "Protocol selection"
-    This lab uses **NETCONF** as the management protocol (`IOSXE_PROTOCOL=netconf`).
 
 !!! warning "Never commit `.env` to a real repository"
     The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them - deleting the file from history isn't enough.
