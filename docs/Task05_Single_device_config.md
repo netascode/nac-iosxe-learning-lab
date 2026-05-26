@@ -89,21 +89,23 @@ iosxe:
 
 Your `data/` folder now contains one file per configuration concern:
 
-```text { .no-copy hl_lines="5" }
+```text { .no-copy hl_lines="6" }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
 └── data/
-    ├── devices/core.nac.yaml      # Device: core  (registration + Loopback0)  ← this task
-    ├── devices/border.nac.yaml    # Device: border (registration only, for now)
-    ├── devices/access01.nac.yaml  # Device: access01 (registration only)
-    ├── devices/access02.nac.yaml  # Device: access02 (registration only)
-    ├── global.nac.yaml           # Global  - login banner                    ← Task 03
-    └── groups/access.nac.yaml     # Group   - ACL for access switches        ← Task 04
+    ├── devices/
+    │   ├── core.nac.yaml       # Device: core  (registration + Loopback0)  ← this task
+    │   ├── border.nac.yaml     # Device: border (registration only, for now)
+    │   ├── access01.nac.yaml   # Device: access01 (registration only)
+    │   └── access02.nac.yaml   # Device: access02 (registration only)
+    ├── groups/
+    │   └── access.nac.yaml     # Group   - ACL for access switches        ← Task 04
+    └── global.nac.yaml         # Global  - login banner                    ← Task 03
 ```
 
 !!! tip "One concern per file"
-    This is how the lab guide organizes things. In your own projects, organize however makes sense for your team - `nac-validate` and the NaC module don't care about file boundaries, only about the merged data model.
+    This is how the lab guide organizes things. In your own projects, organize however makes sense for your team - `nac-validate`  (a tool for pre-change validation that we will cover in Task 10) and the Network as Code module don't care about file boundaries, only about the merged data model.
 
 
 ## Step 2: Apply device-specific configuration
