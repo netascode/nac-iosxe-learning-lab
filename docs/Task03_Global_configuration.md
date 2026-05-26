@@ -46,7 +46,7 @@ iosxe:
   global:
     configuration:
       banner:
-        login: "Welcome to Network as Code Lab"
+        login: "Welcome to the IOS XE as Code lab!"
 ```
 
 **Key elements explained:**
@@ -131,14 +131,17 @@ cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
 ├── data
-│   ├── devices/access01.nac.yaml
-│   ├── devices/access02.nac.yaml
-│   ├── devices/border.nac.yaml
-│   ├── devices/core.nac.yaml
-│   └── global.nac.yaml    # ← File with banner configuration
+│   ├── devices
+│   │   ├── access01.nac.yaml
+│   │   ├── access02.nac.yaml
+│   │   ├── border.nac.yaml
+│   │   └── core.nac.yaml
+│   ├── global.nac.yaml
+│   ├── groups
+│   └── templates
 └── main.tf
 
-1 directory, 7 files
+4 directories, 7 files
 cisco@wkst1:~/nac-iosxe$
 ```
 
@@ -185,7 +188,6 @@ You should see the environment variables displayed:
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
-IOSXE_PROTOCOL=netconf
 cisco@wkst1:~/nac-iosxe$
 ```
 
@@ -278,14 +280,28 @@ terraform init
       netascode/terraform-iosxe-nac-iosxe.
       git for iosxe...                      ← Cloning the Network as Code module from GitHub.
     - iosxe in .terraform/modules/iosxe     ← Stored locally under .terraform/.
+    - iosxe.model in .terraform/modules/
+      iosxe/modules/model                   ← Submodule that builds the data model.
 
-    Initializing provider plugins...        ← Now downloading the IOS XE provider
+    Initializing provider plugins...        ← Now downloading the providers
                                               the Network as Code module declares.
     - Finding ciscodevnet/iosxe versions
-      matching "~> 0.6"...
-    - Installing ciscodevnet/iosxe v0.6.1...
-    - Installed ciscodevnet/iosxe v0.6.1
+      matching "0.18.0"...
+    - Finding netascode/utils versions
+      matching "1.1.0-beta3"...
+    - Finding hashicorp/local versions
+      matching ">= 2.5.2"...
+    - Installing ciscodevnet/iosxe
+      v0.18.0...
+    - Installed ciscodevnet/iosxe v0.18.0
       (signed by a HashiCorp partner)       ← Signature-verified. Good.
+    - Installing netascode/utils
+      v1.1.0-beta3...
+    - Installed netascode/utils
+      v1.1.0-beta3 (self-signed)            ← Helper provider for YAML merging.
+    - Installing hashicorp/local v2.9.0...
+    - Installed hashicorp/local v2.9.0
+      (signed by HashiCorp)                 ← Writes rendered files to disk.
 
     Terraform has created a lock file
       .terraform.lock.hcl                   ← Next init will pin these versions.
@@ -301,6 +317,8 @@ terraform init
       - **"Finding ... versions matching"** - version-constraint resolution.
         Lines like "Reusing previous version of ciscodevnet/iosxe" on subsequent
         runs mean the lock file is doing its job.
+      - **"self-signed"** - the `netascode/utils` provider is published by the NaC
+        community, not HashiCorp or a verified partner. This is expected.
       - **"Terraform has created a lock file"** - this is good. `.terraform.lock.hcl`
         pins provider versions. Commit it alongside `main.tf` in a real project.
 
@@ -310,7 +328,7 @@ terraform init
         URL is wrong, or the referenced ref/tag doesn't exist.
       - **"Failed to install provider"** - provider registry unreachable or the
         version constraint can't be satisfied. Re-run `terraform init`; if it
-        keeps failing, check the `~> 0.6` constraint matches a published version.
+        keeps failing, check the version constraints in the module source.
       - **"Backend configuration changed"** - not applicable for this lab (we use
         the default local backend), but in CI/CD projects with remote state
         you'll see this if someone reconfigured the backend and you need to
@@ -473,7 +491,7 @@ show run | include banner
 
 ```text { title="Expected Output" hl_lines="2" .no-copy }
 core#show run | include banner
-banner login ^CWelcome to Network as Code Lab^C
+banner login ^CWelcome to the IOS XE as Code lab!^C
 core#
 ```
 
@@ -495,16 +513,13 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
     for ip in 198.18.130.10 198.18.130.20 198.18.130.11 198.18.130.12; do
       echo "--- $ip ---"
       sshpass -p cisco ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-        nac_admin@$ip "show run | include banner" 2>/dev/null
+        nac_admin@$ip "show run | include banner"
     done
     ```
 
-    You should see `banner login ^CWelcome to Network as Code Lab^C` four
-    times - one per device. If any device prints no banner line, that
-    apply didn't land; check its entry in `terraform.tfstate` and re-run
-    `terraform apply` for just that device with
-    `terraform apply -target=module.iosxe.iosxe_banner.core_banner`
-    (substitute the device name) to retry.
+    You should see `banner login ^CWelcome to the IOS XE as Code lab!^C`
+    four times - one per device. If any device prints no banner line,
+    that apply didn't land; re-run `terraform apply` to retry.
 
     `sshpass` is already pre-installed on the lab VM; no extra setup.
 
