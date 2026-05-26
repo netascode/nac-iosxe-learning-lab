@@ -448,17 +448,17 @@
       <div class="tier t3">
         <span class="label">DEVICE</span>
         <span class="desc">Applies only to one named device — the top of the hierarchy.</span>
-        <span class="ex">config-device-core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
+        <span class="ex">devices/core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
       </div>
       <div class="tier t2">
         <span class="label">DEVICE GROUP</span>
         <span class="desc">Applies to every device listed in the group.</span>
-        <span class="ex">config-group-access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
+        <span class="ex">groups/access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
       </div>
       <div class="tier t1">
         <span class="label">GLOBAL</span>
         <span class="desc">Applies to all devices unless overridden above.</span>
-        <span class="ex">config-global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname on every device</span>
+        <span class="ex">global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname on every device</span>
       </div>
     </div>
     <div class="prec">
@@ -800,7 +800,7 @@ globally by every device
     <div class="inputs">
       <div class="input-card gl">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span class="fn">config-global.nac.yaml</span>
+          <span class="fn">global.nac.yaml</span>
           <span class="tag">GLOBAL</span>
         </div>
 <pre><span class="k">iosxe:</span>
@@ -813,7 +813,7 @@ globally by every device
       </div>
       <div class="input-card gr">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span class="fn">config-group-access.nac.yaml</span>
+          <span class="fn">groups/access.nac.yaml</span>
           <span class="tag">GROUP</span>
         </div>
 <pre><span class="k">iosxe:</span>
@@ -825,7 +825,7 @@ globally by every device
       </div>
       <div class="input-card dev">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span class="fn">config-device-access01.nac.yaml</span>
+          <span class="fn">devices/access01.nac.yaml</span>
           <span class="tag">DEVICE</span>
         </div>
 <pre><span class="k">iosxe:</span>
@@ -1264,15 +1264,15 @@ globally by every device
         <span class="fnm">data/</span>
         <span class="fsub">your intent</span>
       </div>
-      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-core.nac.yaml</span></div>
-      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-border.nac.yaml</span></div>
-      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-access01.nac.yaml</span></div>
-      <div class="row"><span class="tag device">DEVICE</span><span class="fn">config-device-access02.nac.yaml</span></div>
-      <div class="row"><span class="tag global">GLOBAL</span><span class="fn">config-global.nac.yaml</span></div>
-      <div class="row"><span class="tag group">GROUP</span><span class="fn">config-group-access.nac.yaml</span></div>
-      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-vlan.nac.yaml</span></div>
-      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-bgp.nac.yaml</span></div>
-      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">template-logging.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">devices/core.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">devices/border.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">devices/access01.nac.yaml</span></div>
+      <div class="row"><span class="tag device">DEVICE</span><span class="fn">devices/access02.nac.yaml</span></div>
+      <div class="row"><span class="tag global">GLOBAL</span><span class="fn">global.nac.yaml</span></div>
+      <div class="row"><span class="tag group">GROUP</span><span class="fn">groups/access.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">templates/vlan.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">templates/bgp.nac.yaml</span></div>
+      <div class="row"><span class="tag tpl">TEMPLATE</span><span class="fn">templates/logging.nac.yaml</span></div>
     </div>
     <div style="display:flex; flex-direction:column; gap:20px">
       <div class="folder">
@@ -1326,17 +1326,17 @@ globally by every device
       <div class="tier t3" style="background:linear-gradient(120deg,#d5f4e1,#b4ecd1);border-color:#00A55E;color:#0b3a2a;">
         <span class="label" style="color:#0b3a2a">DEVICE</span>
         <span class="desc" style="color:#13344E">Applies only to one named device.</span>
-        <span class="ex" style="color:#0A60FF">config-device-core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
+        <span class="ex" style="color:#0A60FF">devices/core.nac.yaml &nbsp;→&nbsp; Loopback0 on core only</span>
       </div>
       <div class="tier t2" style="background:linear-gradient(120deg,#c7e7ee,#a2d8e3);border-color:#6B6B6B;color:#0b3239;">
         <span class="label" style="color:#0b3239">DEVICE GROUP</span>
         <span class="desc" style="color:#13344E">Applies to every device listed in the group.</span>
-        <span class="ex" style="color:#0A60FF">config-group-access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
+        <span class="ex" style="color:#0A60FF">groups/access.nac.yaml &nbsp;→&nbsp; ACL on access01 + access02</span>
       </div>
       <div class="tier t1" style="background:linear-gradient(120deg,#cfe0ff,#a9c4ff);border-color:#0A60FF;color:#0b172c;">
         <span class="label" style="color:#0b172c">GLOBAL</span>
         <span class="desc" style="color:#13344E">Applies to all devices unless overridden above.</span>
-        <span class="ex" style="color:#0A60FF">config-global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname</span>
+        <span class="ex" style="color:#0A60FF">global.nac.yaml &nbsp;→&nbsp; login banner &amp; hostname</span>
       </div>
     </div>
     <div class="prec" style="color:#13344E">
