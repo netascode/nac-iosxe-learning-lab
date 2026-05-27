@@ -38,8 +38,9 @@ iosxe:
   device_groups: list(include('device_groups'), required=False)
   templates: list(include('iosxe_templates'), required=False)
 
-# Global configuration (Task03: Banner)
+# Global configuration (Task03: Banner, Task06: Variables)
 global:
+  variables: map(key=str(), required=False)
   configuration: include('device_configuration', required=False)
   templates: list(str(), required=False)
 
@@ -130,9 +131,10 @@ bgp_neighbors:
   remote_as: any(int(), str())
   description: str(required=False)
 
-# Ethernet Interfaces (Task08)
+# Interfaces (Task05: Loopbacks, Task08: Ethernets)
 interfaces:
   ethernets: list(include('ethernets'), required=False)
+  loopbacks: list(include('loopbacks'), required=False)
 
 ethernets:
   type: any(enum('GigabitEthernet', 'FastEthernet', 'Ethernet', 'Port-channel', 'FiveGigabitEthernet', 'TenGigabitEthernet', 'TwentyFiveGigE', 'FortyGigabitEthernet', 'HundredGigE', 'TwoHundredGigE', 'FourHundredGigE'), regex("^.*[\$\%]\{.*$"))
@@ -144,5 +146,12 @@ ethernets:
 interface_ipv4:
   address: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
   address_mask: any(ip(), regex("^.*[\$\%]\{.*$"), required=False)
+
+# Loopback Interfaces (Task05)
+loopbacks:
+  id: any(int(), regex("^.*[\$\%]\{.*$"))
+  description: str(required=False)
+  shutdown: any(bool(), regex("^.*[\$\%]\{.*$"), required=False)
+  ipv4: include('interface_ipv4', required=False)
 ```
 

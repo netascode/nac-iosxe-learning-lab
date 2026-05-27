@@ -77,7 +77,7 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
     4. Paste it into the file and save
 
 Your project structure should now include:
-```text { hl_lines="17" .no-copy }
+```text { hl_lines="16" .no-copy }
 /home/cisco/nac-iosxe/
 │
 ├── data/
@@ -301,33 +301,42 @@ Cisco CX ships a rule pack covering common semantic checks:
 - IP routing is enabled when a routing protocol (BGP, OSPF, EIGRP, IS-IS) is configured.
 - VLAN IDs referenced from an interface exist in the VLAN database.
 
-You can also write your own. Rules are Python classes that subclass a base and implement a `match` method against the merged data model.
+You can also write your own. Rules are Python classes named `Rule` that implement a `match` classmethod receiving the merged data model (the `inventory` dict) and returning a list of error strings (empty list = pass).
 
 !!! example "A custom rule: flag `permit any` in ACLs"
     A rule that fails validation if any standard ACL entry permits `any` - a common security anti-pattern:
 
-    ```python title=".nac-validate/rules/no_permit_any.py"
-    from nac_validate.rule import Rule
-
-    class NoPermitAny(Rule):
-        id = "CX101"
+    ```python title="rules/no_permit_any.py"
+    class Rule:
+        id = "101"
         description = "Standard ACLs must not have 'permit any' entries"
         severity = "HIGH"
 
-        def match(self, data):
-            errors = []
-            acls = data.get("iosxe", {}).get("configuration", {}) \
-                       .get("access_lists", {}).get("standard", [])
-            for acl in acls:
-                for entry in acl.get("entries", []):
-                    if entry.get("action") == "permit" and entry.get("any"):
-                        errors.append(
-                            f"ACL '{acl['name']}' entry {entry['sequence']} permits any"
-                        )
-            return errors
+        @classmethod
+        def match(cls, inventory):
+            results = []
+
+            for scope_key in ("devices", "device_groups"):
+                for item in inventory.get("iosxe", {}).get(scope_key, []):
+                    name = item.get("name", "unknown")
+                    acls = (
+                        item.get("configuration", {})
+                        .get("access_lists", {})
+                        .get("standard", [])
+                    )
+                    for acl in acls:
+                        for entry in acl.get("entries", []):
+                            if entry.get("action") == "permit" and entry.get("any"):
+                                results.append(
+                                    f"iosxe.{scope_key}[{name}].configuration"
+                                    f".access_lists.standard[{acl['name']}]"
+                                    f".entries[{entry['sequence']}] - "
+                                    f"'permit any' is a security risk"
+                                )
+            return results
     ```
 
-    Run with `nac-validate -r .nac-validate/rules/ data/` and the rule executes against every YAML file.
+    Run with `nac-validate -r rules/ data/` and the rule executes against every YAML file.
 
 ## Where to find the full schema
 
