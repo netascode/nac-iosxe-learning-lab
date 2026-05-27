@@ -294,7 +294,7 @@ border#
 Your job: add an interface configuration on `border` so that `GigabitEthernet3` (facing the host network) has IP `192.168.100.1/24`. The hosts are already configured with that IP as their default gateway.
 
 <figure markdown>
-  ![CML topology showing the host subnet](./assets/cml-topology.png){ width="100%" }
+  ![CML topology showing the host subnet](./assets/LTRXAR-2008%20Lab%20Topology.jpg){ width="100%" }
 </figure>
 
 **Primary verification** (easy path - just SSH into `border`):

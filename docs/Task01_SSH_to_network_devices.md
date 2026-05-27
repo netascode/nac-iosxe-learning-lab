@@ -53,7 +53,7 @@ Credentials are **pre-configured** for all devices - just double-click the devic
 | **access02** | Access switch  | 198.18.130.12   |
 
 <figure markdown>
-  ![CML Topology](./assets/cml-topology.png){ width="100%" }
+  ![CML Topology](./assets/LTRXAR-2008%20Lab%20Topology.jpg){ width="100%" }
 </figure>
 
 !!! info "Additional devices in the topology"
