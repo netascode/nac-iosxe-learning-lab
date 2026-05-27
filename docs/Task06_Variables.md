@@ -56,12 +56,12 @@ iosxe:
       SITE: "LTRXAR-2008 Lab"
     configuration:
       banner:
-        login: |
-          ######################################
-          #                                    #
-          #   Welcome to Network as Code Lab!  #
-          #                                    #
-          ######################################
+        login: |-
+          #########################################
+          #                                       #
+          #   Welcome to the IOS XE as Code Lab!  #
+          #                                       #
+          #########################################
           Site:   ${SITE}
           Device: ${HOSTNAME}
       system:
@@ -76,7 +76,7 @@ iosxe:
 **Banner config:**
 
 - `banner: login:` - the login banner shown on SSH connect.
-- `|` - YAML block-scalar indicator; preserves newlines and indentation inside the string.
+- `|-` - YAML block-scalar indicator; preserves newlines and indentation inside the string while removing the trailing newline.
 
 **System config:**
 
