@@ -168,18 +168,21 @@ The template reference is added alongside the existing `AccessLayerACL` configur
 
 At this point, your `data/` folder should contain these files:
 
-```text { hl_lines="10 12" .no-copy }
+```text { hl_lines="11 14" .no-copy }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
 └── data/
-    ├── devices/access01.nac.yaml  # Task02: access01 registration
-    ├── devices/access02.nac.yaml  # Task02: access02 registration
-    ├── devices/border.nac.yaml    # Task02: border registration
-    ├── devices/core.nac.yaml      # Task02 + Task05: core + Loopback0
-    ├── global.nac.yaml           # Task03: Global banner + hostname
-    ├── groups/access.nac.yaml     # Task04 + Task07: ACL + VLAN template
-    └── templates/vlan.nac.yaml           # Task07: VLAN template (type: model)
+    ├── devices/
+    │   ├── access01.nac.yaml   # Task02: access01 registration
+    │   ├── access02.nac.yaml   # Task02: access02 registration
+    │   ├── border.nac.yaml     # Task02: border registration
+    │   └── core.nac.yaml       # Task02 + Task05: core + Loopback0
+    ├── groups/
+    │   └── access.nac.yaml     # Task04 + Task07: ACL + VLAN template
+    ├── templates/
+    │   └── vlan.nac.yaml       # Task07: VLAN template (type: model)
+    └── global.nac.yaml         # Task03: Global banner + hostname
 ```
 
 ## How templates work
