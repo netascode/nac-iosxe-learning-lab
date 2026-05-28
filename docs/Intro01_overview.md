@@ -56,7 +56,7 @@ By completing this lab, you will gain hands-on experience with:
 
 ## About this guide
 
-Authored by Andrea Testino and Christopher Hart, building on the original Amsterdam delivery by Asier Arlegui and Balu Novak-Bohak.
+Authored by [Andrea Testino](https://www.linkedin.com/in/aitestino/) and [Christopher Hart](https://www.linkedin.com/in/christopherjhart95/), building on the original Amsterdam delivery by [Asier Arlegui](https://www.linkedin.com/in/arlegui/) and Balu Novak-Bohak.
 
 ---
 
