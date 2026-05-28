@@ -324,7 +324,7 @@ You should see `GigabitEthernet3` up with `192.168.100.1/24`, and `8.8.8.0/24` a
 ??? tip "Solution"
     Open `data/devices/border.nac.yaml` in VS Code and extend the `interfaces.ethernets` list with a second entry for `GigabitEthernet3`:
 
-    ```yaml title="data/devices/border.nac.yaml" hl_lines="22-28"
+    ```yaml title="data/devices/border.nac.yaml" hl_lines="28-34"
     ---
     iosxe:
       devices:
