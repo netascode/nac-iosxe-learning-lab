@@ -279,51 +279,23 @@ Open the report in a browser to see the visual results. Navigate to your Desktop
 ## Step 7: See a test fail (then fix it)
 
 
-The previous run passed because the device state matched the intent. To see the real value of post-checks, you'll create a situation where they DON'T match.
+The previous run passed because the device state matched the intent. To see the real value of post-checks, you'll create a situation where they DON'T match - simulating **configuration drift**.
 
-!!! warning "Artificial scenario"
-    In a real deployment, tests fail when Terraform silently fails to push configuration to a device (e.g. a NETCONF timeout, a device rejecting a commit, or a partial apply). Here, you'll simulate that by adding new intent to the data model and regenerating `model.yaml` without pushing the config to the devices first. This is unrealistic - normally `terraform apply` updates the model AND the devices in one step - but it clearly demonstrates what a failing test looks like.
+!!! info "What is configuration drift?"
+    Drift happens when a device's running config diverges from the declared intent. Common causes: a manual CLI change during troubleshooting, a device reboot that doesn't fully restore config, a NETCONF commit that silently drops a leaf, or another automation tool overwriting what Terraform pushed. Post-checks catch all of these.
 
-**Add a new ACL entry to your intent:**
+**Simulate drift by manually removing an ACL entry from `access01`:**
 
-Open `data/groups/access.nac.yaml` in VS Code and add a third entry (sequence 30):
+Open Solar-PuTTY and connect to **access01** (`198.18.130.11`). Then remove sequence 10 from the ACL:
 
-```yaml title="data/groups/access.nac.yaml" hl_lines="13-16"
----
-iosxe:
-  device_groups:
-    - name: ACCESS_SWITCHES
-      devices:
-        - access01
-        - access02
-      configuration:
-        access_lists:
-          standard:
-            - name: AccessLayerACL
-              entries:
-                - sequence: 10
-                  action: permit
-                  prefix: 10.0.0.0
-                  prefix_mask: 0.0.0.255
-                - sequence: 20
-                  action: permit
-                  prefix: 20.0.0.0
-                  prefix_mask: 0.0.0.255
-                - sequence: 30
-                  action: permit
-                  prefix: 30.0.0.0
-                  prefix_mask: 0.0.0.255
+```ios
+configure terminal
+ip access-list standard AccessLayerACL
+no 10
+end
 ```
 
-**Regenerate model.yaml without pushing to devices:**
-
-Run `terraform plan` to update the model file (this does NOT push config to devices):
-
-```bash
-terraform plan
-```
-
-This updates `model.yaml` to include the new sequence 30 entry. The devices still only have sequences 10 and 20.
+The intent (`model.yaml`) still says sequence 10 should exist, but `access01` no longer has it. This is drift.
 
 **Run nac-test again:**
 
@@ -338,15 +310,15 @@ nac-test \
 
 This time, the tests **fail**:
 
-```text { .no-copy hl_lines="4" }
+```text { .no-copy hl_lines="2" }
 ...
-2 tests, 0 passed, 2 failed, 0 skipped.
+2 tests, 1 passed, 1 failed, 0 skipped.
 ===================================================
 ```
 
-The test expected sequence 30 (`prefix: 30.0.0.0`) to exist on the device because it's in the intent - but it's not there yet. This is exactly what nac-test catches: a mismatch between what you WANT on the device and what's ACTUALLY there.
+The test for `access01` expected sequence 10 (`prefix: 10.0.0.0`) to exist because it's in the intent — but the device no longer has it. The test for `access02` still passes because that device wasn't touched. This is exactly what nac-test catches: a mismatch between what you WANT on the device and what's ACTUALLY there.
 
-**Now push the config and re-run:**
+**Now fix the drift with Terraform and re-run:**
 
 ```bash
 terraform apply -auto-approve
@@ -367,10 +339,10 @@ nac-test \
 ===================================================
 ```
 
-Tests pass again - the device state now matches the intent.
+Tests pass again — `terraform apply` detected the missing ACE and re-pushed it to `access01`.
 
 !!! tip "The real-world takeaway"
-    In production, you wouldn't deliberately skip `terraform apply`. The value of `nac-test` is catching cases where `apply` reports success but the device didn't fully accept the configuration - network devices can ACK a NETCONF commit while silently ignoring certain leaves, or a device might reboot mid-apply. Post-checks verify what's actually running, not just what Terraform thinks it pushed.
+    In production, drift happens silently. A network engineer fixes a P1 outage with a manual CLI change, a device reboots and loses an uncommitted config, or a NETCONF commit ACKs but silently ignores a leaf. `nac-test` catches all of these by comparing what's actually on the wire against your source-of-truth intent. Run it after every `terraform apply`, and schedule it periodically to catch out-of-band drift.
 
 
 ## What you've accomplished
