@@ -114,9 +114,6 @@ variables:
     description: "Cisco IOS XE Username"
   IOSXE_PASSWORD:
     description: "Cisco IOS XE Password"
-  IOSXE_PROTOCOL:
-    description: "Cisco IOS XE connection protocol"
-    value: "netconf"
   # ... additional variables for GitLab tokens, Terraform state, Webex notifications ...
 
 cache:
@@ -277,12 +274,12 @@ iosxe:
     configuration:
       banner:
         login: |
-          ######################################
-          #                                    #
-          #   Welcome to Network as Code Lab!  #
-          #           GitLab - CI/CD           #
-          #                                    #
-          ######################################
+          #########################################
+          #                                       #
+          #   Welcome to the IOS XE as Code Lab!  #
+          #           GitLab - CI/CD              #
+          #                                       #
+          #########################################
           Device: ${HOSTNAME}
       system:
         hostname: ${HOSTNAME}
