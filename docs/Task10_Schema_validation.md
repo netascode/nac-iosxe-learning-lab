@@ -118,12 +118,6 @@ First, install the **nac-validate** tool using pip in your **WSL Ubuntu terminal
 pip install nac-validate
 ```
 
-Then add the local bin directory to your PATH:
-
-```bash
-export PATH=$PATH:~/.local/bin
-```
-
 ## Run schema validation
 
 
