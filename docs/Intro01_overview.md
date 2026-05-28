@@ -1,7 +1,7 @@
 This step-by-step guide walks you through the **Network as Code for IOS XE** lab. By the end, you will know how to deploy and manage IOS XE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
 !!! tip "New to these acronyms?"
-    The guide uses ~18 networking and automation terms (YANG, NETCONF, HCL, WSL, dCloud, etc.). See **[Glossary](Glossary.md)** in the top nav for one-line definitions. Keep it open in a side tab if you hit one you don't recognize.
+    See **[Glossary](Glossary.md)** in the top navigation for a brief overview on the definitions. Keep it open in a side tab if you hit one you don't recognize.
 
 ## What is Network as Code?
 
