@@ -43,7 +43,7 @@ You already created a per-device file for `core` in [Task 02](Task02_Editing_YAM
 
 Open `data/devices/core.nac.yaml` in VS Code and replace its contents with:
 
-```yaml title="data/devices/core.nac.yaml" hl_lines="5-13"
+```yaml title="data/devices/core.nac.yaml" hl_lines="6-13"
 ---
 iosxe:
   devices:
