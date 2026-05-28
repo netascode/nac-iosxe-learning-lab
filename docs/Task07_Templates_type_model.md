@@ -168,7 +168,7 @@ The template reference is added alongside the existing `AccessLayerACL` configur
 
 At this point, your `data/` folder should contain these files:
 
-```text { hl_lines="11 14" .no-copy }
+```text { hl_lines="11 13" .no-copy }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
