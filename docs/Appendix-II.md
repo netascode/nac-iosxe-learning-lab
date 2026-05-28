@@ -155,3 +155,7 @@ loopbacks:
   ipv4: include('interface_ipv4', required=False)
 ```
 
+---
+
+**← Previous:** [Appendix I - CI/CD pipeline definition](Appendix-I.md)  ·  **Next:** [Appendix III - nac-test reference](Appendix-III.md)
+
