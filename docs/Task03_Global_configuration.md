@@ -126,7 +126,7 @@ tree -a
 
 You should see your project structure:
 
-```text  { .no-copy hl_lines="9" }
+```text  { .no-copy hl_lines="10" }
 cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
