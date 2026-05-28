@@ -60,4 +60,4 @@ Authored by Andrea Testino and Christopher Hart, building on the original Amster
 
 ---
 
-**Next:** [Lab Content](Intro02_all_learners.md)
+**Next:** [Lab Content](Intro02_all_learners.md){.next-only}
