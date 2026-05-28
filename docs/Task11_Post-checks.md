@@ -185,7 +185,7 @@ cat /mnt/c/Users/admin/Desktop/TestResults/config/access_lists.robot
 
 The `access_lists.robot` file contains tests automatically generated from your intent configuration:
 
-```text { .no-copy }
+```robotframework { .no-copy }
 *** Settings ***
 Documentation   Verify Access Lists Configuration
 Suite Setup     Run Only Once   Get Configs
