@@ -1,12 +1,5 @@
-# LTRXAR-2008 — Cisco Live 2026
+# Lab Guide for Cisco Live US 2026: LTRXAR-2008
 
-**Accelerate Your Network Operations: A 4-Hour IOS XE Automation Workshop**
+Web guide link: https://cl-ltr.ciscolabs.com/4eb6f2de2e/
 
-Presented by:
-
-- Andrea Testino (atestini@cisco.com) — Principal Software Engineer, CCIE #56739
-- Christopher Hart (chart2@cisco.com) — Sr. Software Consulting Engineering Technical Leader
-
-Web guide: _(link TBD once published to ciscolabs)_
-
-PDF guide: _(link TBD)_
+PDF guide link: https://cl-ltr.ciscolabs.com/4eb6f2de2e/pdf/document.pdf

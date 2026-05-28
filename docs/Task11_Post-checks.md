@@ -316,7 +316,7 @@ This time, the tests **fail**:
 ===================================================
 ```
 
-The test for `access01` expected sequence 10 (`prefix: 10.0.0.0`) to exist because it's in the intent — but the device no longer has it. The test for `access02` still passes because that device wasn't touched. This is exactly what nac-test catches: a mismatch between what you WANT on the device and what's ACTUALLY there.
+The test for `access01` expected sequence 10 (`prefix: 10.0.0.0`) to exist because it's in the intent - but the device no longer has it. The test for `access02` still passes because that device wasn't touched. This is exactly what nac-test catches: a mismatch between what you WANT on the device and what's ACTUALLY there.
 
 **Now fix the drift with Terraform and re-run:**
 
@@ -339,7 +339,7 @@ nac-test \
 ===================================================
 ```
 
-Tests pass again — `terraform apply` detected the missing ACE and re-pushed it to `access01`.
+Tests pass again - `terraform apply` detected the missing ACE and re-pushed it to `access01`.
 
 !!! tip "The real-world takeaway"
     In production, drift happens silently. A network engineer fixes a P1 outage with a manual CLI change, a device reboots and loses an uncommitted config, or a NETCONF commit ACKs but silently ignores a leaf. `nac-test` catches all of these by comparing what's actually on the wire against your source-of-truth intent. Run it after every `terraform apply`, and schedule it periodically to catch out-of-band drift.
