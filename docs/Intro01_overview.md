@@ -1,3 +1,5 @@
+# Learning Objectives
+
 This step-by-step guide walks you through the **Network as Code for IOS XE** lab. By the end, you will know how to deploy and manage IOS XE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
 !!! tip "New to these acronyms?"

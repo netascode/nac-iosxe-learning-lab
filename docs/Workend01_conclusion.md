@@ -111,7 +111,7 @@ contribute:
   runs again, and at which events.
 - **Direct feedback** - if you hit something confusing, broken, or
   wished-for-but-missing, message either presenter (below) or open an
-  issue on the [lab's GitHub repo](https://github.com/ChartinoLabs/LTRXAR-2008-CLUS2026/issues).
+  issue on the [lab's GitHub repo](https://github.com/ciscodocs/ltrxar-2008-clamer26/issues).
   Specific > general; "the Task 08 BGP verification was unclear
   because X" is 10x more useful than "Task 08 was confusing."
 
