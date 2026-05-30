@@ -1,6 +1,6 @@
 # Getting started
 
-You'll access the lab through a Web RDP session to the dCloud **Windows 10 VM** at `198.18.133.20` (user `admin`, password `cisco`). Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed on that VM. You'll open the **WSL Ubuntu terminal** frequently throughout the lab — it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
+You'll access the lab through a Web RDP session to the dCloud **Windows 10 VM** at `198.18.133.20` (user `admin`, password `cisco`). Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed on that VM. You'll open the **WSL Ubuntu terminal** frequently throughout the lab - it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
 
 !!! tip "Work from inside the VM, not your laptop"
     The lab guide is already set as the Chrome start page on the Win10 VM, and it's bookmarked for later. Read the guide from inside the RDP session - copy/paste between your laptop and the Web RDP window is finicky, and you will be pasting YAML into VS Code and commands into the WSL terminal constantly.
@@ -28,8 +28,8 @@ For the full topology diagram and device inventory, see **[Topologies](Intro05_t
 ## Readiness check (2 minutes, before Task 01)
 
 Before sinking time into the first task, confirm the lab's three moving
-pieces are actually reachable. Open the **WSL Ubuntu terminal** — it's
-the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS** —
+pieces are actually reachable. Open the **WSL Ubuntu terminal** - it's
+the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS** -
 and run these three commands:
 
 ```bash
