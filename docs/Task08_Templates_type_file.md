@@ -40,6 +40,78 @@ File templates reference external `.tftpl` files that use **Terraform templating
 | *file*  | External `.tftpl` template files  | Dynamic configs with variables ← *This task*           |
 | *cli*   | Raw CLI commands                  | IOS XE features not in the IOS XE as Code data model ← *Task09*       |
 
+??? info "Three patterns side-by-side: device groups, `model` templates, `file` (.tftpl) templates"
+
+    By Task 08 you've now seen three distinct mechanisms for reusing
+    configuration across devices: the **device groups** from
+    [Task 04](Task04_Device_group_config.md), the **`model` templates**
+    from [Task 07](Task07_Templates_type_model.md), and the **`file`
+    (.tftpl) templates** introduced in this task. They look superficially
+    similar - all three reduce duplication - but they answer different
+    questions and compose differently. The diagram below summarizes the
+    distinction; the prose underneath walks through each one.
+
+    <figure markdown>
+      ![Device groups vs model templates vs file templates - three patterns side-by-side](./assets/templates-patterns.png){ width="100%" }
+    </figure>
+
+    **Each pattern answers a different question.**
+
+    - **Device group** - answers ***"Which devices receive this configuration?"***
+      A device group is a named bag of devices (in this lab,
+      `ACCESS_SWITCHES = [access01, access02]`). Configuration written
+      directly under the group's `configuration:` key merges onto every
+      member at apply time. A group can also reference templates, which
+      are then expanded for each member.
+      *Best for:* role-based or location-based config - access-layer
+      ACLs, regional NTP/timezone, site-wide syslog targets.
+      *Trade-off:* membership is fixed in YAML; the group definition
+      itself doesn't generate any configuration, it just **targets** it.
+    - **Template `type: model`** - answers ***"What block of config
+      do I want to package and reuse, by name?"*** A model template is
+      a chunk of standard NaC YAML wrapped in a name. You define it
+      once (e.g. `access_switch_vlans` from Task 07), then reference
+      it by name from any combination of `global`, a device group, or
+      individual devices. Because it's plain YAML against the data
+      model, the schema validates it (Task 10) just like inline
+      configuration.
+      *Best for:* fixed, repeatable blocks - standard VLAN sets,
+      baseline ACLs, common interface profiles, OSPF area defaults.
+      *Trade-off:* no logic. Every consumer of the template gets the
+      same config (variables can substitute simple values like
+      `${HOSTNAME}`, but there are no loops or conditionals).
+    - **Template `type: file` (.tftpl)** - answers the same
+      ***"what block?"*** question as `model`, but renders the block
+      through Terraform's templating engine first. The template
+      definition lives in YAML (`templates: - name: ...; type: file;
+      file: tftpl/bgp.yaml.tftpl`), and the actual configuration body
+      lives in a separate `.tftpl` file that supports variable
+      interpolation (`${VAR}`), loops (`%{ for x in LIST }`), and
+      conditionals (`%{ if ... }`). At apply time, NaC reads each
+      consumer's `variables:` block and renders the `.tftpl` against
+      those values, then merges the rendered YAML into the data model.
+      *Best for:* list-driven configs - N BGP neighbors per device,
+      M VLAN ranges, conditional features keyed off device variables.
+      *Trade-off:* two files instead of one (the YAML template
+      definition plus the `.tftpl` body). The moment you need a loop
+      or conditional, the extra file is worth it.
+
+    **They compose, they don't compete.** A device group can apply
+    both a `model` and a `file` template to its members at the same
+    time, and a single device can override what the group applies. The
+    canonical pattern in production is: **groups decide where**,
+    **templates decide what**, and **variables fill in the per-device
+    specifics** (IP, AS number, neighbor list).
+
+    !!! tip "Quick mental rule"
+        - Need to point a chunk of configuration at a *set of devices*?
+          Reach for a **device group**.
+        - Need to *package and name* a chunk of configuration so multiple
+          places can reference it? Reach for a **`model` template**.
+        - Need that same packaged chunk to *expand into a list* or *react
+          to per-device variables with loops/conditionals*? Promote the
+          `model` template to a **`file` template**.
+
 ## Use case: BGP configuration on border switch
 
 
