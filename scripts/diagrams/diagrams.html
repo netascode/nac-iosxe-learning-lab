@@ -412,6 +412,41 @@
   .mi-group.output .gttl { color: #b3a3ff; }
   .mi-group.behavior .gttl { color: var(--green); }
 
+  /* ======================================================== TEMPLATES PATTERNS (new)
+     Three side-by-side cards comparing device groups, model templates, and
+     file (.tftpl) templates. Each card shows the question it answers, a
+     compact YAML snippet, "best for" use cases, and the trade-off line. */
+  .tpat { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; align-items: stretch; }
+  .tpat-col { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid var(--cyan); position: relative; }
+  .tpat-col.dgroup { border-top-color: var(--orange); }
+  .tpat-col.tmodel { border-top-color: var(--cyan); }
+  .tpat-col.tfile  { border-top-color: var(--blue); }
+  .tpat-col .tag { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .tpat-col.dgroup .tag { color: var(--orange); }
+  .tpat-col.tmodel .tag { color: var(--cyan); }
+  .tpat-col.tfile  .tag { color: #6d9bff; }
+  .tpat-col .ttl { font-size: 17px; font-weight: 700; color: var(--white); line-height: 1.25; }
+  .tpat-col .q   { font-size: 13px; color: var(--dk-text); font-style: italic; line-height: 1.4; padding-bottom: 6px; border-bottom: 1px dashed var(--muted-line); }
+  .tpat-col pre  { background: var(--code-bg); margin: 0; padding: 9px 11px; border-radius: 6px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--white); line-height: 1.45; white-space: pre; overflow: hidden; }
+  .tpat-col pre .k  { color: var(--cyan); }
+  .tpat-col.dgroup pre .k { color: var(--orange); }
+  .tpat-col.tfile pre .k  { color: #6d9bff; }
+  .tpat-col pre .v  { color: var(--white); }
+  .tpat-col pre .var { color: var(--orange); }
+  .tpat-col pre .ctl { color: #ff7eb8; }
+  .tpat-col .row { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; line-height: 1.45; }
+  .tpat-col .row .lbl { font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dk-text); }
+  .tpat-col .row .val { color: var(--white); }
+  .tpat-col .row .val code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--cyan); }
+  .tpat-col .tradeoff { margin-top: auto; font-size: 11.5px; color: var(--dk-text); background: rgba(180,185,192,.06); border-left: 3px solid var(--muted-line); border-radius: 4px; padding: 7px 9px; line-height: 1.45; }
+  .tpat-col.dgroup .tradeoff { border-left-color: var(--orange); }
+  .tpat-col.tmodel .tradeoff { border-left-color: var(--cyan); }
+  .tpat-col.tfile  .tradeoff { border-left-color: #6d9bff; }
+  .tpat-foot { display: grid; grid-template-columns: 50px 1fr; gap: 12px; align-items: center; padding: 10px 14px; background: var(--card-bg); border: 1px dashed var(--muted-line); border-radius: 8px; }
+  .tpat-foot .ico { font-size: 22px; color: var(--cyan); text-align: center; }
+  .tpat-foot .txt { font-size: 13px; color: var(--dk-text); line-height: 1.45; }
+  .tpat-foot .txt strong { color: var(--white); }
+
   /* ======================================================== SELECTIVE DEPLOYMENT (new) */
   .sd { flex: 1; display: grid; grid-template-columns: 1fr 60px 1fr 60px 1fr; gap: 0; align-items: stretch; }
   .sd-col { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
@@ -1248,6 +1283,101 @@ globally by every device
     <div class="tdec-edge yes" style="top: 22%; left: 67%;">YES</div>
     <div class="tdec-edge no"  style="top: 52%; left: 65%;">NO</div>
   </div>
+  <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
+</section>
+
+<!-- ============================================================== TEMPLATES PATTERNS COMPARISON -->
+<section class="card" id="templates-patterns">
+  <div>
+    <h1>Three patterns: <span class="accent">device groups, model templates, file templates</span></h1>
+    <p class="sub">Each answers a different question. <strong style="color:var(--orange)">Groups</strong> answer <em>which devices</em>; <strong style="color:var(--cyan)">templates</strong> answer <em>what config</em>; <strong style="color:#6d9bff">file (.tftpl)</strong> adds loops &amp; conditionals on top of <code style="color:var(--cyan)">model</code>. They compose freely - groups decide <em>where</em>, templates package <em>what</em>, <code style="color:var(--cyan)">variables:</code> fills per-device specifics.</p>
+  </div>
+
+  <div class="tpat">
+
+    <!-- Device group -->
+    <div class="tpat-col dgroup">
+      <span class="tag">Device group</span>
+      <span class="ttl">Group devices that share configuration</span>
+      <span class="q">"Which devices receive this?"</span>
+      <pre><span class="k">device_groups:</span>
+  - <span class="k">name:</span> ACCESS_SWITCHES
+    <span class="k">devices:</span>
+      - access01
+      - access02
+    <span class="k">configuration:</span>
+      <span class="k">access_lists:</span> ...
+    <span class="k">templates:</span>
+      - access_switch_vlans</pre>
+      <div class="row">
+        <span class="lbl">Best for</span>
+        <span class="val">Role/location config: access-layer ACLs, regional NTP, site syslog.</span>
+      </div>
+      <div class="row">
+        <span class="lbl">Mental model</span>
+        <span class="val">A named bag of devices. Group config merges onto every member.</span>
+      </div>
+      <div class="tradeoff"><strong>Trade-off:</strong> targets, doesn't generate. Membership is fixed in YAML.</div>
+    </div>
+
+    <!-- model template -->
+    <div class="tpat-col tmodel">
+      <span class="tag">Template <code style="color:var(--cyan);background:var(--code-bg);padding:1px 6px;border-radius:3px">type: model</code></span>
+      <span class="ttl">Reusable, schema-validated YAML block</span>
+      <span class="q">"What block to package and reuse, by name?"</span>
+      <pre><span class="k">templates:</span>
+  - <span class="k">name:</span> access_switch_vlans
+    <span class="k">type:</span> model
+    <span class="k">configuration:</span>
+      <span class="k">vlan:</span>
+        <span class="k">vlans:</span>
+          - <span class="k">id:</span> 10
+            <span class="k">name:</span> DATA
+          - <span class="k">id:</span> 20
+            <span class="k">name:</span> VOICE</pre>
+      <div class="row">
+        <span class="lbl">Best for</span>
+        <span class="val">Fixed blocks: standard VLAN sets, baseline ACLs, OSPF area defaults.</span>
+      </div>
+      <div class="row">
+        <span class="lbl">Mental model</span>
+        <span class="val">Define once, reference by <code>name</code> from <code>global</code>, group, or device.</span>
+      </div>
+      <div class="tradeoff"><strong>Trade-off:</strong> no logic. Same config for every consumer. <code>${VAR}</code> substitution only.</div>
+    </div>
+
+    <!-- file template -->
+    <div class="tpat-col tfile">
+      <span class="tag">Template <code style="color:#6d9bff;background:var(--code-bg);padding:1px 6px;border-radius:3px">type: file</code> (.tftpl)</span>
+      <span class="ttl">Reusable block + loops &amp; conditionals</span>
+      <span class="q">"Same as model, but rendered through Terraform templating."</span>
+      <pre><span class="k">templates:</span>
+  - <span class="k">name:</span> bgp_isp_peering
+    <span class="k">type:</span> file
+    <span class="k">file:</span> tftpl/bgp.yaml.tftpl
+
+<span style="color:var(--dk-text)"># bgp.yaml.tftpl</span>
+<span class="k">routing:</span>
+  <span class="k">bgp:</span>
+    <span class="k">as_number:</span> <span class="var">${BGP_AS}</span>
+    <span class="k">neighbors:</span>
+<span class="ctl">%{ for N in NEIGHBORS ~}</span>
+      - <span class="k">ip:</span> <span class="var">${N.IP}</span>
+        <span class="k">remote_as:</span> <span class="var">${N.REMOTE_AS}</span>
+<span class="ctl">%{ endfor ~}</span></pre>
+      <div class="row">
+        <span class="lbl">Best for</span>
+        <span class="val">List-driven configs: N BGP neighbors, M VLAN ranges, conditional features.</span>
+      </div>
+      <div class="row">
+        <span class="lbl">Mental model</span>
+        <span class="val">Reference-by-name like <code>model</code>; <code>.tftpl</code> is rendered with each consumer's vars.</span>
+      </div>
+      <div class="tradeoff"><strong>Trade-off:</strong> two files (definition + <code>.tftpl</code>). Worth it for any loop.</div>
+    </div>
+
+  </div>
+
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>
 

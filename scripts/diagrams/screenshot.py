@@ -37,6 +37,7 @@ DIAGRAMS = [
     "cml-topology",
     "file-layout",
     "template-decision",
+    "templates-patterns",
     "terraform-workflow",
     "netconf-datastores",
     "config-merge",
