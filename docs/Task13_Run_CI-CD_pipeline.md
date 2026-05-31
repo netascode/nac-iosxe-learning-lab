@@ -13,7 +13,7 @@
 
     **Self-check** - run this in your WSL terminal from `~/nac-iosxe/`:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     terraform state list
     ```
 
@@ -206,7 +206,7 @@ The pipeline uses GitLab's **http backend** to store the Terraform state file on
 
 It is configured in the `main.tf` file with the following `backend` block under the `terraform` section:
 
-```text
+```terraform { title="main.tf (excerpt)" .no-copy }
 backend "http" {
   skip_cert_verification = true
 }
@@ -367,7 +367,7 @@ state that already matches intent) also shows green. To confirm Terraform
 actually pushed something, click into the **deploy** job and scroll to the
 end of the log. You're looking for a line like:
 
-```text { .no-copy }
+```text { .output title="deploy job tail" .no-copy }
 Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
 ```
 
@@ -420,7 +420,7 @@ If your pipeline shows a red **failed** status, click into the failing job to se
 
     **Fix:** An earlier pipeline run died mid-apply and left the HTTP backend state locked. Unlock it from the command line:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     terraform force-unlock <lock-id>
     ```
 
