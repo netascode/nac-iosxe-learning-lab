@@ -131,13 +131,14 @@ This separates the template definition from the device configuration, making it 
 
 Now open the existing `data/devices/border.nac.yaml` file in VS Code (this was created as a placeholder in Task05) and add the template reference with variables:
 
-```yaml title="data/devices/border.nac.yaml" hl_lines="7-26"
+```yaml title="data/devices/border.nac.yaml" hl_lines="8-27"
 ---
 iosxe:
   devices:
     - name: border
+      host: 198.18.130.20
       variables:
-        HOSTNAME: border  # Added in Task06
+        HOSTNAME: border
         BGP_AS_NUMBER: 65000
         BGP_NEIGHBORS:
           - IP: 198.18.100.1
