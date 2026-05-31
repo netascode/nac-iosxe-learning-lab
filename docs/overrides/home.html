@@ -236,48 +236,49 @@
 
     /* ------------- Presenter strip -------------- */
     .presenter-strip {
-        max-width: 800px;
-        margin: 0 auto 40px;
+        max-width: 1100px;
+        margin: 0 auto 48px;
         padding: 24px;
         text-align: center;
     }
     .presenter-strip h3 {
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 700;
-        letter-spacing: 2px;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
         color: var(--md-primary-bg-color);
-        opacity: .65;
-        margin: 0 0 16px;
+        opacity: .7;
+        margin: 0 0 24px;
     }
     .presenter-list {
         display: flex;
         justify-content: center;
-        gap: 16px;
+        gap: 24px;
         flex-wrap: wrap;
     }
     .presenter-card {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px 18px;
-        border-radius: 10px;
+        gap: 20px;
+        padding: 24px 28px;
+        border-radius: 14px;
         text-decoration: none !important;
         background: var(--md-default-bg-color);
         border: 1px solid rgba(0,0,0,.08);
         transition: transform .15s ease, box-shadow .15s ease;
         color: var(--md-default-fg-color) !important;
+        min-width: 360px;
     }
     [data-md-color-scheme="slate"] .presenter-card {
         border-color: rgba(255,255,255,.08);
     }
     .presenter-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,.12);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 22px rgba(0,0,0,.18);
     }
     .presenter-avatar {
-        width: 44px;
-        height: 44px;
+        width: 96px;
+        height: 96px;
         border-radius: 50%;
         flex-shrink: 0;
         background-size: cover;
@@ -285,20 +286,22 @@
         background-repeat: no-repeat;
         /* subtle ring so the bubble reads as a discrete element on either
            the dark hero bg or the light card bg behind the presenter card */
-        box-shadow: 0 0 0 2px rgba(255,255,255,.08), 0 2px 6px rgba(0,0,0,.15);
+        box-shadow: 0 0 0 3px rgba(255,255,255,.10), 0 4px 12px rgba(0,0,0,.20);
     }
     .presenter-avatar.at { background-image: url('assets/andrea-profile.jpeg'); }
     .presenter-avatar.ch { background-image: url('assets/chris-profile.jpeg'); }
     .presenter-meta { text-align: left; }
     .presenter-name {
-        font-size: 14.5px;
-        font-weight: 600;
+        font-size: 22px;
+        font-weight: 700;
         color: var(--md-default-fg-color);
+        line-height: 1.2;
     }
     .presenter-role {
-        font-size: 12px;
+        font-size: 13.5px;
         color: var(--md-default-fg-color);
-        opacity: .6;
+        opacity: .65;
+        margin-top: 6px;
     }
 
     /* ------------- Closing CTA -------------- */
