@@ -322,6 +322,13 @@
         color: #02C8FF;
         border: 1px solid rgba(2,200,255,.45);
         font-family: "SFMono-Regular", Consolas, monospace;
+        text-decoration: none;
+        transition: background .15s ease, border-color .15s ease;
+    }
+    a.presenter-ccie:hover {
+        background: rgba(2,200,255,.28);
+        border-color: rgba(2,200,255,.7);
+        color: #02C8FF;
     }
     .presenter-title {
         font-size: 13.5px;
@@ -444,7 +451,7 @@
             <div class="presenter-meta">
                 <div class="presenter-name-row">
                     <span class="presenter-name">Andrea Testino</span>
-                    <span class="presenter-ccie">CCIE #56739</span>
+                    <a class="presenter-ccie" href="https://www.credly.com/badges/c2237c47-13f6-431b-9066-78679b303e89" target="_blank" rel="noopener" title="Verify on Credly">CCIE #56739</a>
                 </div>
                 <div class="presenter-title">Principal Software Engineer, Cisco</div>
                 <a class="presenter-linkedin" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">LinkedIn →</a>
