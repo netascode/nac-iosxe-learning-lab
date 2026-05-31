@@ -336,6 +336,27 @@
         opacity: .75;
         line-height: 1.4;
     }
+    .presenter-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+    }
+    .presenter-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .presenter-badge.distinguished {
+        background: rgba(255,0,127,.13);
+        color: #FF007F;
+        border: 1px solid rgba(255,0,127,.45);
+    }
     .presenter-linkedin {
         display: inline-block;
         font-size: 15px;
@@ -454,6 +475,9 @@
                     <a class="presenter-ccie" href="https://www.credly.com/badges/c2237c47-13f6-431b-9066-78679b303e89" target="_blank" rel="noopener" title="Verify on Credly">CCIE #56739</a>
                 </div>
                 <div class="presenter-title">Principal Software Engineer, Cisco</div>
+                <div class="presenter-badges">
+                    <span class="presenter-badge distinguished">Distinguished Speaker</span>
+                </div>
                 <a class="presenter-linkedin" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">LinkedIn →</a>
             </div>
         </div>
@@ -464,6 +488,9 @@
                     <span class="presenter-name">Christopher Hart</span>
                 </div>
                 <div class="presenter-title">Sr. Software Technical Leader, Cisco</div>
+                <div class="presenter-badges">
+                    <span class="presenter-badge distinguished">Distinguished Speaker</span>
+                </div>
                 <a class="presenter-linkedin" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">LinkedIn →</a>
             </div>
         </div>
