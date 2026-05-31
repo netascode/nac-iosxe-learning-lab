@@ -3,7 +3,7 @@
 
 Here is the final `.gitlab-ci.yml` file including the test stage from [Task 14 - Edit CI/CD](Task14_Edit_CI-CD.md):
 
-``` yaml title=".gitlab-ci.yml"
+```yaml { title=".gitlab-ci.yml" }
 ---
 image: danischm/nac:0.1.6
 stages:

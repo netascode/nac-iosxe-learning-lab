@@ -26,7 +26,7 @@
 
 Copy this single schema block for reference. It includes only the features used in this lab:
 
-```yaml title="schema.yaml"
+```yaml { title="schema.yaml" }
 ---
 iosxe: include('iosxe', required=False)
 ---
