@@ -234,63 +234,6 @@
         padding-top: 20px;
     }
 
-    /* ------------- Expectations strip (duration / prereqs / what we provide) -------------- */
-    .lab-expectations {
-        max-width: 1200px;
-        margin: 0 auto 36px;
-        padding: 0 24px;
-    }
-    .lab-expectations h3 {
-        text-align: center;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--md-primary-bg-color);
-        opacity: .65;
-        margin: 0 0 16px;
-    }
-    .exp-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
-    }
-    .exp-item {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 16px 18px;
-        background: var(--md-default-bg-color);
-        border: 1px solid rgba(0,0,0,.08);
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,.05);
-    }
-    [data-md-color-scheme="slate"] .exp-item {
-        border-color: rgba(255,255,255,.08);
-        box-shadow: 0 2px 8px rgba(0,0,0,.3);
-    }
-    .exp-icon {
-        font-size: 26px;
-        flex-shrink: 0;
-        width: 38px;
-        text-align: center;
-    }
-    .exp-label {
-        font-size: 10.5px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: var(--md-default-fg-color);
-        opacity: .55;
-    }
-    .exp-value {
-        font-size: 14.5px;
-        font-weight: 600;
-        color: var(--md-default-fg-color);
-        margin-top: 2px;
-        line-height: 1.35;
-    }
-
     /* ------------- Tech-stack pills row -------------- */
     .tech-stack {
         max-width: 1100px;
@@ -483,41 +426,6 @@
             </div>
 
 
-        </div>
-    </div>
-</section>
-
-<!-- What to expect — duration, prereqs, what we provide -->
-<section class="lab-expectations">
-    <h3>What to expect</h3>
-    <div class="exp-grid">
-        <div class="exp-item">
-            <span class="exp-icon">⏱</span>
-            <div>
-                <div class="exp-label">Duration</div>
-                <div class="exp-value">4 hours, hands-on</div>
-            </div>
-        </div>
-        <div class="exp-item">
-            <span class="exp-icon">🧰</span>
-            <div>
-                <div class="exp-label">We provide</div>
-                <div class="exp-value">Lab VM + 4 IOS XE devices</div>
-            </div>
-        </div>
-        <div class="exp-item">
-            <span class="exp-icon">🎯</span>
-            <div>
-                <div class="exp-label">Prerequisites</div>
-                <div class="exp-value">No prior Terraform required</div>
-            </div>
-        </div>
-        <div class="exp-item">
-            <span class="exp-icon">📋</span>
-            <div>
-                <div class="exp-label">Style</div>
-                <div class="exp-value">Copy-paste friendly, ~90 min minimum path</div>
-            </div>
         </div>
     </div>
 </section>
