@@ -80,7 +80,7 @@ After the `deploy` job section (around line 115), add the `test-integration` job
 
 **Add this new job after the `deploy:` section:**
 
-```yaml
+```yaml { title=".gitlab-ci.yml (add this job)" }
 test-integration:
   stage: test
   script:
@@ -133,7 +133,7 @@ Add another test job that verifies idempotency - running Terraform again should 
 
 **Add this job right after the `test-integration:` job block:**
 
-```yaml
+```yaml { title=".gitlab-ci.yml (add this job)" }
 test-idempotency:
   stage: test
   resource_group: iosxe
