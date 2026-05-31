@@ -191,7 +191,7 @@ When Terraform processes your configuration, it performs variable substitution a
     replaced with the literal string - no variable markers remain in the
     final model:
 
-    ```yaml { title="model.yaml (excerpt - access01 after resolution)" .no-copy }
+    ```yaml { .output title="model.yaml (excerpt - access01 after resolution)" .no-copy }
     iosxe:
       devices:
         - name: access01
@@ -234,7 +234,7 @@ This allows you to define default values globally and override them per device o
 !!! info "Variable Precedence Example"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml { hl_lines="5 9" .no-copy }
+    ```yaml { title="example: variable precedence (illustrative)" hl_lines="5 9" .no-copy }
     ---
     iosxe:
       global:
@@ -252,13 +252,13 @@ This allows you to define default values globally and override them per device o
 
 Open your WSL Ubuntu terminal and navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 Optionally, preview the changes Terraform will make:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
@@ -266,7 +266,7 @@ In the plan output, look for **four** separate hostname changes - one per device
 
 Apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 When prompted, type `yes` to confirm the deployment.
@@ -348,7 +348,7 @@ Environment variables can also be used in Network as Code configurations. They a
 !!! info "Environment Variable Example"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml {title="" hl_lines="6" .no-copy }
+    ```yaml {title="example: !env reference (illustrative)" hl_lines="6" .no-copy }
     ---
     iosxe:
       devices:
