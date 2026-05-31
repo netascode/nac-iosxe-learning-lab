@@ -54,7 +54,7 @@ Find the `stages` section at the top of the file. You need to add `test` between
 
 **Find this section:**
 
-```yaml { .no-copy }
+```yaml { title=".gitlab-ci.yml" .filename-trial .no-copy }
 stages:
   - validate
   - plan
@@ -64,7 +64,7 @@ stages:
 
 **Add `test` so it looks like this:**
 
-```yaml hl_lines="5"
+```yaml { title=".gitlab-ci.yml" .filename-trial hl_lines="5" }
 stages:
   - validate
   - plan

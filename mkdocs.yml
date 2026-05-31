@@ -50,6 +50,10 @@ extra:
   footer_revision_datetime: true # Change to true to add to the footer the datetime for last update.
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  # Click-to-copy handler for titled code blocks wrapped in
+  # <div class="filename-trial">. Trial scope only - see Task 14, Step 2.
+  - javascripts/filename-copy.js
 plugins:
   - search
   - awesome-nav
