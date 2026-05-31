@@ -121,8 +121,6 @@ Thanks for spending four hours with us. If you have questions or feedback after 
 - **Andrea Testino** - atestini@cisco.com - [LinkedIn](https://www.linkedin.com/in/aitestino/)
 - **Christopher Hart** - chart2@cisco.com - [LinkedIn](https://www.linkedin.com/in/christopherjhart95/)
 
-Original lab design by Asier Arlegui and Balu Novak-Bohak - thank you for laying the foundation.
-
 ---
 
 **← Previous:** [Task 15 - Merge request workflow](Task15_Branch_and_merge_request.md)
