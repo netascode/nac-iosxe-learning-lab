@@ -254,30 +254,16 @@ If you see the `<hello>` XML with a capability list, NETCONF is reachable and yo
 
 While the base NETCONF subsystem is already running, the **candidate datastore** capability has not yet been enabled. This is the missing CLI line that activates the `<candidate>` -> `<commit>` -> `<discard-changes>` flow Terraform relies on for transactional, all-or-nothing pushes (see the NETCONF datastore diagram in [Task 01](Task01_SSH_to_network_devices.md)). Without it, NETCONF on IOS XE falls back to writing directly to `running`, which loses the "all RPCs commit together or none of them do" guarantee.
 
-Enable it on **all four** lab devices. The fastest path is a single WSL one-liner that SSHes to each in turn and applies the same three commands:
+Enable it on **all four** lab devices using **Solar-PuTTY**. Open Solar-PuTTY, connect to each of `core`, `border`, `access01`, `access02` as `nac_admin` / `cisco`, and run the same three commands on each:
 
-```bash
-for ip in 198.18.130.10 198.18.130.20 198.18.130.11 198.18.130.12; do
-  echo "--- Enabling candidate-datastore on $ip ---"
-  sshpass -p cisco ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-    nac_admin@$ip "configure terminal
+```text
+configure terminal
 netconf-yang feature candidate-datastore
 end
-write memory"
-done
+write memory
 ```
 
-??? tip "Prefer doing it interactively? Use Solar-PuTTY"
-    If you'd rather see the prompts, open **Solar-PuTTY** and connect to each of `core`, `border`, `access01`, `access02` as `nac_admin` / `cisco`, then run:
-
-    ```text
-    configure terminal
-    netconf-yang feature candidate-datastore
-    end
-    write memory
-    ```
-
-    Repeat for all four devices.
+Repeat for all four devices before moving on. Each box should accept the commands and save without errors.
 
 **Verify the capability now appears.** Re-run the Step 3 NETCONF handshake against `access01`:
 
