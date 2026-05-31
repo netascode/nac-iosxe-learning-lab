@@ -37,7 +37,7 @@ In this example, you'll create a device group called **ACCESS_SWITCHES** that in
 
 First, create the file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/data/groups/access.nac.yaml
 ```
 
@@ -90,7 +90,7 @@ Let's break down the key elements:
 
     You can also add a device to a device group from under the device configuration section by specifying the `device_groups` attribute. This is useful when you want to assign a device to multiple groups or prefer defining group membership alongside device-specific settings.
 
-    ```yaml
+    ```yaml { title="data/devices/example-device.nac.yaml (illustrative)" }
     ---
     iosxe:
       devices:
@@ -145,7 +145,7 @@ This hierarchical approach ensures:
 
 Open your WSL Ubuntu terminal and navigate to your project directory. Run Terraform to deploy the ACL configuration to the device group:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
@@ -155,13 +155,13 @@ cd ~/nac-iosxe
 
 It is good practice to run `terraform plan` first to preview the changes that will be made. You could also skip this step as the plan is automatically generated during `terraform apply`.
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
 Now, run the following command to apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
@@ -184,7 +184,8 @@ After successfully running `terraform apply`, verify that the ACL was deployed o
 4. Repeat for the **access02** switch
 
 Use the following command on both **access01** and **access02** switches to verify the ACL:
-```bash
+
+```text { .device-cli title="access01, access02" }
 show access-lists | section AccessLayerACL
 ```
 
