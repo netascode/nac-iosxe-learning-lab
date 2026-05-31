@@ -161,7 +161,10 @@ Visual Studio Code, commonly known as VS Code, is a free, lightweight, yet power
 ### YAML linting with RedHat extension (pre-installed)
 
 
-Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files. This extension is already installed in your lab's VS Code - no action required.
+Since Network as Code configurations are written in YAML, having proper syntax validation is essential. VS Code supports YAML linting through the **YAML extension by Red Hat**, which helps catch syntax errors and enforce best practices as you write your configuration files.
+
+!!! success "Pre-installed in your lab VM"
+    This extension is already installed in your lab's VS Code - no action required.
 
 <figure markdown>
   ![VS Code YAML Extension](./assets/vscode-yaml-extension.png){ width="100%" }
