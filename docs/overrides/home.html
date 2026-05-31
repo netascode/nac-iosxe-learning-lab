@@ -36,7 +36,16 @@
     .tx-hero h1 {
         margin-bottom: 1rem;
         color: currentColor;
-        font-weight: 700
+        font-weight: 700;
+        line-height: 1.15;
+    }
+    .tx-hero h1 .lab-subtitle {
+        display: block;
+        margin-top: .6rem;
+        font-size: .55em;
+        font-weight: 500;
+        opacity: .8;
+        line-height: 1.35;
     }
 
     :root {
@@ -442,16 +451,8 @@
                     <img src="template_assets/Event_General_Logo.png" draggable="false">
                 </div>
                 <h1>
-                    {% set lab_id = config.lab_id %}
-                    {% set lab_title = config.lab_title %}
-                    <!-- Check for empty lab_id -->
-                    {% if lab_id %}
-                        {{ lab_id }}
-                        {% if lab_title %}
-                            :<br>
-                        {% endif %}
-                    {% endif %}
-                    {{ lab_title }}
+                    Accelerate Your Network Operations
+                    <span class="lab-subtitle">A 4-Hour IOS XE Automation Workshop</span>
                 </h1>
                 <a href="Intro01_overview/" title="{{ page.next_page.title | striptags }}" class="md-button md-button--primary">
                     Get started →
