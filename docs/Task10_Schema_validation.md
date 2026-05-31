@@ -55,7 +55,7 @@ The complete schema for IOS XE Network as Code is documented on the [Cisco NetAs
 
 Copy the `~/schema/.schema.yaml` schema file to your `~/nac-iosxe/` working directory using the command below in the WSL terminal:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
 ```
 
@@ -64,7 +64,7 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
 
     First, create the file using the `touch` command in your WSL Ubuntu terminal:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~$" }
     cd ~/nac-iosxe
     touch ~/nac-iosxe/.schema.yaml
     ```
@@ -77,7 +77,8 @@ cp ~/schema/.schema.yaml ~/nac-iosxe/.schema.yaml
     4. Paste it into the file and save
 
 Your project structure should now include:
-```text { hl_lines="16" .no-copy }
+
+```text { .output title="Project layout (after copying schema)" hl_lines="16" .no-copy }
 /home/cisco/nac-iosxe/
 │
 ├── data/
@@ -114,7 +115,7 @@ Your project structure should now include:
 
 First, install the **nac-validate** tool using pip in your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 pip install nac-validate
 ```
 
@@ -123,13 +124,13 @@ pip install nac-validate
 
 Navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 Run validation:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 nac-validate -s .schema.yaml data/
 ```
 
@@ -144,18 +145,18 @@ nac-validate -s .schema.yaml data/
 
 If your YAML files are correct, the command will return without any output - you'll just get your prompt back:
 
-```text { .no-copy }
+```text { .output title="Expected output (success)" .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml data/
 cisco@wkst1:~/nac-iosxe$
 ```
 
 No output means success. To confirm what `nac-validate` actually checked, re-run with verbose logging:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 nac-validate -s .schema.yaml -v DEBUG data/
 ```
 
-```text { .no-copy }
+```text { .output title="Expected output (verbose)" .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-validate -s .schema.yaml -v DEBUG data/
 DEBUG - Loading schema
 DEBUG - Validate file: data/global.nac.yaml
@@ -184,7 +185,7 @@ Let's intentionally introduce errors to see how validation catches them.
 
 If you accidentally typed an invalid IP like `198.51.100.1010` in `data/devices/core.nac.yaml` (the Loopback0 address from Task 05):
 
-```yaml { title="data/devices/core.nac.yaml" hl_lines="7" .no-copy }
+```yaml { title="data/devices/core.nac.yaml (bad example)" hl_lines="7" .no-copy }
 ...
 configuration:
   interfaces:
@@ -197,7 +198,7 @@ configuration:
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```text { .no-copy }
+```text { .output title="Validation error" .no-copy }
 ERROR - Syntax error 'data/devices/core.nac.yaml':
 iosxe.devices.[name=core].configuration.interfaces.loopbacks.[id=0].ipv4.address: '198.51.100.1010' is not a ip.
 ```
@@ -207,7 +208,7 @@ iosxe.devices.[name=core].configuration.interfaces.loopbacks.[id=0].ipv4.address
 
 If you misspelled an attribute like `banner` as `banners` in `data/global.nac.yaml`:
 
-```yaml { title="data/global.nac.yaml" hl_lines="4" .no-copy }
+```yaml { title="data/global.nac.yaml (bad example)" hl_lines="4" .no-copy }
 ...
 global:
   configuration:
@@ -218,7 +219,7 @@ global:
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```text { .no-copy }
+```text { .output title="Validation error" .no-copy }
 ERROR - Syntax error 'data/global.nac.yaml':
 iosxe.global.configuration.banners: Unexpected element
 ```
@@ -228,7 +229,7 @@ iosxe.global.configuration.banners: Unexpected element
 
 If you used an invalid action in an ACL in `data/groups/access.nac.yaml`:
 
-```yaml { title="data/groups/access.nac.yaml" hl_lines="7" .no-copy }
+```yaml { title="data/groups/access.nac.yaml (bad example)" hl_lines="7" .no-copy }
 ...
 access_lists:
   standard:
@@ -243,7 +244,7 @@ access_lists:
 
 Running `nac-validate -s .schema.yaml data/` would produce:
 
-```text { .no-copy }
+```text { .output title="Validation error" .no-copy }
 ERROR - Syntax error 'data/groups/access.nac.yaml':
 iosxe.device_groups.[name=ACCESS_SWITCHES].configuration.access_lists.standard.[name=AccessLayerACL].entries.[sequence=10].action: 'allow' not in ('deny', 'permit')
 ```
