@@ -84,12 +84,19 @@ After the `deploy` job section (around line 115), add the `test-integration` job
 test-integration:
   stage: test
   script:
+    - echo "=== PWD and tree ==="; pwd; ls -la
+    - echo "=== Inputs nac-test needs ==="; ls -la model.yaml defaults.yaml || true
+    - echo "=== tests/ scaffolding ==="; ls -la tests/ tests/templates tests/filters || true
+    - echo "=== nac-test version ==="; nac-test --version || true
+    - mkdir -p tests/results
     - set -o pipefail && nac-test --data ./model.yaml --data ./defaults.yaml --templates ./tests/templates --filters ./tests/filters --output ./tests/results |& tee test_output.txt
+  after_script:
+    - echo "=== tests/results contents (post-run) ==="; ls -la tests/results || true
+    - echo "=== last 50 lines of test_output.txt ==="; tail -n 50 test_output.txt || true
   artifacts:
     when: always
     paths:
-      - tests/results/*.html
-      - tests/results/xunit.xml
+      - tests/results/
       - test_output.txt
     reports:
       junit: tests/results/xunit.xml
@@ -103,11 +110,21 @@ test-integration:
 
 **What this job does:**
 
-- `script`: Runs `nac-test` with your data files and test templates
-- `artifacts`: Saves test results (HTML reports and JUnit XML)
-- `reports: junit`: Integrates test results into GitLab's test reporting UI
-- `dependencies` and `needs`: Ensure this job runs after `deploy` completes
-- `only: main`: Only runs on the main branch (not merge requests)
+- The pre-`nac-test` `echo`/`ls` lines print the working directory, the data files (`model.yaml`, `defaults.yaml`), and the `tests/` scaffolding so a missing input is obvious in the log instead of being inferred from a downstream failure.
+- `mkdir -p tests/results` guarantees the output directory exists before `nac-test` writes to it, so the artifact glob never trips on a missing parent.
+- `script`: Runs `nac-test` with your data files and test templates.
+- `after_script`: Always runs (even on failure) and prints the contents of `tests/results/` plus the tail of `test_output.txt`, so you see what `nac-test` actually produced.
+- `artifacts`: Uploads the entire `tests/results/` directory (HTML reports, log, output.xml, xunit.xml) so a partial run is still inspectable.
+- `reports: junit`: Integrates test results into GitLab's test reporting UI.
+- `dependencies` and `needs`: Ensure this job runs after `deploy` completes.
+- `only: main`: Only runs on the main branch (not merge requests).
+
+!!! tip "Reading the log when this job fails"
+    Scroll to the lines just above `Uploading artifacts ...` in the job log:
+
+    - A missing `model.yaml` or `defaults.yaml` in the first `ls` block means the file wasn't passed to this job - check the `deploy` job's artifacts and the top-level `cache:` block.
+    - A missing `tests/templates` or `tests/filters` means the `tests/` scaffolding isn't committed on `main`.
+    - `Suite '...' contains no tests or tasks` from Robot Framework means the templates rendered an empty suite - usually because no input data matched (for example, `data/groups/access.nac.yaml_` was never renamed in Step 5, so `model.yaml` has no ACLs to test).
 
 ## Step 4: Add the test-idempotency job
 

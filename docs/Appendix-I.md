@@ -120,12 +120,19 @@ deploy:
 test-integration:
   stage: test
   script:
+    - echo "=== PWD and tree ==="; pwd; ls -la
+    - echo "=== Inputs nac-test needs ==="; ls -la model.yaml defaults.yaml || true
+    - echo "=== tests/ scaffolding ==="; ls -la tests/ tests/templates tests/filters || true
+    - echo "=== nac-test version ==="; nac-test --version || true
+    - mkdir -p tests/results
     - set -o pipefail && nac-test --data ./model.yaml --data ./defaults.yaml --templates ./tests/templates --filters ./tests/filters --output ./tests/results |& tee test_output.txt
+  after_script:
+    - echo "=== tests/results contents (post-run) ==="; ls -la tests/results || true
+    - echo "=== last 50 lines of test_output.txt ==="; tail -n 50 test_output.txt || true
   artifacts:
     when: always
     paths:
-      - tests/results/*.html
-      - tests/results/xunit.xml
+      - tests/results/
       - test_output.txt
     reports:
       junit: tests/results/xunit.xml
