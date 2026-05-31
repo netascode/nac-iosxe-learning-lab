@@ -251,9 +251,7 @@ Take a look at the `data/` folder in the file explorer (left panel). This folder
 !!! note "`.yaml_` vs. `.yaml` files"
     The Network as Code framework only uses `.yaml` files from the `yaml_directories` defined in `main.tf` (in our case, the `data/` folder). Files with other extensions (like `.yaml_`) are ignored.
 
-The only files that are currently **not** ignored are the four per-device registration files - `devices/core.nac.yaml`, `devices/border.nac.yaml`, `devices/access01.nac.yaml`, `devices/access02.nac.yaml` - each containing the same `name` + `host` + per-device `HOSTNAME` variable you produced in Tasks 02 and 06.
-
-For this task, you'll rename one more file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
+For this task, you'll rename one file (the global config from Tasks 03 and 06) to enable it, and let the pipeline do the rest.
 
 
 ### Add global configuration
