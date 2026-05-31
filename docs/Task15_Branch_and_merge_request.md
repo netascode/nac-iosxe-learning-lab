@@ -292,13 +292,13 @@ After the pipeline completes successfully, verify the changes landed on the devi
 
 Open **Solar-PuTTY** and connect to `core` (198.18.130.10). Run:
 
-```text
+```text { .device-cli title="core" }
 show run | include ip host
 ```
 
 Expected output:
 
-```text { .no-copy }
+```text { .output title="Expected output" .no-copy }
 core#show run | include ip host
 ip host host01 192.168.100.100
 ip host host02 192.168.100.200
@@ -312,7 +312,7 @@ scroll to the Troubleshooting section below.
 As in Task 13, click into the **deploy** job on the merge pipeline and
 look for:
 
-```text { .no-copy }
+```text { .output title="deploy job tail" .no-copy }
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 ```
 
