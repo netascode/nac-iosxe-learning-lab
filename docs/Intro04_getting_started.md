@@ -18,8 +18,12 @@ Follow these three steps to open the Windows 10 VM where you'll do all your work
 
 Once the Web RDP session loads, you're inside the lab VM. Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed. You'll open the **WSL Ubuntu terminal** frequently throughout the lab; it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
 
-!!! tip "Work from inside the VM, not your laptop"
-    The lab guide is already set as the Chrome start page on the Win10 VM, and it's bookmarked for later. Read the guide from inside the RDP session - copy/paste between your laptop and the Web RDP window is finicky, and you will be pasting YAML into VS Code and commands into the WSL terminal constantly.
+!!! warning "Read the lab guide from your laptop, not from inside the VM"
+    The Chrome start page bookmarked on the Win10 VM currently points to an **older copy of this guide from a previous Cisco Live delivery** - a known deployment-side issue we weren't able to correct in time. Please ignore that bookmark.
+
+    The current guide is the one already open on your laptop's left monitor when you sit down: **[https://cl-ltr.ciscolabs.com/4eb6f2de2e/](https://cl-ltr.ciscolabs.com/4eb6f2de2e/)**. Keep that tab in front of you for the entire session.
+
+    You will still do every hands-on action (VS Code edits, WSL terminal commands, Solar-PuTTY sessions) **inside the Win10 VM**. The only thing that lives on your laptop is this guide. Copy-paste from your laptop into the Web RDP window takes an extra moment compared to staying inside the VM, but that is a much smaller cost than following outdated instructions.
 
 For the full topology diagram and device inventory, see **[Topologies](Intro05_topologies.md)** (also linked from the top navigation bar throughout the lab).
 
