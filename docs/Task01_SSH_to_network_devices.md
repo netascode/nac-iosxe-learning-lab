@@ -72,7 +72,7 @@ Credentials are **pre-configured** for all devices - just double-click the devic
 
 Once you're on the device, run:
 
-```bash
+```text { .device-cli title="core" }
 show version
 ```
 
@@ -89,7 +89,7 @@ This is a virtual Catalyst 9000 switch running IOS XE in CML.
 
 ## Review the current configuration
 
-```bash
+```text { .device-cli title="core" }
 show run
 ```
 
@@ -97,7 +97,7 @@ The running configuration is intentionally minimal. The devices are a clean slat
 
 Look for:
 
-```text { .no-copy }
+```text { .output title="From show run output" .no-copy }
 username nac_admin privilege 15 secret cisco
 ...
 netconf-yang
@@ -125,7 +125,7 @@ The lab devices already have the base NETCONF subsystem (`netconf-yang`) and the
 
 ??? note "Commands to enable NETCONF on your own devices"
 
-    ```text
+    ```text { .device-cli title="any IOS XE device" }
     configure terminal
      username nac_admin privilege 15 secret cisco
      netconf-yang
