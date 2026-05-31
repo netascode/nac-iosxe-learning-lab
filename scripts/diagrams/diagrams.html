@@ -244,52 +244,48 @@
   .labtop .zonearrow { position: absolute; top: 50%; right: -18px; width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border-right: 2px solid var(--cyan); border-top: 2px solid var(--cyan); }
   .labtop .arrow-label { position: absolute; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); background: var(--deep-bg); padding: 2px 6px; }
 
-  /* ======================================================== TEMPLATE DECISION TREE
-     Horizontal tier layout: Q1 -> branches -> Q2 -> branches -> 3 terminators.
-     SVG overlay draws the connecting arrows between cards so the reading
-     order (left to right, branching down) is explicit rather than implied. */
-  .tdec { flex: 1; position: relative; display: block; }
-  .tdec-grid { position: relative; z-index: 2; display: grid;
-               grid-template-columns: 1fr 1fr 1fr;
-               grid-template-rows: 1fr 1fr;
-               column-gap: 60px; row-gap: 28px;
-               height: 100%; align-items: center; }
-  .tdec-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-
-  .tdec-card { background: var(--card-bg); border-radius: 10px;
-               padding: 16px 20px; display: flex; flex-direction: column; gap: 6px;
-               box-shadow: 0 4px 14px rgba(0,0,0,.35); position: relative; }
-  .tdec-card.q    { border: 1.5px solid rgba(2,200,255,.55); }
-  .tdec-card.a    { border-left: 4px solid var(--cyan); border-top: 1px solid var(--muted-line); border-right: 1px solid var(--muted-line); border-bottom: 1px solid var(--muted-line); }
-  .tdec-card.a.model { border-left-color: var(--cyan); }
-  .tdec-card.a.file  { border-left-color: var(--blue); }
-  .tdec-card.a.cli   { border-left-color: var(--orange); background: rgba(255,144,0,.05); }
-
-  .tdec-lbl  { font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); }
-  .tdec-ttl  { font-size: 16.5px; font-weight: 700; color: var(--white); line-height: 1.3; }
-  .tdec-sub  { font-size: 13px; color: var(--dk-text); font-family: "JetBrains Mono", monospace; }
-
-  .tdec-card.a .type  { font-family: "JetBrains Mono", monospace; font-size: 19px; font-weight: 700; color: var(--cyan); }
-  .tdec-card.a.file .type { color: #6d9bff; }
-  .tdec-card.a.cli  .type { color: var(--orange); }
-  .tdec-card.a .desc  { font-size: 14px; color: var(--white); }
-  .tdec-card.a .ex    { font-size: 12.5px; color: var(--dk-text); font-style: italic; }
-  .tdec-card.a .cost  { font-size: 12px; color: var(--cyan); letter-spacing: .3px; margin-top: 2px; }
-  .tdec-card.a.cli .cost { color: var(--pink); }
-
-  /* Grid placement */
-  .tdec-q1   { grid-column: 1; grid-row: 1 / span 2; align-self: center; }
-  .tdec-q2   { grid-column: 2; grid-row: 1; }
-  .tdec-cli  { grid-column: 2; grid-row: 2; }
-  .tdec-file { grid-column: 3; grid-row: 1; }
-  .tdec-model{ grid-column: 3; grid-row: 2; }
-
-  /* Edge labels — sit on top of the SVG connector lines */
-  .tdec-edge { position: absolute; font-size: 12px; font-weight: 700; letter-spacing: 2px;
-               padding: 3px 10px; border-radius: 4px; white-space: nowrap; z-index: 3;
-               transform: translate(-50%, -50%); }
-  .tdec-edge.yes { color: var(--cyan); border: 1px solid var(--cyan); background: rgba(2,200,255,.12); }
-  .tdec-edge.no  { color: var(--pink); border: 1px solid var(--pink); background: rgba(255,0,127,.12); }
+  /* ======================================================== TEMPLATE DECISION (B-style)
+     Three ranked cards: Default / Escalate / Last resort. Same visual language as
+     templates-patterns so the two diagrams feel like one coordinated set. The two
+     decision criteria (in data model? needs loops?) ride as ✓/✗/— chips at the top
+     of each card, so the tree logic survives without a literal tree shape. */
+  .tdec { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; align-items: stretch; }
+  .tdec-card { background: var(--card-bg); border: 1px solid var(--muted-line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--cyan); position: relative; }
+  .tdec-card.model { border-top-color: var(--cyan); }
+  .tdec-card.file  { border-top-color: var(--blue); }
+  .tdec-card.cli   { border-top-color: var(--orange); }
+  .tdec-rank { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .tdec-card.model .tdec-rank { color: var(--cyan); }
+  .tdec-card.file  .tdec-rank { color: #6d9bff; }
+  .tdec-card.cli   .tdec-rank { color: var(--orange); }
+  .tdec-rank .num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: 800; letter-spacing: 0; }
+  .tdec-card.model .tdec-rank .num { background: rgba(2,200,255,.18); color: var(--cyan); border: 1px solid rgba(2,200,255,.6); }
+  .tdec-card.file  .tdec-rank .num { background: rgba(10,96,255,.18); color: #6d9bff; border: 1px solid rgba(10,96,255,.6); }
+  .tdec-card.cli   .tdec-rank .num { background: rgba(255,144,0,.18); color: var(--orange); border: 1px solid rgba(255,144,0,.6); }
+  .tdec-rank .badge { font-size: 14px; }
+  .tdec-type { font-family: "JetBrains Mono", monospace; font-size: 28px; font-weight: 800; color: var(--white); line-height: 1; padding: 4px 0 6px; border-bottom: 1px dashed var(--muted-line); }
+  .tdec-card.model .tdec-type { color: var(--cyan); }
+  .tdec-card.file  .tdec-type { color: #6d9bff; }
+  .tdec-card.cli   .tdec-type { color: var(--orange); }
+  .tdec-criteria { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; }
+  .tdec-criterion { display: grid; grid-template-columns: 1fr 28px; align-items: center; font-size: 13px; color: var(--dk-text); }
+  .tdec-criterion .lbl { line-height: 1.35; }
+  .tdec-criterion .ans { font-size: 17px; font-weight: 800; text-align: center; line-height: 1; }
+  .tdec-criterion .ans.yes { color: var(--cyan); }
+  .tdec-criterion .ans.no  { color: var(--pink); }
+  .tdec-criterion .ans.dash { color: var(--dk-text); font-size: 19px; }
+  .tdec-card.file .tdec-criterion .ans.yes { color: #6d9bff; }
+  .tdec-tagline { font-size: 14px; color: var(--white); line-height: 1.45; font-weight: 600; }
+  .tdec-desc { font-size: 13px; color: var(--dk-text); line-height: 1.5; }
+  .tdec-ex { font-size: 12.5px; color: var(--dk-text); font-style: italic; line-height: 1.5; padding: 6px 10px; background: var(--code-bg); border-radius: 5px; border-left: 3px solid var(--muted-line); }
+  .tdec-card.model .tdec-ex { border-left-color: var(--cyan); }
+  .tdec-card.file  .tdec-ex { border-left-color: #6d9bff; }
+  .tdec-card.cli   .tdec-ex { border-left-color: var(--orange); }
+  .tdec-cost { margin-top: auto; font-size: 11.5px; color: var(--dk-text); background: rgba(180,185,192,.06); border-left: 3px solid var(--muted-line); border-radius: 4px; padding: 7px 9px; line-height: 1.45; }
+  .tdec-card.model .tdec-cost { border-left-color: var(--cyan); }
+  .tdec-card.file  .tdec-cost { border-left-color: #6d9bff; }
+  .tdec-card.cli   .tdec-cost { border-left-color: var(--orange); background: rgba(255,144,0,.06); }
+  .tdec-cost strong { color: var(--white); }
 
   /* ======================================================== CML TOPOLOGY
      Rebuilt as a 4-row × 3-col CSS grid with an absolute SVG overlay.
@@ -1217,71 +1213,53 @@ globally by every device
 <!-- ============================================================== TEMPLATE DECISION TREE -->
 <section class="card" id="template-decision">
   <div>
-    <h1>Which template type? <span class="accent">- one decision, three answers</span></h1>
-    <p class="sub">Network as Code supports three template types (<code style="color:var(--cyan)">model</code>, <code style="color:var(--cyan)">file</code>, <code style="color:var(--cyan)">cli</code>). Pick by answering two questions about what you're trying to configure.</p>
+    <h1>Which template type? <span class="accent">- ranked by what to reach for first</span></h1>
+    <p class="sub">Two criteria decide it: <strong style="color:var(--cyan)">in the data model?</strong> and <strong style="color:var(--cyan)">need loops / conditionals / per-device math?</strong> Each card answers both, then tells you when to reach for it. Walk left to right - default first, escape hatch last.</p>
   </div>
   <div class="tdec">
-    <!-- SVG connector lines, drawn in percentages so they follow the grid layout.
-         Coordinates mapped to the grid: Q1 center ~ (16, 50), Q2 center ~ (50, 26),
-         cli center ~ (50, 74), file center ~ (84, 26), model center ~ (84, 74). -->
-    <svg class="tdec-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <defs>
-        <marker id="tdec-arrow-cy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 z" fill="#02C8FF"/>
-        </marker>
-        <marker id="tdec-arrow-pk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 z" fill="#FF007F"/>
-        </marker>
-      </defs>
-      <!-- Q1 -> Q2 (YES, up-right) -->
-      <path d="M 24 40 L 40 26" stroke="#02C8FF" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-cy)"/>
-      <!-- Q1 -> cli (NO, down-right) -->
-      <path d="M 24 60 L 35 74" stroke="#FF007F" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-pk)"/>
-      <!-- Q2 -> file (YES, right, same row) -->
-      <path d="M 60 26 L 74 26" stroke="#02C8FF" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-cy)"/>
-      <!-- Q2 -> model (NO, down-right) -->
-      <path d="M 60 32 L 74 68" stroke="#FF007F" stroke-width="0.35" fill="none" vector-effect="non-scaling-stroke" style="stroke-width:2" marker-end="url(#tdec-arrow-pk)"/>
-    </svg>
 
-    <div class="tdec-grid">
-      <div class="tdec-card q tdec-q1">
-        <span class="tdec-lbl">Q1</span>
-        <span class="tdec-ttl">Is this feature in the NaC data model?</span>
-        <span class="tdec-sub">Check <a style="color:var(--cyan);text-decoration:none" href="https://netascode.cisco.com/docs/data_models/iosxe/overview/">netascode.cisco.com</a></span>
+    <!-- 1. model: default -->
+    <div class="tdec-card model">
+      <div class="tdec-rank"><span class="num">1</span><span class="badge">★</span><span>Default</span></div>
+      <div class="tdec-type">model</div>
+      <div class="tdec-criteria">
+        <div class="tdec-criterion"><span class="lbl">In NaC data model?</span><span class="ans yes">✓</span></div>
+        <div class="tdec-criterion"><span class="lbl">Needs loops / conditionals?</span><span class="ans no">✗</span></div>
       </div>
-
-      <div class="tdec-card q tdec-q2">
-        <span class="tdec-lbl">Q2</span>
-        <span class="tdec-ttl">Does it need loops, conditionals, or per-device math?</span>
-      </div>
-
-      <div class="tdec-card a cli tdec-cli">
-        <span class="type">cli</span>
-        <span class="desc">Raw CLI lines, applied verbatim</span>
-        <span class="ex">Custom logging alias, vendor-specific debug command</span>
-        <span class="cost">Last resort - lose idempotency & validation</span>
-      </div>
-
-      <div class="tdec-card a file tdec-file">
-        <span class="type">file</span>
-        <span class="desc">Jinja/.tftpl file with loops + vars</span>
-        <span class="ex">BGP with N neighbors, conditional features</span>
-        <span class="cost">More powerful, slightly more setup</span>
-      </div>
-
-      <div class="tdec-card a model tdec-model">
-        <span class="type">model</span>
-        <span class="desc">Pure YAML, reference by name</span>
-        <span class="ex">VLAN set, ACL entries, OSPF areas</span>
-        <span class="cost">Fastest, safest, most validated</span>
-      </div>
+      <div class="tdec-tagline">Pure YAML, referenced by name.</div>
+      <div class="tdec-desc">Schema-validated against the data model. Fastest to author, easiest to review, free idempotency.</div>
+      <div class="tdec-ex">VLAN sets · baseline ACLs · OSPF area defaults · interface profiles</div>
+      <div class="tdec-cost"><strong>Reach for first.</strong> If both criteria above match, stop here.</div>
     </div>
 
-    <!-- Edge labels, positioned along the SVG arrows via %. -->
-    <div class="tdec-edge yes" style="top: 41%; left: 32%;">YES</div>
-    <div class="tdec-edge no"  style="top: 60%; left: 32%;">NO</div>
-    <div class="tdec-edge yes" style="top: 22%; left: 67%;">YES</div>
-    <div class="tdec-edge no"  style="top: 52%; left: 65%;">NO</div>
+    <!-- 2. file: escalate -->
+    <div class="tdec-card file">
+      <div class="tdec-rank"><span class="num">2</span><span class="badge">⚡</span><span>Escalate</span></div>
+      <div class="tdec-type">file</div>
+      <div class="tdec-criteria">
+        <div class="tdec-criterion"><span class="lbl">In NaC data model?</span><span class="ans yes">✓</span></div>
+        <div class="tdec-criterion"><span class="lbl">Needs loops / conditionals?</span><span class="ans yes">✓</span></div>
+      </div>
+      <div class="tdec-tagline">.tftpl file with loops, vars, conditionals.</div>
+      <div class="tdec-desc">Same reference-by-name as <code style="color:#6d9bff;background:var(--code-bg);padding:1px 5px;border-radius:3px">model</code>; renders through Terraform templating against each consumer's <code style="color:#6d9bff;background:var(--code-bg);padding:1px 5px;border-radius:3px">variables:</code>.</div>
+      <div class="tdec-ex">BGP with N neighbors · VLAN ranges · per-device feature toggles</div>
+      <div class="tdec-cost"><strong>Reach for when</strong> a <code style="color:var(--cyan)">model</code> template would have to repeat itself. Two files instead of one is the trade.</div>
+    </div>
+
+    <!-- 3. cli: last resort -->
+    <div class="tdec-card cli">
+      <div class="tdec-rank"><span class="num">3</span><span class="badge">⚠</span><span>Last resort</span></div>
+      <div class="tdec-type">cli</div>
+      <div class="tdec-criteria">
+        <div class="tdec-criterion"><span class="lbl">In NaC data model?</span><span class="ans no">✗</span></div>
+        <div class="tdec-criterion"><span class="lbl">Needs loops / conditionals?</span><span class="ans dash">—</span></div>
+      </div>
+      <div class="tdec-tagline">Raw CLI lines, applied verbatim.</div>
+      <div class="tdec-desc">Escape hatch for features the data model doesn't cover yet. No schema validation, weaker idempotency.</div>
+      <div class="tdec-ex">Custom <code style="color:var(--orange);background:var(--code-bg);padding:1px 5px;border-radius:3px">alias exec</code> · vendor-specific debug commands</div>
+      <div class="tdec-cost"><strong>Reach for only when</strong> the feature genuinely isn't in the data model. Revisit when NaC catches up.</div>
+    </div>
+
   </div>
   <div class="watermark">LTRXAR-2008 · Cisco Live 2026</div>
 </section>
