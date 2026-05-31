@@ -52,12 +52,12 @@ pieces are actually reachable. Open the **WSL Ubuntu terminal** - it's
 the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS** -
 and run these three commands:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 # 1. Can you reach a lab device over SSH?
 ssh -o StrictHostKeyChecking=no cisco@198.18.130.10 "show version | include Cisco IOS"
 ```
 
-```text { .no-copy }
+```text { .output title="Expected output" .no-copy }
 Warning: Permanently added '198.18.130.10' (RSA) to the list of known hosts.
 (cisco@198.18.130.10) Password:
 
@@ -72,7 +72,7 @@ client_loop: send disconnect: Broken pipe
 !!! tip "Password prompt or access denied is fine here"
     The goal of this check is simply that the device **responds**. If it prompts for a password, SSH is working. If it says `Permission denied` or drops the connection after login, the device is reachable and healthy. Only flag it to a proctor if the command hangs or times out with no output.
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 # 2. Can you reach GitLab?
 curl -sk https://198.18.133.101 -o /dev/null -w "gitlab HTTP %{http_code}\n"
 ```
@@ -80,16 +80,16 @@ curl -sk https://198.18.133.101 -o /dev/null -w "gitlab HTTP %{http_code}\n"
 !!! tip "`200` or `302` are both fine"
     GitLab usually answers the bare host with a `302` redirect (to `/users/sign_in`) on a freshly-logged-out browser session and a `200` once you've hit it before. Either response means the server is reachable - flag a proctor only if you get a connection timeout, `000`, or a 5xx.
 
-```text { .no-copy }
+```text { .output title="Expected output" .no-copy }
 gitlab HTTP 200
 ```
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 # 3. Is Terraform on your PATH?
 terraform version | head -1
 ```
 
-```text { .no-copy }
+```text { .output title="Expected output" .no-copy }
 Terraform v1.12.2
 ```
 
