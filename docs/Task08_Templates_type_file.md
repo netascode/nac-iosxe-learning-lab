@@ -130,11 +130,11 @@ In this example, you'll configure BGP on the **border** switch for peering with 
 
 First, create the `tftpl` directory and the template file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 mkdir -p ~/nac-iosxe/tftpl
 ```
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/tftpl/bgp.yaml.tftpl
 ```
 
@@ -181,7 +181,7 @@ This template uses:
 
 Create a new file `data/templates/bgp.nac.yaml` that defines the template:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/data/templates/bgp.nac.yaml
 ```
 
@@ -260,19 +260,19 @@ Open your WSL Ubuntu terminal and run the following steps:
 
 **Step 1:** Navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 **Step 2:** Optionally, preview the changes Terraform will make:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
 **Step 3:** Apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
@@ -294,11 +294,11 @@ When prompted, type `yes` to confirm the deployment.
 
 Use **Solar-PuTTY** to connect to the **border** switch and verify the BGP configuration:
 
-```text
+```text { .device-cli title="border" }
 show ip bgp summary
 ```
 
-```text { title="Expected Output" hl_lines="6-7" .no-copy }
+```text { .output title="Expected Output" hl_lines="6-7" .no-copy }
 border#show ip bgp summary
 BGP router identifier 198.18.130.20, local AS number 65000
 ...
@@ -329,11 +329,11 @@ The **isp** neighbor is pre-configured in the lab to advertise the network `8.8.
 
 You can verify the received route with (same 30-60 second convergence window applies):
 
-```text
+```text { .device-cli title="border" }
 show ip route
 ```
 
-```text { title="Expected Output" hl_lines="9" .no-copy }
+```text { .output title="Expected Output" hl_lines="9" .no-copy }
 border#show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 ...
@@ -372,7 +372,7 @@ Your job: add an interface configuration on `border` so that `GigabitEthernet3` 
 
 **Primary verification** (easy path - just SSH into `border`):
 
-```bash
+```text { .device-cli title="border" }
 show ip interface brief | include GigabitEthernet3
 show ip route 8.8.8.0
 ```
