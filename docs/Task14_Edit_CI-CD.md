@@ -31,7 +31,7 @@ You'll add two test jobs:
 
 
 ??? info "How to Open Web IDE"
-    1. Open GitLab in a new tab: [https://198.18.133.101](https://198.18.133.101)
+    1. In **Chrome inside your RDP session** (Windows 10 VM), open GitLab in a new tab: [https://198.18.133.101](https://198.18.133.101)
     2. Navigate to the **netascode/nac-iosxe-terraform** project
     3. From the project page, click the **Edit** dropdown button (with a pencil icon)
     4. Select **Web IDE**

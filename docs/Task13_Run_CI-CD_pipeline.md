@@ -49,6 +49,9 @@ Same pipeline definition, different behavior per branch - a simple pattern that 
 ## Step 1: Access GitLab
 
 
+!!! warning "Use the browser inside your RDP session"
+    GitLab is only reachable from within the lab environment. Open the URL below in **Chrome inside your RDP session** (the Windows 10 VM) — it will not load from your local machine.
+
 In **Chrome**, navigate to GitLab - open the following link in a new tab:
 
 [https://198.18.133.101](https://198.18.133.101)
@@ -61,11 +64,6 @@ If prompted, log in with credentials: **Username:** `root` / **Password:** `C1sc
 <figure markdown>
   ![GitLab Login](./assets/gitlab-login.png){ width="50%" }
 </figure>
-
-<!-- !!! note "You can use any browser, from the VM or your host machine"
-    Since you're connected to the lab network via VPN, you can also use a browser on your host machine to access GitLab. Tasks 13-15 can be completed entirely from your browser without needing to use the Windows 10 VM.
-
-    The screenshots in Tasks 13-15 are taken from a Mac host, but the steps are identical on Windows or Linux. -->
 
 
 ## Step 2: Navigate to the NaC-IOSXE project
