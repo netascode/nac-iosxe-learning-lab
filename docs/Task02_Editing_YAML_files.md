@@ -218,6 +218,16 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
   ![.env file in VS Code](./assets/vscode-env-file.png){ width="100%" }
 </figure>
 
+### Load the environment variables
+
+After saving the file, switch to your **WSL Ubuntu terminal** and source it so the variables are available to Terraform:
+
+```bash
+source ~/nac-iosxe/.env
+```
+
+You won't see any output - that's expected. The `export` statements silently place the variables into your shell session.
+
 !!! warning "Never commit `.env` to a real repository"
     The `.env` file holds device credentials in plaintext. In this lab it's harmless (every attendee has the same throwaway lab switches), but in a real project add `.env` to your `.gitignore` **before** the first commit. If credentials ever land on a feature branch and are pushed, rotate them - deleting the file from history isn't enough.
 
