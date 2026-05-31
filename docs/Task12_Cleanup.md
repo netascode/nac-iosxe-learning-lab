@@ -38,13 +38,13 @@ First, remove all configurations that Terraform deployed to the IOS XE devices. 
 
 Navigate to the project folder:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 Run Terraform destroy:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform destroy
 ```
 
@@ -90,7 +90,7 @@ You can use **Solar-PuTTY** to connect to one of the devices and verify the conf
 
 Once connected, check that the banner, hostname and other configurations you applied are no longer present. You can also check the running configuration.
 
-```bash
+```text { .device-cli title="core" }
 show running-config
 ```
 
@@ -106,11 +106,11 @@ If you wish, you may also remove the manually created project folder, `nac-iosxe
 ??? info "Remove Project Folder (Optional)"
     To delete the project folder, run the following commands in your WSL Ubuntu terminal:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     cd ~
     ```
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~$" }
     rm -rf ~/nac-iosxe
     ```
 
@@ -126,7 +126,7 @@ If you wish, you may also remove the manually created project folder, `nac-iosxe
 
     You can verify the folder is deleted by listing the home directory contents:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~$" }
     ls -la ~/
     ```
     You should no longer see the `nac-iosxe` folder listed.
