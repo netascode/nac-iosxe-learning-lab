@@ -400,7 +400,7 @@ terraform init
     To upgrade to a newer version of a module or provider in a production environment, you would update the version reference in your `main.tf` (e.g. change `?ref=v0.12.3` to `?ref=v0.13.0`), then run `terraform init -upgrade` to pull the new version. However, in this lab environment, there is no need to change version references or run `terraform init -upgrade`.
 
 
-### Step 5: Preview changes with Terraform plan
+### Step 6: Preview changes with Terraform plan
 
 
 Before applying any changes to the lab devices, preview what Terraform will do:
@@ -432,7 +432,7 @@ In this case, you will configure the login banner on all four devices. Terraform
     You'll also see Terraform planning to create `local_sensitive_file.model` and `local_sensitive_file.defaults`. These are **not** device configurations - they're local files the NaC module writes to disk based on the `write_model_file` and `write_default_values_file` settings in your `main.tf`. The module uses `local_sensitive_file` (rather than plain `local_file`) because the merged model may contain device credentials or other sensitive data that shouldn't appear in Terraform's log output. The resulting files (`model.yaml` and `defaults.yaml`) are useful for debugging variable substitution and as input to `nac-test` (Task 11), but they don't affect what gets pushed to the devices.
 
 
-### Step 6: Apply configuration to devices
+### Step 7: Apply configuration to devices
 
 
 If the plan looks good, apply the configuration:
@@ -521,7 +521,7 @@ Type `yes` and press Enter to proceed.
     For this lab you can leave it at the default (`false`) - the lab devices don't reboot. For your own devices at home, turn it on before you walk away from the terminal.
 
 
-### Step 7: Verify the global configuration
+### Step 8: Verify the global configuration
 
 
 After Terraform completes successfully, verify the banner was applied to **all devices**. Because you used **global configuration**, the banner should be deployed to all four switches automatically.
