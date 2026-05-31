@@ -2,6 +2,9 @@
 
 This step-by-step guide walks you through the **Network as Code for IOS XE** lab. By the end, you will know how to deploy and manage IOS XE devices with declarative infrastructure-as-code and CI/CD pipelines.
 
+!!! warning "You're on the right guide if this URL is `cl-ltr.ciscolabs.com/4eb6f2de2e`"
+    The Chrome start page bookmarked inside the Win10 lab VM points to an **older copy of this guide from a previous Cisco Live delivery** - a known deployment-side issue we couldn't correct in time. Always read this guide from the tab on your laptop's left monitor: **[https://cl-ltr.ciscolabs.com/4eb6f2de2e/](https://cl-ltr.ciscolabs.com/4eb6f2de2e/)**. See [Getting Started](Intro04_getting_started.md) for the full context.
+
 !!! tip "New to these acronyms?"
     See **[Glossary](Glossary.md)** in the top navigation for a brief overview on the definitions. Keep it open in a side tab if you hit one you don't recognize.
 
