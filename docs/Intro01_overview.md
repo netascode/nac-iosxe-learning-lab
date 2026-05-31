@@ -39,6 +39,13 @@ Network as Code isn't a single tool - it's a layered stack. You write intent in 
 
 You'll spend all your time in **layer 1** (the YAML). The rest of the stack - the Terraform module, the IOS XE provider, the NETCONF transport - is maintained by Cisco and the Network as Code open-source community.
 
+!!! info "Supported IOS XE versions"
+    The lab's YAML configurations push through the [Terraform IOS XE provider](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs), which is built on the [IOS XE YANG data models](https://github.com/YangModels/yang) published with IOS XE **17.12, 17.15, and 17.18**. Those three releases are what the provider has been tested against and are the recommended floor for using the full Network as Code data model.
+
+    Earlier releases may work for individual resources, but YANG container shapes can shift between IOS XE versions (some keys are silently absent or named differently pre-17.12), so identical YAML may not produce identical config on older devices. The current tested matrix lives in the [provider documentation](https://registry.terraform.io/providers/CiscoDevNet/iosxe/latest/docs).
+
+    **New to YANG?** It's the standardized data-modelling language IOS XE uses to describe its configuration surface. Cisco DevNet has a short [intro to YANG data modelling](https://developer.cisco.com/learning/labs/intro-netconf/introducing-yang-data-modeling-for-the-network/) that's worth ~15 minutes if you want the deeper picture. The lab doesn't require you to read or write YANG yourself (the provider does that translation), but it's why version compatibility matters: a YANG container that exists in 17.15 may not exist (or may have a different shape) in 17.6.
+
 ## Lab scope
 
 This lab uses virtualized IOS XE devices in Cisco Modeling Labs (CML) and a GitLab instance running in the lab environment. It is designed for learning; the configurations shown are **not intended for production use as-is**. Production deployments require additional considerations around state storage, secret management, access control, and approval workflows - most of which we note in context but do not implement here.
