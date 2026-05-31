@@ -150,6 +150,25 @@ You can also test the alias by running `logs` from exec mode.
 ## When to use each template type
 
 
+Now that you've seen all three template types (`model` in Task 07, `file` in Task 08, and `cli` in this task), here's the consolidated decision aid - two questions, three answers:
+
+<figure markdown>
+  ![Template type decision tree - Q1 is the feature in the data model, Q2 does it need loops/conditionals, terminating in model/file/cli answers](./assets/template-decision.png){ width="100%" }
+</figure>
+
+Rules of thumb from the tree:
+
+- **Default to `model`** when the feature is in the data model and your
+  config is straightforward. Fastest to write, gets free schema
+  validation, reads as pure YAML.
+- **Escalate to `file`** when you need Jinja-style loops or conditionals
+  (e.g. "one BGP neighbor per item in this list") or when the config is
+  long enough that a standalone `.tftpl` file is cleaner than inline YAML.
+- **Reach for `cli` last** when the feature genuinely isn't in the data
+  model yet. You lose schema validation and fine-grained idempotency in
+  exchange for coverage of edge-case features.
+
+Quick-reference scenario table:
 
 | Scenario                                                                    | Recommended Type |
 |-----------------------------------------------------------------------------|------------------|
