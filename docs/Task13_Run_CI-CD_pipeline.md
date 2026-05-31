@@ -50,7 +50,7 @@ Same pipeline definition, different behavior per branch - a simple pattern that 
 
 
 !!! warning "Use the browser inside your RDP session"
-    GitLab is only reachable from within the lab environment. Open the URL below in **Chrome inside your RDP session** (the Windows 10 VM) — it will not load from your local machine.
+    GitLab is only reachable from within the lab environment. Open the URL below in **Chrome inside your RDP session** (the Windows 10 VM) - it will not load from your local machine.
 
 In **Chrome**, navigate to GitLab - open the following link in a new tab:
 
