@@ -65,7 +65,7 @@ Access switches typically share the same VLAN configuration - they need identica
 
 First, create the file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/data/templates/vlan.nac.yaml
 ```
 
@@ -154,7 +154,7 @@ The template reference is added alongside the existing `AccessLayerACL` configur
 
 At this point, your `data/` folder should contain these files:
 
-```text { hl_lines="11 13" .no-copy }
+```text { .output title="Project layout" hl_lines="11 13" .no-copy }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
@@ -195,19 +195,19 @@ Open your WSL Ubuntu terminal and run the following steps:
 
 Navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 Optionally, preview the changes Terraform will make:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
 Apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
@@ -240,11 +240,11 @@ After successfully running `terraform apply`, verify that the VLANs were deploye
 
 Use the following command on both **access01** and **access02** switches to verify the VLANs:
 
-```text
+```text { .device-cli title="access01, access02" }
 show vlan brief
 ```
 
-```text { title="Expected output on both switches" hl_lines="8-10" .no-copy }
+```text { .output title="Expected output on both switches" hl_lines="8-10" .no-copy }
 access01#show vlan brief
 
 VLAN Name                             Status    Ports
@@ -297,7 +297,7 @@ Using device groups (as shown in this task), you can apply multiple templates to
 !!! info "Example: Working with Multiple Templates"
     The config below is only an example, you do not need to add this in your lab.
 
-    ```yaml { .no-copy hl_lines="9-12" }
+    ```yaml { title="example: applying multiple templates to a group (illustrative)" .no-copy hl_lines="9-12" }
     ---
     iosxe:
       device_groups:
