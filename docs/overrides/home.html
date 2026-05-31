@@ -410,6 +410,74 @@
     [data-md-color-scheme="slate"] .ts-pill {
         border-color: rgba(255,255,255,.15);
     }
+
+    /* ------------- Presenter strip -------------- */
+    .presenter-strip {
+        max-width: 800px;
+        margin: 0 auto 40px;
+        padding: 24px;
+        text-align: center;
+    }
+    .presenter-strip h3 {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--md-primary-bg-color);
+        opacity: .65;
+        margin: 0 0 16px;
+    }
+    .presenter-list {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .presenter-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        text-decoration: none !important;
+        background: var(--md-default-bg-color);
+        border: 1px solid rgba(0,0,0,.08);
+        transition: transform .15s ease, box-shadow .15s ease;
+        color: var(--md-default-fg-color) !important;
+    }
+    [data-md-color-scheme="slate"] .presenter-card {
+        border-color: rgba(255,255,255,.08);
+    }
+    .presenter-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .presenter-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: .5px;
+        flex-shrink: 0;
+    }
+    .presenter-avatar.at { background: linear-gradient(135deg, #02C8FF, #0A60FF); }
+    .presenter-avatar.ch { background: linear-gradient(135deg, #FF007F, #FF9000); }
+    .presenter-meta { text-align: left; }
+    .presenter-name {
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--md-default-fg-color);
+    }
+    .presenter-role {
+        font-size: 12px;
+        color: var(--md-default-fg-color);
+        opacity: .6;
+    }
 </style>
 
 <!-- Main site Entry button descriptions -->
@@ -524,6 +592,27 @@
         <span class="ts-pill">nac-validate</span>
         <span class="ts-pill">nac-test</span>
         <span class="ts-pill">Robot Framework</span>
+    </div>
+</section>
+
+<!-- Run by — presenter strip -->
+<section class="presenter-strip">
+    <h3>Run by</h3>
+    <div class="presenter-list">
+        <a class="presenter-card" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">
+            <div class="presenter-avatar at">AT</div>
+            <div class="presenter-meta">
+                <div class="presenter-name">Andrea Testino</div>
+                <div class="presenter-role">Cisco · LinkedIn ↗</div>
+            </div>
+        </a>
+        <a class="presenter-card" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">
+            <div class="presenter-avatar ch">CH</div>
+            <div class="presenter-meta">
+                <div class="presenter-name">Christopher Hart</div>
+                <div class="presenter-role">Cisco · LinkedIn ↗</div>
+            </div>
+        </a>
     </div>
 </section>
 
