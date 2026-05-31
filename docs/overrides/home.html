@@ -478,6 +478,63 @@
         color: var(--md-default-fg-color);
         opacity: .6;
     }
+
+    /* ------------- Closing CTA -------------- */
+    .closing-cta {
+        max-width: 900px;
+        margin: 8px auto 64px;
+        padding: 48px 32px;
+        text-align: center;
+        /* sits on the dark navy hero bg — give it a translucent gradient
+           surface + a glowing accent border so it reads as a discrete CTA
+           card rather than melting into the hero */
+        background: linear-gradient(135deg, rgba(2,200,255,.14), rgba(255,0,127,.10));
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    }
+    .closing-cta h2 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--md-primary-bg-color);
+    }
+    .closing-cta > p {
+        font-size: 15px;
+        color: var(--md-primary-bg-color);
+        opacity: .8;
+        margin: 0 0 28px;
+    }
+    .closing-cta-btn {
+        display: inline-block;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, #02C8FF, #0A60FF);
+        color: #fff !important;
+        text-decoration: none !important;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: .3px;
+        box-shadow: 0 6px 20px rgba(10,96,255,.45);
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .closing-cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 26px rgba(10,96,255,.55);
+    }
+    .cta-secondary {
+        margin-top: 20px !important;
+        font-size: 13px;
+        color: var(--md-primary-bg-color);
+        opacity: .7;
+    }
+    .cta-secondary a {
+        color: #02C8FF;
+        text-decoration: underline;
+    }
+    .cta-secondary a:hover {
+        color: #fff;
+    }
 </style>
 
 <!-- Main site Entry button descriptions -->
@@ -614,6 +671,14 @@
             </div>
         </a>
     </div>
+</section>
+
+<!-- Closing CTA -->
+<section class="closing-cta">
+    <h2>Ready to write your first NaC YAML?</h2>
+    <p>Pop a terminal, open VS Code, and let's go.</p>
+    <a href="Intro01_overview/" class="closing-cta-btn">Start the lab →</a>
+    <p class="cta-secondary">Just want to see code? Skip ahead to <a href="Task01_SSH_to_network_devices/">Task 01</a>.</p>
 </section>
 
 {% endblock %}
