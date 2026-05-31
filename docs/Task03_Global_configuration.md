@@ -265,6 +265,9 @@ write memory
 
 Repeat for all four devices before moving on. Each box should accept the commands and save without errors.
 
+!!! warning "Wait 1-2 minutes before testing NETCONF"
+    Enabling `candidate-datastore` causes the NETCONF subsystem to restart internally. Until it finishes reinitializing (typically 1-2 minutes), SSH connections to port 830 will be refused with a **"Connection refused"** error. If you see this, wait a minute and try again - the device is not broken, the NETCONF process is simply restarting.
+
 **Verify the capability now appears.** Re-run the Step 3 NETCONF handshake against `access01`:
 
 ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
