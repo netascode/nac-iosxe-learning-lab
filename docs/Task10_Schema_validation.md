@@ -43,7 +43,7 @@ This is similar to how a compiler checks code before running it, catching errors
 
 The **nac-validate** tool checks your YAML files against a schema definition. The schema acts as a contract that defines what attributes are allowed, what data types are expected, what values are valid, and which fields are mandatory vs. optional. This is called syntactic validation.
 
-The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). However, this lab focuses only on the schema-based syntactic validation.
+The tool can also perform semantic validation based on custom rules. These rules can check that the configuration is correct (e.g. by verifying references or conflicting IDs), enforce policies based on config best practices or check customer requirements (e.g. a custom naming convention). You'll exercise both modes in this task: schema-based syntactic validation first, then a custom semantic rule at the end.
 
 
 ## The schema file
