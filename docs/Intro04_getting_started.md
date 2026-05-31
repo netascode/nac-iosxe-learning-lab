@@ -73,6 +73,9 @@ client_loop: send disconnect: Broken pipe
 curl -sk https://198.18.133.101 -o /dev/null -w "gitlab HTTP %{http_code}\n"
 ```
 
+!!! tip "`200` or `302` are both fine"
+    GitLab usually answers the bare host with a `302` redirect (to `/users/sign_in`) on a freshly-logged-out browser session and a `200` once you've hit it before. Either response means the server is reachable - flag a proctor only if you get a connection timeout, `000`, or a 5xx.
+
 ```text { .no-copy }
 gitlab HTTP 200
 ```
