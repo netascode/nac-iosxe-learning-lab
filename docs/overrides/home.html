@@ -275,19 +275,13 @@
         gap: 20px;
         padding: 24px 28px;
         border-radius: 14px;
-        text-decoration: none !important;
         background: var(--md-default-bg-color);
         border: 1px solid rgba(0,0,0,.08);
-        transition: transform .15s ease, box-shadow .15s ease;
-        color: var(--md-default-fg-color) !important;
+        color: var(--md-default-fg-color);
         min-width: 360px;
     }
     [data-md-color-scheme="slate"] .presenter-card {
         border-color: rgba(255,255,255,.08);
-    }
-    .presenter-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 22px rgba(0,0,0,.18);
     }
     .presenter-avatar {
         width: 96px;
@@ -335,11 +329,19 @@
         opacity: .75;
         line-height: 1.4;
     }
-    .presenter-link {
-        font-size: 12.5px;
-        color: var(--md-default-fg-color);
-        opacity: .55;
-        margin-top: 4px;
+    .presenter-linkedin {
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 600;
+        color: #0A60FF;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        margin-top: 6px;
+        align-self: flex-start;
+        transition: color .15s ease;
+    }
+    .presenter-linkedin:hover {
+        color: #02C8FF;
     }
 
     /* ------------- Closing CTA -------------- */
@@ -437,7 +439,7 @@
 <section class="presenter-strip">
     <h3>Meet your instructors</h3>
     <div class="presenter-list">
-        <a class="presenter-card" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">
+        <div class="presenter-card">
             <div class="presenter-avatar at" role="img" aria-label="Andrea Testino"></div>
             <div class="presenter-meta">
                 <div class="presenter-name-row">
@@ -445,19 +447,19 @@
                     <span class="presenter-ccie">CCIE #56739</span>
                 </div>
                 <div class="presenter-title">Principal Software Engineer, Cisco</div>
-                <div class="presenter-link">LinkedIn ↗</div>
+                <a class="presenter-linkedin" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">LinkedIn →</a>
             </div>
-        </a>
-        <a class="presenter-card" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">
+        </div>
+        <div class="presenter-card">
             <div class="presenter-avatar ch" role="img" aria-label="Christopher Hart"></div>
             <div class="presenter-meta">
                 <div class="presenter-name-row">
                     <span class="presenter-name">Christopher Hart</span>
                 </div>
                 <div class="presenter-title">Sr. Software Technical Leader, Cisco</div>
-                <div class="presenter-link">LinkedIn ↗</div>
+                <a class="presenter-linkedin" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">LinkedIn →</a>
             </div>
-        </a>
+        </div>
     </div>
 </section>
 
