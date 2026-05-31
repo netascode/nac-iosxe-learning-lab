@@ -61,23 +61,36 @@
         padding-right: 2.5rem;
     }
 
+    /* Hero CTA button — visually mirrors the closing CTA's 'Start the lab →'
+       gradient/glow so both ends of the home page carry the same level of
+       call-to-action weight, and the page feels like one coordinated design. */
     .tx-hero .md-button {
         margin-top: .5rem;
         margin-right: .5rem;
-        color: var(--md-primary-bg-color)
     }
 
     .tx-hero .md-button--primary {
-        background-color: var(--md-primary-bg-color);
-        color: rgb(0, 0, 0);
-        border-color: var(--md-primary-bg-color)
+        display: inline-block;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, #02C8FF, #0A60FF);
+        color: #fff !important;
+        text-decoration: none !important;
+        border: 0;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: .3px;
+        box-shadow: 0 6px 20px rgba(10,96,255,.45);
+        transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .tx-hero .md-button:focus,
-    .tx-hero .md-button:hover {
-        background-color: var(--md-accent-fg-color);
-        color: var(--md-default-bg-color);
-        border-color: var(--md-accent-fg-color)
+    .tx-hero .md-button--primary:focus,
+    .tx-hero .md-button--primary:hover {
+        background: linear-gradient(135deg, #02C8FF, #0A60FF);
+        color: #fff !important;
+        border: 0;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 26px rgba(10,96,255,.55);
     }
 
     .feature-item h2 svg {
@@ -411,7 +424,7 @@
                     {{ lab_title }}
                 </h1>
                 <a href="Intro01_overview/" title="{{ page.next_page.title | striptags }}" class="md-button md-button--primary">
-                    Get started
+                    Get started →
                 </a>
             </div>
 
