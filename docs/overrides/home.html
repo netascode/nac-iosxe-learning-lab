@@ -456,17 +456,16 @@
         width: 44px;
         height: 44px;
         border-radius: 50%;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 15px;
-        letter-spacing: .5px;
         flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* subtle ring so the bubble reads as a discrete element on either
+           the dark hero bg or the light card bg behind the presenter card */
+        box-shadow: 0 0 0 2px rgba(255,255,255,.08), 0 2px 6px rgba(0,0,0,.15);
     }
-    .presenter-avatar.at { background: linear-gradient(135deg, #02C8FF, #0A60FF); }
-    .presenter-avatar.ch { background: linear-gradient(135deg, #FF007F, #FF9000); }
+    .presenter-avatar.at { background-image: url('assets/andrea-profile.jpeg'); }
+    .presenter-avatar.ch { background-image: url('assets/chris-profile.jpeg'); }
     .presenter-meta { text-align: left; }
     .presenter-name {
         font-size: 14.5px;
@@ -657,14 +656,14 @@
     <h3>Run by</h3>
     <div class="presenter-list">
         <a class="presenter-card" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">
-            <div class="presenter-avatar at">AT</div>
+            <div class="presenter-avatar at" role="img" aria-label="Andrea Testino"></div>
             <div class="presenter-meta">
                 <div class="presenter-name">Andrea Testino</div>
                 <div class="presenter-role">Cisco · LinkedIn ↗</div>
             </div>
         </a>
         <a class="presenter-card" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">
-            <div class="presenter-avatar ch">CH</div>
+            <div class="presenter-avatar ch" role="img" aria-label="Christopher Hart"></div>
             <div class="presenter-meta">
                 <div class="presenter-name">Christopher Hart</div>
                 <div class="presenter-role">Cisco · LinkedIn ↗</div>
