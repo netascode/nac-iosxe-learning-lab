@@ -1,23 +1,30 @@
-/* Click-to-copy on titled code blocks inside .filename-trial wrappers.
+/* Click-to-copy on titled code blocks (FILE / TERMINAL / DEVICE CLI badges).
  *
  * MkDocs Material renders the `title="..."` attribute of a fenced code
  * block as <span class="filename">PATH</span> directly above the <pre>.
- * When the parent has the .filename-trial class, the CSS in
- * docs/stylesheets/extra.css adds a "📂 FILE" pill and a hover glow to
- * signal interactivity. This file finishes the loop by copying the path
- * to the clipboard on click, then briefly flipping the pill to
- * "✓ COPIED" via the .copied class for visual confirmation.
+ * The CSS in docs/stylesheets/extra.css adds a colored pill (FILE /
+ * TERMINAL / DEVICE CLI / OUTPUT) on the filename row and a hover glow
+ * to signal interactivity. This file finishes the loop by copying the
+ * filename text to the clipboard on click, then briefly flipping the
+ * pill to '✓ COPIED' via the .copied class for visual confirmation.
+ *
+ * OUTPUT blocks (rendered with .output class on the .highlight wrapper)
+ * are intentionally skipped — their title text is descriptive
+ * ('Expected output (truncated)') rather than a path, so copying it
+ * is never useful. The CSS for .output also flips the cursor back to
+ * default and disables the hover glow, but we still need this guard
+ * here so a click that lands on the row doesn't trigger a copy.
  *
  * Implementation notes:
- *   - Uses a delegated click listener on document.body so the handler
- *     survives Material's `navigation.instant` page swaps without us
- *     having to re-bind on every navigation event.
+ *   - Delegated click listener on document.body so the handler survives
+ *     Material's `navigation.instant` page swaps without re-binding on
+ *     every navigation event.
  *   - navigator.clipboard.writeText is the modern API; falls back to a
  *     hidden textarea + execCommand('copy') for older browsers in the
  *     dCloud Win10 image, which still ships an aging Chromium build.
  *   - Reads the path from textContent rather than innerText so the
- *     "📂 FILE" pseudo-element prefix (which is content: in CSS, not in
- *     the DOM) doesn't get included in the copied string.
+ *     emoji + label pseudo-element prefix (which is content: in CSS,
+ *     not in the DOM) doesn't get included in the copied string.
  */
 (function () {
     "use strict";
@@ -49,8 +56,11 @@
     }
 
     document.addEventListener("click", function (e) {
-        const target = e.target.closest(".filename-trial .filename");
+        const target = e.target.closest(".filename");
         if (!target) return;
+
+        // Skip OUTPUT blocks — their title is descriptive, not a path.
+        if (target.closest(".highlight.output")) return;
 
         // textContent excludes the CSS ::before pseudo content
         const path = target.textContent.trim();

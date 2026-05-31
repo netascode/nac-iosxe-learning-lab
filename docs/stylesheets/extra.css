@@ -649,23 +649,35 @@
 
 
 /* ============================================================================
-   Filename badge trial — Task 14, Step 2 only.
-   Wraps a markdown section in <div class="filename-trial">; titled code blocks
-   inside that wrapper get a "📂 FILE" cyan pill on the filename row + a
-   click-to-copy affordance on the path text. JS handler in
-   docs/javascripts/filename-copy.js wires the copy on click. Scoped via the
-   wrapper class so the rest of the lab guide's titled code blocks render
-   unchanged until we promote this site-wide.
+   Code block badges — site-wide.
+   Every titled code block (rendered by Material as <span class='filename'>)
+   gets a colored pill identifying its kind. Four variants:
+
+     default (no class)  →  📂 FILE              cyan   (file content)
+     .terminal           →  💻 TERMINAL · WSL    orange (shell command)
+     .device-cli         →  🔌 DEVICE CLI · PuTTY pink   (Cisco CLI)
+     .output             →  📋 OUTPUT            gray   (expected output)
+
+   The .filename row is also click-to-copy for FILE blocks (JS handler in
+   docs/javascripts/filename-copy.js writes the path text to the clipboard
+   and flips the badge to '✓ COPIED' for 1.5s).
+
+   Authors tag a code block via pymdownx attribute syntax:
+     ```yaml { title="path/to/file.yaml" }              -- FILE (default)
+     ```bash { .terminal title="" }                      -- TERMINAL
+     ```text { .device-cli title="access01" .no-copy }   -- DEVICE CLI
+     ```text { .output title="Expected output" .no-copy } -- OUTPUT
    ========================================================================= */
 
-.filename-trial .filename {
+.md-typeset .filename {
     position: relative;
     cursor: pointer;
     user-select: all;
     transition: background-color .15s ease;
 }
 
-.filename-trial .filename::before {
+/* --- FILE (default) ------------------------------------------------------ */
+.md-typeset .filename::before {
     content: "📂 FILE";
     display: inline-block;
     margin-right: 10px;
@@ -683,21 +695,114 @@
 
 /* Hover: brighten the badge + faint cyan glow on the row so it's clear
    the row is interactive (click-to-copy the path). */
-.filename-trial .filename:hover {
+.md-typeset .filename:hover {
     background-color: rgba(2, 200, 255, 0.07);
 }
 
-.filename-trial .filename:hover::before {
+.md-typeset .filename:hover::before {
     background: rgba(2, 200, 255, 0.30);
     border-color: rgba(2, 200, 255, 0.85);
 }
 
 /* Click feedback: the JS handler adds .copied for ~1.5s after click;
-   the badge text flips to "✓ COPIED" via CSS so we don't have to mutate
+   the badge text flips to '✓ COPIED' via CSS so we don't have to mutate
    the DOM text node. */
-.filename-trial .filename.copied::before {
+.md-typeset .filename.copied::before {
     content: "✓ COPIED";
     background: rgba(2, 200, 255, 0.40);
     border-color: var(--clus-cyan);
     color: #fff;
+}
+
+/* --- TERMINAL · WSL/Ubuntu (orange) -------------------------------------- */
+.md-typeset .terminal .filename::before,
+.md-typeset div.terminal > .filename::before {
+    content: "💻 TERMINAL · WSL/Ubuntu";
+    background: rgba(255, 144, 0, 0.18);
+    color: var(--clus-orange);
+    border-color: rgba(255, 144, 0, 0.55);
+}
+.md-typeset .terminal .filename:hover {
+    background-color: rgba(255, 144, 0, 0.07);
+}
+.md-typeset .terminal .filename:hover::before {
+    background: rgba(255, 144, 0, 0.30);
+    border-color: rgba(255, 144, 0, 0.85);
+}
+.md-typeset .terminal .filename.copied::before {
+    content: "✓ COPIED";
+    background: rgba(255, 144, 0, 0.40);
+    border-color: var(--clus-orange);
+    color: #fff;
+}
+
+/* Fallback: if a .terminal block has no title (no .filename row), inject
+   the badge as a top banner on the .highlight wrapper. Modern :has() is
+   supported by every browser this lab targets. */
+.md-typeset .highlight.terminal:not(:has(.filename))::before {
+    content: "💻 TERMINAL · WSL/Ubuntu";
+    display: block;
+    padding: 6px 12px;
+    background: rgba(255, 144, 0, 0.10);
+    color: var(--clus-orange);
+    border-bottom: 1px solid rgba(255, 144, 0, 0.40);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+/* --- DEVICE CLI · PuTTY (pink) ------------------------------------------- */
+.md-typeset .device-cli .filename::before,
+.md-typeset div.device-cli > .filename::before {
+    content: "🔌 DEVICE CLI · PuTTY";
+    background: rgba(255, 0, 127, 0.15);
+    color: var(--clus-pink);
+    border-color: rgba(255, 0, 127, 0.55);
+}
+.md-typeset .device-cli .filename:hover {
+    background-color: rgba(255, 0, 127, 0.06);
+}
+.md-typeset .device-cli .filename:hover::before {
+    background: rgba(255, 0, 127, 0.28);
+    border-color: rgba(255, 0, 127, 0.85);
+}
+.md-typeset .device-cli .filename.copied::before {
+    content: "✓ COPIED";
+    background: rgba(255, 0, 127, 0.40);
+    border-color: var(--clus-pink);
+    color: #fff;
+}
+.md-typeset .highlight.device-cli:not(:has(.filename))::before {
+    content: "🔌 DEVICE CLI · PuTTY";
+    display: block;
+    padding: 6px 12px;
+    background: rgba(255, 0, 127, 0.08);
+    color: var(--clus-pink);
+    border-bottom: 1px solid rgba(255, 0, 127, 0.40);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+/* --- OUTPUT (gray) — expected output, not authored content --------------- */
+.md-typeset .output .filename::before,
+.md-typeset div.output > .filename::before {
+    content: "📋 OUTPUT";
+    background: rgba(180, 185, 192, 0.15);
+    color: #b4b9c0;
+    border-color: rgba(180, 185, 192, 0.45);
+}
+/* Output blocks aren't paths, no copy affordance — keep text-cursor + no glow. */
+.md-typeset .output .filename {
+    cursor: default;
+    user-select: text;
+}
+.md-typeset .output .filename:hover {
+    background-color: transparent;
+}
+.md-typeset .output .filename:hover::before {
+    background: rgba(180, 185, 192, 0.15);
+    border-color: rgba(180, 185, 192, 0.45);
 }
