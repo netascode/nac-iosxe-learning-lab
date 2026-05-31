@@ -44,7 +44,7 @@ In this example, you'll configure a custom alias command `logs` that maps to the
 
 First, create the file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/data/templates/logging.nac.yaml
 ```
 
@@ -101,19 +101,19 @@ Open your WSL Ubuntu terminal and run the following steps:
 
 **Step 1:** Navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 **Step 2:** Optionally, preview the changes Terraform will make:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
 **Step 3:** Apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
@@ -130,11 +130,11 @@ Use **Solar-PuTTY** to connect to one of the configured devices (e.g., `core` sw
 
 After connecting to the device, run the following command to check if the alias was created:
 
-```text
+```text { .device-cli title="core" }
 show alias
 ```
 
-```text { title="Expected Output" hl_lines="6" .no-copy }
+```text { .output title="Expected Output" hl_lines="6" .no-copy }
 core#show alias
 Exec mode aliases:
   h                     help
