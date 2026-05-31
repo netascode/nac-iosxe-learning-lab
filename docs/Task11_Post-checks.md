@@ -71,13 +71,13 @@ iosxe:
 
 The lab WSL image ships with a pre-built `tests/` directory under `~/tests/`. Copy it into your project:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cp -r ~/tests ~/nac-iosxe/
 ```
 
 Your project now has:
 
-```text { .no-copy }
+```text { .output title="Project layout (after copying tests/)" .no-copy }
 ~/nac-iosxe/
 ├── data/                              # (your YAML intent from earlier tasks)
 ├── tests/
@@ -104,15 +104,15 @@ You will use the `model.yaml` file generated in the previous tasks as input to `
 
     Before running `nac-test`, you need to run Terraform to generate the merged model file (`model.yaml`) that `nac-test` uses for rendering tests. If you haven't run the terraform commands below yet, do so now in your **WSL Ubuntu terminal**:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~$" }
     cd ~/nac-iosxe
     ```
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     terraform plan
     ```
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     terraform apply
     ```
     When prompted, type `yes` to confirm the deployment.
@@ -128,7 +128,7 @@ You will use the `model.yaml` file generated in the previous tasks as input to `
 
 Install the **nac-test** tool using pip in your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 pip install nac-test
 ```
 
@@ -137,7 +137,7 @@ pip install nac-test
 
 Once you have the model files and test templates in place, run the `nac-test` command in your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 nac-test \
   --data ./model.yaml \
   --data ./defaults.yaml \
@@ -171,7 +171,7 @@ nac-test \
 
 After running `nac-test`, check the generated test file:
 
-```text { .no-copy }
+```text { .output title="TestResults directory" .no-copy }
 C:\Users\admin\Desktop\TestResults\
 └── config/
     └── access_lists.robot
@@ -179,13 +179,13 @@ C:\Users\admin\Desktop\TestResults\
 
 This is the **TestResults** folder on the Windows 10 desktop. You can open the file with VS Code, notepad, or view the generated test file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 cat /mnt/c/Users/admin/Desktop/TestResults/config/access_lists.robot
 ```
 
 The `access_lists.robot` file contains tests automatically generated from your intent configuration:
 
-```robotframework { .no-copy }
+```robotframework { .output title="config/access_lists.robot (generated)" .no-copy }
 *** Settings ***
 Documentation   Verify Access Lists Configuration
 Suite Setup     Run Only Once   Get Configs
@@ -232,7 +232,7 @@ Verify Standard Access List AccessLayerACL Device access02
 
 The terminal output from `nac-test`, that you ran earlier in Step 4, shows the test execution:
 
-```text { hl_lines="12" .no-copy }
+```text { .output title="nac-test execution output" hl_lines="12" .no-copy }
 cisco@wkst1:~/nac-iosxe$ nac-test \
   --data ./model.yaml \
   --data ./defaults.yaml \
@@ -288,7 +288,7 @@ The previous run passed because the device state matched the intent. To see the 
 
 Open Solar-PuTTY and connect to **access01** (`198.18.130.11`). Then remove sequence 10 from the ACL:
 
-```ios
+```text { .device-cli title="access01" }
 configure terminal
 ip access-list standard AccessLayerACL
 no 10
@@ -299,7 +299,7 @@ The intent (`model.yaml`) still says sequence 10 should exist, but `access01` no
 
 **Run nac-test again:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 nac-test \
   --data ./model.yaml \
   --data ./defaults.yaml \
@@ -310,7 +310,7 @@ nac-test \
 
 This time, the tests **fail**:
 
-```text { .no-copy hl_lines="2" }
+```text { .output title="nac-test output (drift detected)" .no-copy hl_lines="2" }
 ...
 2 tests, 1 passed, 1 failed, 0 skipped.
 ===================================================
@@ -320,11 +320,11 @@ The test for `access01` expected sequence 10 (`prefix: 10.0.0.0`) to exist becau
 
 **Now fix the drift with Terraform and re-run:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply -auto-approve
 ```
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 nac-test \
   --data ./model.yaml \
   --data ./defaults.yaml \
@@ -333,7 +333,7 @@ nac-test \
   --output /mnt/c/Users/admin/Desktop/TestResults
 ```
 
-```text { .no-copy hl_lines="2" }
+```text { .output title="nac-test output (drift fixed)" .no-copy hl_lines="2" }
 ...
 2 tests, 2 passed, 0 failed, 0 skipped.
 ===================================================
