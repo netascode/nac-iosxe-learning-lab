@@ -33,7 +33,7 @@ When you open WSL, you'll automatically start in your home directory (`/home/cis
 
 **Verify your current location:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 pwd
 ```
 
@@ -45,7 +45,7 @@ You should see `/home/cisco` displayed.
 
 **Create the IOS XE as Code project directory:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 mkdir nac-iosxe
 ```
 
@@ -56,13 +56,13 @@ This creates a dedicated folder named `nac-iosxe` for all your Network as Code I
 
 **Navigate into the new directory:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd nac-iosxe
 ```
 
 **Verify you're in the correct location:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 pwd
 ```
 
@@ -78,7 +78,7 @@ Now you'll create a folder structure and placeholder files for your Network as C
 
 **Create the data directory structure:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 mkdir -p data/devices data/groups data/templates
 ```
 
@@ -88,7 +88,7 @@ This creates a `data/` folder with subdirectories to organize your configuration
 
 Create the skeleton files you'll fill in below.
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch .env                                        # credentials for the IOS XE devices
 touch main.tf                                     # Terraform entry point
 touch data/devices/core.nac.yaml                  # per-device configuration files
@@ -110,13 +110,13 @@ The pattern works because Network as Code merges entries across files by the `na
 
 ## Verify your project structure
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 tree -a
 ```
 
 You should see:
 
-```text { .no-copy }
+```text { .output title="Expected output" .no-copy }
 cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
@@ -222,7 +222,7 @@ The figure below illustrates how to edit the `.env` file using Visual Studio Cod
 
 After saving the file, switch to your **WSL Ubuntu terminal** and source it so the variables are available to Terraform:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 source ~/nac-iosxe/.env
 ```
 
