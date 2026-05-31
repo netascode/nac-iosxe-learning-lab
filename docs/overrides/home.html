@@ -290,18 +290,43 @@
     }
     .presenter-avatar.at { background-image: url('assets/andrea-profile.jpeg'); }
     .presenter-avatar.ch { background-image: url('assets/chris-profile.jpeg'); }
-    .presenter-meta { text-align: left; }
+    .presenter-meta { text-align: left; display: flex; flex-direction: column; gap: 4px; }
+    .presenter-name-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
     .presenter-name {
         font-size: 22px;
         font-weight: 700;
         color: var(--md-default-fg-color);
         line-height: 1.2;
     }
-    .presenter-role {
+    .presenter-ccie {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(2,200,255,.15);
+        color: #02C8FF;
+        border: 1px solid rgba(2,200,255,.45);
+        font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .presenter-title {
         font-size: 13.5px;
         color: var(--md-default-fg-color);
-        opacity: .65;
-        margin-top: 6px;
+        opacity: .75;
+        line-height: 1.4;
+    }
+    .presenter-link {
+        font-size: 12.5px;
+        color: var(--md-default-fg-color);
+        opacity: .55;
+        margin-top: 4px;
     }
 
     /* ------------- Closing CTA -------------- */
@@ -402,15 +427,22 @@
         <a class="presenter-card" href="https://www.linkedin.com/in/aitestino/" target="_blank" rel="noopener">
             <div class="presenter-avatar at" role="img" aria-label="Andrea Testino"></div>
             <div class="presenter-meta">
-                <div class="presenter-name">Andrea Testino</div>
-                <div class="presenter-role">Cisco · LinkedIn ↗</div>
+                <div class="presenter-name-row">
+                    <span class="presenter-name">Andrea Testino</span>
+                    <span class="presenter-ccie">CCIE #56739</span>
+                </div>
+                <div class="presenter-title">Principal Software Engineer, Cisco</div>
+                <div class="presenter-link">LinkedIn ↗</div>
             </div>
         </a>
         <a class="presenter-card" href="https://www.linkedin.com/in/christopherjhart95/" target="_blank" rel="noopener">
             <div class="presenter-avatar ch" role="img" aria-label="Christopher Hart"></div>
             <div class="presenter-meta">
-                <div class="presenter-name">Christopher Hart</div>
-                <div class="presenter-role">Cisco · LinkedIn ↗</div>
+                <div class="presenter-name-row">
+                    <span class="presenter-name">Christopher Hart</span>
+                </div>
+                <div class="presenter-title">Sr. Software Technical Leader, Cisco</div>
+                <div class="presenter-link">LinkedIn ↗</div>
             </div>
         </a>
     </div>
