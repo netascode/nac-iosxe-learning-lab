@@ -28,7 +28,7 @@ By placing the banner in the `global` section, it will automatically apply to al
 
 First, create the global configuration file using your **WSL Ubuntu terminal**:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 touch ~/nac-iosxe/data/global.nac.yaml
 ```
 
@@ -108,7 +108,7 @@ Of the three commands, only `apply` (and its counterpart `destroy`) change anyth
 
 In Windows Subsystem for Linux (WSL) terminal, navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
@@ -120,13 +120,13 @@ cd ~/nac-iosxe
 
 List the files in your directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 tree -a
 ```
 
 You should see your project structure:
 
-```text  { .no-copy hl_lines="10" }
+```text  { .output title="Expected output" .no-copy hl_lines="10" }
 cisco@wkst1:~/nac-iosxe$ tree -a
 .
 ├── .env
@@ -156,7 +156,7 @@ Before running Terraform, you need to load the credentials from your `.env` file
 
 To load these variables and make them available to Terraform, use this simple command:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 source .env
 ```
 
@@ -179,12 +179,12 @@ source .env
 
 **Verify the variables are loaded:**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 env | grep IOSXE
 ```
 
 You should see the environment variables displayed:
-```text  { .no-copy hl_lines="2-4" }
+```text  { .output title="Expected output" .no-copy hl_lines="2-4" }
 cisco@wkst1:~/nac-iosxe$ env | grep IOSXE
 IOSXE_USERNAME=nac_admin
 IOSXE_PASSWORD=cisco
@@ -201,7 +201,7 @@ To avoid manually exporting variables every time you open WSL, you can add the e
 
 **To make the export permanent, add it to your bashrc**
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 echo 'source ~/nac-iosxe/.env' >> ~/.bashrc
 ```
 
@@ -215,7 +215,7 @@ Before running Terraform, confirm the NETCONF subsystem is up on one of the lab 
 
 Test against **access01** (`198.18.130.11`):
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 ssh -s -p 830 -o StrictHostKeyChecking=no $IOSXE_USERNAME@198.18.130.11 netconf
 ```
 
@@ -228,7 +228,7 @@ What each flag does:
 - `-o StrictHostKeyChecking=no` - skip the first-connection host-key prompt (lab-only; never use this in production).
 - `netconf` - the subsystem name.
 
-```text { title="Expected output (truncated)" hl_lines="1 2 6" .no-copy }
+```text { .output title="Expected output (truncated)" hl_lines="1 2 6" .no-copy }
 <?xml version="1.0" encoding="UTF-8"?>
 <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <capabilities>
@@ -256,7 +256,7 @@ While the base NETCONF subsystem is already running, the **candidate datastore**
 
 Enable it on **all four** lab devices using **Solar-PuTTY**. Open Solar-PuTTY, connect to each of `core`, `border`, `access01`, `access02` as `nac_admin` / `cisco`, and run the same three commands on each:
 
-```text
+```text { .device-cli title="core, border, access01, access02" }
 configure terminal
 netconf-yang feature candidate-datastore
 end
@@ -267,11 +267,11 @@ Repeat for all four devices before moving on. Each box should accept the command
 
 **Verify the capability now appears.** Re-run the Step 3 NETCONF handshake against `access01`:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 ssh -s -p 830 -o StrictHostKeyChecking=no $IOSXE_USERNAME@198.18.130.11 netconf
 ```
 
-```text { title="Expected output (after enabling candidate-datastore)" hl_lines="6 7" .no-copy }
+```text { .output title="Expected output (after enabling candidate-datastore)" hl_lines="6 7" .no-copy }
 <?xml version="1.0" encoding="UTF-8"?>
 <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <capabilities>
@@ -295,7 +295,7 @@ The `candidate:1.0` and `confirmed-commit:1.1` capability lines are what tells y
 
 Initialize your Terraform project to download the required Network as Code module:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform init
 ```
 
@@ -315,7 +315,7 @@ terraform init
 ??? info "What the `terraform init` output tells you (annotated)"
     First-time Terraform users can find the init output intimidating because Terraform is chatty - it narrates everything it does. Here's a typical healthy run, annotated:
 
-    ```text
+    ```text { .output title="Annotated terraform init output" .no-copy }
     Initializing the backend...             ← Reading backend config from main.tf.
 
     Initializing modules...                 ← Found `module "iosxe"` in main.tf.
@@ -391,7 +391,7 @@ terraform init
 
 Before applying any changes to the lab devices, preview what Terraform will do:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
@@ -423,13 +423,13 @@ In this case, you will configure the login banner on all four devices. Terraform
 
 If the plan looks good, apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
 Terraform will show you the plan again and ask for confirmation:
 
-```text { .no-copy hl_lines="8" }
+```text { .output title="Expected output" .no-copy hl_lines="8" }
 ...
 Plan: 6 to add, 0 to change, 0 to destroy.
 
@@ -459,7 +459,7 @@ Type `yes` and press Enter to proceed.
 !!! tip "Automate approval with `-auto-approve`"
     To skip the confirmation prompt, add the `-auto-approve` flag:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     terraform apply -auto-approve
     ```
 
@@ -528,11 +528,11 @@ Upon successful config deployment, you should see the following banner message:
 
 Additionally, you can also verify the banner configuration by examining the running configuration. Once connected to each switch, run the following command:
 
-```bash
+```text { .device-cli title="core, border, access01, access02" }
 show run | include banner
 ```
 
-```text { title="Expected Output" hl_lines="2" .no-copy }
+```text { .output title="Expected Output" hl_lines="2" .no-copy }
 core#show run | include banner
 banner login ^CWelcome to the IOS XE as Code lab!^C
 core#
@@ -552,7 +552,7 @@ The `^C` characters represent control characters used by IOS XE to delimit the b
     every managed device and prints the banner line from each running
     config. Paste it into your WSL terminal:
 
-    ```bash
+    ```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
     for ip in 198.18.130.10 198.18.130.20 198.18.130.11 198.18.130.12; do
       echo "--- $ip ---"
       sshpass -p cisco ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
