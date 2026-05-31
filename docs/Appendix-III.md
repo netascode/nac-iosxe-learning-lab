@@ -12,7 +12,7 @@ For the full template sources (`access_lists.robot`, `iosxe_common.resource`, `U
 
 Below is what you get after `nac-test` renders the Jinja2 template against your intent YAML. Notice how the two entries from your `AccessLayerACL` (sequence 10 and 20) become explicit XPath assertions, one per device in the `ACCESS_SWITCHES` group:
 
-```robotframework
+```robotframework { .output title="tests/results/config/access_lists.robot (rendered)" .no-copy }
 *** Settings ***
 Documentation   Verify Access Lists Configuration
 Suite Setup     Run Only Once   Get Configs
