@@ -116,11 +116,12 @@ Repeat `show version` and `show run` on **access01**, **access02**, and **border
 
 - Every device has a near-empty running configuration - ready for Network as Code to take over.
 - Every device has the `nac_admin` user provisioned and **NETCONF** enabled for configuration and verification.
+- The **candidate datastore** capability is **not yet enabled** - you'll turn it on as one of the first steps in [Task 03](Task03_Global_configuration.md) before pointing Terraform at the devices.
 - No device has any of the configuration you're about to deploy (banners, ACLs, VLANs, BGP, etc.).
 
-## Enabling NETCONF manually (already done - reference only)
+## Enabling NETCONF manually (mostly done - one piece pending)
 
-The lab devices are already configured with NETCONF enabled. **You do not need to run anything in this section** - it's here so you know what to do on your own devices after Cisco Live.
+The lab devices already have the base NETCONF subsystem (`netconf-yang`) and the `nac_admin` user provisioned for you. **The one piece intentionally left unconfigured is the candidate datastore** - the `netconf-yang feature candidate-datastore` line. You'll enable that yourself in [Task 03 - Step 3](Task03_Global_configuration.md) so you see the command flow at least once; the rest of this section is reference for what to do on your own devices after Cisco Live.
 
 ??? note "Commands to enable NETCONF on your own devices"
 
@@ -137,7 +138,9 @@ The lab devices are already configured with NETCONF enabled. **You do not need t
 
     The `netconf-yang feature candidate-datastore` command is the one that activates the candidate/commit/discard-changes flow shown in the datastore diagram above. Without it, NETCONF on IOS XE falls back to a simpler mode that writes directly to running - which works for single-RPC changes but loses the "all-or-nothing across many RPCs" guarantee. Enabling the candidate datastore is what makes `device_transaction = true` on the module useful (see [Task 03](Task03_Global_configuration.md)).
 
-You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830.
+    In this lab, the first three lines (`username`, `netconf-yang`) are already applied to every device. Only `netconf-yang feature candidate-datastore` is left for you to run during Task 03.
+
+You'll verify NETCONF reachability from WSL Ubuntu in [Task 03](Task03_Global_configuration.md) using a quick `ssh -s` handshake against port 830, then enable the candidate datastore feature on each device.
 
 ## What you've accomplished
 
