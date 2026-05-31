@@ -228,14 +228,13 @@ What each flag does:
 - `-o StrictHostKeyChecking=no` - skip the first-connection host-key prompt (lab-only; never use this in production).
 - `netconf` - the subsystem name.
 
-```text { title="Expected output (truncated)" hl_lines="1 2" .no-copy }
+```text { title="Expected output (truncated)" hl_lines="1 2 6" .no-copy }
 <?xml version="1.0" encoding="UTF-8"?>
 <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <capabilities>
     <capability>urn:ietf:params:netconf:base:1.0</capability>
     <capability>urn:ietf:params:netconf:base:1.1</capability>
-    <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
     <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
     ...
   </capabilities>
