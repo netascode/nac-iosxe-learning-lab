@@ -110,10 +110,9 @@ contribute:
   app or portal. These ratings directly influence whether the session
   runs again, and at which events.
 - **Direct feedback** - if you hit something confusing, broken, or
-  wished-for-but-missing, message either presenter (below) or open an
-  issue on the [lab's GitHub repo](https://github.com/ciscodocs/ltrxar-2008-clamer26/issues).
-  Specific > general; "the Task 08 BGP verification was unclear
-  because X" is 10x more useful than "Task 08 was confusing."
+  wished-for-but-missing, email either presenter (below). Specific >
+  general; "the Task 08 BGP verification was unclear because X" is
+  10x more useful than "Task 08 was confusing."
 
 ## Thank you
 
