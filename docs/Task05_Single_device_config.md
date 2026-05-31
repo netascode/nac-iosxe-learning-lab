@@ -89,7 +89,7 @@ iosxe:
 
 Your `data/` folder now contains one file per configuration concern:
 
-```text { .no-copy hl_lines="6" }
+```text { .output title="Project layout" .no-copy hl_lines="6" }
 /home/cisco/nac-iosxe/
 ├── .env
 ├── main.tf
@@ -115,19 +115,19 @@ Open your WSL Ubuntu terminal and run the following steps:
 
 Navigate to your project directory:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~$" }
 cd ~/nac-iosxe
 ```
 
 Optionally, preview the changes Terraform will make:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform plan
 ```
 
 Apply the configuration:
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 terraform apply
 ```
 
@@ -154,11 +154,11 @@ After `terraform apply` finishes, verify that `Loopback0` exists on `core` and *
 
 **Check the loopback interface:**
 
-```bash
+```text { .device-cli title="core" }
 show ip interface brief | include Loopback
 ```
 
-```text { title="Expected output" .no-copy }
+```text { .output title="Expected output" .no-copy }
 core#show ip interface brief | include Loopback
 Loopback0              198.51.100.10   YES NVRAM  up                    up
 core#
@@ -166,11 +166,11 @@ core#
 
 **Inspect the full interface:**
 
-```bash
+```text { .device-cli title="core" }
 show interfaces Loopback0
 ```
 
-```text { title="Expected output (truncated)" .no-copy }
+```text { .output title="Expected output (truncated)" .no-copy }
 core#show interfaces Loopback0
 Loopback0 is up, line protocol is up
   Hardware is Loopback
@@ -186,7 +186,7 @@ You should see `Loopback0` up/up with IP `198.51.100.10/32` and your description
 
 Connect to **border** and run:
 
-```bash
+```text { .device-cli title="border, access01, access02" }
 show ip interface brief | include Loopback
 ```
 
