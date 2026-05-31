@@ -27,20 +27,22 @@ theme:
                                     # render legibly instead of getting downsized.
   custom_dir: docs/overrides
   palette:
-    # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: custom
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    # Default to dark mode (slate) for every visitor regardless of OS preference.
+    # The OS-preference 'media:' selectors were removed intentionally - we want
+    # the first impression to be the lab's branded dark navy palette that the
+    # diagrams and home-page hero are already designed against. Users can flip
+    # to light at any time via the brightness toggle in the header; their
+    # choice persists in localStorage across pages and visits.
+    - scheme: slate
       primary: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+    - scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
   logo: template_assets/cisco_logo.png
   favicon: template_assets/cisco_logo.png
 extra:
