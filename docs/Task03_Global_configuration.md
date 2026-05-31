@@ -245,8 +245,66 @@ What each flag does:
 
 If you see the `<hello>` XML with a capability list, NETCONF is reachable and your credentials work. Press **Ctrl+C** to exit - Terraform will manage its own NETCONF sessions from here on.
 
+!!! note "No `candidate:1.0` capability yet - that's expected"
+    Notice that the highlighted `writable-running:1.0` line appears, but `candidate:1.0` and `confirmed-commit:1.1` are **not** in the capability list. That's because the `netconf-yang feature candidate-datastore` CLI was intentionally left unconfigured on the lab devices (see [Task 01](Task01_SSH_to_network_devices.md#enabling-netconf-manually-mostly-done-one-piece-pending)). You'll enable it in **Step 4** below, and the capability list will then advertise `candidate:1.0` instead.
 
-### Step 4: Initialize Terraform
+
+### Step 4: Enable the NETCONF candidate datastore on each device
+
+
+While the base NETCONF subsystem is already running, the **candidate datastore** capability has not yet been enabled. This is the missing CLI line that activates the `<candidate>` -> `<commit>` -> `<discard-changes>` flow Terraform relies on for transactional, all-or-nothing pushes (see the NETCONF datastore diagram in [Task 01](Task01_SSH_to_network_devices.md)). Without it, NETCONF on IOS XE falls back to writing directly to `running`, which loses the "all RPCs commit together or none of them do" guarantee.
+
+Enable it on **all four** lab devices. The fastest path is a single WSL one-liner that SSHes to each in turn and applies the same three commands:
+
+```bash
+for ip in 198.18.130.10 198.18.130.20 198.18.130.11 198.18.130.12; do
+  echo "--- Enabling candidate-datastore on $ip ---"
+  sshpass -p cisco ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    nac_admin@$ip "configure terminal
+netconf-yang feature candidate-datastore
+end
+write memory"
+done
+```
+
+??? tip "Prefer doing it interactively? Use Solar-PuTTY"
+    If you'd rather see the prompts, open **Solar-PuTTY** and connect to each of `core`, `border`, `access01`, `access02` as `nac_admin` / `cisco`, then run:
+
+    ```text
+    configure terminal
+    netconf-yang feature candidate-datastore
+    end
+    write memory
+    ```
+
+    Repeat for all four devices.
+
+**Verify the capability now appears.** Re-run the Step 3 NETCONF handshake against `access01`:
+
+```bash
+ssh -s -p 830 -o StrictHostKeyChecking=no $IOSXE_USERNAME@198.18.130.11 netconf
+```
+
+```text { title="Expected output (after enabling candidate-datastore)" hl_lines="6 7" .no-copy }
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    ...
+  </capabilities>
+  <session-id>124</session-id>
+</hello>
+]]>]]>
+```
+
+The `candidate:1.0` and `confirmed-commit:1.1` capability lines are what tells you the feature is now active. Press **Ctrl+C** to exit. Terraform will use this datastore for every subsequent `apply`.
+
+
+### Step 5: Initialize Terraform
 
 
 Initialize your Terraform project to download the required Network as Code module:
