@@ -1,6 +1,22 @@
 # Getting started
 
-You'll access the lab through a Web RDP session to the dCloud **Windows 10 VM** at `198.18.133.20` (user `admin`, password `cisco`). Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed on that VM. You'll open the **WSL Ubuntu terminal** frequently throughout the lab - it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
+## Connecting to your lab environment
+
+Follow these three steps to open the Windows 10 VM where you'll do all your work.
+
+**Step 1 — Click Explore.** On the right monitor at your station, locate the dCloud session card for **LTRXAR-2008** and click the **Explore** hyperlink.
+
+![Click the Explore hyperlink on the dCloud session card](./assets/dcloud-explore-button.png){ width="80%" }
+
+**Step 2 — Enter your email.** In the dialog that appears, type the email address you used to register for Cisco Live and click **Continue**.
+
+![Enter your Cisco Live registration email address](./assets/dcloud-explore-email-address.png){ width="60%" }
+
+**Step 3 — Open the Win10 Remote Desktop.** You'll see a resource details page listing the virtual machines in your lab pod. Find the row for **Win10** and click the **Remote Desktop** link — this opens a Web RDP session directly in your browser.
+
+![Click Remote Desktop for the Win10 VM](./assets/dcloud-web-rdp.png){ width="100%" }
+
+Once the Web RDP session loads, you're inside the lab VM. Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed. You'll open the **WSL Ubuntu terminal** frequently throughout the lab; it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
 
 !!! tip "Work from inside the VM, not your laptop"
     The lab guide is already set as the Chrome start page on the Win10 VM, and it's bookmarked for later. Read the guide from inside the RDP session - copy/paste between your laptop and the Web RDP window is finicky, and you will be pasting YAML into VS Code and commands into the WSL terminal constantly.
