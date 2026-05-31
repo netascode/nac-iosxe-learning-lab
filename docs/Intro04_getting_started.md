@@ -4,15 +4,15 @@
 
 Follow these three steps to open the Windows 10 VM where you'll do all your work.
 
-**Step 1 — Click Explore.** On the right monitor at your station, locate the dCloud session card for **LTRXAR-2008** and click the **Explore** hyperlink.
+**Step 1 - Click Explore.** On the right monitor at your station, locate the dCloud session card for **LTRXAR-2008** and click the **Explore** hyperlink.
 
 ![Click the Explore hyperlink on the dCloud session card](./assets/dcloud-explore-button.png){ width="80%" }
 
-**Step 2 — Enter your email.** In the dialog that appears, type the email address you used to register for Cisco Live and click **Continue**.
+**Step 2 - Enter your email.** In the dialog that appears, type the email address you used to register for Cisco Live and click **Continue**.
 
 ![Enter your Cisco Live registration email address](./assets/dcloud-explore-email-address.png){ width="60%" }
 
-**Step 3 — Open the Win10 Remote Desktop.** You'll see a resource details page listing the virtual machines in your lab pod. Find the row for **Win10** and click the **Remote Desktop** link — this opens a Web RDP session directly in your browser.
+**Step 3 - Open the Win10 Remote Desktop.** You'll see a resource details page listing the virtual machines in your lab pod. Find the row for **Win10** and click the **Remote Desktop** link - this opens a Web RDP session directly in your browser.
 
 ![Click Remote Desktop for the Win10 VM](./assets/dcloud-web-rdp.png){ width="100%" }
 
