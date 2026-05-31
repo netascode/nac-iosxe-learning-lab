@@ -372,6 +372,44 @@
         margin-top: 2px;
         line-height: 1.35;
     }
+
+    /* ------------- Tech-stack pills row -------------- */
+    .tech-stack {
+        max-width: 1100px;
+        margin: 0 auto 36px;
+        padding: 0 24px;
+        text-align: center;
+    }
+    .tech-stack h3 {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--md-primary-bg-color);
+        opacity: .65;
+        margin: 0 0 14px;
+    }
+    .ts-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    .ts-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        border: 1px solid rgba(0,0,0,.12);
+        border-radius: 999px;
+        font-size: 13px;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        color: var(--md-default-fg-color);
+        background: var(--md-default-bg-color);
+        opacity: .9;
+    }
+    [data-md-color-scheme="slate"] .ts-pill {
+        border-color: rgba(255,255,255,.15);
+    }
 </style>
 
 <!-- Main site Entry button descriptions -->
@@ -471,6 +509,21 @@
                 <div class="exp-value">Copy-paste friendly, ~90 min minimum path</div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Your toolkit — tech stack pills -->
+<section class="tech-stack">
+    <h3>Your toolkit</h3>
+    <div class="ts-grid">
+        <span class="ts-pill">Terraform</span>
+        <span class="ts-pill">IOS XE</span>
+        <span class="ts-pill">NETCONF / YANG</span>
+        <span class="ts-pill">YAML</span>
+        <span class="ts-pill">GitLab CI/CD</span>
+        <span class="ts-pill">nac-validate</span>
+        <span class="ts-pill">nac-test</span>
+        <span class="ts-pill">Robot Framework</span>
     </div>
 </section>
 
