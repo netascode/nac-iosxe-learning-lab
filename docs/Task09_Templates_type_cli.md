@@ -71,18 +71,21 @@ Now add the alias template to your existing global configuration so that it appl
 
 **Update `data/global.nac.yaml`** to include the alias template:
 
-```yaml title="data/global.nac.yaml" hl_lines="15-16"
+```yaml title="data/global.nac.yaml" hl_lines="18-19"
 ---
 iosxe:
   global:
+    variables:
+      SITE: "LTRXAR-2008 Lab"
     configuration:
       banner:
-        login: |
-          ######################################
-          #                                    #
-          #   Welcome to Network as Code Lab!  #
-          #                                    #
-          ######################################
+        login: |-
+          #########################################
+          #                                       #
+          #   Welcome to the IOS XE as Code Lab!  #
+          #                                       #
+          #########################################
+          Site:   ${SITE}
           Device: ${HOSTNAME}
       system:
         hostname: ${HOSTNAME}
