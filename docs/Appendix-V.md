@@ -32,7 +32,7 @@ GitLab and Ubuntu share the host (same `198.18.133.101`), different services.
 ## Automation seed config (on each Network as Code-managed device)
 
 
-```text
+```text { .device-cli title="all NaC-managed devices" }
 username nac_admin privilege 15 secret cisco
 netconf-yang
 ```
@@ -41,7 +41,7 @@ That's the minimum. `restconf` + `ip http secure-server` are optional if you wan
 
 ## Environment variables
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 export IOSXE_USERNAME=nac_admin
 export IOSXE_PASSWORD=cisco
 export IOSXE_PROTOCOL=netconf   # or restconf
@@ -51,7 +51,7 @@ Load per-session with `source .env`, or append to `~/.bashrc` for persistence.
 
 ## NETCONF reachability preflight
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 ssh -s -p 830 -o StrictHostKeyChecking=no $IOSXE_USERNAME@<device_ip> netconf
 ```
 
@@ -59,7 +59,7 @@ Expect an XML `<hello>` with a capability list. **Ctrl+C** to exit.
 
 ## Project layout
 
-```text
+```text { .output title="~/nac-iosxe/ project layout" .no-copy }
 ~/nac-iosxe/
 ├── .env                                   # credentials
 ├── .schema.yaml                           # NaC schema (for nac-validate)
@@ -81,7 +81,7 @@ Expect an XML `<hello>` with a capability list. **Ctrl+C** to exit.
 
 ## `main.tf` skeleton
 
-```terraform
+```terraform { title="main.tf" }
 module "iosxe" {
   source                    = "git::https://github.com/netascode/terraform-iosxe-nac-iosxe.git"
   yaml_directories          = ["data/"]
@@ -145,7 +145,7 @@ For the lab's 4-device deployment, the per-device transaction layer is what matt
 
 ## `nac-validate` - pre-deployment schema check
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 pip install nac-validate
 export PATH=$PATH:~/.local/bin
 
@@ -157,7 +157,7 @@ Exit code 0 = valid. Non-zero + `ERROR - Syntax error ...` = something's wrong. 
 
 ## `nac-test` - post-deployment verification
 
-```bash
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
 pip install nac-test
 
 # Assumes `tests/` directory is present (see Task 11)
