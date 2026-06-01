@@ -808,18 +808,21 @@
 }
 
 /* ============================================================================
- * INDENT GUIDES (YAML only, for now)
+ * INDENT GUIDES (YAML / Terraform / HCL / Python)
  *
- * Companion to docs/javascripts/indent-guides.js, which wraps every YAML
- * line in <span class="cl"> and sets `--indent: N` (count of 2-space units
- * of leading whitespace). Here we draw N faint vertical stripes anchored
- * at the line's start, using a repeating-linear-gradient that paints a 1px
- * line every 2ch. The stripe band is bounded to width = N * 2ch so guides
- * never extend past the actual indentation depth — the look matches
- * VS Code's indent rulers.
+ * Companion to docs/javascripts/indent-guides.js, which annotates every line
+ * of a supported code block with `class="cl"` and `--indent: N` (count of
+ * indent levels of leading whitespace). The JS also sets `--indent-width`
+ * on the <code> element to the language's spaces-per-level (2ch for YAML/
+ * HCL/Terraform, 4ch for Python), which we read back here so the stripe
+ * spacing scales per language.
+ *
+ * Each line gets a `::before` pseudo with width = N * --indent-width, so
+ * guides extend exactly to the line's indent depth and never further —
+ * the look matches VS Code's indent rulers regardless of language.
  *
  * Scope:
- *   - Only YAML blocks get the .cl wrapper from JS (others are ignored).
+ *   - Only blocks the JS classifies as supported get the .cl wrapper.
  *   - .terminal / .device-cli / .output blocks are skipped at the JS layer
  *     so this CSS will never apply there even if the selectors would match.
  * ============================================================================ */
@@ -835,13 +838,13 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: calc(var(--indent, 0) * 2ch);
+    width: calc(var(--indent, 0) * var(--indent-width, 2ch));
     background-image: repeating-linear-gradient(
         to right,
         rgba(127, 127, 127, 0.22) 0,
         rgba(127, 127, 127, 0.22) 1px,
         transparent 1px,
-        transparent 2ch
+        transparent var(--indent-width, 2ch)
     );
     pointer-events: none;
 }
@@ -855,7 +858,7 @@
         rgba(200, 205, 225, 0.16) 0,
         rgba(200, 205, 225, 0.16) 1px,
         transparent 1px,
-        transparent 2ch
+        transparent var(--indent-width, 2ch)
     );
 }
 
