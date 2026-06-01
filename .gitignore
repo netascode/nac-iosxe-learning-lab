@@ -515,3 +515,5 @@ FodyWeavers.xsd
 *.msp
 
 __pycache__/
+.playwright-mcp/
+indent-guides-rendered.png
