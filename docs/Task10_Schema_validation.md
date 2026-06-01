@@ -312,7 +312,13 @@ mkdir -p ~/nac-iosxe/rules
 
 ### Step 2: Create the rule file
 
-Open **VS Code** in your `nac-iosxe` project, create a new file at `rules/no_permit_any.py`, and paste the following:
+Create the file in your WSL terminal:
+
+```bash { .terminal title="cisco@wkst1:~/nac-iosxe$" }
+touch ~/nac-iosxe/rules/no_permit_any.py
+```
+
+Open `rules/no_permit_any.py` in **VS Code** and paste the following:
 
 ```python { title="rules/no_permit_any.py" }
 class Rule:
