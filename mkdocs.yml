@@ -51,9 +51,12 @@ extra:
 extra_css:
   - stylesheets/extra.css
 extra_javascript:
-  # Click-to-copy handler for titled code blocks wrapped in
-  # <div class="filename-trial">. Trial scope only - see Task 14, Step 2.
+  # Click-to-copy handler for titled code blocks (FILE / TERMINAL / DEVICE CLI
+  # badges). Skips OUTPUT blocks where the title is descriptive, not a path.
   - javascripts/filename-copy.js
+  # Indent guides for YAML code blocks — wraps each line in <span class="cl">
+  # and sets `--indent: N` so extra.css can paint VS Code-style indent rulers.
+  - javascripts/indent-guides.js
 plugins:
   - search
   - awesome-nav

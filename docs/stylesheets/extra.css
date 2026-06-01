@@ -806,3 +806,56 @@
     background: rgba(180, 185, 192, 0.15);
     border-color: rgba(180, 185, 192, 0.45);
 }
+
+/* ============================================================================
+ * INDENT GUIDES (YAML only, for now)
+ *
+ * Companion to docs/javascripts/indent-guides.js, which wraps every YAML
+ * line in <span class="cl"> and sets `--indent: N` (count of 2-space units
+ * of leading whitespace). Here we draw N faint vertical stripes anchored
+ * at the line's start, using a repeating-linear-gradient that paints a 1px
+ * line every 2ch. The stripe band is bounded to width = N * 2ch so guides
+ * never extend past the actual indentation depth — the look matches
+ * VS Code's indent rulers.
+ *
+ * Scope:
+ *   - Only YAML blocks get the .cl wrapper from JS (others are ignored).
+ *   - .terminal / .device-cli / .output blocks are skipped at the JS layer
+ *     so this CSS will never apply there even if the selectors would match.
+ * ============================================================================ */
+
+.md-typeset .highlight pre code .cl {
+    /* Establishes containing block for the absolutely-positioned ::before. */
+    position: relative;
+}
+
+.md-typeset .highlight pre code .cl[data-indent]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: calc(var(--indent, 0) * 2ch);
+    background-image: repeating-linear-gradient(
+        to right,
+        rgba(127, 127, 127, 0.22) 0,
+        rgba(127, 127, 127, 0.22) 1px,
+        transparent 1px,
+        transparent 2ch
+    );
+    pointer-events: none;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight pre code .cl[data-indent]::before {
+    /* Slightly cooler/lighter on dark backgrounds so guides remain visible
+     * against #1a1a2e-ish code surface without competing with the syntax
+     * highlight palette. */
+    background-image: repeating-linear-gradient(
+        to right,
+        rgba(200, 205, 225, 0.16) 0,
+        rgba(200, 205, 225, 0.16) 1px,
+        transparent 1px,
+        transparent 2ch
+    );
+}
+
