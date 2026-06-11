@@ -9,6 +9,22 @@ Deploy, validate, and automate Cisco IOS XE device configuration using Network a
 
 ---
 
+## dCloud session URLs
+
+For presenters running this lab live in the Cisco Live dCloud expo:
+
+**First session**
+
+- Right monitor (lab pod): https://expo.ciscodcloud.com/2rw7izv9r0fuj7lrpob79ghqt
+- Left monitor (lab guide): https://cl-ltr.ciscolabs.com/4eb6f2de2e/
+
+**Second session**
+
+- Right monitor (lab pod): https://expo.ciscodcloud.com/yltxt7d16jzp9ie5xufod6vz
+- Left monitor (lab guide): https://cl-ltr.ciscolabs.com/4eb6f2de2e/
+
+---
+
 ## What this lab covers
 
 This workshop teaches you how to manage IOS XE devices declaratively — describe the desired network state in YAML and let the automation stack figure out how to get there. You will:
