@@ -1,7 +1,7 @@
 ---
-site_name: "LTRXAR-2008: Accelerate Your Network Operations"
-site_url: "https://cl-ltr.ciscolabs.com/4eb6f2de2e/"
-site_description: "Cisco Live 2026 hands-on lab — Network as Code for IOS XE. Terraform + YAML + GitLab CI/CD across four CML devices."
+site_name: "IOS XE as Code Learning Lab"
+site_url: "https://netascode.github.io/nac-iosxe-learning-lab/"
+site_description: "Hands-on lab for Network as Code on IOS XE — Terraform + YAML + GitLab CI/CD across four CML devices. Originally delivered as LTRXAR-2008 at Cisco Live US 2026."
 site_author: "Andrea Testino, Christopher Hart"
 copyright: Copyright &copy; {year} Cisco # This parameter will auto-update the year in HTML pages based on the build date
 theme:
