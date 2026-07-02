@@ -121,7 +121,7 @@ Repeat `show version` and `show run` on **access01**, **access02**, and **border
 
 ## Enabling NETCONF manually (mostly done - one piece pending)
 
-The lab devices already have the base NETCONF subsystem (`netconf-yang`) and the `nac_admin` user provisioned for you. **The one piece intentionally left unconfigured is the candidate datastore** - the `netconf-yang feature candidate-datastore` line. You'll enable that yourself in [Task 03 - Step 3](Task03_Global_configuration.md) so you see the command flow at least once; the rest of this section is reference for what to do on your own devices after Cisco Live.
+The lab devices already have the base NETCONF subsystem (`netconf-yang`) and the `nac_admin` user provisioned for you. **The one piece intentionally left unconfigured is the candidate datastore** - the `netconf-yang feature candidate-datastore` line. You'll enable that yourself in [Task 03 - Step 3](Task03_Global_configuration.md) so you see the command flow at least once; the rest of this section is reference for what to do on your own devices when you apply this pattern outside the lab.
 
 ??? note "Commands to enable NETCONF on your own devices"
 
