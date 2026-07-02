@@ -1,27 +1,21 @@
-# LTRXAR-2008 — Accelerate Your Network Operations
+# IOS XE as Code Learning Lab
 
-**A 4-hour, hands-on IOS XE automation workshop from Cisco Live US 2026.**
+**A 4-hour, hands-on IOS XE automation workshop.**
 Deploy, validate, and automate Cisco IOS XE device configuration using Network as Code (NaC), Terraform, and GitLab CI/CD — no raw HCL required.
 
-- **Lab guide (web):** https://cl-ltr.ciscolabs.com/4eb6f2de2e/
-- **Lab guide (PDF):** https://cl-ltr.ciscolabs.com/4eb6f2de2e/pdf/document.pdf
-- **Session ID:** LTRXAR-2008 · Cisco Live US 2026, San Diego
+- **Lab guide:** https://netascode.github.io/nac-iosxe-learning-lab/
+- **Origin:** Originally delivered as LTRXAR-2008 at Cisco Live US 2026 (San Diego); now maintained here as the canonical NaC IOS XE learning path.
 
 ---
 
-## dCloud session URLs
+## Delivery via dCloud
 
-For presenters running this lab live in the Cisco Live dCloud expo:
+For presenters running this lab live in a dCloud environment (Cisco Live, TechAdvantage, customer workshops, internal enablement, etc.), share two links with attendees:
 
-**First session**
+- **Lab pod (dCloud):** `<insert per-event dCloud reservation share URL>` — spins up the four IOS XE devices, ISP router, GitLab, and the Ubuntu / Windows jumpboxes attendees work from.
+- **Lab guide:** `<insert deployed lab-guide URL — typically the "Lab guide (web)" link above, or a mirror hosted on your delivery infrastructure>` — the step-by-step content each attendee reads alongside the pod.
 
-- Right monitor (lab pod): https://expo.ciscodcloud.com/2rw7izv9r0fuj7lrpob79ghqt
-- Left monitor (lab guide): https://cl-ltr.ciscolabs.com/4eb6f2de2e/
-
-**Second session**
-
-- Right monitor (lab pod): https://expo.ciscodcloud.com/yltxt7d16jzp9ie5xufod6vz
-- Left monitor (lab guide): https://cl-ltr.ciscolabs.com/4eb6f2de2e/
+Attendees can arrange the two URLs however their setup allows — two monitors, split screen on one, laptop plus tablet, whatever works. Duplicate the block above per session if the event runs the lab more than once with different pod reservations.
 
 ---
 
