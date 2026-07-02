@@ -21,7 +21,7 @@ Acronyms and terms used throughout this lab guide. Bookmark or keep this tab ope
 | **WSL** | Windows Subsystem for Linux - the Linux environment running inside the lab's Win10 VM, where you'll run Terraform. |
 | **Declarative vs imperative** | Declarative: describe *what* you want (e.g. "VLAN 10 exists with name DATA"). Imperative: describe *the steps* (`vlan 10`, `name DATA`). Network as Code is declarative - you describe state, the module figures out the steps. |
 | **`candidate` / `running`** | NETCONF's two main datastores. You write to `candidate` (scratch), issue `<commit>` to atomically swap it into `running` (live config). See Task 01's NETCONF diagram. |
-| **dCloud** | Cisco's demo / lab cloud environment - where this lab is hosted during Cisco Live. |
+| **dCloud** | Cisco's demo / lab cloud environment - one of the common ways this lab is delivered (Cisco Live, TechAdvantage, customer workshops, internal enablement). |
 
 ---
 
