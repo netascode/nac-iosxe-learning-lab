@@ -1,0 +1,14 @@
+# CODEOWNERS for netascode/nac-iosxe-learning-lab
+#
+# Any pull request opened against this repo automatically requests review
+# from the users listed here. Owners are also the escalation point for
+# issues that don't have a clearer routing.
+#
+# Syntax reference: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-security/customizing-your-repository/about-code-owners
+#
+# Pattern precedence: LAST matching rule wins. The catch-all `*` at the
+# top applies everywhere unless a later, more specific pattern overrides
+# it — add scoped ownership below the catch-all if the repo grows areas
+# with distinct maintainers.
+
+* @aitestino @ChristopherJHart
