@@ -4,7 +4,7 @@
 Deploy, validate, and automate Cisco IOS XE device configuration using Network as Code (NaC), Terraform, and GitLab CI/CD — no raw HCL required.
 
 - **Lab guide:** https://netascode.github.io/nac-iosxe-learning-lab/
-- **Origin:** Originally delivered as LTRXAR-2008 at Cisco Live US 2026 (San Diego); now maintained here as the canonical NaC IOS XE learning path.
+- **Origin:** Originally delivered as [LTRXAR-2008](https://www.ciscolive.com/global/learn/session-catalog.html?search=LTRXAR-2008#/) at Cisco Live US 2026 (Las Vegas); now maintained here as the canonical NaC IOS XE learning path. (The session-catalog link requires a Cisco Live account to load.)
 
 ---
 
@@ -98,22 +98,12 @@ The key abstraction: you never write `resource` blocks or wire Terraform depende
 
 ---
 
-## Presenters
+## Authors
 
 - **Andrea Testino** — Principal Software Engineer, CCIE #56739 · [LinkedIn](https://www.linkedin.com/in/aitestino/) · atestini@cisco.com
 - **Christopher Hart** — Sr. Software Consulting Engineering Technical Leader · [LinkedIn](https://www.linkedin.com/in/christopherjhart95/) · chart2@cisco.com
 
-Original lab design by Asier Arlegui ([LinkedIn](https://www.linkedin.com/in/arlegui/)) and Balu Novak-Bohak — Cisco Live Amsterdam 2025.
-
----
-
-## Related Cisco Live sessions
-
-- **BRKXAR-2032** — NetDevOps testing fundamentals with Generative AI
-- **LTRDCN-3439** — Nexus Dashboard VXLAN as Code
-- **LTRATO-2223** — FastForward SD-WAN deployment with SDWAN as Code
-- **LTRENS-3751** — SD-Access as Code with Catalyst Center and ISE
-- **BRKENT-2115** — Automate Catalyst SD-WAN with Network as Code
+Additional thanks to Asier Arlegui ([LinkedIn](https://www.linkedin.com/in/arlegui/)) and Balu Novak-Bohak for the original inspiration behind this lab (Cisco Live Amsterdam 2025).
 
 ---
 
