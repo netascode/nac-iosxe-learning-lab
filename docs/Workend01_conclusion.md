@@ -93,26 +93,25 @@ This lab uses `nac-validate` (Task 10) and `nac-test` (Task 11). The NaC toolcha
 - [**`nac-api`**](https://netascode.cisco.com/docs/tools/nac-api/overview/) - REST API over NaC configs. Useful for custom integrations.
 - [**`nac-collector`**](https://netascode.cisco.com/docs/tools/nac-collector/overview/) - gather deployed configs from the field into a central store.
 
-**Related Cisco Live sessions**
-
-- **BRKXAR-2032** - NetDevOps testing fundamentals with Generative AI
-- **LTRDCN-3439** - Nexus Dashboard VXLAN as Code
-- **LTRATO-2223** - FastForward SD-WAN deployment with SDWAN as Code
-- **LTRENS-3751** - SD-Access as Code with Catalyst Center and ISE
-- **BRKENT-2115** - Automate Catalyst SD-WAN with Network as Code
-
 ## Share your feedback
 
-Your feedback drives next year's version of this lab. Two ways to
-contribute:
+If you hit something confusing, broken, or wished-for-but-missing while
+working through the lab, we'd love to hear about it. Two ways to contribute:
 
-- **Cisco Live session survey** - rate LTRXAR-2008 in the Cisco Live
-  app or portal. These ratings directly influence whether the session
-  runs again, and at which events.
-- **Direct feedback** - if you hit something confusing, broken, or
-  wished-for-but-missing, email either presenter (below). Specific >
-  general; "the Task 08 BGP verification was unclear because X" is
-  10x more useful than "Task 08 was confusing."
+- **Open a GitHub issue** on this repo. Great for anything reproducible - a
+  step that doesn't work as documented, a broken link, a factual error, a
+  suggestion for a new task. Screenshots and commit SHAs of the version you
+  hit welcome.
+- **Email the authors directly** (below). Best for higher-level feedback:
+  what confused you about the flow, what you wish the lab had covered,
+  what would have made a specific concept click sooner. Specific beats
+  general; "the Task 08 BGP verification was unclear because X" is 10x
+  more useful than "Task 08 was confusing."
+
+If you delivered this lab at an event and there's an event-specific
+feedback channel (Cisco Live session survey, TechAdvantage evaluation,
+customer workshop retrospective), please use that too - the authors read
+those but they don't reach the maintainers of this repo directly.
 
 ## Thank you
 
