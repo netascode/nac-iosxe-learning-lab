@@ -2,21 +2,24 @@
 
 ## Connecting to your lab environment
 
-Follow these three steps to open the Windows 10 VM where you'll do all your work.
+Most deliveries of this lab (Cisco Live, TechAdvantage, customer workshops, internal enablement) run on Cisco **dCloud** - a shared demo/lab cloud where a session pod hosts the four IOS XE devices, the ISP router, GitLab, and the Windows 10 / Ubuntu workstations you interact with. If your presenter has shared a dCloud session URL with you, follow these three steps to open the Windows 10 VM where you'll do all your work.
 
-**Step 1 - Click Explore.** On the right monitor at your station, locate the dCloud session card for **LTRXAR-2008** and click the **Explore** hyperlink.
+**Step 1 - Click Explore.** Open the dCloud session URL your presenter shared and click the **Explore** hyperlink on the session card.
 
 ![Click the Explore hyperlink on the dCloud session card](./assets/dcloud-explore-button.png){ width="80%" }
 
-**Step 2 - Enter your email.** In the dialog that appears, type the email address you used to register for Cisco Live and click **Continue**.
+**Step 2 - Enter your email.** In the dialog that appears, type the email address associated with your Cisco account (or the one you registered with for the event) and click **Continue**.
 
-![Enter your Cisco Live registration email address](./assets/dcloud-explore-email-address.png){ width="60%" }
+![Enter your registration email address](./assets/dcloud-explore-email-address.png){ width="60%" }
 
 **Step 3 - Open the Win10 Remote Desktop.** You'll see a resource details page listing the virtual machines in your lab pod. Find the row for **Win10** and click the **Remote Desktop** link - this opens a Web RDP session directly in your browser.
 
 ![Click Remote Desktop for the Win10 VM](./assets/dcloud-web-rdp.png){ width="100%" }
 
 Once the Web RDP session loads, you're inside the lab VM. Everything you need - VS Code, Solar-PuTTY, WSL Ubuntu, and Chrome - is already installed. You'll open the **WSL Ubuntu terminal** frequently throughout the lab; it's the orange Ubuntu icon on the desktop labelled **Ubuntu 22.04.5 LTS**.
+
+!!! info "Not running on dCloud?"
+    If you're delivering this lab on your own infrastructure (physical IOS XE devices, CML, or another virtualization stack) with your own workstation, skip the pod-specific onboarding above. Point the toolchain at your devices, confirm SSH + NETCONF reachability, and pick up from [Task 01](Task01_SSH_to_network_devices.md). The [Topologies](Intro05_topologies.md) page documents the device inventory and IP plan the lab tasks assume - mirror that (or adjust the intent YAML) and everything else follows.
 
 For the full topology diagram and device inventory, see **[Topologies](Intro05_topologies.md)** (also linked from the top navigation bar throughout the lab).
 
