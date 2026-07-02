@@ -1,7 +1,8 @@
 /* ============================================================================
-   LTRXAR-2008 · Cisco Live 2026 — MkDocs Material overrides.
-   All colors taken from the PPT theme1.xml palette so the site, the slides,
-   and the in-line diagrams share a single visual identity:
+   IOS XE as Code Learning Lab — MkDocs Material overrides.
+   Palette seeded from the LTRXAR-2008 (Cisco Live 2026) PPT theme1.xml so
+   the site, the slides, and the in-line diagrams share a single visual
+   identity:
      accent1  #02C8FF  cyan    — primary accent (headings, links)
      accent2  #0A60FF  blue    — secondary accent (H2, nav)
      accent3  #FF007F  pink    — tertiary accent (H3, warnings, highlights)
